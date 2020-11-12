@@ -3,11 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.fabiolopes.tk/categories/</loc>
+    <loc>https://www.fabiolopes.tk/about/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.fabiolopes.tk/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/categories/</loc>
   </url>
   
   <url>
