@@ -21,5 +21,14 @@
       <description>Testing&amp;hellip;</description>
     </item>
     
+    <item>
+      <title>ceph 1</title>
+      <link>https://www.fabiolopes.tk/ceph-1/</link>
+      <pubDate>Thu, 12 Nov 2020 11:03:02 -0300</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/ceph-1/</guid>
+      <description>Testing ceph</description>
+    </item>
+    
   </channel>
 </rss>
