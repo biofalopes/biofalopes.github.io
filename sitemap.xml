@@ -8,16 +8,33 @@
   </url>
   
   <url>
+    <loc>https://www.fabiolopes.tk/categories/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/tags/ceph/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/ceph-1/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.fabiolopes.tk/</loc>
     <lastmod>2020-11-12T11:03:02-03:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.fabiolopes.tk/categories/</loc>
+    <loc>https://www.fabiolopes.tk/tags/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.fabiolopes.tk/tags/</loc>
+    <loc>https://www.fabiolopes.tk/categories/technology/</loc>
+    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
   </url>
   
 </urlset>

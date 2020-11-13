@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fabio Lopes | DevOps Engineer</title>
-    <link>https://www.fabiolopes.tk/</link>
-    <description>Recent content on Fabio Lopes | DevOps Engineer</description>
+    <title>Technology on Fabio Lopes | DevOps Engineer</title>
+    <link>https://www.fabiolopes.tk/categories/technology/</link>
+    <description>Recent content in Technology on Fabio Lopes | DevOps Engineer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Fabio Lopes 2020</copyright>
     <lastBuildDate>Thu, 12 Nov 2020 11:03:02 -0300</lastBuildDate>
     
-	<atom:link href="https://www.fabiolopes.tk/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.fabiolopes.tk/categories/technology/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About</title>
-      <link>https://www.fabiolopes.tk/about/</link>
-      <pubDate>Thu, 12 Nov 2020 11:03:02 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/about/</guid>
-      <description>Testing&amp;hellip;</description>
-    </item>
     
     <item>
       <title>ceph 1</title>
