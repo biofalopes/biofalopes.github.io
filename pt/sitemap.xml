@@ -3,44 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://fabiolopes.tk/pt/categories/</loc>
+    <loc>https://www.fabiolopes.tk/pt/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://fabiolopes.tk/categories/"
+                href="https://www.fabiolopes.tk/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="https://fabiolopes.tk/pt/categories/"
+                href="https://www.fabiolopes.tk/pt/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://fabiolopes.tk/pt/</loc>
+    <loc>https://www.fabiolopes.tk/pt/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://fabiolopes.tk/"
+                href="https://www.fabiolopes.tk/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="https://fabiolopes.tk/pt/"
+                href="https://www.fabiolopes.tk/pt/"
                 />
   </url>
   
   <url>
-    <loc>https://fabiolopes.tk/pt/tags/</loc>
+    <loc>https://www.fabiolopes.tk/pt/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://fabiolopes.tk/tags/"
+                href="https://www.fabiolopes.tk/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="https://fabiolopes.tk/pt/tags/"
+                href="https://www.fabiolopes.tk/pt/tags/"
                 />
   </url>
   
