@@ -1,72 +1,71 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fabio Lopes | DevOps Engineer</title>
-    <link>https://www.fabiolopes.tk/</link>
-    <description>Recent content on Fabio Lopes | DevOps Engineer</description>
+    <title>Hugo Future Imperfect Slim</title>
+    <link>https://example.com/</link>
+    <description>Recent content on Hugo Future Imperfect Slim</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 11:03:02 -0300</lastBuildDate>
+    <language>en</language>
+    <lastBuildDate>Thu, 28 Feb 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://www.fabiolopes.tk/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://example.com/blog/markdown-syntax/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/blog/markdown-syntax/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rich Content</title>
+      <link>https://example.com/blog/rich-content/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/blog/rich-content/</guid>
+      <description>&lt;p&gt;Hugo ships with several &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;&gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;&gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Placeholder Text</title>
+      <link>https://example.com/blog/placeholder-text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/blog/placeholder-text/</guid>
+      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de
+pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>https://example.com/blog/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/blog/emoji-support/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>About</title>
-      <link>https://www.fabiolopes.tk/about/about/</link>
-      <pubDate>Thu, 12 Nov 2020 11:03:02 -0300</pubDate>
+      <link>https://example.com/about/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/about/about/</guid>
-      <description>Testing&amp;hellip;</description>
+      <guid>https://example.com/about/</guid>
+      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Hugo makes use of a variety of open source projects including:
+ https://github.</description>
     </item>
     
     <item>
-      <title>ceph 1</title>
-      <link>https://www.fabiolopes.tk/ceph/ceph-1/</link>
-      <pubDate>Thu, 12 Nov 2020 11:03:02 -0300</pubDate>
+      <title>Contact</title>
+      <link>https://example.com/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/ceph/ceph-1/</guid>
-      <description>Testing ceph</description>
-    </item>
-    
-    <item>
-      <title>Flatcar Linux in VMware Player — 5 minute command line deploy</title>
-      <link>https://www.fabiolopes.tk/ansible/test/</link>
-      <pubDate>Sun, 13 Sep 2020 20:28:50 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/ansible/test/</guid>
-      <description>So I needed to create a new Kubernetes Lab. Back in time, I’ve created a shell script to deploy a lot of CoreOS servers to my VMware Player, but I hadn’t touched that script since that time.
-With the deprecation of CoreOS and the glorious rise of Flatcar Linux to save us, and while needing to test some stuffs in Calico, it came to my mind ‘why not write how to quick deploy a Flatcar Linux VM in VMware Player without scripts?</description>
-    </item>
-    
-    <item>
-      <title>Flatcar Linux in VMware Player — 5 minute command line deploy</title>
-      <link>https://www.fabiolopes.tk/kubernetes/test/</link>
-      <pubDate>Sun, 13 Sep 2020 20:28:50 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/kubernetes/test/</guid>
-      <description>So I needed to create a new Kubernetes Lab. Back in time, I’ve created a shell script to deploy a lot of CoreOS servers to my VMware Player, but I hadn’t touched that script since that time.
-With the deprecation of CoreOS and the glorious rise of Flatcar Linux to save us, and while needing to test some stuffs in Calico, it came to my mind ‘why not write how to quick deploy a Flatcar Linux VM in VMware Player without scripts?</description>
-    </item>
-    
-    <item>
-      <title>Flatcar Linux in VMware Player — 5 minute command line deploy</title>
-      <link>https://www.fabiolopes.tk/python/test/</link>
-      <pubDate>Sun, 13 Sep 2020 20:28:50 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/python/test/</guid>
-      <description>So I needed to create a new Kubernetes Lab. Back in time, I’ve created a shell script to deploy a lot of CoreOS servers to my VMware Player, but I hadn’t touched that script since that time.
-With the deprecation of CoreOS and the glorious rise of Flatcar Linux to save us, and while needing to test some stuffs in Calico, it came to my mind ‘why not write how to quick deploy a Flatcar Linux VM in VMware Player without scripts?</description>
-    </item>
-    
-    <item>
-      <title>Flatcar Linux in VMware Player — 5 minute command line deploy</title>
-      <link>https://www.fabiolopes.tk/terraform/test/</link>
-      <pubDate>Sun, 13 Sep 2020 20:28:50 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/terraform/test/</guid>
-      <description>So I needed to create a new Kubernetes Lab. Back in time, I’ve created a shell script to deploy a lot of CoreOS servers to my VMware Player, but I hadn’t touched that script since that time.
-With the deprecation of CoreOS and the glorious rise of Flatcar Linux to save us, and while needing to test some stuffs in Calico, it came to my mind ‘why not write how to quick deploy a Flatcar Linux VM in VMware Player without scripts?</description>
+      <guid>https://example.com/contact/</guid>
+      <description></description>
     </item>
     
   </channel>

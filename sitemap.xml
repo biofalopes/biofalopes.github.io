@@ -1,114 +1,62 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/about/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/about/about/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/ceph/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/ceph/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/ceph/ceph-1/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/technology/</loc>
-    <lastmod>2020-11-12T11:03:02-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/ansible/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/automation/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/flatcar/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/ansible/test/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/kubernetes/test/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/python/test/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/terraform/test/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/kubernetes/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/kubernetes/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/python/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/terraform/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/vmware/</loc>
-    <lastmod>2020-09-13T20:28:50-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/series/</loc>
-  </url>
-  
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	
+	<sitemap>
+	   	<loc>https://example.com/en/sitemap.xml</loc>
+		
+	   	<lastmod>2019-03-11T00:00:00+00:00</lastmod>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/fr/sitemap.xml</loc>
+		
+	   	<lastmod>2019-03-11T00:00:00+00:00</lastmod>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/pl/sitemap.xml</loc>
+		
+	   	<lastmod>2019-02-28T00:00:00+00:00</lastmod>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/pt/sitemap.xml</loc>
+		
+	   	<lastmod>2019-02-28T00:00:00+00:00</lastmod>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/de/sitemap.xml</loc>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/es/sitemap.xml</loc>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/zh-cn/sitemap.xml</loc>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/zh-tw/sitemap.xml</loc>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/ja/sitemap.xml</loc>
+		
+	</sitemap>
+	
+	<sitemap>
+	   	<loc>https://example.com/nl/sitemap.xml</loc>
+		
+	</sitemap>
+	
+</sitemapindex>
