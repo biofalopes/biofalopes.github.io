@@ -12,6 +12,51 @@
     
     
     <item>
+      <title>Ansible placeholder  post</title>
+      <link>https://example.com/blog/ansible-1/</link>
+      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
+      
+      <guid>https://example.com/blog/ansible-1/</guid>
+      <description>Whatever.</description>
+    </item>
+    
+    <item>
+      <title>Ceph placeholder post</title>
+      <link>https://example.com/blog/ceph-1/</link>
+      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
+      
+      <guid>https://example.com/blog/ceph-1/</guid>
+      <description>Whatever.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes placeholder post</title>
+      <link>https://example.com/blog/kubernetes-1/</link>
+      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
+      
+      <guid>https://example.com/blog/kubernetes-1/</guid>
+      <description>Whatever.</description>
+    </item>
+    
+    <item>
+      <title>Python placeholder post</title>
+      <link>https://example.com/blog/python-1/</link>
+      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
+      
+      <guid>https://example.com/blog/python-1/</guid>
+      <description>Whatever.</description>
+    </item>
+    
+    <item>
+      <title>Terraform placeholder post</title>
+      <link>https://example.com/blog/terraform-1/</link>
+      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
+      
+      <guid>https://example.com/blog/terraform-1/</guid>
+      <description>Whatever.</description>
+    </item>
+    
+    <item>
       <title>Markdown Syntax Guide</title>
       <link>https://example.com/blog/markdown-syntax/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>

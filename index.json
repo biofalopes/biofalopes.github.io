@@ -1,4 +1,34 @@
 [{
+    "title": "Ansible placeholder  post",
+    "date": "",
+    "description": "Ansible placeholder post",
+    "body": "Whatever.\n",
+    "ref": "/blog/ansible-1/"
+  },{
+    "title": "Ceph placeholder post",
+    "date": "",
+    "description": "Ceph placeholder post",
+    "body": "Whatever.\n",
+    "ref": "/blog/ceph-1/"
+  },{
+    "title": "Kubernetes placeholder post",
+    "date": "",
+    "description": "Kubernetes placeholder post",
+    "body": "Whatever.\n",
+    "ref": "/blog/kubernetes-1/"
+  },{
+    "title": "Python placeholder post",
+    "date": "",
+    "description": "Python placeholder post",
+    "body": "Whatever.\n",
+    "ref": "/blog/python-1/"
+  },{
+    "title": "Terraform placeholder post",
+    "date": "",
+    "description": "Terraform placeholder post",
+    "body": "Whatever.\n",
+    "ref": "/blog/terraform-1/"
+  },{
     "title": "Markdown Syntax Guide",
     "date": "",
     "description": "Sample article showcasing basic Markdown syntax and formatting for HTML elements.",
