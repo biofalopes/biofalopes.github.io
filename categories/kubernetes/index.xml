@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kubernetes on Fabio Lopes | DevOps Engineer</title>
-    <link>https://www.fabiolopes.tk/categories/kubernetes/</link>
-    <description>Recent content in kubernetes on Fabio Lopes | DevOps Engineer</description>
+    <title>kubernetes on Fabio M. Lopes</title>
+    <link>https://fabiolopes.tk/categories/kubernetes/</link>
+    <description>Recent content in kubernetes on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 13 Sep 2020 20:28:50 -0300</lastBuildDate>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Nov 2020 20:00:00 -0300</lastBuildDate>
     
-	<atom:link href="https://www.fabiolopes.tk/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://fabiolopes.tk/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Flatcar Linux in VMware Player — 5 minute command line deploy</title>
-      <link>https://www.fabiolopes.tk/kubernetes/test/</link>
-      <pubDate>Sun, 13 Sep 2020 20:28:50 -0300</pubDate>
+      <title>Kubernetes placeholder post</title>
+      <link>https://fabiolopes.tk/blog/kubernetes-1/</link>
+      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
       
-      <guid>https://www.fabiolopes.tk/kubernetes/test/</guid>
-      <description>So I needed to create a new Kubernetes Lab. Back in time, I’ve created a shell script to deploy a lot of CoreOS servers to my VMware Player, but I hadn’t touched that script since that time.
-With the deprecation of CoreOS and the glorious rise of Flatcar Linux to save us, and while needing to test some stuffs in Calico, it came to my mind ‘why not write how to quick deploy a Flatcar Linux VM in VMware Player without scripts?</description>
+      <guid>https://fabiolopes.tk/blog/kubernetes-1/</guid>
+      <description>Whatever.</description>
     </item>
     
   </channel>
