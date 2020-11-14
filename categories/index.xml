@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Fabio Lopes | DevOps Engineer</title>
-    <link>https://www.fabiolopes.tk/categories/</link>
-    <description>Recent content in Categories on Fabio Lopes | DevOps Engineer</description>
+    <title>Categories on Hugo Future Imperfect Slim</title>
+    <link>https://example.com/categories/</link>
+    <description>Recent content in Categories on Hugo Future Imperfect Slim</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 11:03:02 -0300</lastBuildDate>
+    <language>en</language>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://www.fabiolopes.tk/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Technology</title>
-      <link>https://www.fabiolopes.tk/categories/technology/</link>
-      <pubDate>Thu, 12 Nov 2020 11:03:02 -0300</pubDate>
+      <title>syntax</title>
+      <link>https://example.com/categories/syntax/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/categories/technology/</guid>
+      <guid>https://example.com/categories/syntax/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>kubernetes</title>
-      <link>https://www.fabiolopes.tk/categories/kubernetes/</link>
-      <pubDate>Sun, 13 Sep 2020 20:28:50 -0300</pubDate>
+      <title>themes</title>
+      <link>https://example.com/categories/themes/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/categories/kubernetes/</guid>
+      <guid>https://example.com/categories/themes/</guid>
       <description></description>
     </item>
     
