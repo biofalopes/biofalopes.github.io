@@ -6,55 +6,19 @@
     <description>Recent content in Blog on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Nov 2020 11:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.fabiolopes.tk/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Ceph features and its relation with the client kernel version</title>
+      <title>Ceph features and its relation to the client kernel version</title>
       <link>https://www.fabiolopes.tk/blog/ceph-features/</link>
-      <pubDate>Mon, 16 Nov 2020 11:00:00 -0300</pubDate>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
       <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade. I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
 [root@mon-1 ~]# ceph features { &amp;quot;mon&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;mds&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;osd&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 192 } }, &amp;quot;client&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x27018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;jewel&amp;quot;, &amp;quot;num&amp;quot;: 422 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x2f018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 95 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 18 } } } So that got me worried, since i was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while.</description>
-    </item>
-    
-    <item>
-      <title>Ansible placeholder  post</title>
-      <link>https://www.fabiolopes.tk/blog/ansible-1/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/ansible-1/</guid>
-      <description>Whatever.</description>
-    </item>
-    
-    <item>
-      <title>Kubernetes placeholder post</title>
-      <link>https://www.fabiolopes.tk/blog/kubernetes-1/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/kubernetes-1/</guid>
-      <description>Whatever.</description>
-    </item>
-    
-    <item>
-      <title>Python placeholder post</title>
-      <link>https://www.fabiolopes.tk/blog/python-1/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/python-1/</guid>
-      <description>Whatever.</description>
-    </item>
-    
-    <item>
-      <title>Terraform placeholder post</title>
-      <link>https://www.fabiolopes.tk/blog/terraform-1/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/terraform-1/</guid>
-      <description>Whatever.</description>
     </item>
     
   </channel>

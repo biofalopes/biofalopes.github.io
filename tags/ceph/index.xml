@@ -6,15 +6,15 @@
     <description>Recent content in ceph on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Nov 2020 11:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.fabiolopes.tk/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Ceph features and its relation with the client kernel version</title>
+      <title>Ceph features and its relation to the client kernel version</title>
       <link>https://www.fabiolopes.tk/blog/ceph-features/</link>
-      <pubDate>Mon, 16 Nov 2020 11:00:00 -0300</pubDate>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
       <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade. I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:

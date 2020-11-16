@@ -2,18 +2,21 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-<title>Ceph features and its relation with the client kernel version - Fabio M. Lopes</title>
+<title>Ceph features and its relation to the client kernel version - Fabio M. Lopes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
-  <meta property="og:title" content="Ceph features and its relation with the client kernel version">
+  <meta property="og:title" content="Ceph features and its relation to the client kernel version">
   <meta property="og:description" content="How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective">
   <meta property="description" content="How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective">
   <meta property="og:url" content="https://www.fabiolopes.tk/blog/ceph-features/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="https://www.fabiolopes.tk/img/main/logo.jpg">
+    
+      <meta property="og:image" content="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png">
+      <meta property="og:image:alt" content="Ceph Nautilus">
+    
   
   <link rel="stylesheet" href="/css/bundle.min.d9e04ae08c9b3049b766dbd4aeab7d862c5ea1d13679b621490e0f5df5507497.css" integrity="sha256-2eBK4IybMEm3ZtvUrqt9hixeodE2ebYhSQ4PXfVQdJc="><link rel="stylesheet" href="/css/add-on.css">
 </head>
@@ -88,7 +91,7 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f&amp;title=Ceph%20features%20and%20its%20relation%20with%20the%20client%20kernel%20version" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f&amp;title=Ceph%20features%20and%20its%20relation%20to%20the%20client%20kernel%20version" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
@@ -171,14 +174,14 @@
     <header>
   <div class="title">
     
-      <h2><a href="/blog/ceph-features/">Ceph features and its relation with the client kernel version</a></h2>
+      <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
     
     
       <p>How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective</p>
     
   </div>
   <div class="meta">
-    <time datetime="2020-11-16 11:00:00 -0300 -03">November 16, 2020</time>
+    <time datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
     
     <p>1-Minute Read</p>
   </div>
@@ -191,7 +194,7 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f&amp;title=Ceph%20features%20and%20its%20relation%20with%20the%20client%20kernel%20version" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f&amp;title=Ceph%20features%20and%20its%20relation%20to%20the%20client%20kernel%20version" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
@@ -205,8 +208,8 @@
 
     </div>
     <div class="content">
-      <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
-    <img src="https://www.fabiolopes.tk/img/true" alt="">
+      <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
   </a>
       <p>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.
 I started checking the documentation as always, but all i found was a command called <code>ceph features</code>, which gives a summarized output:</p>
@@ -252,6 +255,7 @@ I started checking the documentation as always, but all i found was a command ca
     }
 }
 </code></pre><p>So that got me worried, since i was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &ldquo;born&rdquo; in jewel, i thought that it might be the case that many clients didn&rsquo;t get any upgrades since.</p>
+<p>Continues&hellip;</p>
 
     </div>
     <footer>
@@ -330,8 +334,6 @@ I started checking the documentation as always, but all i found was a command ca
   <div class="pagination">
     
     
-      <a href="/blog/ansible-1/" class="button right"><span>Ansible placeholder  post</span></a>
-    
   </div>
 
       </main>
@@ -343,59 +345,15 @@ I started checking the documentation as always, but all i found was a command ca
       </header>
       
       <article class="mini-post">
-          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
-    <img src="https://www.fabiolopes.tk/img/true" alt="">
+          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
   </a>
         <header>
-          <h2><a href="/blog/ceph-features/">Ceph features and its relation with the client kernel version</a></h2>
-          <time class="published" datetime="2020-11-16 11:00:00 -0300 -03">November 16, 2020</time>
+          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/blog/ansible-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
-    <img src="https://www.fabiolopes.tk/img/true" alt="">
-  </a>
-        <header>
-          <h2><a href="/blog/ansible-1/">Ansible placeholder  post</a></h2>
-          <time class="published" datetime="2020-11-13 20:00:00 -0300 -03">November 13, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/kubernetes-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
-    <img src="https://www.fabiolopes.tk/img/true" alt="">
-  </a>
-        <header>
-          <h2><a href="/blog/kubernetes-1/">Kubernetes placeholder post</a></h2>
-          <time class="published" datetime="2020-11-13 20:00:00 -0300 -03">November 13, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
-    <img src="https://www.fabiolopes.tk/img/true" alt="">
-  </a>
-        <header>
-          <h2><a href="/blog/python-1/">Python placeholder post</a></h2>
-          <time class="published" datetime="2020-11-13 20:00:00 -0300 -03">November 13, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
-    <img src="https://www.fabiolopes.tk/img/true" alt="">
-  </a>
-        <header>
-          <h2><a href="/blog/terraform-1/">Terraform placeholder post</a></h2>
-          <time class="published" datetime="2020-11-13 20:00:00 -0300 -03">November 13, 2020</time>
-        </header>
-      </article>
-      
-      
-        <footer>
-          <a href="/blog/" class="button">See More</a>
-        </footer>
       
     </section>
   
@@ -405,25 +363,13 @@ I started checking the documentation as always, but all i found was a command ca
 
       <section id="categories">
         <header>
-          <h1><a href="/categories">Categories</a></h1>
+          <h1><a href="/categories">Category</a></h1>
         </header>
         <ul>
           
           
           <li>
-              <a href="/categories/ansible/">ansible<span class="count">1</span></a>
-          
-          <li>
               <a href="/categories/ceph/">ceph<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/python/">python<span class="count">1</span></a>
-          
-          <li>
-              <a href="/categories/terraform/">terraform<span class="count">1</span></a>
           
           </li>
         </ul>
