@@ -6,10 +6,19 @@
     <description>Recent content on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.fabiolopes.tk/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://www.fabiolopes.tk/about/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/about/</guid>
+      <description>Soon&amp;hellip; ¯\_(ツ)_/¯</description>
+    </item>
     
     <item>
       <title>Ceph features and its relation to the client kernel version</title>
@@ -19,17 +28,6 @@
       <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
       <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade. I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
 [root@mon-1 ~]# ceph features { &amp;quot;mon&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;mds&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;osd&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 192 } }, &amp;quot;client&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x27018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;jewel&amp;quot;, &amp;quot;num&amp;quot;: 422 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x2f018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 95 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 18 } } } So that got me worried, since i was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://www.fabiolopes.tk/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/about/</guid>
-      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
- https://github.</description>
     </item>
     
     <item>

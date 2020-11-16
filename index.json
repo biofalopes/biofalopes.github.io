@@ -1,15 +1,15 @@
 [{
+    "title": "About",
+    "date": "",
+    "description": "More about me!",
+    "body": "Soon\u0026hellip; ¯\\_(ツ)_/¯\n",
+    "ref": "/about/"
+  },{
     "title": "Ceph features and its relation to the client kernel version",
     "date": "",
     "description": "How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective",
     "body": "While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade. I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:\n[root@mon-1 ~]# ceph features { \u0026quot;mon\u0026quot;: { \u0026quot;group\u0026quot;: { \u0026quot;features\u0026quot;: \u0026quot;0x3ffddff8eeacfffb\u0026quot;, \u0026quot;release\u0026quot;: \u0026quot;luminous\u0026quot;, \u0026quot;num\u0026quot;: 3 } }, \u0026quot;mds\u0026quot;: { \u0026quot;group\u0026quot;: { \u0026quot;features\u0026quot;: \u0026quot;0x3ffddff8eeacfffb\u0026quot;, \u0026quot;release\u0026quot;: \u0026quot;luminous\u0026quot;, \u0026quot;num\u0026quot;: 3 } }, \u0026quot;osd\u0026quot;: { \u0026quot;group\u0026quot;: { \u0026quot;features\u0026quot;: \u0026quot;0x3ffddff8eeacfffb\u0026quot;, \u0026quot;release\u0026quot;: \u0026quot;luminous\u0026quot;, \u0026quot;num\u0026quot;: 192 } }, \u0026quot;client\u0026quot;: { \u0026quot;group\u0026quot;: { \u0026quot;features\u0026quot;: \u0026quot;0x27018fb86aa42ada\u0026quot;, \u0026quot;release\u0026quot;: \u0026quot;jewel\u0026quot;, \u0026quot;num\u0026quot;: 422 }, \u0026quot;group\u0026quot;: { \u0026quot;features\u0026quot;: \u0026quot;0x2f018fb86aa42ada\u0026quot;, \u0026quot;release\u0026quot;: \u0026quot;luminous\u0026quot;, \u0026quot;num\u0026quot;: 95 }, \u0026quot;group\u0026quot;: { \u0026quot;features\u0026quot;: \u0026quot;0x3ffddff8eeacfffb\u0026quot;, \u0026quot;release\u0026quot;: \u0026quot;luminous\u0026quot;, \u0026quot;num\u0026quot;: 18 } } } So that got me worried, since i was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was \u0026ldquo;born\u0026rdquo; in jewel, i thought that it might be the case that many clients didn\u0026rsquo;t get any upgrades since.\nContinues\u0026hellip;\n",
     "ref": "/blog/ceph-features/"
-  },{
-    "title": "About",
-    "date": "",
-    "description": "Hugo, the world’s fastest framework for building websites",
-    "body": "Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.\nHugo makes use of a variety of open source projects including:\n https://github.com/yuin/goldmark https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper  Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.\nHugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.\nWebsites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.\nLearn more and contribute on GitHub.\n",
-    "ref": "/about/"
   },{
     "title": "Contact",
     "date": "",
