@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.fabiolopes.tk/about/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.fabiolopes.tk/blog/</loc>
     <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
@@ -38,6 +43,21 @@
   </url>
   
   <url>
+    <loc>https://www.fabiolopes.tk/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://www.fabiolopes.tk/pt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.fabiolopes.tk/"
+                />
+  </url>
+  
+  <url>
     <loc>https://www.fabiolopes.tk/tags/</loc>
     <lastmod>2020-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -49,26 +69,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://www.fabiolopes.tk/tags/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/about/</loc>
-    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/</loc>
-    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://www.fabiolopes.tk/pt/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.fabiolopes.tk/"
                 />
   </url>
   
