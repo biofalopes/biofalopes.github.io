@@ -183,7 +183,7 @@
   <div class="meta">
     <time datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
     
-    <p>1-Minute Read</p>
+    <p>2-Minute Read</p>
   </div>
 </header>
 
@@ -255,7 +255,19 @@ I started checking the documentation as always, but all i found was a command ca
     }
 }
 </code></pre><p>So that got me worried, since i was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &ldquo;born&rdquo; in jewel, i thought that it might be the case that many clients didn&rsquo;t get any upgrades since.</p>
-<p>Continues&hellip;</p>
+<p>Another way to see who&rsquo;s connected to the cluster is the command <code>ceph tell mds.\</code>hostname` client ls`, but it shows only cephfs clients, which solves only a part of the problem. At least we can see the client&rsquo;s IP address (adresses and names omitted) with [&hellip;]):</p>
+<pre><code>&quot;inst&quot;: &quot;client.1400410 v1:[...]]:0/1769731892&quot;,
+        &quot;completed_requests&quot;: [],
+        &quot;prealloc_inos&quot;: [],
+        &quot;used_inos&quot;: [],
+        &quot;client_metadata&quot;: {
+            &quot;features&quot;: &quot;0x00000000000001ff&quot;,
+            &quot;entity_id&quot;: [...],
+            &quot;hostname&quot;: [...],
+            &quot;kernel_version&quot;: &quot;4.19.[...]&quot;,
+            &quot;root&quot;: [...]
+        }
+</code></pre><p>Continues&hellip;</p>
 
     </div>
     <footer>
