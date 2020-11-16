@@ -4,12 +4,12 @@
   
   <url>
     <loc>https://www.fabiolopes.tk/blog/</loc>
-    <lastmod>2020-11-16T11:00:00-03:00</lastmod>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.fabiolopes.tk/categories/</loc>
-    <lastmod>2020-11-16T11:00:00-03:00</lastmod>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -24,22 +24,22 @@
   
   <url>
     <loc>https://www.fabiolopes.tk/tags/ceph/</loc>
-    <lastmod>2020-11-16T11:00:00-03:00</lastmod>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.fabiolopes.tk/categories/ceph/</loc>
-    <lastmod>2020-11-16T11:00:00-03:00</lastmod>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.fabiolopes.tk/blog/ceph-features/</loc>
-    <lastmod>2020-11-16T11:00:00-03:00</lastmod>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.fabiolopes.tk/tags/</loc>
-    <lastmod>2020-11-16T11:00:00-03:00</lastmod>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -50,66 +50,6 @@
                 hreflang="en"
                 href="https://www.fabiolopes.tk/tags/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/ansible/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/ansible/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/blog/ansible-1/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/kubernetes/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/kubernetes/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/blog/kubernetes-1/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/python/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/python/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/blog/python-1/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/terraform/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/categories/terraform/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/blog/terraform-1/</loc>
-    <lastmod>2020-11-13T20:00:00-03:00</lastmod>
   </url>
   
   <url>

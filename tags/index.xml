@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Nov 2020 11:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.fabiolopes.tk/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,45 +14,9 @@
     <item>
       <title>ceph</title>
       <link>https://www.fabiolopes.tk/tags/ceph/</link>
-      <pubDate>Mon, 16 Nov 2020 11:00:00 -0300</pubDate>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/tags/ceph/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ansible</title>
-      <link>https://www.fabiolopes.tk/tags/ansible/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/tags/ansible/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://www.fabiolopes.tk/tags/kubernetes/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/tags/kubernetes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>https://www.fabiolopes.tk/tags/python/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>terraform</title>
-      <link>https://www.fabiolopes.tk/tags/terraform/</link>
-      <pubDate>Fri, 13 Nov 2020 20:00:00 -0300</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/tags/terraform/</guid>
       <description></description>
     </item>
     
