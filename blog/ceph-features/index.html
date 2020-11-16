@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-<title>ansible - Fabio M. Lopes</title>
+<title>Ceph features and its relation with the client kernel version - Fabio M. Lopes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
-  <meta property="og:title" content="ansible">
-  <meta property="og:description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
-  <meta property="description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
-  <meta property="og:url" content="https://www.fabiolopes.tk/categories/ansible/">
+  <meta property="og:title" content="Ceph features and its relation with the client kernel version">
+  <meta property="og:description" content="How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective">
+  <meta property="description" content="How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective">
+  <meta property="og:url" content="https://www.fabiolopes.tk/blog/ceph-features/">
   <meta property="og:type" content="article">
   
     <meta property="og:image" content="https://www.fabiolopes.tk/img/main/logo.jpg">
@@ -26,7 +26,7 @@
     <h1 class="nav-title">
       <a href="/" class="nav">
         
-          categories
+          Blog
         
       </a>
     </h1>
@@ -88,13 +88,13 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fcategories%2fansible%2f&amp;title=ansible" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f&amp;title=Ceph%20features%20and%20its%20relation%20with%20the%20client%20kernel%20version" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
 
   
-        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fcategories%2fansible%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
           <p>Email</p>
         </a>
   
@@ -117,8 +117,6 @@
     <footer>
       <ul class="socnet-icons">
         
-    <li><a href="/categories/ansible/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
-
 
         <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
 
@@ -169,40 +167,100 @@
 
       <main id="site-main">
         
-  
-  
-    <article class="post">
-  <header>
+  <article class="post">
+    <header>
   <div class="title">
     
-      <h2><a href="/blog/ansible-1/">Ansible placeholder  post</a></h2>
+      <h2><a href="/blog/ceph-features/">Ceph features and its relation with the client kernel version</a></h2>
     
     
-      <p>Ansible placeholder post</p>
+      <p>How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective</p>
     
   </div>
   <div class="meta">
-    <time datetime="2020-11-13 20:00:00 -0300 -03">November 13, 2020</time>
+    <time datetime="2020-11-16 11:00:00 -0300 -03">November 16, 2020</time>
     
     <p>1-Minute Read</p>
   </div>
 </header>
 
-  <div class="content">
-    <a href="/blog/ansible-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
+    <div id="socnet-share">
+      
+
+
+
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f&amp;title=Ceph%20features%20and%20its%20relation%20with%20the%20client%20kernel%20version" target="_blank" rel="noopener" class="nav share-btn linkedin">
+            <p>LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-features%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+          <p>Email</p>
+        </a>
+  
+
+
+    </div>
+    <div class="content">
+      <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/true');">
     <img src="https://www.fabiolopes.tk/img/true" alt="">
   </a>
-    
-    <p>Whatever.</p>
-  </div>
-  <footer>
-    <a href="/blog/ansible-1/" class="button big">Read More</a>
-    <div class="stats">
+      <p>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.
+I started checking the documentation as always, but all i found was a command called <code>ceph features</code>, which gives a summarized output:</p>
+<pre><code>[root@mon-1 ~]# ceph features
+{
+    &quot;mon&quot;: {
+        &quot;group&quot;: {
+            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
+            &quot;release&quot;: &quot;luminous&quot;,
+            &quot;num&quot;: 3
+        }
+    },
+    &quot;mds&quot;: {
+        &quot;group&quot;: {
+            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
+            &quot;release&quot;: &quot;luminous&quot;,
+            &quot;num&quot;: 3
+        }
+    },
+    &quot;osd&quot;: {
+        &quot;group&quot;: {
+            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
+            &quot;release&quot;: &quot;luminous&quot;,
+            &quot;num&quot;: 192
+        }
+    },
+    &quot;client&quot;: {
+        &quot;group&quot;: {
+            &quot;features&quot;: &quot;0x27018fb86aa42ada&quot;,
+            &quot;release&quot;: &quot;jewel&quot;,
+            &quot;num&quot;: 422
+        },
+        &quot;group&quot;: {
+            &quot;features&quot;: &quot;0x2f018fb86aa42ada&quot;,
+            &quot;release&quot;: &quot;luminous&quot;,
+            &quot;num&quot;: 95
+        },
+        &quot;group&quot;: {
+            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
+            &quot;release&quot;: &quot;luminous&quot;,
+            &quot;num&quot;: 18
+        }
+    }
+}
+</code></pre><p>So that got me worried, since i was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &ldquo;born&rdquo; in jewel, i thought that it might be the case that many clients didn&rsquo;t get any upgrades since.</p>
+
+    </div>
+    <footer>
+      <div class="stats">
   
     <ul class="categories">
       
         
-          <li><a class="article-terms-link" href="/categories/ansible/">ansible</a></li>
+          <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
         
       
     </ul>
@@ -211,19 +269,68 @@
     <ul class="tags">
       
         
-          <li><a class="article-terms-link" href="/tags/ansible/">ansible</a></li>
+          <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
         
       
     </ul>
   
 </div>
 
-  </footer>
-</article>
+    </footer>
+  </article>
+  
+    
+  <article class="post">
+    
+    <div>
+      <h2 id="say-something">Say Something</h2>
+        <form id="comment-form" class="new-comment" method="POST">
+          
+          <h3 class='reply-notice hidden'>
+            <span class='reply-name'></span>
+          </h3>
+
+          
+          <input type="hidden" name="options[entryId]" value="be698b772be81b9a3185c77289d7af15">
+          <input type='hidden' name='fields[replyThread]' value=''>
+          <input type='hidden' name='fields[replyID]' value=''>
+          <input type='hidden' name='fields[replyName]' value=''>
+
+          
+          <input required name='fields[name]' type='text' placeholder='Your Name'>
+          <input name='fields[website]' type='text' placeholder='Your Website'>
+          <input required name='fields[email]' type='email' placeholder='Your Email'>
+          <textarea required name='fields[body]' placeholder='Your Message' rows='10'></textarea>
+
+          
+          
+
+          
+          <div class='submit-notice'>
+            <strong class='submit-notice-text submit-success hidden'>Thanks for your comment! It will be shown on the site once it has been approved.</strong>
+            <strong class='submit-notice-text submit-failed hidden'>Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.</strong>
+          </div>
+
+          
+          <input type='submit' value='Submit' class='button'>
+          <input type='submit' value='Submitted' class='hidden button' disabled>
+          <input type='reset' value='Reset' class='button'>
+        </form>
+    </div>
+
+    
+    <div>
+      <h2>Comments</h2><p>Nothing yet.</p>
+      
+    </div>
+  </article>
+
 
   
   <div class="pagination">
     
+    
+      <a href="/blog/ansible-1/" class="button right"><span>Ansible placeholder  post</span></a>
     
   </div>
 
@@ -341,8 +448,6 @@
   
       <ul class="socnet-icons">
         
-    <li><a href="/categories/ansible/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
-
 
         <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
 
