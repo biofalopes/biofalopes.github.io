@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Comparsion of Sorting Algorithms using Python Decorators</title>
+      <link>https://www.fabiolopes.tk/blog/python-sort-comparsion/</link>
+      <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/python-sort-comparsion/</guid>
+      <description>So i needed to learn how to use decorators in Python, and i tried to come up with something within my current knowledge and since i was studying sorting algorithms, i decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>https://www.fabiolopes.tk/about/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
