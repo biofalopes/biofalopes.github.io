@@ -17,7 +17,8 @@
       <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/python-sort-comparsion/</guid>
-      <description>So I needed to learn how to use decorators in Python, and I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
+      <description>So I needed to learn how to use decorators in Python.
+ I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
     </item>
     
     <item>
@@ -26,7 +27,8 @@
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
-      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade. I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
+      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.
+ I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
 [root@mon-1 ~]# ceph features { &amp;quot;mon&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;mds&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;osd&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 192 } }, &amp;quot;client&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x27018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;jewel&amp;quot;, &amp;quot;num&amp;quot;: 422 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x2f018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 95 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 18 } } } So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while.</description>
     </item>
     
