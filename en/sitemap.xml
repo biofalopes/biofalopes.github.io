@@ -3,18 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.fabiolopes.tk/about/</loc>
-    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.fabiolopes.tk/blog/</loc>
-    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.fabiolopes.tk/categories/</loc>
-    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -25,6 +20,41 @@
                 hreflang="en"
                 href="https://www.fabiolopes.tk/categories/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/blog/python-sort-comparsion/</loc>
+    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/tags/python/</loc>
+    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/categories/python/</loc>
+    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/tags/</loc>
+    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://www.fabiolopes.tk/pt/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.fabiolopes.tk/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.fabiolopes.tk/about/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -54,21 +84,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://www.fabiolopes.tk/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://www.fabiolopes.tk/tags/</loc>
-    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://www.fabiolopes.tk/pt/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.fabiolopes.tk/tags/"
                 />
   </url>
   
