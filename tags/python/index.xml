@@ -21,5 +21,16 @@
  I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
     </item>
     
+    <item>
+      <title>Obtaining the list of Ceph features from the hexadecimal value</title>
+      <link>https://www.fabiolopes.tk/blog/ceph-features-2/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/ceph-features-2/</guid>
+      <description>After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.
+ This can be found in src/include/ceph_features.h, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .
+That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility.</description>
+    </item>
+    
   </channel>
 </rss>
