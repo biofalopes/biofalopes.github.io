@@ -311,7 +311,7 @@ If the debugging level for Monitors is set to 10 (debug mon = 10), addresses and
 </blockquote>
 <p>So i tried that and here&rsquo;s what we get with <code>debug mon = 10</code>:</p>
 <pre><code>2020-11-10 08:55:59.084 7f31c9015700  0 --1- [v2:[...]:3300/0,v1:[...]:6789/0] &gt;&gt;  conn(0x561a94aed180 0x561a94ba5000 :6789 s=ACCE
-PTING pgs=0 cs=0 l=0).handle_client_banner accept peer addr is really - (socket is v1:10.79.34.6:40764/0)
+PTING pgs=0 cs=0 l=0).handle_client_banner accept peer addr is really - (socket is v1:[...]:40764/0)
 2020-11-10 08:55:59.085 7f31c500d700 10 mon.ceph-1@0(leader) e1 ms_handle_accept con 0x561a94aed180 no session
 2020-11-10 08:55:59.085 7f31c500d700 10 mon.ceph-1@0(leader) e1 _ms_dispatch new session 0x561a94adcd80 MonSession(unknown.0 - is open , featu
 res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
@@ -326,7 +326,7 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
 <p>That is very useful to detect the clients&rsquo; features when they are connecting, but not so much when you can&rsquo;t have the luxury to reset everyone&rsquo;s connection. Besides, leaving that level of debugging enabled all the time would flag our node as an abuser at the log server in a matter of hours.</p>
 <p>What i knew already about our clients was that there was some elastic nodes using RBD, probably with CentOS 7 and consequently using kernel 3.x; Some other stuff also using RBD on either CentOS 7 or CentOS 8; and a kubernetes cluster using CoreOS and Flatcar with kernel 4.x. So after some checking, i compared the output from a client using kernel 4.19.x and another with 5.4.x:</p>
 <p><strong>4.19.x:</strong></p>
-<pre><code>[root@spessrvbpcm00003 ~]# ceph daemon mon.`hostname` sessions | grep [...]
+<pre><code>[root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep [...]
     &quot;MonSession(client.95408384 [...]:0/923650579 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
     &quot;MonSession(client.95446387 [...]:0/421761626 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
     &quot;MonSession(client.95427342 [...]:0/1106672011 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
@@ -336,7 +336,7 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
     &quot;MonSession(unknown.0 [...]:0/940509445 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
     &quot;MonSession(unknown.0 [...]:0/1147570690 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
 </code></pre><p><strong>5.4.x:</strong></p>
-<pre><code>root@spessrvbpcm00003 ~]# ceph daemon mon.`hostname` sessions | grep [...]
+<pre><code>root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep [...]
     &quot;MonSession(unknown.0 [...]:0/2258512824 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
     &quot;MonSession(unknown.0 [...]:0/4186418195 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
     &quot;MonSession(unknown.0 [...]:0/232634731 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
