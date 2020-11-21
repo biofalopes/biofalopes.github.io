@@ -240,10 +240,8 @@
       <p>So I needed to learn how to scrape a web page using Python.</p>
 <!--more--->  My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science.
 <p>My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</p>
-<p>I based my code on Renata Magner&rsquo;s (<a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)</a>. Without further ado, that&rsquo;s what i came up with:</p>
-<pre><code>from urllib.request import Request,urlopen
-from urllib.error import URLError, HTTPError
-from bs4 import BeautifulSoup
+<p>I based my code on Renata Magner&rsquo;s (<a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)</a>. I still have to implement error handling and many other improvements on the code, that&rsquo;s just the first version. Without further ado, that&rsquo;s what i came up with:</p>
+<pre><code>from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
