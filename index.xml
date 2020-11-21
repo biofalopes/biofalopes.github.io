@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Web scrapper using Python</title>
+      <link>https://www.fabiolopes.tk/blog/python-web-scrapper-fii/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/python-web-scrapper-fii/</guid>
+      <description>So I needed to learn how to scrape a web page using Python.
+ My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science. My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</description>
+    </item>
+    
+    <item>
       <title>Comparsion of Sorting Algorithms using Python Decorators</title>
       <link>https://www.fabiolopes.tk/blog/python-sort-comparsion/</link>
       <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>

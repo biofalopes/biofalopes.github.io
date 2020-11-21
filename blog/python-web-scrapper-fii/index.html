@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>Web scrapper using Python - Fabio M. Lopes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
+  <meta property="og:title" content="Web scrapper using Python">
+  <meta property="og:description" content="Scrapping FIIs using Python">
+  <meta property="description" content="Scrapping FIIs using Python">
+  <meta property="og:url" content="https://www.fabiolopes.tk/blog/python-web-scrapper-fii/">
+  <meta property="og:type" content="article">
+  
+    
+      <meta property="og:image" content="https://www.fabiolopes.tk/img/main/python/pandas.jpg">
+      <meta property="og:image:alt" content="Python">
+    
+  
+  <link rel="stylesheet" href="/css/bundle.min.d9e04ae08c9b3049b766dbd4aeab7d862c5ea1d13679b621490e0f5df5507497.css" integrity="sha256-2eBK4IybMEm3ZtvUrqt9hixeodE2ebYhSQ4PXfVQdJc="><link rel="stylesheet" href="/css/add-on.css">
+</head>
+
+  <body>
+    
+
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/" class="nav">
+        
+          Blog
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu menu">
+      
+        
+          
+          <a href="/" class="nav link"><i class='fa fa-home'></i> Home</a>
+        
+      
+        
+          
+          <a href="/about/" class="nav link"><i class='far fa-id-card'></i> About</a>
+        
+      
+        
+          
+          <a href="/blog/" class="nav link"><i class='far fa-newspaper'></i> Blog</a>
+        
+      
+        
+          
+          <a href="/categories/" class="nav link"><i class='fas fa-sitemap'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/contact/" class="nav link"><i class='far fa-envelope'></i> Contact</a>
+        
+      
+      <a href="#share-menu" class="nav link share-toggle"><i class="fas fa-share-alt">&nbsp;</i>Share</a>
+      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
+    </menu>
+    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a>
+    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
+  <menu id="lang-menu" class="flyout-menu menu">
+  <a href="#" lang="en" class="nav link active">English (en)</a>
+  
+    
+      
+    
+      
+        <a href="/pt" lang="pt" class="nav no-lang link">Português (pt)</a>
+      
+    
+  
+</menu>
+
+  
+    <menu id="share-menu" class="flyout-menu menu">
+      <h1>Share Post</h1>
+      
+
+
+
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f&amp;title=Web%20scrapper%20using%20Python" target="_blank" rel="noopener" class="nav share-btn linkedin">
+            <p>LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+          <p>Email</p>
+        </a>
+  
+
+  
+    
+    <a href="//twitter.com/share?text=Web%20scrapper%20using%20Python&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+        <p>Twitter</p>
+      </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f&amp;title=Web%20scrapper%20using%20Python" target="_blank" rel="noopener" class="nav share-btn reddit">
+          <p>Reddit</p>
+        </a>
+  
+
+
+    </menu>
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro" >
+  <a href="/"><img src="https://www.fabiolopes.tk/img/main/logo.jpg" class="circle" width="100" alt="fabiolopes" /></a>
+  <header>
+    <h1>Fabio M. Lopes</h1>
+  </header>
+  <main>
+    <p>Personal Blog - My Studies, Scripts, Labs and Tests.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/fabiomlopes" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:fabiomlopes@protonmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        
+  <article class="post">
+    <header>
+  <div class="title">
+    
+      <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
+    
+    
+      <p>Scrapping FIIs using Python</p>
+    
+  </div>
+  <div class="meta">
+    <time datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
+    
+    <p>2-Minute Read</p>
+  </div>
+</header>
+
+    <div id="socnet-share">
+      
+
+
+
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f&amp;title=Web%20scrapper%20using%20Python" target="_blank" rel="noopener" class="nav share-btn linkedin">
+            <p>LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+          <p>Email</p>
+        </a>
+  
+
+  
+    
+    <a href="//twitter.com/share?text=Web%20scrapper%20using%20Python&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+        <p>Twitter</p>
+      </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-web-scrapper-fii%2f&amp;title=Web%20scrapper%20using%20Python" target="_blank" rel="noopener" class="nav share-btn reddit">
+          <p>Reddit</p>
+        </a>
+  
+
+
+    </div>
+    <div class="content">
+      <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
+  </a>
+      <p>So I needed to learn how to scrape a web page using Python.</p>
+<!--more--->  My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science.
+<p>My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</p>
+<p>I based my code on Renata Magner&rsquo;s (<a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)</a>. Without further ado, that&rsquo;s what i came up with:</p>
+<pre><code>from urllib.request import Request,urlopen
+from urllib.error import URLError, HTTPError
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+url = 'https://www.fundsexplorer.com.br/ranking'
+html = requests.get(url).content
+soup = BeautifulSoup(html, 'html.parser')
+
+# stores scraped data on a list
+results = soup.find_all(&quot;td&quot;)
+
+# counts how many entries we got. each entry has 26 'td' lines each.
+fii_count=int(len(results)/26)
+
+# initialize the variables
+fii_info={}
+fii_list=[]
+
+'''
+index - field
+[0] - COD FUNDO
+[1] - SETOR
+[2] - PRECO_ATUAL
+[3] - LIQUIDEZ DIARIA
+[4] - DIVIDENDO
+[5] - dividend_yield
+[6] - dy_3m
+[7] - dy_6m
+[8] - dy_12m
+[9]- dy_3m_media
+[10] - dy_6m_media
+[11] - dy_12m_media
+[12] - dy_ano
+[13] - variacao_preco
+[14] - rentabilidade_periodo
+[15] - rentabilidade_acumulada
+[16] - patrimonio_liq
+[17] - vpa
+[18] - p_vpa
+'''
+
+# runs through collected data and extracts the desided info
+for fii in range(fii_count):
+    fii_info['codigo_fundo']=results[fii*26].get_text()
+    fii_info['preco_atual']=results[fii*26+2].get_text()
+    fii_info['setor']=results[fii*26+1].get_text()
+    fii_info['p/vpa']= results[fii*26+18].get_text()
+    fii_info['dividend_yield']=results[fii*26+5].get_text()
+    fii_info['dividendo']=results[fii*26+4].get_text()
+    fii_info['dy_12m_media']=results[fii*26+11].get_text()
+    fii_list.append(fii_info)
+    fii_info={}
+
+# generates the CSV output
+fii_table = pd.DataFrame(data=fii_list)
+fii_table.to_csv('fii_table.csv')
+</code></pre><p><strong>References:</strong></p>
+<p><a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb</a></p>
+<p><a href="https://realpython.com/python-csv/">https://realpython.com/python-csv/</a></p>
+<p><a href="https://www.fundsexplorer.com.br/ranking">https://www.fundsexplorer.com.br/ranking</a></p>
+
+    </div>
+    <footer>
+      <div class="stats">
+  
+    <ul class="categories">
+      
+        
+          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
+        
+      
+    </ul>
+  
+  
+    <ul class="tags">
+      
+        
+          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
+        
+      
+    </ul>
+  
+</div>
+
+    </footer>
+  </article>
+  
+    
+  <article class="post">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "fabiomlopes" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </article>
+
+
+
+
+  
+  <div class="pagination">
+    
+    
+      <a href="/blog/python-sort-comparsion/" class="button right"><span>Comparsion of Sorting Algorithms using Python Decorators</span></a>
+    
+  </div>
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent Posts</h1>
+      </header>
+      
+      <article class="mini-post">
+          <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
+          <time class="published" datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
+          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features-2/">Obtaining a list of Ceph features from the hexadecimal value</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
+        </header>
+      </article>
+      
+      
+    </section>
+  
+
+  
+    
+
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+          
+          <li>
+              <a href="/categories/python/">python<span class="count">3</span></a>
+          
+          <li>
+              <a href="/categories/ceph/">ceph<span class="count">2</span></a>
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  
+    <section id="mini-bio">
+      <header>
+        <h1>About</h1>
+      </header>
+      <p>Personal Blog - My Studies, Scripts, Labs and Tests.</p>
+      <footer>
+        <a href="/about" class="button">Learn More</a>
+      </footer>
+    </section>
+  
+</section>
+
+      <footer id="site-footer">
+  
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/fabiomlopes" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:fabiomlopes@protonmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+  
+  <p class="copyright">
+    © 2020 Fabio M. Lopes
+      <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.68.3' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      <script src="/js/highlight.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.5955090a3253deadcd66071270aa2274dabe15ffc97094cec252d87b6f3f00bf.js" integrity="sha256-WVUJCjJT3q3NZgcScKoidNq&#43;Ff/JcJTOwlLYe28/AL8="></script>
+    <script src="/js/add-on.js"></script>
+    </div>
+  </body>
+</html>
