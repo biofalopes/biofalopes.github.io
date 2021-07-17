@@ -6,10 +6,20 @@
     <description>Recent content in ceph on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.fabiolopes.tk/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
+      <link>https://www.fabiolopes.tk/blog/rook/</link>
+      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/rook/</guid>
+      <description>I recently got 10 servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.
+ As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers.</description>
+    </item>
     
     <item>
       <title>Ceph features and its relation to the client kernel version</title>
