@@ -196,7 +196,7 @@
   <div class="meta">
     <time datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
     
-    <p>5-Minute Read</p>
+    <p>6-Minute Read</p>
   </div>
 </header>
 
@@ -250,7 +250,7 @@ cd rook/cluster/examples/kubernetes/ceph
 sed -i s/&quot;ROOK_ENABLE_DISCOVERY_DAEMON: \&quot;false\&quot;&quot;/&quot;ROOK_ENABLE_DISCOVERY_DAEMON: \&quot;true\&quot;&quot;/ operator.yaml
 kubectl create -f crds.yaml -f common.yaml -f operator.yaml
 kubectl create -f cluster.yaml
-</code></pre><p>Verificação:</p>
+</code></pre><p>Checking if the pods were created:</p>
 <pre><code>$ kubectl -n rook-ceph get pod
 NAME                                              READY   STATUS      RESTARTS   AGE
 csi-cephfsplugin-7tkgk                            3/3     Running     25         95d
@@ -300,7 +300,23 @@ rook-discover-2684s                               1/1     Running     7         
 rook-discover-2nlkj                               1/1     Running     1          95d
 rook-discover-4rhxm                               1/1     Running     2          95d
 </code></pre><p>The output is long but i wanted to show that Rook actually created a OSD por for every device in each node, and i configured kubernetes to allow that on the master node either.</p>
-<p>From that point we can access the Ceph CLI by interacting with the <code>rook-ceph-tools</code> pod:</p>
+<p>We can see that we now have a bunch of new resource definitions, enabling us to interact with Ceph in a declarative way, instead of recurring to the CLI to manage users, filesystems, pools and many other resources:</p>
+<pre><code>$ kubectl get crd | grep 'rook\|objectbucket'
+cephblockpools.ceph.rook.io                           2021-04-01T19:30:54Z
+cephclients.ceph.rook.io                              2021-04-01T19:30:53Z
+cephclusters.ceph.rook.io                             2021-04-01T19:30:53Z
+cephfilesystems.ceph.rook.io                          2021-04-01T19:30:53Z
+cephnfses.ceph.rook.io                                2021-04-01T19:30:53Z
+cephobjectrealms.ceph.rook.io                         2021-04-01T19:30:54Z
+cephobjectstores.ceph.rook.io                         2021-04-01T19:30:53Z
+cephobjectstoreusers.ceph.rook.io                     2021-04-01T19:30:54Z
+cephobjectzonegroups.ceph.rook.io                     2021-04-01T19:30:54Z
+cephobjectzones.ceph.rook.io                          2021-04-01T19:30:54Z
+cephrbdmirrors.ceph.rook.io                           2021-04-01T19:30:53Z
+objectbucketclaims.objectbucket.io                    2021-04-01T19:30:54Z
+objectbuckets.objectbucket.io                         2021-04-01T19:30:54Z
+volumes.rook.io                                       2021-04-01T19:30:54Z
+</code></pre><p>From that point we can access the Ceph CLI by interacting with the <code>rook-ceph-tools</code> pod:</p>
 <pre><code>$ kubectl exec -it -n rook-ceph rook-ceph-tools-6f58686b5d-znnsg -- ceph status
 cluster:
   id:     72e9c4a9-4315-45e0-ad43-cd79d22fb2be
