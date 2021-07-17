@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Fabio M. Lopes</title>
+    <link>https://www.fabiolopes.tk/categories/</link>
+    <description>Recent content in Categories on Fabio M. Lopes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.fabiolopes.tk/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ceph</title>
+      <link>https://www.fabiolopes.tk/categories/ceph/</link>
+      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/categories/ceph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://www.fabiolopes.tk/categories/kubernetes/</link>
+      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/categories/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://www.fabiolopes.tk/categories/python/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/categories/python/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
