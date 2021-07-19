@@ -237,7 +237,7 @@
       <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
   </a>
-      <p>I recently got 10 servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.</p>
+      <p>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.</p>
 <!--more---> 
 <p>As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers. But i want to talk about what i did with the remaining six servers, that became two kubernetes clusters - one with Flatcar and the other with Centos, to replicate some production scenarios we have. Since the servers have 8 2TB HDD each and we use just one for the OS, that would be a perfect scenario to experiment with Rook. I tinkered with it previously with some labs but now i could really test its usability.</p>
 <p>Getting Rook to run is pretty straightforward, it might not even be necessary to have great knowledge about ceph for the initial setup. However it would be mandatory to know about Ceph administration for a production environment. There are many administrative tasks that gets taken care of by Rook, but after working with Ceph for the past 3 years i can assure you that there will be many situations where the sysadmin will have to step up.</p>
