@@ -6,7 +6,11 @@
     <description>Recent content in kubernetes on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.fabiolopes.tk/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
       <link>https://www.fabiolopes.tk/blog/rook/</link>
