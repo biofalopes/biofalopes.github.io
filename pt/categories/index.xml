@@ -5,10 +5,6 @@
     <link>https://www.fabiolopes.tk/pt/categories/</link>
     <description>Recent content in Categories on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>pt</language>
-    
-	<atom:link href="https://www.fabiolopes.tk/pt/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>pt</language><atom:link href="https://www.fabiolopes.tk/pt/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

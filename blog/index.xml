@@ -6,10 +6,16 @@
     <description>Recent content in Blog on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.fabiolopes.tk/blog/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Mon, 20 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using Python and Docker to monitor Ceph S3 from outside</title>
+      <link>https://www.fabiolopes.tk/blog/python-s3-monitoring/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/python-s3-monitoring/</guid>
+      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.
+ We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation.</description>
+    </item>
     
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
