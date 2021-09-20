@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ceph on Fabio M. Lopes</title>
+    <link>https://www.fabiolopes.tk/categories/ceph/</link>
+    <description>Recent content in ceph on Fabio M. Lopes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.fabiolopes.tk/categories/ceph/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
+      <link>https://www.fabiolopes.tk/blog/rook/</link>
+      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/rook/</guid>
+      <description>I recently got 10 servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.
+ As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers.</description>
+    </item>
+    
+    <item>
+      <title>Ceph features and its relation to the client kernel version</title>
+      <link>https://www.fabiolopes.tk/blog/ceph-features/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
+      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.
+ I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
+[root@mon-1 ~]# ceph features { &amp;quot;mon&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;mds&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 3 } }, &amp;quot;osd&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 192 } }, &amp;quot;client&amp;quot;: { &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x27018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;jewel&amp;quot;, &amp;quot;num&amp;quot;: 422 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x2f018fb86aa42ada&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 95 }, &amp;quot;group&amp;quot;: { &amp;quot;features&amp;quot;: &amp;quot;0x3ffddff8eeacfffb&amp;quot;, &amp;quot;release&amp;quot;: &amp;quot;luminous&amp;quot;, &amp;quot;num&amp;quot;: 18 } } } So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while.</description>
+    </item>
+    
+    <item>
+      <title>Obtaining a list of Ceph features from the hexadecimal value</title>
+      <link>https://www.fabiolopes.tk/blog/ceph-features-2/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/ceph-features-2/</guid>
+      <description>After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.
+ This can be found in src/include/ceph_features.h, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .
+That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility.</description>
+    </item>
+    
+  </channel>
+</rss>
