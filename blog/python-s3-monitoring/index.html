@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+<title>Using Python and Docker to monitor Ceph S3 from outside - Fabio M. Lopes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="generator" content="Hugo 0.88.1" /><meta property="og:site_name" content="Fabio M. Lopes">
+  <meta property="og:title" content="Using Python and Docker to monitor Ceph S3 from outside">
+  <meta property="og:description" content="I created a simple application that runs on a Docker container to test and generate metrics on a custom S3 service, in my case being Ceph.">
+  <meta property="description" content="I created a simple application that runs on a Docker container to test and generate metrics on a custom S3 service, in my case being Ceph.">
+  <meta property="og:url" content="https://www.fabiolopes.tk/blog/python-s3-monitoring/">
+  <meta property="og:type" content="article">
+  
+    
+      <meta property="og:image" content="https://www.fabiolopes.tk/img/main/python/decorators.jpg">
+      <meta property="og:image:alt" content="Python">
+    
+  
+  <link rel="stylesheet" href="/css/bundle.min.6ad9eb85bff384c75937a02036b01425a2ca63f19a96535b8ba5b181db62a4b3.css" integrity="sha256-atnrhb/zhMdZN6AgNrAUJaLKY/GallNbi6WxgdtipLM="><link rel="stylesheet" href="/css/add-on.css">
+</head>
+
+  <body>
+    
+
+<header id="site-header">
+  <nav id="site-nav">
+    <h1 class="nav-title">
+      <a href="/" class="nav">
+        
+          Blog
+        
+      </a>
+    </h1>
+    <menu id="site-nav-menu" class="flyout-menu menu">
+      
+        
+          
+          <a href="/" class="nav link"><i class='fa fa-home'></i> Home</a>
+        
+      
+        
+          
+          <a href="/about/" class="nav link"><i class='far fa-id-card'></i> About</a>
+        
+      
+        
+          
+          <a href="/blog/" class="nav link"><i class='far fa-newspaper'></i> Blog</a>
+        
+      
+        
+          
+          <a href="/categories/" class="nav link"><i class='fas fa-sitemap'></i> Categories</a>
+        
+      
+        
+          
+          <a href="/contact/" class="nav link"><i class='far fa-envelope'></i> Contact</a>
+        
+      
+      <a href="#share-menu" class="nav link share-toggle"><i class="fas fa-share-alt">&nbsp;</i>Share</a>
+      <a href="#search-input" class="nav link search-toggle"><i class="fas fa-search">&nbsp;</i>Search</a>
+    </menu>
+    <a href="#search-input" class="nav search-toggle"><i class="fas fa-search fa-2x">&nbsp;</i></a>
+    <a href="#share-menu" class="nav share-toggle"><i class="fas fa-share-alt fa-2x">&nbsp;</i></a>
+    <a href="#lang-menu" class="nav lang-toggle" lang="en">en</a>
+    <a href="#site-nav" class="nav nav-toggle"><i class="fas fa-bars fa-2x"></i></a>
+  </nav>
+  <menu id="search" class="menu"><input id="search-input" class="search-input menu"></input><div id="search-results" class="search-results menu"></div></menu>
+  <menu id="lang-menu" class="flyout-menu menu">
+  <a href="#" lang="en" class="nav link active">English (en)</a>
+  
+    
+      
+    
+      
+        <a href="/pt" lang="pt" class="nav no-lang link">Português (pt)</a>
+      
+    
+  
+</menu>
+
+  
+    <menu id="share-menu" class="flyout-menu menu">
+      <h1>Share Post</h1>
+      
+
+
+
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f&amp;title=Using%20Python%20and%20Docker%20to%20monitor%20Ceph%20S3%20from%20outside" target="_blank" rel="noopener" class="nav share-btn linkedin">
+            <p>LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+          <p>Email</p>
+        </a>
+  
+
+  
+    
+    <a href="//twitter.com/share?text=Using%20Python%20and%20Docker%20to%20monitor%20Ceph%20S3%20from%20outside&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+        <p>Twitter</p>
+      </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f&amp;title=Using%20Python%20and%20Docker%20to%20monitor%20Ceph%20S3%20from%20outside" target="_blank" rel="noopener" class="nav share-btn reddit">
+          <p>Reddit</p>
+        </a>
+  
+
+
+    </menu>
+  
+</header>
+
+    <div id="wrapper">
+      <section id="site-intro" >
+  <a href="/"><img src="https://www.fabiolopes.tk/img/main/logo.jpg" class="circle" width="100" alt="fabiolopes" /></a>
+  <header>
+    <h1>Fabio M. Lopes</h1>
+  </header>
+  <main>
+    <p>Personal Blog - My Studies, Scripts, Labs and Tests.</p>
+  </main>
+  
+    <footer>
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/fabiomlopes" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:fabiomlopes@protonmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+    </footer>
+  
+</section>
+
+      <main id="site-main">
+        
+  <article class="post">
+    <header>
+  <div class="title">
+    
+      <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
+    
+    
+      <p>I created a simple application that runs on a Docker container to test and generate metrics on a custom S3 service, in my case being Ceph.</p>
+    
+  </div>
+  <div class="meta">
+    <time datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
+    
+    <p>5-Minute Read</p>
+  </div>
+</header>
+
+    <div id="socnet-share">
+      
+
+
+
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f&amp;title=Using%20Python%20and%20Docker%20to%20monitor%20Ceph%20S3%20from%20outside" target="_blank" rel="noopener" class="nav share-btn linkedin">
+            <p>LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+          <p>Email</p>
+        </a>
+  
+
+  
+    
+    <a href="//twitter.com/share?text=Using%20Python%20and%20Docker%20to%20monitor%20Ceph%20S3%20from%20outside&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+        <p>Twitter</p>
+      </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fpython-s3-monitoring%2f&amp;title=Using%20Python%20and%20Docker%20to%20monitor%20Ceph%20S3%20from%20outside" target="_blank" rel="noopener" class="nav share-btn reddit">
+          <p>Reddit</p>
+        </a>
+  
+
+
+    </div>
+    <div class="content">
+      <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+      <p>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.</p>
+<!--more--->  
+<p>We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation. With those metrics we can then create graphics, panels and alerts using Grafana for instance.
+Using some kind of KISS methodology (keep it simple, stupid), running everything inside a docker container would give the flexibility to throw it anywhere and get the same results. The initial goal was to run two containers on AWS pointing to both sites (where the two main Ceph Clusters live) and two others on each site, one pointing to the other.</p>
+<p>For the task I used Python as the programming language with the Prometheus Client for Python, found at <a href="https://github.com/prometheus/client_python">https://github.com/prometheus/client_python</a>. I divided the code in sections to talk about each part.</p>
+<ol>
+<li>Libraries</li>
+</ol>
+<p>prometheus_client for metrics, boto3 for s3 connection, random</p>
+<pre tabindex="0"><code>from prometheus_client import Histogram, start_http_server, Summary, Gauge, Counter
+import boto3
+import random
+from io import BytesIO
+import os
+import time
+import logging
+</code></pre><ol start="2">
+<li>Variables</li>
+</ol>
+<p>Here we define our endpoint address, credentials, name of the bucket and objects, the interval between tests, the histogram buckets and how many objects we want to put simultaneously (for histogram metrics):</p>
+<pre tabindex="0"><code>CLUSTER_ENDPOINT = ''
+ACCESS_KEY = ''
+SECRET_ACCESS_KEY = ''
+BUCKET_NAME = 'the_lord_of_buckets'
+OBJECT_NAME = 'the_ruler'
+PORT=9102
+TIME_TO_SLEEP = 120
+LOG_LEVEL=logging.INFO
+BUCKETS=[0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 ,1]
+OBJCOUNT=15
+</code></pre><ol start="3">
+<li>Metrics</li>
+</ol>
+<p>Here we define what metrics we want to generate, or collect: ALL_TESTSm S3_FAIL, CREATE, PUT, DELETE, GET_OBJECT, LIST_OBJECTS, REMOVE_BUCKET, DELETE_OBJECTS. For each operation there are three metrics defined: Summary, Gauge and Histogram. Labels were used for each operation.</p>
+<pre tabindex="0"><code>ALL_TESTS_SUMMARY = Summary('s3_request_duration_seconds', 'Time spent running the test',['task'])
+ALL_TESTS_GAUGE = Gauge('s3_request_last_duration_seconds','Time spent on the last test',['task'])
+ALL_TESTS_HIST = Histogram('s3_request_duration_seconds_histogram','Time spent on the last test',['task'],buckets=BUCKETS)
+S3_FAIL = Counter('s3_requests_fails', 'Number of fails in this process')
+CREATE_BUCKET_SUMMARY = ALL_TESTS_SUMMARY.labels('create')
+CREATE_BUCKET_GAUGE = ALL_TESTS_GAUGE.labels('create')
+CREATE_BUCKET_HIST = ALL_TESTS_HIST.labels('create')
+PUT_OBJECT_SUMMARY = ALL_TESTS_SUMMARY.labels('put')
+PUT_OBJECT_GAUGE = ALL_TESTS_GAUGE.labels('put')
+PUT_OBJECT_HIST = ALL_TESTS_HIST.labels('put')
+DELETE_OBJECT_SUMMARY = ALL_TESTS_SUMMARY.labels('delete')
+DELETE_OBJECT_GAUGE = ALL_TESTS_GAUGE.labels('delete')
+DELETE_OBJECT_HIST = ALL_TESTS_HIST.labels('delete')
+GET_OBJECT_SUMMARY = ALL_TESTS_SUMMARY.labels('get')
+GET_OBJECT_GAUGE = ALL_TESTS_GAUGE.labels('get')
+GET_OBJECT_HIST = ALL_TESTS_HIST.labels('get')
+LIST_OBJECTS_SUMMARY = ALL_TESTS_SUMMARY.labels('list_objects')
+LIST_OBJECTS_GAUGE = ALL_TESTS_GAUGE.labels('list_objects')
+LIST_OBJECTS_HIST = ALL_TESTS_HIST.labels('list_objects')
+LIST_BUCKETS_SUMMARY = ALL_TESTS_SUMMARY.labels('list_buckets')
+LIST_BUCKETS_GAUGE = ALL_TESTS_GAUGE.labels('list_buckets')
+LIST_BUCKETS_HIST = ALL_TESTS_HIST.labels('list_buckets')
+REMOVE_BUCKET_SUMMARY = ALL_TESTS_SUMMARY.labels('remove')
+REMOVE_BUCKET_GAUGE = ALL_TESTS_GAUGE.labels('remove')
+REMOVE_BUCKET_HIST = ALL_TESTS_HIST.labels('remove')
+DELETE_OBJECTS_SUMMARY = ALL_TESTS_SUMMARY.labels('delete_many')
+DELETE_OBJECTS_GAUGE = ALL_TESTS_GAUGE.labels('delete_many')
+DELETE_OBJECTS_HIST = ALL_TESTS_HIST.labels('delete_many')
+</code></pre><ol start="4">
+<li>Class S3Metrics</li>
+</ol>
+<p>This is where stuff gets done! There is an init function to set the parameters from the variables, start logging and create an a s3 resource from the boto3 library. Decorators were used to measure the time spend in each function and the run_all_tests funcion calls all the tests, which is the one we use as we&rsquo;ll see next.</p>
+<pre tabindex="0"><code>class S3Metrics:
+    s3 = None
+    bucket = None
+    file_size = 512
+    data = None
+    key_name = None
+    data_out = None
+
+    def __init__(self, bucket_name, key_name):
+        cluster_endpoint = os.getenv('CLUSTER_ENDPOINT',default=CLUSTER_ENDPOINT)
+        access_key = os.getenv('ACCESS_KEY',default=ACCESS_KEY)
+        secret_access_key = os.getenv('SECRET_ACCESS_KEY',default=SECRET_ACCESS_KEY)
+        log_level = os.getenv('LOG_LEVEL',default=LOG_LEVEL)
+        self.bucket = bucket_name
+        self.key_name = key_name
+        self.generate_data()
+        logging.basicConfig(level=int(log_level))
+        self.s3 = boto3.resource('s3',
+                      endpoint_url=cluster_endpoint,
+                      aws_access_key_id=access_key,
+                      aws_secret_access_key=secret_access_key)
+
+    @CREATE_BUCKET_HIST.time()
+    @CREATE_BUCKET_GAUGE.time()
+    @CREATE_BUCKET_SUMMARY.time()
+    def create_bucket(self):
+        try:
+            bucket = self.s3.Bucket(self.bucket)
+            bucket.create()
+        except:
+            S3_FAIL.inc()
+
+    @PUT_OBJECT_HIST.time()
+    @PUT_OBJECT_GAUGE.time()
+    @PUT_OBJECT_SUMMARY.time()
+    def put_object(self,key_name=OBJECT_NAME):
+        try:
+            bucket = self.s3.Bucket(self.bucket)
+            bucket.put_object(
+                        Key=key_name,
+                        Body=self.data)
+        except:
+            S3_FAIL.inc()
+    
+    def put_objects(self):
+        for i in range(0,OBJCOUNT):
+            self.put_object(self.key_name+str(i))
+
+    @DELETE_OBJECT_HIST.time()
+    @DELETE_OBJECT_GAUGE.time()
+    @DELETE_OBJECT_SUMMARY.time()
+    def del_object(self):
+        try:
+            object = self.s3.Object(self.bucket,self.key_name)
+            object.delete()
+        except:
+            S3_FAIL.inc()
+
+    @DELETE_OBJECTS_HIST.time()
+    @DELETE_OBJECTS_GAUGE.time()
+    @DELETE_OBJECTS_SUMMARY.time()
+    def del_objects(self):
+        try:
+            bucket = self.s3.Bucket(self.bucket)
+            objects = bucket.objects.all()
+            for object in objects:
+                object.delete()
+        except:
+            S3_FAIL.inc()
+
+    @GET_OBJECT_HIST.time()
+    @GET_OBJECT_GAUGE.time()
+    @GET_OBJECT_SUMMARY.time()
+    def get_object(self):
+        self.data_out = None
+        try:
+            bucket = self.s3.Bucket(self.bucket)
+            data = BytesIO()
+            bucket.download_fileobj(Fileobj=data, Key=self.key_name)
+            self.data_out = data.getvalue().decode()
+        except:
+            S3_FAIL.inc()
+
+    def compare_object(self):
+        if self.data != self.data_out:
+            S3_FAIL.inc()
+
+    @LIST_BUCKETS_HIST.time()
+    @LIST_BUCKETS_GAUGE.time()
+    @LIST_BUCKETS_SUMMARY.time()
+    def list_buckets(self):
+        try:
+            all_buckets = self.s3.buckets.all()
+            for bucket in all_buckets:
+                logging.debug(&quot;%s %s&quot;, bucket.creation_date, bucket.name)
+        except:
+            S3_FAIL.inc()
+
+    @LIST_OBJECTS_HIST.time()
+    @LIST_OBJECTS_GAUGE.time()
+    @LIST_OBJECTS_SUMMARY.time()
+    def list_objects(self):
+        try:
+            bucket = self.s3.Bucket(self.bucket)
+            objects = bucket.objects.all()
+            for object in objects:
+                logging.debug(&quot;%s&quot;, object.key)
+        except:
+            S3_FAIL.inc()
+
+    @REMOVE_BUCKET_HIST.time()
+    @REMOVE_BUCKET_GAUGE.time()
+    @REMOVE_BUCKET_SUMMARY.time()
+    def remove_bucket(self):
+        try:
+            bucket = self.s3.Bucket(self.bucket)
+            bucket.delete()
+        except:
+            S3_FAIL.inc()
+
+    def run_all_tests(self):
+        self.create_bucket()
+        self.put_object()
+        self.list_buckets()
+        self.list_objects()
+        self.get_object()
+        self.compare_object()
+        self.del_object()
+        self.put_objects()
+        self.del_objects()
+        self.remove_bucket()
+
+    def generate_data(self):
+        MAX_LIMIT = 126
+        data = ''
+        for _ in range(self.file_size):
+            random_integer = random.randint(32, MAX_LIMIT)
+            data += (chr(random_integer))
+        self.data = data
+</code></pre><ol start="5">
+<li>Main</li>
+</ol>
+<p>Here we start the prometheus exporter and call the method run_all_tests() from class S3Metrics inside an infinite while loop, so the script will run continuously until manually stopped.</p>
+<pre tabindex="0"><code>def main():
+    start_http_server(PORT)
+    s3metrics = S3Metrics(BUCKET_NAME, OBJECT_NAME)
+    while True:
+        s3metrics.run_all_tests()
+        time.sleep(TIME_TO_SLEEP)
+
+if __name__ == '__main__':
+    main()
+</code></pre><p>So now that we have our <code>s3metrics.py</code>, we have to build a container to run it. I created a <code>requirements.txt</code> file to make it easier to adjust the package versions in the future, and used in the Dockerfile the <code>python:3</code> base image since it already have most of what I need.</p>
+<ol start="6">
+<li>Requirements</li>
+</ol>
+<pre tabindex="0"><code>boto3==1.17.54
+botocore==1.20.54
+jmespath==0.10.0
+prometheus-client==0.10.1
+python-dateutil==2.8.1
+s3transfer==0.4.0
+six==1.15.0
+urllib3==1.26.4
+</code></pre><ol start="7">
+<li>Dockerfile</li>
+</ol>
+<pre tabindex="0"><code>FROM python:3
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+COPY s3-metrics.py .
+
+RUN python3 -m venv .venv; bash -c 'source .venv/bin/activate'; pip install -r requirements.txt
+
+CMD [ &quot;python&quot;, &quot;./s3-metrics.py&quot; ]
+</code></pre><ol start="8">
+<li>Build and Run</li>
+</ol>
+<p>Now we can run the container inside an EC2 instance or anywhere capable of running a docker container (you don&rsquo;t say, lol). I&rsquo;ll later post my terraform script used to deploy it on AWS with more details. Now for the Grafana part:</p>
+<ol start="9">
+<li>Grafana</li>
+</ol>
+<p>Here&rsquo;s how I configured a Bar gauge graph to see the PUT Histogram:</p>
+<p><img src="/img/main/python/histogram.png" alt="grafana_histogram"></p>
+<p>We can see that the majority of the operations take less than 0.5 seconds to finish, so if we start seeing an increase in the other histogram buckets, it means that we probably have a problem.</p>
+<p>I also created a panel to watch for errors and one to see all the operations combined:</p>
+<p><img src="/img/main/python/s3metrics.png" alt="grafana_histogram"></p>
+<ol start="10">
+<li>Conclusion</li>
+</ol>
+<p>That kind of monitoring can give a good observability to a service like Ceph S3 Gateway, but this could easily be applied to any other service with some changes. Before that, we used UpTimeRobot to achieve a similar goal, but from my perspective you can have much more control and flexibility with a container like that performing connectivity tests, and in this case we go much deeper by mimicking user operations on our tests.
+ll</p>
+
+    </div>
+    <footer>
+      <div class="stats">
+  
+    <ul class="categories">
+      
+        
+          <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
+        
+          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
+        
+      
+    </ul>
+  
+  
+    <ul class="tags">
+      
+        
+          <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
+        
+          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
+        
+      
+    </ul>
+  
+</div>
+
+    </footer>
+  </article>
+  
+    
+  <article class="post">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "fabiomlopes" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </article>
+
+
+
+
+  
+  <div class="pagination">
+    
+    
+      <a href="/blog/rook/" class="button right"><span>Using Rook to leverage Ceph storage on a Kubernetes cluster</span></a>
+    
+  </div>
+
+      </main>
+      <section id="site-sidebar">
+  
+    <section id="recent-posts">
+      <header>
+        <h1>Recent Posts</h1>
+      </header>
+      
+      <article class="mini-post">
+          <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
+          <time class="published" datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
+  </a>
+        <header>
+          <h2><a href="/blog/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></h2>
+          <time class="published" datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
+          <time class="published" datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
+          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
+        </header>
+      </article>
+      
+      
+        <footer>
+          <a href="/blog/" class="button">See More</a>
+        </footer>
+      
+    </section>
+  
+
+  
+    
+
+      <section id="categories">
+        <header>
+          <h1><a href="/categories">Categories</a></h1>
+        </header>
+        <ul>
+          
+          
+          <li>
+              <a href="/categories/ceph/">ceph<span class="count">4</span></a>
+          
+          <li>
+              <a href="/categories/python/">python<span class="count">4</span></a>
+          
+          <li>
+              <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
+          
+          </li>
+        </ul>
+      </section>
+    
+  
+
+  
+    <section id="mini-bio">
+      <header>
+        <h1>About</h1>
+      </header>
+      <p>Personal Blog - My Studies, Scripts, Labs and Tests.</p>
+      <footer>
+        <a href="/about" class="button">Learn More</a>
+      </footer>
+    </section>
+  
+</section>
+
+      <footer id="site-footer">
+  
+      <ul class="socnet-icons">
+        
+
+        <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//www.linkedin.com/in/fabiomlopes" target="_blank" rel="noopener" title="LinkedIn" class="fab fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="mailto:fabiomlopes@protonmail.com" target="_blank" title="Email" class="far fa-envelope"></a></li>
+
+      </ul>
+  
+  <p class="copyright">
+    © 2021 Fabio M. Lopes
+      <br>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.88.1' target='_blank' rel='noopener'>Hugo</a>
+  </p>
+</footer>
+<a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
+
+      <script src="/js/highlight.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.1ac7a98b06451b2770fdaaee2f67721ab7e137a5fee8352dc78a33e7a69b3244.js" integrity="sha256-GsepiwZFGydw/aruL2dyGrfhN6X&#43;6DUtx4oz56abMkQ="></script>
+    <script src="/js/add-on.js"></script>
+    </div>
+  </body>
+</html>
