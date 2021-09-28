@@ -2,18 +2,21 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-<title>python - Fabio M. Lopes</title>
+<title>Bash Script to slowly increase pg_num in a Ceph pool - Fabio M. Lopes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <meta name="generator" content="Hugo 0.88.1" /><meta property="og:site_name" content="Fabio M. Lopes">
-  <meta property="og:title" content="python">
-  <meta property="og:description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
-  <meta property="description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
-  <meta property="og:url" content="https://www.fabiolopes.tk/tags/python/">
+  <meta property="og:title" content="Bash Script to slowly increase pg_num in a Ceph pool">
+  <meta property="og:description" content="Bash script that gradually increases the pg_num/pgp_num of a pool.">
+  <meta property="description" content="Bash script that gradually increases the pg_num/pgp_num of a pool.">
+  <meta property="og:url" content="https://www.fabiolopes.tk/blog/ceph-pg/">
   <meta property="og:type" content="article">
   
-    <meta property="og:image" content="https://www.fabiolopes.tk/img/main/logo.jpg">
+    
+      <meta property="og:image" content="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png">
+      <meta property="og:image:alt" content="Cephalopod">
+    
   
   <link rel="stylesheet" href="/css/bundle.min.6ad9eb85bff384c75937a02036b01425a2ca63f19a96535b8ba5b181db62a4b3.css" integrity="sha256-atnrhb/zhMdZN6AgNrAUJaLKY/GallNbi6WxgdtipLM="><link rel="stylesheet" href="/css/add-on.css">
 </head>
@@ -26,7 +29,7 @@
     <h1 class="nav-title">
       <a href="/" class="nav">
         
-          Tags
+          Blog
         
       </a>
     </h1>
@@ -88,26 +91,26 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f&amp;title=python" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f&amp;title=Bash%20Script%20to%20slowly%20increase%20pg_num%20in%20a%20Ceph%20pool" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
 
   
-        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
           <p>Email</p>
         </a>
   
 
   
     
-    <a href="//twitter.com/share?text=python&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+    <a href="//twitter.com/share?text=Bash%20Script%20to%20slowly%20increase%20pg_num%20in%20a%20Ceph%20pool&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
         <p>Twitter</p>
       </a>
   
 
   
-    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f&amp;title=python" target="_blank" rel="noopener" class="nav share-btn reddit">
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f&amp;title=Bash%20Script%20to%20slowly%20increase%20pg_num%20in%20a%20Ceph%20pool" target="_blank" rel="noopener" class="nav share-btn reddit">
           <p>Reddit</p>
         </a>
   
@@ -130,8 +133,6 @@
     <footer>
       <ul class="socnet-icons">
         
-    <li><a href="/tags/python/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
-
 
         <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
 
@@ -182,42 +183,116 @@
 
       <main id="site-main">
         
-  
-  
-    <article class="post">
-  <header>
+  <article class="post">
+    <header>
   <div class="title">
     
-      <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
+      <h2><a href="/blog/ceph-pg/">Bash Script to slowly increase pg_num in a Ceph pool</a></h2>
     
     
-      <p>I created a simple application that runs on a Docker container to test and generate metrics on a custom S3 service, in my case being Ceph.</p>
+      <p>Bash script that gradually increases the pg_num/pgp_num of a pool.</p>
     
   </div>
   <div class="meta">
-    <time datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
+    <time datetime="2021-09-28 00:00:00 &#43;0000 UTC">September 28, 2021</time>
     
-    <p>5-Minute Read</p>
+    <p>2-Minute Read</p>
   </div>
 </header>
 
-  <div class="content">
-    <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
+    <div id="socnet-share">
+      
+
+
+
+
+  
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f&amp;title=Bash%20Script%20to%20slowly%20increase%20pg_num%20in%20a%20Ceph%20pool" target="_blank" rel="noopener" class="nav share-btn linkedin">
+            <p>LinkedIn</p>
+          </a>
+  
+
+  
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+          <p>Email</p>
+        </a>
+  
+
+  
     
-    <p>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.</p>
-  </div>
-  <footer>
-    <a href="/blog/python-s3-monitoring/" class="button big">Read More</a>
-    <div class="stats">
+    <a href="//twitter.com/share?text=Bash%20Script%20to%20slowly%20increase%20pg_num%20in%20a%20Ceph%20pool&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+        <p>Twitter</p>
+      </a>
+  
+
+  
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fceph-pg%2f&amp;title=Bash%20Script%20to%20slowly%20increase%20pg_num%20in%20a%20Ceph%20pool" target="_blank" rel="noopener" class="nav share-btn reddit">
+          <p>Reddit</p>
+        </a>
+  
+
+
+    </div>
+    <div class="content">
+      <a href="/blog/ceph-pg/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
+  </a>
+      <p>I needed to increase the pg_num of our biggest pool in Ceph, used for object storage, and we needed to gradually increase in small steps to avoid putting too much stress on the cluster.</p>
+<!--more---> 
+<p>Our pool had 4096 PGs and we wanted to increase it to 8192. We don&rsquo;t have <code>pg autoscaler</code> enabled, but even if we had it would set the value straight to 8192, which is not desired and also not recommended by Red Hat.</p>
+<p>Increasing the number of PGs is the most intensive process that can be performed on a Ceph cluster, and can have drastic performance impact if not done slowly. Once the data starts moving for a chunk of PGs, it cannot be stopped or reversed.</p>
+<p>The instructions of how to perform the operation can be found at <a href="https://access.redhat.com/solutions/2457321">https://access.redhat.com/solutions/2457321</a> .</p>
+<p>Here&rsquo;s how I approached the task:</p>
+<pre tabindex="0"><code>#!/bin/bash
+
+DATE='date +%d/%h/%Y-%H:%M:%S'
+TARGET=8192
+INCREMENT=2
+INTERVAL=120m
+POOL=target_pool
+
+while true; do
+  if [ &quot;$(ceph -s | grep misplaced)&quot; != &quot;&quot; ]
+  then
+    echo &quot;$($DATE) There are misplaced objects. Waiting...&quot;
+    sleep 30m
+  else
+    echo &quot;$($DATE) No misplaced objects. Increasing number of PGs.&quot;
+    PG_NUM=$(ceph osd pool get $POOL pg_num | awk -F ': ' '{print $2}')
+    if [ $PG_NUM -eq $TARGET ]
+    then
+      echo &quot;$($DATE) Operation Completed. PG number is $PG_NUM.&quot;
+      exit 0
+    else
+      echo &quot;$($DATE) Current PG number is $PG_NUM.&quot;
+      PG_NUM=$((PG_NUM+INCREMENT))
+      echo &quot;$($DATE) New PG number is $PG_NUM.&quot;
+      ceph osd pool set $POOL $PG_NUM || { echo &quot;$($DATE) Failed setting pg_num&quot; ; exit 1; }
+      echo &quot;$($DATE) PG number increased. Waiting 2h until next iteration...&quot;
+      sleep $INTERVAL
+    fi
+  fi
+done
+</code></pre><ol>
+<li>I start checking if there are misplaced objects in the cluster; if so, i wait 30 more minutes before checking again;</li>
+<li>With no misplaced objects, I check the current <code>pg_num</code> and then compare it with my target <code>pg_num</code>;</li>
+<li>If it&rsquo;s still below the target, I increment the <code>pg_num</code> by <code>$INCREMENT</code>, 2 in my case, and run a <code>ceph osd pool set $POOL $PG_NUM</code>;</li>
+<li>After that, I wait for 2 more hours. When it reaches the target, the script exits with 0;</li>
+<li>If any command returns an error, the script exits;</li>
+<li>I write a log file to monitor the execution.</li>
+</ol>
+<p>After the conclusion, we then need to increase the pgp_num in the same slow fashion, so we can tweak the script and change the parameter.</p>
+
+    </div>
+    <footer>
+      <div class="stats">
   
     <ul class="categories">
       
         
           <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
         
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
+          <li><a class="article-terms-link" href="/categories/bash/">bash</a></li>
         
       
     </ul>
@@ -228,123 +303,48 @@
         
           <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
         
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
+          <li><a class="article-terms-link" href="/tags/bash/">bash</a></li>
         
       
     </ul>
   
 </div>
 
-  </footer>
-</article>
+    </footer>
+  </article>
+  
+    
+  <article class="post">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "fabiomlopes" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </article>
 
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
-    
-    
-      <p>Scrapping FIIs using Python</p>
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
-    
-    <p>2-Minute Read</p>
-  </div>
-</header>
 
-  <div class="content">
-    <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
-  </a>
-    
-    <p>So I needed to learn how to scrape a web page using Python.</p>
-  </div>
-  <footer>
-    <a href="/blog/python-web-scrapper-fii/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
-        
-      
-    </ul>
-  
-</div>
 
-  </footer>
-</article>
-
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-    
-    
-      <p>Measuring runtime of sorting algorithms using Python decorators</p>
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-    
-    <p>3-Minute Read</p>
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-    
-    <p>So I needed to learn how to use decorators in Python.</p>
-  </div>
-  <footer>
-    <a href="/blog/python-sort-comparsion/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
 
   
   <div class="pagination">
     
     
-      <a href="/tags/python/page/2/" class="button right"><span>Next Page</span></a>
+      <a href="/blog/python-s3-monitoring/" class="button right"><span>Using Python and Docker to monitor Ceph S3 from outside</span></a>
     
   </div>
 
@@ -459,8 +459,6 @@
   
       <ul class="socnet-icons">
         
-    <li><a href="/tags/python/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
-
 
         <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
 

@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-<title>python - Fabio M. Lopes</title>
+<title>bash - Fabio M. Lopes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 <meta name="generator" content="Hugo 0.88.1" /><meta property="og:site_name" content="Fabio M. Lopes">
-  <meta property="og:title" content="python">
+  <meta property="og:title" content="bash">
   <meta property="og:description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
   <meta property="description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
-  <meta property="og:url" content="https://www.fabiolopes.tk/tags/python/">
+  <meta property="og:url" content="https://www.fabiolopes.tk/categories/bash/">
   <meta property="og:type" content="article">
   
     <meta property="og:image" content="https://www.fabiolopes.tk/img/main/logo.jpg">
@@ -26,7 +26,7 @@
     <h1 class="nav-title">
       <a href="/" class="nav">
         
-          Tags
+          Categories
         
       </a>
     </h1>
@@ -88,26 +88,26 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f&amp;title=python" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fcategories%2fbash%2f&amp;title=bash" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
 
   
-        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fcategories%2fbash%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
           <p>Email</p>
         </a>
   
 
   
     
-    <a href="//twitter.com/share?text=python&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+    <a href="//twitter.com/share?text=bash&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fcategories%2fbash%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
         <p>Twitter</p>
       </a>
   
 
   
-    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2ftags%2fpython%2f&amp;title=python" target="_blank" rel="noopener" class="nav share-btn reddit">
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fcategories%2fbash%2f&amp;title=bash" target="_blank" rel="noopener" class="nav share-btn reddit">
           <p>Reddit</p>
         </a>
   
@@ -130,7 +130,7 @@
     <footer>
       <ul class="socnet-icons">
         
-    <li><a href="/tags/python/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
+    <li><a href="/categories/bash/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
 
 
         <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
@@ -188,28 +188,28 @@
   <header>
   <div class="title">
     
-      <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
+      <h2><a href="/blog/ceph-pg/">Bash Script to slowly increase pg_num in a Ceph pool</a></h2>
     
     
-      <p>I created a simple application that runs on a Docker container to test and generate metrics on a custom S3 service, in my case being Ceph.</p>
+      <p>Bash script that gradually increases the pg_num/pgp_num of a pool.</p>
     
   </div>
   <div class="meta">
-    <time datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
+    <time datetime="2021-09-28 00:00:00 &#43;0000 UTC">September 28, 2021</time>
     
-    <p>5-Minute Read</p>
+    <p>2-Minute Read</p>
   </div>
 </header>
 
   <div class="content">
-    <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+    <a href="/blog/ceph-pg/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
   </a>
     
-    <p>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.</p>
+    <p>I needed to increase the pg_num of our biggest pool in Ceph, used for object storage, and we needed to gradually increase in small steps to avoid putting too much stress on the cluster.</p>
   </div>
   <footer>
-    <a href="/blog/python-s3-monitoring/" class="button big">Read More</a>
+    <a href="/blog/ceph-pg/" class="button big">Read More</a>
     <div class="stats">
   
     <ul class="categories">
@@ -217,7 +217,7 @@
         
           <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
         
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
+          <li><a class="article-terms-link" href="/categories/bash/">bash</a></li>
         
       
     </ul>
@@ -228,109 +228,7 @@
         
           <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
         
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
-    
-    
-      <p>Scrapping FIIs using Python</p>
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
-    
-    <p>2-Minute Read</p>
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
-  </a>
-    
-    <p>So I needed to learn how to scrape a web page using Python.</p>
-  </div>
-  <footer>
-    <a href="/blog/python-web-scrapper-fii/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-    
-    
-      <p>Measuring runtime of sorting algorithms using Python decorators</p>
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-    
-    <p>3-Minute Read</p>
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-    
-    <p>So I needed to learn how to use decorators in Python.</p>
-  </div>
-  <footer>
-    <a href="/blog/python-sort-comparsion/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
+          <li><a class="article-terms-link" href="/tags/bash/">bash</a></li>
         
       
     </ul>
@@ -343,8 +241,6 @@
   
   <div class="pagination">
     
-    
-      <a href="/tags/python/page/2/" class="button right"><span>Next Page</span></a>
     
   </div>
 
@@ -459,7 +355,7 @@
   
       <ul class="socnet-icons">
         
-    <li><a href="/tags/python/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
+    <li><a href="/categories/bash/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fas fa-rss"></a></li>
 
 
         <li><a href="//github.com/biofalopes" target="_blank" rel="noopener" title="GitHub" class="fab fa-github"></a></li>
