@@ -6,6 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=2">
+  <link rel="manifest" href="/favicon/site.webmanifest?v=2">
+  
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
 <meta name="generator" content="Hugo 0.88.1" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="ceph">
   <meta property="og:description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
@@ -188,61 +196,6 @@
   <header>
   <div class="title">
     
-      <h2><a href="/blog/ceph-pg/">Bash Script to slowly increase pg_num in a Ceph pool</a></h2>
-    
-    
-      <p>Bash script that gradually increases the pg_num/pgp_num of a pool.</p>
-    
-  </div>
-  <div class="meta">
-    <time datetime="2021-09-28 00:00:00 &#43;0000 UTC">September 28, 2021</time>
-    
-    <p>2-Minute Read</p>
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/blog/ceph-pg/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
-  </a>
-    
-    <p>I needed to increase the pg_num of our biggest pool in Ceph, used for object storage, and we needed to gradually increase in small steps to avoid putting too much stress on the cluster.</p>
-  </div>
-  <footer>
-    <a href="/blog/ceph-pg/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/bash/">bash</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/bash/">bash</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
       <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
     
     
@@ -349,6 +302,57 @@
 </article>
 
   
+    <article class="post">
+  <header>
+  <div class="title">
+    
+      <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
+    
+    
+      <p>How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective</p>
+    
+  </div>
+  <div class="meta">
+    <time datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
+    
+    <p>6-Minute Read</p>
+  </div>
+</header>
+
+  <div class="content">
+    <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
+  </a>
+    
+    <p>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.</p>
+  </div>
+  <footer>
+    <a href="/blog/ceph-features/" class="button big">Read More</a>
+    <div class="stats">
+  
+    <ul class="categories">
+      
+        
+          <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
+        
+      
+    </ul>
+  
+  
+    <ul class="tags">
+      
+        
+          <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
+        
+      
+    </ul>
+  
+</div>
+
+  </footer>
+</article>
+
+  
   <div class="pagination">
     
     
@@ -365,12 +369,12 @@
       </header>
       
       <article class="mini-post">
-          <a href="/blog/ceph-pg/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
+          <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
   </a>
         <header>
-          <h2><a href="/blog/ceph-pg/">Bash Script to slowly increase pg_num in a Ceph pool</a></h2>
-          <time class="published" datetime="2021-09-28 00:00:00 &#43;0000 UTC">September 28, 2021</time>
+          <h2><a href="/blog/jenkins-1/">Getting started with Jenkins Declarative Pipelines</a></h2>
+          <time class="published" datetime="2021-10-18 00:00:00 &#43;0000 UTC">October 18, 2021</time>
         </header>
       </article>
       
@@ -433,13 +437,13 @@
           
           
           <li>
-              <a href="/categories/ceph/">ceph<span class="count">5</span></a>
+              <a href="/categories/ceph/">ceph<span class="count">4</span></a>
           
           <li>
               <a href="/categories/python/">python<span class="count">4</span></a>
           
           <li>
-              <a href="/categories/bash/">bash<span class="count">1</span></a>
+              <a href="/categories/jenkins/">jenkins<span class="count">1</span></a>
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
