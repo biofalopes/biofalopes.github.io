@@ -364,7 +364,7 @@ services:
     restart: unless-stopped
 </code></pre><p>Now that we have a running Jenkins instance with the plugins installed and with access to the host&rsquo;s dockerd, let&rsquo;s start using it to automate a build.</p>
 <h3 id="7-the-spring-petclinic-sample-application">7. The Spring PetClinic Sample Application</h3>
-<p>To test everything, I downloaded the &ldquo;Spring PetClinic Sample Application&rdquo;, which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you&rsquo;ll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let&rsquo;s first build, test, and run the application manually:</p>
+<p>To test everything, I downloaded the &ldquo;Spring PetClinic Sample Application&rdquo; (can be found here: <a href="https://github.com/spring-projects/spring-petclinic),">https://github.com/spring-projects/spring-petclinic),</a> which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you&rsquo;ll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let&rsquo;s first build, test, and run the application manually:</p>
 <pre tabindex="0"><code># Clone the repo
 git clone https://github.com/spring-projects/spring-petclinic.git
 
