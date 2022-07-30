@@ -14,7 +14,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
-<meta name="generator" content="Hugo 0.88.1" /><meta property="og:site_name" content="Fabio M. Lopes">
+<meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="Getting started with Jenkins Declarative Pipelines">
   <meta property="og:description" content="My approach on running declarative pipelines on Jenkins to build, test and deploy a sample springboot application, using Docker and some useful integrations like Git and Slack.">
   <meta property="description" content="My approach on running declarative pipelines on Jenkins to build, test and deploy a sample springboot application, using Docker and some useful integrations like Git and Slack.">
@@ -262,25 +262,25 @@ A Jenkinsfile can be written in two ways - &ldquo;scripted pipeline syntax&rdquo
 <p>Scripted pipelines run on the Jenkins master with the help of a lightweight executor. It uses very few resources to translate the pipeline into atomic commands. Both declarative and scripted syntax are different from each other and are defined differently. Scripted pipelines are written in Groovy.</p>
 <ul>
 <li>It requires knowledge of the Groovy language;</li>
-<li>The Jenkinsfile starts with the word &lsquo;node&rsquo;;</li>
+<li>The Jenkinsfile starts with the word &rsquo;node';</li>
 <li>Advanced cabapilities;</li>
 <li>Groovy engine;</li>
 <li>Can contain standard programming constructs like if-else block, try-catch block, etc.</li>
 </ul>
 <p>An example of a Scripted Pipeline:</p>
 <pre tabindex="0"><code>node {
-    stage('Build') {
-        if (env.BRANCH_NAME == 'master') {
-            echo &quot;I'm on master brand, building application&quot;
-            bat &quot;msbuild ${C:\\Jenkins\\my_project\\workspace\\test\\my_project.sln}&quot;
+    stage(&#39;Build&#39;) {
+        if (env.BRANCH_NAME == &#39;master&#39;) {
+            echo &#34;I&#39;m on master brand, building application&#34;
+            bat &#34;msbuild ${C:\\Jenkins\\my_project\\workspace\\test\\my_project.sln}&#34;
         } else {
-            echo 'Towards the center of the Cloud Computer.'
+            echo &#39;Towards the center of the Cloud Computer.&#39;
         }
     }
-    stage('Selenium') {
-        echo 'Running Selenium Smoke Tests'
+    stage(&#39;Selenium&#39;) {
+        echo &#39;Running Selenium Smoke Tests&#39;
         dir(bachelol) {  //changes the path to “bachelol”
-            bat &quot;mvn clean test -Dsuite=SMOKE_TEST -Denvironment=QA&quot;
+            bat &#34;mvn clean test -Dsuite=SMOKE_TEST -Denvironment=QA&#34;
         }  
     }
 }
@@ -299,17 +299,17 @@ A Jenkinsfile can be written in two ways - &ldquo;scripted pipeline syntax&rdquo
 <li>Ability to keep the server configuration under version control;</li>
 <li>Run multiple copies of the server anywhere;</li>
 <li>Integrate with Kubernetes and other orchestration platforms;</li>
-<li>Jenkins' official Docker image is widely adopted and maintained;</li>
+<li>Jenkins&rsquo; official Docker image is widely adopted and maintained;</li>
 <li>Simple implementation = simple administration.</li>
 </ul>
-<p>The main (Drawback|Caveat|Problem|Issue|Flaw) is when you want to use agents with docker too. To do that you&rsquo;re gonna need some implementation of Docker in Docker. There are a few ways to do that, but the two easiest ways are connecting the Jenkins container directly to the host&rsquo;s Docker socket using <code>-v /var/run/docker.sock:/var/run/docker.sock</code> and changing the permissions, or enabling TCP on the Docker server-side.<br>
+<p>The main (Drawback|Caveat|Problem|Issue|Flaw) is when you want to use agents with docker too. To do that you&rsquo;re gonna need some implementation of Docker in Docker. There are a few ways to do that, but the two easiest ways are connecting the Jenkins container directly to the host&rsquo;s Docker socket using <code>-v /var/run/docker.sock:/var/run/docker.sock</code> and changing the permissions, or enabling TCP on the Docker server-side. <br>
 If you can run your Jenkins server on Kubernetes, you can enable it to launch new agent pods inside the cluster which gives you even more flexibility. I&rsquo;ll try that in the future since I&rsquo;m out of credits on AWS and my dev cluster is behind a proxy, which is a real pain to deal with.</p>
 <h3 id="6-building-a-jenkins-image">6. Building a Jenkins Image</h3>
 <p>The <code>Dockerfile</code> below creates an image based on the latest Jenkins LTS from Dockerhub, and preinstalls the plugins needed:</p>
 <pre tabindex="0"><code>FROM jenkins/jenkins:lts
 
 # Skip setup wizard
-ENV JAVA_OPTS=&quot;-Djenkins.install.runSetupWizard=false&quot;
+ENV JAVA_OPTS=&#34;-Djenkins.install.runSetupWizard=false&#34;
 
 # Set docker group
 ARG DOCKER_GID=998
@@ -332,39 +332,39 @@ RUN apt-get update &amp;&amp; \
       curl \
       gnupg2 \
       software-properties-common &amp;&amp; \
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo &quot;$ID&quot;)/gpg &gt; /tmp/dkey; apt-key add /tmp/dkey &amp;&amp; \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo &#34;$ID&#34;)/gpg &gt; /tmp/dkey; apt-key add /tmp/dkey &amp;&amp; \
     add-apt-repository \
-      &quot;deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo &quot;$ID&quot;) \
+      &#34;deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo &#34;$ID&#34;) \
       $(lsb_release -cs) \
-      stable&quot; &amp;&amp; \
+      stable&#34; &amp;&amp; \
     apt-get update &amp;&amp; \
     groupadd -g ${DOCKER_GID} docker &amp;&amp; \
     apt-get -y install docker-ce docker-ce-cli containerd.io
 
-RUN curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose &amp;&amp; chmod +x /usr/local/bin/docker-compose
+RUN curl -L &#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose &amp;&amp; chmod +x /usr/local/bin/docker-compose
 
 RUN usermod -aG docker jenkins 
 
 USER jenkins
-</code></pre><p>I referred to the official documentation:<br>
-<a href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a><br>
+</code></pre><p>I referred to the official documentation: <br>
+<a href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a> <br>
 <a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></p>
 <p>To spin up a Jenkins instance on my local machine, I used a <code>docker-compose.yml</code> file and put everything on the same folder. The jenkins service points to a dockerfile on the same path, and the container will be accessible on <code>localhost:9080</code>. I mapped the <code>docker.sock</code> to the container and matched the docker GID with the host, and also created and mapped a <code>jenkins_home</code> folder locally to persist data:</p>
-<pre tabindex="0"><code>version: &quot;3.8&quot;
+<pre tabindex="0"><code>version: &#34;3.8&#34;
 services:
   jenkins:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-    - &quot;127.0.0.1:9080:8080&quot;
+    - &#34;127.0.0.1:9080:8080&#34;
     volumes:
     - ./jenkins_home:/var/jenkins_home
     - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 </code></pre><p>Now that we have a running Jenkins instance with the plugins installed and with access to the host&rsquo;s dockerd, let&rsquo;s start using it to automate a build.</p>
 <h3 id="7-the-spring-petclinic-sample-application">7. The Spring PetClinic Sample Application</h3>
-<p>To test everything, I downloaded the &ldquo;Spring PetClinic Sample Application&rdquo; (can be found here: <a href="https://github.com/spring-projects/spring-petclinic),">https://github.com/spring-projects/spring-petclinic),</a> which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you&rsquo;ll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let&rsquo;s first build, test, and run the application manually:</p>
+<p>To test everything, I downloaded the &ldquo;Spring PetClinic Sample Application&rdquo; (can be found here: <a href="https://github.com/spring-projects/spring-petclinic)">https://github.com/spring-projects/spring-petclinic)</a>, which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you&rsquo;ll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let&rsquo;s first build, test, and run the application manually:</p>
 <pre tabindex="0"><code># Clone the repo
 git clone https://github.com/spring-projects/spring-petclinic.git
 
@@ -393,9 +393,9 @@ java -jar target/*.jar
 
 
               |\      _,,,--,,_
-             /,`.-'`'   ._  \-;;,_
-  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
- |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+             /,`.-&#39;`&#39;   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`&#39;-&#39;__     ___ __    _ ___ _______
+ |       | &#39;---&#39;&#39;(_/._)-&#39;(_\_)   |   |   |   |  |  | |   |       |
  |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
  |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
  |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
@@ -417,7 +417,7 @@ java -jar target/*.jar
 2021-10-19 11:38:33.128  INFO 39806 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1865 ms
 2021-10-19 11:38:33.377  INFO 39806 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
 2021-10-19 11:38:33.590  INFO 39806 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-10-19 11:38:33.919  INFO 39806 --- [           main] org.ehcache.core.EhcacheManager          : Cache 'vets' created in EhcacheManager.
+2021-10-19 11:38:33.919  INFO 39806 --- [           main] org.ehcache.core.EhcacheManager          : Cache &#39;vets&#39; created in EhcacheManager.
 2021-10-19 11:38:33.934  INFO 39806 --- [           main] org.ehcache.jsr107.Eh107CacheManager     : Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=urn.X-ehcache.jsr107-default-config,Cache=vets
 2021-10-19 11:38:33.941  INFO 39806 --- [           main] org.ehcache.jsr107.Eh107CacheManager     : Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=urn.X-ehcache.jsr107-default-config,Cache=vets
 2021-10-19 11:38:34.021  INFO 39806 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
@@ -425,9 +425,9 @@ java -jar target/*.jar
 2021-10-19 11:38:34.204  INFO 39806 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
 2021-10-19 11:38:34.332  INFO 39806 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
 2021-10-19 11:38:34.955  INFO 39806 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-10-19 11:38:34.962  INFO 39806 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-10-19 11:38:36.371  INFO 39806 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoint(s) beneath base path '/actuator'
-2021-10-19 11:38:36.441  INFO 39806 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-10-19 11:38:34.962  INFO 39806 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit &#39;default&#39;
+2021-10-19 11:38:36.371  INFO 39806 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoint(s) beneath base path &#39;/actuator&#39;
+2021-10-19 11:38:36.441  INFO 39806 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
 2021-10-19 11:38:36.453  INFO 39806 --- [           main] o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 5.753 seconds (JVM running for 6.136)
 </code></pre><h3 id="8-using-maven-on-jenkins">8. Using Maven on Jenkins</h3>
 <p>There are a couple of different ways to use Maven with Jenkins. There is a Maven plugin for Jenkins, and we can install Maven on the Jenkins server and set it up at &ldquo;Global Tool Configuration&rdquo;. Since we want to use docker containers as executors or agents, that would not be an option. We could also use the wrapper that comes with the project, but a better and simple route would be to use the official Maven docker image, and that way we can have an agent always updated and completely separate Maven from our Jenkins server. This approach makes it easier to manage the environment and also allows for a single Jenkins server to work with different types of builds with a single installation, without having to embed every tool used on the server.</p>
@@ -440,85 +440,85 @@ java -jar target/*.jar
 <pre tabindex="0"><code>pipeline {
     agent none
     environment {
-        DEPLOY_TO = 'staging'
-        imageName = &quot;fabioctba/spring-petclinic&quot;
-        registryCredential = 'dockerhub'
-        dockerImage = ''
+        DEPLOY_TO = &#39;staging&#39;
+        imageName = &#34;fabioctba/spring-petclinic&#34;
+        registryCredential = &#39;dockerhub&#39;
+        dockerImage = &#39;&#39;
     }
     stages {
-        stage('Init'){
+        stage(&#39;Init&#39;){
             agent any
             steps {
-                slackSend channel: '#jenkins', message: &quot;${env.BUILD_ID} on ${env.JENKINS_URL} - Starting&quot;
-                sh 'git --version'
-                echo &quot;Deploying to ${DEPLOY_TO}&quot;
+                slackSend channel: &#39;#jenkins&#39;, message: &#34;${env.BUILD_ID} on ${env.JENKINS_URL} - Starting&#34;
+                sh &#39;git --version&#39;
+                echo &#34;Deploying to ${DEPLOY_TO}&#34;
             }
         }
-        stage('Build') {
+        stage(&#39;Build&#39;) {
             agent {
                 docker {
-                    image 'maven:3.8.3-adoptopenjdk-11'
-                    args '-v m2:/root/.m2 -v settings.xml:/root/.m2/settings.xml'
+                    image &#39;maven:3.8.3-adoptopenjdk-11&#39;
+                    args &#39;-v m2:/root/.m2 -v settings.xml:/root/.m2/settings.xml&#39;
                 }
             }
             steps {
-                slackSend channel: '#jenkins', message: &quot;${env.BUILD_ID} on ${env.JENKINS_URL} - Building&quot;
-                sh 'mvn -B -DskipTests clean package'
+                slackSend channel: &#39;#jenkins&#39;, message: &#34;${env.BUILD_ID} on ${env.JENKINS_URL} - Building&#34;
+                sh &#39;mvn -B -DskipTests clean package&#39;
 
             }
         }
-        stage('Test') {
+        stage(&#39;Test&#39;) {
             agent {
                 docker {
-                    image 'maven:3.8.3-adoptopenjdk-11'
-                    args '-v m2:/root/.m2 -v settings.xml:/root/.m2/settings.xml'
+                    image &#39;maven:3.8.3-adoptopenjdk-11&#39;
+                    args &#39;-v m2:/root/.m2 -v settings.xml:/root/.m2/settings.xml&#39;
                 }
             }
             steps {
-                slackSend channel: '#jenkins', message: &quot;${env.BUILD_ID} on ${env.JENKINS_URL} - Running Tests&quot;
-                sh 'mvn test' 
+                slackSend channel: &#39;#jenkins&#39;, message: &#34;${env.BUILD_ID} on ${env.JENKINS_URL} - Running Tests&#34;
+                sh &#39;mvn test&#39; 
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'target/*.jar'
-                    junit 'target/surefire-reports/*.xml' 
+                    archiveArtifacts artifacts: &#39;target/*.jar&#39;
+                    junit &#39;target/surefire-reports/*.xml&#39; 
                 }
             }
         }
-        stage('Build Image') { 
+        stage(&#39;Build Image&#39;) { 
             agent any
             steps {
-                slackSend channel: '#jenkins', message: &quot;${env.BUILD_ID} on ${env.JENKINS_URL} - Building Image&quot;
+                slackSend channel: &#39;#jenkins&#39;, message: &#34;${env.BUILD_ID} on ${env.JENKINS_URL} - Building Image&#34;
 
                 script {
                     dockerImage = docker.build imageName
                 }
             }
         }
-        stage('Publish Image') { 
+        stage(&#39;Publish Image&#39;) { 
             agent any
             steps {
-                slackSend channel: '#jenkins', message: &quot;${env.BUILD_ID} on ${env.JENKINS_URL} - Building Image&quot;
+                slackSend channel: &#39;#jenkins&#39;, message: &#34;${env.BUILD_ID} on ${env.JENKINS_URL} - Building Image&#34;
 
                 script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push(&quot;$BUILD_NUMBER&quot;)
-                        dockerImage.push('latest')
+                    docker.withRegistry( &#39;&#39;, registryCredential ) {
+                        dockerImage.push(&#34;$BUILD_NUMBER&#34;)
+                        dockerImage.push(&#39;latest&#39;)
                     }
                 }
             }
         }
-        stage('Prod') {
+        stage(&#39;Prod&#39;) {
             agent any
             when { 
                 allOf { 
-                    branch 'master'; 
-                    environment name: 'DEPLOY_TO', value: 'production'
+                    branch &#39;master&#39;; 
+                    environment name: &#39;DEPLOY_TO&#39;, value: &#39;production&#39;
                 } 
             }
             steps {
-                slackSend channel: '#jenkins', message: &quot;${env.BUILD_ID} on ${env.JENKINS_URL} - Running Production stage&quot;
-                echo 'Some extra step when on production release'
+                slackSend channel: &#39;#jenkins&#39;, message: &#34;${env.BUILD_ID} on ${env.JENKINS_URL} - Running Production stage&#34;
+                echo &#39;Some extra step when on production release&#39;
             }
         }
     }
@@ -545,15 +545,15 @@ WORKDIR /app
 
 COPY --chown=java:java ./target/*.jar /app/
 
-CMD [&quot;java&quot;,&quot;-Djava.security.egd=file:/dev/./urandom&quot;,&quot;-jar&quot;,&quot;/app/*.jar&quot;]
+CMD [&#34;java&#34;,&#34;-Djava.security.egd=file:/dev/./urandom&#34;,&#34;-jar&#34;,&#34;/app/*.jar&#34;]
 </code></pre><p>That is a working pipeline, and I wanted to include most of the concepts I saw in the courses. There are other features I&rsquo;d like to try in the future like shared libraries and multi-branch pipelines, but this might go into a different post.</p>
 <h3 id="9-courses-i-either-took-or-recommend">9. Courses I either took or recommend:</h3>
 <h5 id="a-jenkins-from-zero-to-hero-become-a-devops-jenkins-master">a. Jenkins, From Zero To Hero: Become a DevOps Jenkins Master</h5>
-<p>Udemy, by Ricardo Andre Gonzalez Gomez, 2018<br>
+<p>Udemy, by Ricardo Andre Gonzalez Gomez, 2018 <br>
 <a href="https://www.udemy.com/course/jenkins-from-zero-to-hero/">https://www.udemy.com/course/jenkins-from-zero-to-hero/</a></p>
 <p>I found this course a little outdated and looks like the author stopped maintaining it in 2020. However, if you never used Jenkins before and want a cheap course to start, I strongly recommend this one. It&rsquo;s also well recommended in many other sources and has a high rate at Udemy. Ricardo focuses a lot on Docker, so it might be better targeted to someone without any experience in Docker also.</p>
 <h5 id="b-continuous-integration-with-jenkins">b. Continuous Integration with Jenkins</h5>
-<p>Pluralsight, by different authors, updated constantly<br>
+<p>Pluralsight, by different authors, updated constantly <br>
 <a href="https://app.pluralsight.com/paths/skill/continuous-integration-with-jenkins">https://app.pluralsight.com/paths/skill/continuous-integration-with-jenkins</a></p>
 <p>Pluralsight has a total of 8 courses, each with around 2 hours of duration, which makes the Jenkins Skill Path. I took four of them during the last Pluralsight Free Week and like other courses I took from Pluralsight, the quality was much superior. Unfortunately, Pluralsight costs a great amount of money, so I usually stay on the lookout for their periodically free weeks and free weekends. The good thing is that you can download the course material and most of the authors have GitHub repositories where you can check the code later.</p>
 <h3 id="10-references">10. References</h3>
@@ -562,9 +562,9 @@ CMD [&quot;java&quot;,&quot;-Djava.security.egd=file:/dev/./urandom&quot;,&quot;
 <p><a href="https://tomgregory.com/building-a-spring-boot-application-in-jenkins/">https://tomgregory.com/building-a-spring-boot-application-in-jenkins/</a></p>
 <br>
 <p><b><center>If you read it to the end, I&rsquo;d like to hear your comments, and hope this helped you in some way. Cheers.</b></center></p>
-<p>.<br>
-.<br>
-.<br>
+<p>. <br>
+. <br>
+. <br>
 .</p>
 <br>
 And sorry for the long post... here's a potato. 
@@ -601,7 +601,7 @@ Source: <a href="https://www.instagram.com/truth.potato/?hl=en">@truth.potato</a
   <article class="post">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -627,6 +627,8 @@ Source: <a href="https://www.instagram.com/truth.potato/?hl=en">@truth.potato</a
   
   <div class="pagination">
     
+      <a href="/blog/terraform-1/" class="button left"><span>Basic Dev Environment on AWS using Terraform</span></a>
+    
     
       <a href="/blog/python-s3-monitoring/" class="button right"><span>Using Python and Docker to monitor Ceph S3 from outside</span></a>
     
@@ -639,6 +641,16 @@ Source: <a href="https://www.instagram.com/truth.potato/?hl=en">@truth.potato</a
       <header>
         <h1>Recent Posts</h1>
       </header>
+      
+      <article class="mini-post">
+          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
+  </a>
+        <header>
+          <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
+          <time class="published" datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
+        </header>
+      </article>
       
       <article class="mini-post">
           <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
@@ -680,16 +692,6 @@ Source: <a href="https://www.instagram.com/truth.potato/?hl=en">@truth.potato</a
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/blog/" class="button">See More</a>
@@ -719,6 +721,9 @@ Source: <a href="https://www.instagram.com/truth.potato/?hl=en">@truth.potato</a
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
+          
+          <li>
+              <a href="/categories/terraform/">terraform<span class="count">1</span></a>
           
           </li>
         </ul>
@@ -789,16 +794,16 @@ Source: <a href="https://www.instagram.com/truth.potato/?hl=en">@truth.potato</a
       </ul>
   
   <p class="copyright">
-    © 2021 Fabio M. Lopes
+    © 2022 Fabio M. Lopes
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.88.1' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.101.0' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.1ac7a98b06451b2770fdaaee2f67721ab7e137a5fee8352dc78a33e7a69b3244.js" integrity="sha256-GsepiwZFGydw/aruL2dyGrfhN6X&#43;6DUtx4oz56abMkQ="></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.6ab4a41619da5555e3319311deec177d4fcfd0a33f412338cfce5d7810e4f58b.js" integrity="sha256-arSkFhnaVVXjMZMR3uwXfU/P0KM/QSM4z85deBDk9Ys="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>
