@@ -14,7 +14,7 @@
       
       <guid>https://www.fabiolopes.tk/blog/python-s3-monitoring/</guid>
       <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.
- We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation.</description>
+We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation.</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@
       
       <guid>https://www.fabiolopes.tk/blog/python-web-scrapper-fii/</guid>
       <description>So I needed to learn how to scrape a web page using Python.
- My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science. My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</description>
+My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science.My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       
       <guid>https://www.fabiolopes.tk/blog/python-sort-comparsion/</guid>
       <description>So I needed to learn how to use decorators in Python.
- I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
+I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@
       
       <guid>https://www.fabiolopes.tk/blog/ceph-features-2/</guid>
       <description>After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.
- This can be found in src/include/ceph_features.h, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .
+This can be found in src/include/ceph_features.h, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .
 That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility.</description>
     </item>
     

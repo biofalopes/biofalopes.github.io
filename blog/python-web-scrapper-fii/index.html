@@ -14,7 +14,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
-<meta name="generator" content="Hugo 0.88.1" /><meta property="og:site_name" content="Fabio M. Lopes">
+<meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="Web scrapper using Python">
   <meta property="og:description" content="Scrapping FIIs using Python">
   <meta property="description" content="Scrapping FIIs using Python">
@@ -253,21 +253,21 @@
 import requests
 import pandas as pd
 
-url = 'https://www.fundsexplorer.com.br/ranking'
+url = &#39;https://www.fundsexplorer.com.br/ranking&#39;
 html = requests.get(url).content
-soup = BeautifulSoup(html, 'html.parser')
+soup = BeautifulSoup(html, &#39;html.parser&#39;)
 
 # stores scraped data on a list
-results = soup.find_all(&quot;td&quot;)
+results = soup.find_all(&#34;td&#34;)
 
-# counts how many entries we got. each entry has 26 'td' lines each.
+# counts how many entries we got. each entry has 26 &#39;td&#39; lines each.
 fii_count=int(len(results)/26)
 
 # initialize the variables
 fii_info={}
 fii_list=[]
 
-'''
+&#39;&#39;&#39;
 index - field
 [0] - COD FUNDO
 [1] - SETOR
@@ -288,23 +288,23 @@ index - field
 [16] - patrimonio_liq
 [17] - vpa
 [18] - p_vpa
-'''
+&#39;&#39;&#39;
 
 # runs through collected data and extracts the desided info
 for fii in range(fii_count):
-    fii_info['codigo_fundo']=results[fii*26].get_text()
-    fii_info['preco_atual']=results[fii*26+2].get_text()
-    fii_info['setor']=results[fii*26+1].get_text()
-    fii_info['p/vpa']= results[fii*26+18].get_text()
-    fii_info['dividend_yield']=results[fii*26+5].get_text()
-    fii_info['dividendo']=results[fii*26+4].get_text()
-    fii_info['dy_12m_media']=results[fii*26+11].get_text()
+    fii_info[&#39;codigo_fundo&#39;]=results[fii*26].get_text()
+    fii_info[&#39;preco_atual&#39;]=results[fii*26+2].get_text()
+    fii_info[&#39;setor&#39;]=results[fii*26+1].get_text()
+    fii_info[&#39;p/vpa&#39;]= results[fii*26+18].get_text()
+    fii_info[&#39;dividend_yield&#39;]=results[fii*26+5].get_text()
+    fii_info[&#39;dividendo&#39;]=results[fii*26+4].get_text()
+    fii_info[&#39;dy_12m_media&#39;]=results[fii*26+11].get_text()
     fii_list.append(fii_info)
     fii_info={}
 
 # generates the CSV output
 fii_table = pd.DataFrame(data=fii_list)
-fii_table.to_csv('fii_table.csv')
+fii_table.to_csv(&#39;fii_table.csv&#39;)
 </code></pre><p><strong>References:</strong></p>
 <p><a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb</a></p>
 <p><a href="https://realpython.com/python-csv/">https://realpython.com/python-csv/</a></p>
@@ -340,7 +340,7 @@ fii_table.to_csv('fii_table.csv')
   <article class="post">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -382,6 +382,16 @@ fii_table.to_csv('fii_table.csv')
       </header>
       
       <article class="mini-post">
+          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
+  </a>
+        <header>
+          <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
+          <time class="published" datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
   </a>
@@ -421,16 +431,6 @@ fii_table.to_csv('fii_table.csv')
         </header>
       </article>
       
-      <article class="mini-post">
-          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-        </header>
-      </article>
-      
       
         <footer>
           <a href="/blog/" class="button">See More</a>
@@ -460,6 +460,9 @@ fii_table.to_csv('fii_table.csv')
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
+          
+          <li>
+              <a href="/categories/terraform/">terraform<span class="count">1</span></a>
           
           </li>
         </ul>
@@ -530,16 +533,16 @@ fii_table.to_csv('fii_table.csv')
       </ul>
   
   <p class="copyright">
-    © 2021 Fabio M. Lopes
+    © 2022 Fabio M. Lopes
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.88.1' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.101.0' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.1ac7a98b06451b2770fdaaee2f67721ab7e137a5fee8352dc78a33e7a69b3244.js" integrity="sha256-GsepiwZFGydw/aruL2dyGrfhN6X&#43;6DUtx4oz56abMkQ="></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.6ab4a41619da5555e3319311deec177d4fcfd0a33f412338cfce5d7810e4f58b.js" integrity="sha256-arSkFhnaVVXjMZMR3uwXfU/P0KM/QSM4z85deBDk9Ys="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>
