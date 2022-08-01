@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-<title>Basic Dev Environment on AWS using Terraform - Fabio M. Lopes</title>
+<title>Managing AWS Autoscaling Groups and Load Balancers using Terraform - Fabio M. Lopes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -15,10 +15,10 @@
   <meta name="theme-color" content="#ffffff">
 
 <meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
-  <meta property="og:title" content="Basic Dev Environment on AWS using Terraform">
-  <meta property="og:description" content="Using Terraform to deploy a basic dev environment on AWS">
-  <meta property="description" content="Using Terraform to deploy a basic dev environment on AWS">
-  <meta property="og:url" content="https://www.fabiolopes.tk/blog/terraform-1/">
+  <meta property="og:title" content="Managing AWS Autoscaling Groups and Load Balancers using Terraform">
+  <meta property="og:description" content="Using Terraform to manage AWS Autoscaling Groups and Load Balancers">
+  <meta property="description" content="Using Terraform to manage AWS Autoscaling Groups and Load Balancers">
+  <meta property="og:url" content="https://www.fabiolopes.tk/blog/terraform-2/">
   <meta property="og:type" content="article">
   
     
@@ -99,26 +99,26 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f&amp;title=Basic%20Dev%20Environment%20on%20AWS%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f&amp;title=Managing%20AWS%20Autoscaling%20Groups%20and%20Load%20Balancers%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
 
   
-        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
           <p>Email</p>
         </a>
   
 
   
     
-    <a href="//twitter.com/share?text=Basic%20Dev%20Environment%20on%20AWS%20using%20Terraform&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+    <a href="//twitter.com/share?text=Managing%20AWS%20Autoscaling%20Groups%20and%20Load%20Balancers%20using%20Terraform&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
         <p>Twitter</p>
       </a>
   
 
   
-    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f&amp;title=Basic%20Dev%20Environment%20on%20AWS%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn reddit">
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f&amp;title=Managing%20AWS%20Autoscaling%20Groups%20and%20Load%20Balancers%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn reddit">
           <p>Reddit</p>
         </a>
   
@@ -195,16 +195,16 @@
     <header>
   <div class="title">
     
-      <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
+      <h2><a href="/blog/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></h2>
     
     
-      <p>Using Terraform to deploy a basic dev environment on AWS</p>
+      <p>Using Terraform to manage AWS Autoscaling Groups and Load Balancers</p>
     
   </div>
   <div class="meta">
-    <time datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
+    <time datetime="2022-08-01 00:00:00 &#43;0000 UTC">August 1, 2022</time>
     
-    <p>6-Minute Read</p>
+    <p>5-Minute Read</p>
   </div>
 </header>
 
@@ -215,26 +215,26 @@
 
 
   
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f&amp;title=Basic%20Dev%20Environment%20on%20AWS%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn linkedin">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f&amp;title=Managing%20AWS%20Autoscaling%20Groups%20and%20Load%20Balancers%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn linkedin">
             <p>LinkedIn</p>
           </a>
   
 
   
-        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
+        <a href="mailto:?subject=Check%20out%20this%20post%20by %7b%20%20%20%20%20%20%20%20map%5b%5d%7d&amp;body=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f" target="_blank" class="nav share-btn email" data-proofer-ignore>
           <p>Email</p>
         </a>
   
 
   
     
-    <a href="//twitter.com/share?text=Basic%20Dev%20Environment%20on%20AWS%20using%20Terraform&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
+    <a href="//twitter.com/share?text=Managing%20AWS%20Autoscaling%20Groups%20and%20Load%20Balancers%20using%20Terraform&amp;url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f" target="_blank" rel="noopener" class="nav share-btn twitter">
         <p>Twitter</p>
       </a>
   
 
   
-    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-1%2f&amp;title=Basic%20Dev%20Environment%20on%20AWS%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn reddit">
+    <a href="//www.reddit.com/submit?url=https%3a%2f%2fwww.fabiolopes.tk%2fblog%2fterraform-2%2f&amp;title=Managing%20AWS%20Autoscaling%20Groups%20and%20Load%20Balancers%20using%20Terraform" target="_blank" rel="noopener" class="nav share-btn reddit">
           <p>Reddit</p>
         </a>
   
@@ -242,7 +242,7 @@
 
     </div>
     <div class="content">
-      <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
+      <a href="/blog/terraform-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
   </a>
       <p>It&rsquo;s good to have a basic terraform code that deploys a basic environment on AWS whenever you need to run some quick tests on a free tier account.</p>
@@ -250,24 +250,25 @@
 <p>We&rsquo;ll have the following resources deployed with this procedure:</p>
 <ul>
 <li>1 VPC</li>
-<li>1 Subnet</li>
+<li>2 Subnets</li>
 <li>1 Internet Gateway</li>
 <li>1 Route Table (with a default route and an association)</li>
-<li>1 Security group</li>
+<li>2 Security groups</li>
 <li>1 Key Pair</li>
 <li>1 EC2 Instance</li>
+<li>1 Launch Configuration</li>
+<li>1 ELB</li>
+<li>1 ASG</li>
+<li>2 Autoscaling Policies</li>
+<li>2 Cloudwatch Metric Alarms</li>
 </ul>
-<p>It&rsquo;s a very simple and you can build on top of it according to your needs, like adding a RDS instance or more EC2 instances, changing the instance type and so on. The code will be organized in the following structure:</p>
+<p>It&rsquo;s a very simple and you can build on top of it according to your needs, like the previou infrastructure. The code will be organized in the following structure:</p>
 <ul>
 <li><strong>main.tf</strong>: resource declaration</li>
 <li><strong>providers.tf</strong>: aws provider configuration</li>
 <li><strong>outputs.tf</strong>: output declaration</li>
 <li><strong>datasources.tf</strong>: we&rsquo;ll get the AMI information here</li>
-<li><strong>variables.tf</strong>: only to inform our OS</li>
-<li><strong>terraform.tfvars</strong>: same as previous</li>
 <li><strong>userdata.tpl</strong>: script to be executed on first boot</li>
-<li><strong>linux-ssh-config.tpl</strong>: SSH config for Linux</li>
-<li><strong>windows-ssh-config.tpl</strong>: SSH config for Windows</li>
 </ul>
 <p>I added a local-exec provisioner that adds the host information in the ssh configuration, and with that we can then use it with VS Code and Remote SSH extension to connect directly to it and run our code.</p>
 <p>I&rsquo;ll put the code first and then explain the most important parts. Let&rsquo;s start with <code>providers.tf</code>:</p>
@@ -288,65 +289,75 @@ provider &#34;aws&#34; {
 </code></pre><p>Terraform requires credentials to access your account on AWS. You can choose different approaches for that, like putting the keys directly instad of pointing to a credentials file. Although that works and might even be easier, you&rsquo;ll probably have your code pushed into a git repository which would then expose the keys. More information on how to configure the provider can be found here -&gt; <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/">Docs overview | hashicorp/aws</a>.</p>
 <p>Now for the <code>main.tf</code>:</p>
 <pre tabindex="0"><code>resource &#34;aws_vpc&#34; &#34;mando_vpc&#34; {
-  cidr_block           = &#34;10.10.0.0/16&#34;
+  cidr_block           = &#34;10.0.0.0/16&#34;
   enable_dns_hostnames = true
-  enable_dns_support   = true
 
   tags = {
-    Name = &#34;dev&#34;
-  }
-
-}
-
-resource &#34;aws_subnet&#34; &#34;mando_public_subnet&#34; {
-  vpc_id                  = aws_vpc.mando_vpc.id
-  cidr_block              = &#34;10.10.1.0/24&#34;
-  map_public_ip_on_launch = true
-  availability_zone       = &#34;us-east-1b&#34;
-
-  tags = {
-    Name = &#34;dev-public&#34;
+    Name = &#34;Mando VPC&#34;
   }
 }
 
-resource &#34;aws_internet_gateway&#34; &#34;mando_internet_gw&#34; {
+resource &#34;aws_subnet&#34; &#34;mando_public_subnet_us_east_1a&#34; {
+  vpc_id            = aws_vpc.mando_vpc.id
+  cidr_block        = &#34;10.10.1.0/24&#34;
+  availability_zone = &#34;us-east-1a&#34;
+
+  tags = {
+    Name = &#34;Mando Public Subnet US-East 1a&#34;
+  }
+}
+
+resource &#34;aws_subnet&#34; &#34;mando_public_subnet_us_east_1b&#34; {
+  vpc_id            = aws_vpc.mando_vpc.id
+  cidr_block        = &#34;10.10.2.0/24&#34;
+  availability_zone = &#34;us-east-1b&#34;
+
+  tags = {
+    Name = &#34;Mando Public Subnet US-East 1b&#34;
+  }
+}
+
+resource &#34;aws_internet_gateway&#34; &#34;mando_vpc_igw&#34; {
   vpc_id = aws_vpc.mando_vpc.id
 
   tags = {
-    Name = &#34;dev-igw&#34;
+    Name = &#34;Mando VPC - Internet Gateway&#34;
   }
 }
 
-resource &#34;aws_route_table&#34; &#34;mando_public_rt&#34; {
+resource &#34;aws_route_table&#34; &#34;mando_vpc_public&#34; {
   vpc_id = aws_vpc.mando_vpc.id
 
+  route {
+    cidr_block = &#34;0.0.0.0/0&#34;
+    gateway_id = aws_internet_gateway.mando_vpc_igw.id
+  }
+
   tags = {
-    Name = &#34;dev-public-rt&#34;
+    Name = &#34;Public Subnets Route Table for Mando VPC&#34;
   }
 }
 
-resource &#34;aws_route&#34; &#34;mando_default_route&#34; {
-  route_table_id         = aws_route_table.mando_public_rt.id
-  destination_cidr_block = &#34;0.0.0.0/0&#34;
-  gateway_id             = aws_internet_gateway.mando_internet_gw.id
-
+resource &#34;aws_route_table_association&#34; &#34;mando_vpc_us_east_1a_public&#34; {
+  subnet_id      = aws_subnet.mando_public_subnet_us_east_1a.id
+  route_table_id = aws_route_table.mando_vpc_public.id
 }
 
-resource &#34;aws_main_route_table_association&#34; &#34;mando_public_assoc&#34; {
-  vpc_id         = aws_vpc.mando_vpc.id
-  route_table_id = aws_route_table.mando_public_rt.id
+resource &#34;aws_route_table_association&#34; &#34;mando_vpc_us_east_1b_public&#34; {
+  subnet_id      = aws_subnet.mando_public_subnet_us_east_1b.id
+  route_table_id = aws_route_table.mando_vpc_public.id
 }
 
-resource &#34;aws_security_group&#34; &#34;mando_sg&#34; {
-  name        = &#34;mando-sg&#34;
-  description = &#34;mando Security Group&#34;
+resource &#34;aws_security_group&#34; &#34;allow_http&#34; {
+  name        = &#34;allow_http&#34;
+  description = &#34;Allow HTTP inbound connections&#34;
   vpc_id      = aws_vpc.mando_vpc.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = &#34;-1&#34;
-    cidr_blocks = [&#34;200.199.198.197/32&#34;] # Replace with your public IP
+    from_port   = 80
+    to_port     = 80
+    protocol    = &#34;tcp&#34;
+    cidr_blocks = [&#34;0.0.0.0/0&#34;]
   }
 
   egress {
@@ -355,8 +366,9 @@ resource &#34;aws_security_group&#34; &#34;mando_sg&#34; {
     protocol    = &#34;-1&#34;
     cidr_blocks = [&#34;0.0.0.0/0&#34;]
   }
+
   tags = {
-    Name = &#34;mando-sg&#34;
+    Name = &#34;Allow HTTP Security Group&#34;
   }
 }
 
@@ -365,102 +377,185 @@ resource &#34;aws_key_pair&#34; &#34;mando_key&#34; {
   public_key = &#34;ssh-rsa AAAABACH3L0Lc2EAAAADAQAPNCDAgQDELie/jIMM8uno12enId2YTmTjK1OGZJtTJFoSPdXIwn79qpZYQ3WXL8PlI/8dqFyGXvQj5bGJbgEydjSYVHFXFhPr4sdKcjguWbu895EjK2DgalcYuC1+6jBbFxiodoObsc+84m81+BACH3L0LQU3cm/rNKufrh6d21jIe4sQVul+WzJ9E8aPk34rPmRPgjYvh1T/P2hdgiUyJmKqOtDYwpokDRad+3W+iwGfoBACH3L0LoCWJ2rYzz6j80FKoiHm9cnSXvErezT7aAdenVzY3nEE4ylnHWVUdmzXN7IbCSLsDV3sdn0+c5E6oDX2/k1VwtSQ8TrUblM7AdpuB4ADniUSYvLqjd/NBIiHODzV6qZxXqoltVTsrTpbCWf1A063PBACH3L0L/F3mxBihWRAKfD1iqqfMXmYvAPosOkJ3u1yuwy/eCi6Q3SmA5n0vBSVKmYdUB9yQdAimWcUqabRzXLz+g8BrUxCBHwOf4+IZAp2AseJeoDQs0aqMwybr/k= mando&#34; # replace with your key
 }
 
-resource &#34;aws_instance&#34; &#34;mando_node&#34; {
-  ami                    = data.aws_ami.server_ami.id
-  instance_type          = &#34;t2.micro&#34;
-  key_name               = aws_key_pair.mando_key.id
-  vpc_security_group_ids = [aws_security_group.mando_sg.id]
-  subnet_id              = aws_subnet.mando_public_subnet.id
-  user_data              = file(&#34;userdata.tpl&#34;)
+resource &#34;aws_launch_configuration&#34; &#34;web&#34; {
+  name_prefix = &#34;web-&#34;
 
-  root_block_device {
-    volume_size = 10
+  image_id      = data.aws_ami.server_ami.id
+  instance_type = &#34;t2.micro&#34;
+  key_name      = aws_key_pair.mando_key.id
+
+  security_groups             = [aws_security_group.allow_http.id]
+  associate_public_ip_address = true
+
+  user_data = file(&#34;userdata.tpl&#34;)
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource &#34;aws_security_group&#34; &#34;elb_http&#34; {
+  name        = &#34;elb_http&#34;
+  description = &#34;Allow HTTP traffic to instances through Elastic Load Balancer&#34;
+  vpc_id      = aws_vpc.mando_vpc.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = &#34;tcp&#34;
+    cidr_blocks = [&#34;0.0.0.0/0&#34;]
   }
 
-  provisioner &#34;local-exec&#34; {
-    command = templatefile(&#34;${var.host_os}-ssh-config.tpl&#34;, {
-      hostname     = self.public_ip,
-      user         = &#34;ubuntu&#34;,
-      identityfile = &#34;~/.ssh/id_rsa&#34;
-    })
-    interpreter = var.host_os == &#34;windows&#34; ? [&#34;powershell&#34;, &#34;-Command&#34;] : [&#34;bash&#34;, &#34;-c&#34;]
-
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = &#34;-1&#34;
+    cidr_blocks = [&#34;0.0.0.0/0&#34;]
   }
 
   tags = {
-    Name = &#34;mando-node&#34;
+    Name = &#34;Allow HTTP through ELB Security Group&#34;
   }
 }
-</code></pre><p>We&rsquo;ll not be using the default VPC or any other that was previously deployed, so we start by creating a VPC, a subnet and an Internet Gateway. We then have to create the route table, the default route and associate it with our VPC.</p>
-<p>After that, we create a security group and configure it to allow TCP access from our public IP. This of course can be adjusted according to specific needs, so I used a simple example that is not restrictive regarding what can be accessed, but very restrictive in the source IP. This prevents any access from outside, but might stop you from working with more people or from different places, and you&rsquo;ll have to adjust the SG whenever your public ip changes.</p>
-<p>Then we create a key pair, and here you can use an existing one or generate a specific for this case, and you can also point to a file instead of pasting the key on the code.</p>
-<p>And last, but not least important, we specify an EC2 instance. The instance type is one that falls into free tier, and the <strong>root_block_device</strong> block is used to change the default size to 10. This can also be changed accordingly.</p>
-<p><code>datasources.tf</code>:</p>
-<pre tabindex="0"><code>data &#34;aws_ami&#34; &#34;server_ami&#34; {
-  most_recent = true
-  owners      = [&#34;099720109477&#34;]
 
-  filter {
-    name   = &#34;name&#34;
-    values = [&#34;ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*&#34;]
+resource &#34;aws_elb&#34; &#34;web_elb&#34; {
+  name = &#34;web-elb&#34;
+  security_groups = [
+    aws_security_group.elb_http.id
+  ]
+  subnets = [
+    aws_subnet.mando_public_subnet_us_east_1a.id,
+    aws_subnet.mando_public_subnet_us_east_1b.id
+  ]
+
+  cross_zone_load_balancing = true
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    interval            = 30
+    target              = &#34;HTTP:80/&#34;
   }
+
+  listener {
+    lb_port           = 80
+    lb_protocol       = &#34;http&#34;
+    instance_port     = &#34;80&#34;
+    instance_protocol = &#34;http&#34;
+  }
+
 }
-</code></pre><p>We use a data block to determine the AMI ID, since it changes between regions. We also use a filter block with a <strong>*</strong> at the end of the name, so we always pick the latest version. This can be changed when you want to lock in a specific version, which would be a best practice in production environments. Since we&rsquo;re just testing, we might use the updated image with the latest security fixes.</p>
-<p><code>variables.tf</code>:</p>
-<pre tabindex="0"><code>variable &#34;host_os&#34; {
-  type = string
+
+resource &#34;aws_autoscaling_group&#34; &#34;web&#34; {
+  name = &#34;${aws_launch_configuration.web.name}-asg&#34;
+
+  min_size         = 1
+  desired_capacity = 2
+  max_size         = 4
+
+  health_check_type = &#34;ELB&#34;
+  load_balancers = [
+    aws_elb.web_elb.id
+  ]
+
+  launch_configuration = aws_launch_configuration.web.name
+
+  enabled_metrics = [
+    &#34;GroupMinSize&#34;,
+    &#34;GroupMaxSize&#34;,
+    &#34;GroupDesiredCapacity&#34;,
+    &#34;GroupInServiceInstances&#34;,
+    &#34;GroupTotalInstances&#34;
+  ]
+
+  metrics_granularity = &#34;1Minute&#34;
+
+  vpc_zone_identifier = [
+    aws_subnet.mando_public_subnet_us_east_1a.id,
+    aws_subnet.mando_public_subnet_us_east_1b.id
+  ]
+
+  # Required to redeploy without an outage.
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tag {
+    key                 = &#34;Name&#34;
+    value               = &#34;web&#34;
+    propagate_at_launch = true
+  }
+
 }
-</code></pre><p><code>terraform.tfvars</code>:</p>
-<pre tabindex="0"><code>host_os = &#34;linux&#34;
-</code></pre><p>A single variable is declared and are used just for informing which OS we use (Windows or Linux).</p>
-<p><code>outputs.tf</code>:</p>
-<pre tabindex="0"><code>output &#34;dev_ip&#34; {
-  value = aws_instance.mando_node.public_ip
+
+resource &#34;aws_autoscaling_policy&#34; &#34;web_policy_up&#34; {
+  name                   = &#34;web_policy_up&#34;
+  scaling_adjustment     = 1
+  adjustment_type        = &#34;ChangeInCapacity&#34;
+  cooldown               = 300
+  autoscaling_group_name = aws_autoscaling_group.web.name
 }
-</code></pre><p>The only output we have is the public IP address of the EC2 instance, which we&rsquo;ll need to access it.</p>
+
+resource &#34;aws_cloudwatch_metric_alarm&#34; &#34;web_cpu_alarm_up&#34; {
+  alarm_name          = &#34;web_cpu_alarm_up&#34;
+  comparison_operator = &#34;GreaterThanOrEqualToThreshold&#34;
+  evaluation_periods  = &#34;2&#34;
+  metric_name         = &#34;CPUUtilization&#34;
+  namespace           = &#34;AWS/EC2&#34;
+  period              = &#34;120&#34;
+  statistic           = &#34;Average&#34;
+  threshold           = &#34;60&#34;
+
+  dimensions = {
+    AutoScalingGroupName = aws_autoscaling_group.web.name
+  }
+
+  alarm_description = &#34;This metric monitor EC2 instance CPU utilization&#34;
+  alarm_actions     = [aws_autoscaling_policy.web_policy_up.arn]
+}
+
+resource &#34;aws_autoscaling_policy&#34; &#34;web_policy_down&#34; {
+  name                   = &#34;web_policy_down&#34;
+  scaling_adjustment     = -1
+  adjustment_type        = &#34;ChangeInCapacity&#34;
+  cooldown               = 300
+  autoscaling_group_name = aws_autoscaling_group.web.name
+}
+
+resource &#34;aws_cloudwatch_metric_alarm&#34; &#34;web_cpu_alarm_down&#34; {
+  alarm_name          = &#34;web_cpu_alarm_down&#34;
+  comparison_operator = &#34;LessThanOrEqualToThreshold&#34;
+  evaluation_periods  = &#34;2&#34;
+  metric_name         = &#34;CPUUtilization&#34;
+  namespace           = &#34;AWS/EC2&#34;
+  period              = &#34;120&#34;
+  statistic           = &#34;Average&#34;
+  threshold           = &#34;10&#34;
+
+  dimensions = {
+    AutoScalingGroupName = aws_autoscaling_group.web.name
+  }
+
+  alarm_description = &#34;This metric monitor EC2 instance CPU utilization&#34;
+  alarm_actions     = [aws_autoscaling_policy.web_policy_down.arn]
+}
+</code></pre><p><code>outputs.tf</code>:</p>
+<pre tabindex="0"><code>output &#34;elb_dns_name&#34; {
+  value = aws_elb.web_elb.dns_name
+}
+</code></pre><p>The only output we have is the DNS name of the ELB, which we&rsquo;ll need to access it.</p>
 <p><code>userdata.tpl</code>:</p>
 <pre tabindex="0"><code>#!/bin/bash
 
 sudo apt -y update &amp;&amp;
 sudo apt -y install \
-    apt-transport-https \
-    software-properties-common  \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release &amp;&amp;
+    nginx &amp;&amp;
 
-sudo mkdir -p /etc/apt/keyrings &amp;&amp;
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &amp;&amp;
-
-echo \
-  &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable&#34; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null &amp;&amp;
-
-sudo apt -y update &amp;&amp;
-sudo apt -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin &amp;&amp;
-sudo groupadd docker &amp;&amp;
-newgrp docker &amp;&amp;
-sudo usermod -aG docker ubuntu
-</code></pre><p>This userdata will install docker on the EC2 instance.</p>
-<p><code>windows-ssh-config.tpl</code>:</p>
-<pre tabindex="0"><code>add-content -path c:/users/fabio/.ssh/config -value @&#39;
-
-Host ${hostname}
-    HostName ${hostname}
-    User ${user}
-    IdentityFile ${identityfile}
-&#39;@
-</code></pre><p><code>linux-ssh-config.tpl</code>:</p>
-<pre tabindex="0"><code>cat &lt;&lt; EOF &gt;&gt; ~/.ssh/config
-
-Host ${hostname}
-    HostName ${hostname}
-    User ${user}
-    IdentityFile ${identityfile}
-EOF
-</code></pre><p>These two template files - <strong>windows-ssh-config.tpl</strong> and <strong>linux-ssh-config.tpl</strong> - are used by the local-exec provisioner to add the host information in our ssh configuration. This will make it easier to access it from VS Code.</p>
-<p>After you apply this code, you can then proceed to configure Remote SSH on VS Code and use it as a remote dev node. I&rsquo;ll not cover here how to do this since the focus is the Terraform itself, and because it is easily done.</p>
+echo &#34;$(curl http://169.254.169.254/latest/meta-data/local-ipv4)&#34; &gt; /usr/share/nginx/html/index.html
+sudo systemctl enable nginx
+sudo systemctl start nginx
+</code></pre><p>This userdata will install nginx on the EC2 instance.</p>
 
     </div>
     <footer>
@@ -518,10 +613,8 @@ EOF
   
   <div class="pagination">
     
-      <a href="/blog/terraform-2/" class="button left"><span>Managing AWS Autoscaling Groups and Load Balancers using Terraform</span></a>
     
-    
-      <a href="/blog/jenkins-1/" class="button right"><span>Getting started with Jenkins Declarative Pipelines</span></a>
+      <a href="/blog/terraform-1/" class="button right"><span>Basic Dev Environment on AWS using Terraform</span></a>
     
   </div>
 
