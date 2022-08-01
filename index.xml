@@ -6,7 +6,18 @@
     <description>Recent content on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Managing AWS Autoscaling Groups and Load Balancers using Terraform</title>
+      <link>https://www.fabiolopes.tk/blog/terraform-2/</link>
+      <pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/terraform-2/</guid>
+      <description>It&amp;rsquo;s good to have a basic terraform code that deploys a basic environment on AWS whenever you need to run some quick tests on a free tier account.
+We&amp;rsquo;ll have the following resources deployed with this procedure:
+1 VPC 2 Subnets 1 Internet Gateway 1 Route Table (with a default route and an association) 2 Security groups 1 Key Pair 1 EC2 Instance 1 Launch Configuration 1 ELB 1 ASG 2 Autoscaling Policies 2 Cloudwatch Metric Alarms It&amp;rsquo;s a very simple and you can build on top of it according to your needs, like the previou infrastructure.</description>
+    </item>
+    
     <item>
       <title>Basic Dev Environment on AWS using Terraform</title>
       <link>https://www.fabiolopes.tk/blog/terraform-1/</link>
