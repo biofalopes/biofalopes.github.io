@@ -6,15 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=2">
-  <link rel="manifest" href="/favicon/site.webmanifest?v=2">
-  
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-
-<meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
+<meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="Obtaining a list of Ceph features from the hexadecimal value">
   <meta property="og:description" content="Simple python script that gets a hexadecimal value from the command &#39;ceph features&#39; and outputs a list of the actual features.">
   <meta property="description" content="Simple python script that gets a hexadecimal value from the command &#39;ceph features&#39; and outputs a list of the actual features.">
@@ -26,7 +18,7 @@
       <meta property="og:image:alt" content="Cephalopod">
     
   
-  <link rel="stylesheet" href="/css/bundle.min.6ad9eb85bff384c75937a02036b01425a2ca63f19a96535b8ba5b181db62a4b3.css" integrity="sha256-atnrhb/zhMdZN6AgNrAUJaLKY/GallNbi6WxgdtipLM="><link rel="stylesheet" href="/css/add-on.css">
+  <link rel="stylesheet" href="/css/bundle.min.d9e04ae08c9b3049b766dbd4aeab7d862c5ea1d13679b621490e0f5df5507497.css" integrity="sha256-2eBK4IybMEm3ZtvUrqt9hixeodE2ebYhSQ4PXfVQdJc="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -249,99 +241,99 @@
 <!--more---> 
 <p>This can be found in <code>src/include/ceph_features.h</code>, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .</p>
 <p>That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility. It&rsquo;s always ideal to have every new feature availabe whenever possible, but that is not always the case when you have a medium to large deployment, multiple clients with different workloads and scenarios - in other words, a Real World situation.</p>
-<pre tabindex="0"><code>import sys
+<pre><code>import sys
 
 feature_list = [
-    &#34;( 0, 1, UID)&#34;,
-    &#34;( 1, 1, NOSRCADDR) // 2.6.35 req&#34;,
-    &#34;( 2, 3, SERVER_NAUTILUS)&#34;,
-    &#34;( 3, 1, FLOCK) // 2.6.36&#34;,
-    &#34;( 4, 1, SUBSCRIBE2) // 4.6 req&#34;,
-    &#34;( 5, 1, MONNAMES)&#34;,
-    &#34;( 6, 1, RECONNECT_SEQ) // 3.10 req&#34;,
-    &#34;( 7, 1, DIRLAYOUTHASH) // 2.6.38&#34;,
-    &#34;( 8, 1, OBJECTLOCATOR)&#34;,
-    &#34;( 9, 1, PGID64) // 3.9 req&#34;,
-    &#34;(10, 1, INCSUBOSDMAP)&#34;,
-    &#34;(11, 1, PGPOOL3) // 3.9 req&#34;,
-    &#34;(12, 1, OSDREPLYMUX)&#34;,
-    &#34;(13, 1, OSDENC) // 3.9 req&#34;,
-    &#34;(14, 2, SERVER_KRAKEN)&#34;,
-    &#34;(15, 1, MONENC)&#34;,
-    &#34;(16, 3, SERVER_OCTOPUS) | (16, 3, OSD_REPOP_MLCOD)&#34;,
-    &#34;(17, 3, OS_PERF_STAT_NS)&#34;,
-    &#34;(18, 1, CRUSH_TUNABLES) // 3.6&#34;,
-    &#34;(19, 2, OSD_PGLOG_HARDLIMIT)&#34;,
-    &#34;(20, 3, SERVER_PACIFIC)&#34;,
-    &#34;(21, 2, SERVER_LUMINOUS) // 4.13 | (21, 2, RESEND_ON_SPLIT) | (21, 2, RADOS_BACKOFF) | (21, 2, OSDMAP_PG_UPMAP) | (21, 2, CRUSH_CHOOSE_ARGS)&#34;,
-    &#34;(22, 2, OSD_FIXED_COLLECTION_LIST)&#34;,
-    &#34;(23, 1, MSG_AUTH) // 3.19 req (unless nocephx_require_signatures)&#34;,
-    &#34;(24, 2, RECOVERY_RESERVATION_2)&#34;,
-    &#34;(25, 1, CRUSH_TUNABLES2) // 3.9&#34;,
-    &#34;(26, 1, CREATEPOOLID)&#34;,
-    &#34;(27, 1, REPLY_CREATE_INODE) // 3.9&#34;,
-    &#34;(28, 2, SERVER_MIMIC)&#34;,
-    &#34;(29, 1, MDSENC) // 4.7&#34;,
-    &#34;(30, 1, OSDHASHPSPOOL) // 3.9&#34;,
-    &#34;DEPRECATED(31, 1, MON_SINGLE_PAXOS, NAUTILUS)&#34;,
-    &#34;(32, 3, STRETCH_MODE)&#34;,
-    &#34;RETIRED(33, 1, MON_SCRUB, JEWEL, LUMINOUS)&#34;,
-    &#34;RETIRED(34, 1, OSD_PACKED_RECOVERY, JEWEL, LUMINOUS)&#34;,
-    &#34;(35, 1, OSD_CACHEPOOL) // 3.14&#34;,
-    &#34;(36, 1, CRUSH_V2) // 3.14&#34;,
-    &#34;(37, 1, EXPORT_PEER) // 3.14&#34;,
-    &#34;RETIRED(38, 1, OSD_ERASURE_CODES, MIMIC, OCTOPUS)&#34;,
-    &#34;(39, 1, OSDMAP_ENC) // 3.15&#34;,
-    &#34;(40, 1, MDS_INLINE_DATA) // 3.19&#34;,
-    &#34;(41, 1, CRUSH_TUNABLES3) // 3.15 | (41, 1, OSD_PRIMARY_AFFINITY)&#34;,
-    &#34;(42, 1, MSGR_KEEPALIVE2) // 4.3 (for consistency)&#34;,
-    &#34;(43, 1, OSD_POOLRESEND) // 4.13&#34;,
-    &#34;RETIRED(44, 1, ERASURE_CODE_PLUGINS_V2, MIMIC, OCTOPUS)&#34;,
-    &#34;RETIRED(45, 1, OSD_SET_ALLOC_HINT, JEWEL, LUMINOUS)&#34;,
-    &#34;(46, 1, OSD_FADVISE_FLAGS)&#34;,
-    &#34;(47, 1, MDS_QUOTA) // 4.17&#34;,
-    &#34;(48, 1, CRUSH_V4) // 4.1&#34;,
-    &#34;RETIRED(49, 1, OSD_MIN_SIZE_RECOVERY, JEWEL, LUMINOUS)&#34;,
-    &#34;RETIRED(50, 1, MON_METADATA, MIMIC, OCTOPUS)&#34;,
-    &#34;RETIRED(51, 1, OSD_BITWISE_HOBJ_SORT, MIMIC, OCTOPUS)&#34;,
-    &#34;RETIRED(52, 1, OSD_PROXY_WRITE_FEATURES, MIMIC, OCTOPUS)&#34;,
-    &#34;RETIRED(53, 1, ERASURE_CODE_PLUGINS_V3, MIMIC, OCTOPUS)&#34;,
-    &#34;RETIRED(54, 1, OSD_HITSET_GMT, MIMIC, OCTOPUS)&#34;,
-    &#34;RETIRED(55, 1, HAMMER_0_94_4, MIMIC, OCTOPUS)&#34;,
-    &#34;(56, 1, NEW_OSDOP_ENCODING) // 4.13 (for pg_pool_t &gt;= v25)&#34;,
-    &#34;(57, 1, MON_STATEFUL_SUB) // 4.13 | (57, 1, SERVER_JEWEL)&#34;,
-    &#34;(58, 1, CRUSH_TUNABLES5) // 4.5 | (58, 1, NEW_OSDOPREPLY_ENCODING) | (58, 1, FS_FILE_LAYOUT_V2)&#34;,
-    &#34;(59, 1, FS_BTIME) | (59, 1, FS_CHANGE_ATTR) | (59, 1, MSG_ADDR2)&#34;,
-    &#34;(60, 1, OSD_RECOVERY_DELETES) // *do not share this bit*&#34;,
-    &#34;(61, 1, CEPHX_V2) // 4.19, *do not share this bit*&#34;,
-    &#34;(62, 1, RESERVED) // do not use; used as a sentinel&#34;,
-    &#34;DEPRECATED(63, 1, RESERVED_BROKEN, LUMINOUS) // client-facing&#34;
+    &quot;( 0, 1, UID)&quot;,
+    &quot;( 1, 1, NOSRCADDR) // 2.6.35 req&quot;,
+    &quot;( 2, 3, SERVER_NAUTILUS)&quot;,
+    &quot;( 3, 1, FLOCK) // 2.6.36&quot;,
+    &quot;( 4, 1, SUBSCRIBE2) // 4.6 req&quot;,
+    &quot;( 5, 1, MONNAMES)&quot;,
+    &quot;( 6, 1, RECONNECT_SEQ) // 3.10 req&quot;,
+    &quot;( 7, 1, DIRLAYOUTHASH) // 2.6.38&quot;,
+    &quot;( 8, 1, OBJECTLOCATOR)&quot;,
+    &quot;( 9, 1, PGID64) // 3.9 req&quot;,
+    &quot;(10, 1, INCSUBOSDMAP)&quot;,
+    &quot;(11, 1, PGPOOL3) // 3.9 req&quot;,
+    &quot;(12, 1, OSDREPLYMUX)&quot;,
+    &quot;(13, 1, OSDENC) // 3.9 req&quot;,
+    &quot;(14, 2, SERVER_KRAKEN)&quot;,
+    &quot;(15, 1, MONENC)&quot;,
+    &quot;(16, 3, SERVER_OCTOPUS) | (16, 3, OSD_REPOP_MLCOD)&quot;,
+    &quot;(17, 3, OS_PERF_STAT_NS)&quot;,
+    &quot;(18, 1, CRUSH_TUNABLES) // 3.6&quot;,
+    &quot;(19, 2, OSD_PGLOG_HARDLIMIT)&quot;,
+    &quot;(20, 3, SERVER_PACIFIC)&quot;,
+    &quot;(21, 2, SERVER_LUMINOUS) // 4.13 | (21, 2, RESEND_ON_SPLIT) | (21, 2, RADOS_BACKOFF) | (21, 2, OSDMAP_PG_UPMAP) | (21, 2, CRUSH_CHOOSE_ARGS)&quot;,
+    &quot;(22, 2, OSD_FIXED_COLLECTION_LIST)&quot;,
+    &quot;(23, 1, MSG_AUTH) // 3.19 req (unless nocephx_require_signatures)&quot;,
+    &quot;(24, 2, RECOVERY_RESERVATION_2)&quot;,
+    &quot;(25, 1, CRUSH_TUNABLES2) // 3.9&quot;,
+    &quot;(26, 1, CREATEPOOLID)&quot;,
+    &quot;(27, 1, REPLY_CREATE_INODE) // 3.9&quot;,
+    &quot;(28, 2, SERVER_MIMIC)&quot;,
+    &quot;(29, 1, MDSENC) // 4.7&quot;,
+    &quot;(30, 1, OSDHASHPSPOOL) // 3.9&quot;,
+    &quot;DEPRECATED(31, 1, MON_SINGLE_PAXOS, NAUTILUS)&quot;,
+    &quot;(32, 3, STRETCH_MODE)&quot;,
+    &quot;RETIRED(33, 1, MON_SCRUB, JEWEL, LUMINOUS)&quot;,
+    &quot;RETIRED(34, 1, OSD_PACKED_RECOVERY, JEWEL, LUMINOUS)&quot;,
+    &quot;(35, 1, OSD_CACHEPOOL) // 3.14&quot;,
+    &quot;(36, 1, CRUSH_V2) // 3.14&quot;,
+    &quot;(37, 1, EXPORT_PEER) // 3.14&quot;,
+    &quot;RETIRED(38, 1, OSD_ERASURE_CODES, MIMIC, OCTOPUS)&quot;,
+    &quot;(39, 1, OSDMAP_ENC) // 3.15&quot;,
+    &quot;(40, 1, MDS_INLINE_DATA) // 3.19&quot;,
+    &quot;(41, 1, CRUSH_TUNABLES3) // 3.15 | (41, 1, OSD_PRIMARY_AFFINITY)&quot;,
+    &quot;(42, 1, MSGR_KEEPALIVE2) // 4.3 (for consistency)&quot;,
+    &quot;(43, 1, OSD_POOLRESEND) // 4.13&quot;,
+    &quot;RETIRED(44, 1, ERASURE_CODE_PLUGINS_V2, MIMIC, OCTOPUS)&quot;,
+    &quot;RETIRED(45, 1, OSD_SET_ALLOC_HINT, JEWEL, LUMINOUS)&quot;,
+    &quot;(46, 1, OSD_FADVISE_FLAGS)&quot;,
+    &quot;(47, 1, MDS_QUOTA) // 4.17&quot;,
+    &quot;(48, 1, CRUSH_V4) // 4.1&quot;,
+    &quot;RETIRED(49, 1, OSD_MIN_SIZE_RECOVERY, JEWEL, LUMINOUS)&quot;,
+    &quot;RETIRED(50, 1, MON_METADATA, MIMIC, OCTOPUS)&quot;,
+    &quot;RETIRED(51, 1, OSD_BITWISE_HOBJ_SORT, MIMIC, OCTOPUS)&quot;,
+    &quot;RETIRED(52, 1, OSD_PROXY_WRITE_FEATURES, MIMIC, OCTOPUS)&quot;,
+    &quot;RETIRED(53, 1, ERASURE_CODE_PLUGINS_V3, MIMIC, OCTOPUS)&quot;,
+    &quot;RETIRED(54, 1, OSD_HITSET_GMT, MIMIC, OCTOPUS)&quot;,
+    &quot;RETIRED(55, 1, HAMMER_0_94_4, MIMIC, OCTOPUS)&quot;,
+    &quot;(56, 1, NEW_OSDOP_ENCODING) // 4.13 (for pg_pool_t &gt;= v25)&quot;,
+    &quot;(57, 1, MON_STATEFUL_SUB) // 4.13 | (57, 1, SERVER_JEWEL)&quot;,
+    &quot;(58, 1, CRUSH_TUNABLES5) // 4.5 | (58, 1, NEW_OSDOPREPLY_ENCODING) | (58, 1, FS_FILE_LAYOUT_V2)&quot;,
+    &quot;(59, 1, FS_BTIME) | (59, 1, FS_CHANGE_ATTR) | (59, 1, MSG_ADDR2)&quot;,
+    &quot;(60, 1, OSD_RECOVERY_DELETES) // *do not share this bit*&quot;,
+    &quot;(61, 1, CEPHX_V2) // 4.19, *do not share this bit*&quot;,
+    &quot;(62, 1, RESERVED) // do not use; used as a sentinel&quot;,
+    &quot;DEPRECATED(63, 1, RESERVED_BROKEN, LUMINOUS) // client-facing&quot;
 ]
 
 def settolist(featureset):
-    &#39;&#39;&#39;Converts a featureset hex to a feature list.
+    '''Converts a featureset hex to a feature list.
     
     Parameters:
     int:featureset
 
     Returns:
     list:featureset_list
-    &#39;&#39;&#39;
+    '''
     featureset_hex = featureset
     featureset_list = []
     featureset_bin = bin(int(featureset_hex, 16))[2:].zfill(64)
     count = 0
     for bit in (featureset_bin):
-        if bit == &#39;1&#39;:
+        if bit == '1':
             featureset_list.append(feature_list[count])
         count += 1
     return featureset_list
 
 output = settolist(str(sys.argv[1]))
-print(&#34;\n&#34;.join(output))
+print(&quot;\n&quot;.join(output))
 </code></pre><p>A test run using an entry from my test cluster:</p>
 <p><code>MonSession(client.95280473 [IP]:0/110518927 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&quot;</code></p>
-<pre tabindex="0"><code>python features.py 0x27018fb86aa42ada
+<pre><code>python features.py 0x27018fb86aa42ada
 
 ( 2, 3, SERVER_NAUTILUS)
 ( 5, 1, MONNAMES)
@@ -407,7 +399,7 @@ RETIRED(54, 1, OSD_HITSET_GMT, MIMIC, OCTOPUS)
   <article class="post">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    window.disqus_config = function () {
+    var disqus_config = function () {
     
     
     
@@ -447,52 +439,52 @@ RETIRED(54, 1, OSD_HITSET_GMT, MIMIC, OCTOPUS)
       </header>
       
       <article class="mini-post">
-          <a href="/blog/terraform-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg" alt="terraform">
-  </a>
-        <header>
-          <h2><a href="/blog/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></h2>
-          <time class="published" datetime="2022-08-01 00:00:00 &#43;0000 UTC">August 1, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
-  </a>
-        <header>
-          <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
-          <time class="published" datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
-  </a>
-        <header>
-          <h2><a href="/blog/jenkins-1/">Getting started with Jenkins Declarative Pipelines</a></h2>
-          <time class="published" datetime="2021-10-18 00:00:00 &#43;0000 UTC">October 18, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
-          <time class="published" datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
           <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
   </a>
         <header>
           <h2><a href="/blog/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></h2>
           <time class="published" datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
+          <time class="published" datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
+          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features-2/">Obtaining a list of Ceph features from the hexadecimal value</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
         </header>
       </article>
       
@@ -515,16 +507,10 @@ RETIRED(54, 1, OSD_HITSET_GMT, MIMIC, OCTOPUS)
           
           
           <li>
-              <a href="/categories/ceph/">ceph<span class="count">4</span></a>
+              <a href="/categories/ceph/">ceph<span class="count">3</span></a>
           
           <li>
-              <a href="/categories/python/">python<span class="count">4</span></a>
-          
-          <li>
-              <a href="/categories/terraform/">terraform<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/jenkins/">jenkins<span class="count">1</span></a>
+              <a href="/categories/python/">python<span class="count">3</span></a>
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
@@ -598,16 +584,16 @@ RETIRED(54, 1, OSD_HITSET_GMT, MIMIC, OCTOPUS)
       </ul>
   
   <p class="copyright">
-    © 2022 Fabio M. Lopes
+    © 2021 Fabio M. Lopes
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.101.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.68.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.6ab4a41619da5555e3319311deec177d4fcfd0a33f412338cfce5d7810e4f58b.js" integrity="sha256-arSkFhnaVVXjMZMR3uwXfU/P0KM/QSM4z85deBDk9Ys="></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.5955090a3253deadcd66071270aa2274dabe15ffc97094cec252d87b6f3f00bf.js" integrity="sha256-WVUJCjJT3q3NZgcScKoidNq&#43;Ff/JcJTOwlLYe28/AL8="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>

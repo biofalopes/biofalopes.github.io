@@ -6,15 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=2">
-  <link rel="manifest" href="/favicon/site.webmanifest?v=2">
-  
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-
-<meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
+<meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="Web scrapper using Python">
   <meta property="og:description" content="Scrapping FIIs using Python">
   <meta property="description" content="Scrapping FIIs using Python">
@@ -26,7 +18,7 @@
       <meta property="og:image:alt" content="Python">
     
   
-  <link rel="stylesheet" href="/css/bundle.min.6ad9eb85bff384c75937a02036b01425a2ca63f19a96535b8ba5b181db62a4b3.css" integrity="sha256-atnrhb/zhMdZN6AgNrAUJaLKY/GallNbi6WxgdtipLM="><link rel="stylesheet" href="/css/add-on.css">
+  <link rel="stylesheet" href="/css/bundle.min.d9e04ae08c9b3049b766dbd4aeab7d862c5ea1d13679b621490e0f5df5507497.css" integrity="sha256-2eBK4IybMEm3ZtvUrqt9hixeodE2ebYhSQ4PXfVQdJc="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -249,25 +241,25 @@
 <!--more--->  My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science.
 <p>My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</p>
 <p>I based my code on Renata Magner&rsquo;s (<a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)</a>. I still have to implement error handling and many other improvements on the code, that&rsquo;s just the first version. Without further ado, that&rsquo;s what i came up with:</p>
-<pre tabindex="0"><code>from bs4 import BeautifulSoup
+<pre><code>from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
-url = &#39;https://www.fundsexplorer.com.br/ranking&#39;
+url = 'https://www.fundsexplorer.com.br/ranking'
 html = requests.get(url).content
-soup = BeautifulSoup(html, &#39;html.parser&#39;)
+soup = BeautifulSoup(html, 'html.parser')
 
 # stores scraped data on a list
-results = soup.find_all(&#34;td&#34;)
+results = soup.find_all(&quot;td&quot;)
 
-# counts how many entries we got. each entry has 26 &#39;td&#39; lines each.
+# counts how many entries we got. each entry has 26 'td' lines each.
 fii_count=int(len(results)/26)
 
 # initialize the variables
 fii_info={}
 fii_list=[]
 
-&#39;&#39;&#39;
+'''
 index - field
 [0] - COD FUNDO
 [1] - SETOR
@@ -288,23 +280,23 @@ index - field
 [16] - patrimonio_liq
 [17] - vpa
 [18] - p_vpa
-&#39;&#39;&#39;
+'''
 
 # runs through collected data and extracts the desided info
 for fii in range(fii_count):
-    fii_info[&#39;codigo_fundo&#39;]=results[fii*26].get_text()
-    fii_info[&#39;preco_atual&#39;]=results[fii*26+2].get_text()
-    fii_info[&#39;setor&#39;]=results[fii*26+1].get_text()
-    fii_info[&#39;p/vpa&#39;]= results[fii*26+18].get_text()
-    fii_info[&#39;dividend_yield&#39;]=results[fii*26+5].get_text()
-    fii_info[&#39;dividendo&#39;]=results[fii*26+4].get_text()
-    fii_info[&#39;dy_12m_media&#39;]=results[fii*26+11].get_text()
+    fii_info['codigo_fundo']=results[fii*26].get_text()
+    fii_info['preco_atual']=results[fii*26+2].get_text()
+    fii_info['setor']=results[fii*26+1].get_text()
+    fii_info['p/vpa']= results[fii*26+18].get_text()
+    fii_info['dividend_yield']=results[fii*26+5].get_text()
+    fii_info['dividendo']=results[fii*26+4].get_text()
+    fii_info['dy_12m_media']=results[fii*26+11].get_text()
     fii_list.append(fii_info)
     fii_info={}
 
 # generates the CSV output
 fii_table = pd.DataFrame(data=fii_list)
-fii_table.to_csv(&#39;fii_table.csv&#39;)
+fii_table.to_csv('fii_table.csv')
 </code></pre><p><strong>References:</strong></p>
 <p><a href="https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb">https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb</a></p>
 <p><a href="https://realpython.com/python-csv/">https://realpython.com/python-csv/</a></p>
@@ -340,7 +332,7 @@ fii_table.to_csv(&#39;fii_table.csv&#39;)
   <article class="post">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    window.disqus_config = function () {
+    var disqus_config = function () {
     
     
     
@@ -382,52 +374,52 @@ fii_table.to_csv(&#39;fii_table.csv&#39;)
       </header>
       
       <article class="mini-post">
-          <a href="/blog/terraform-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg" alt="terraform">
-  </a>
-        <header>
-          <h2><a href="/blog/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></h2>
-          <time class="published" datetime="2022-08-01 00:00:00 &#43;0000 UTC">August 1, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
-  </a>
-        <header>
-          <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
-          <time class="published" datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
-  </a>
-        <header>
-          <h2><a href="/blog/jenkins-1/">Getting started with Jenkins Declarative Pipelines</a></h2>
-          <time class="published" datetime="2021-10-18 00:00:00 &#43;0000 UTC">October 18, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
-          <time class="published" datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
           <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
   </a>
         <header>
           <h2><a href="/blog/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></h2>
           <time class="published" datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
+          <time class="published" datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
+          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/ceph-features-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
+  </a>
+        <header>
+          <h2><a href="/blog/ceph-features-2/">Obtaining a list of Ceph features from the hexadecimal value</a></h2>
+          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
         </header>
       </article>
       
@@ -450,16 +442,10 @@ fii_table.to_csv(&#39;fii_table.csv&#39;)
           
           
           <li>
-              <a href="/categories/ceph/">ceph<span class="count">4</span></a>
+              <a href="/categories/ceph/">ceph<span class="count">3</span></a>
           
           <li>
-              <a href="/categories/python/">python<span class="count">4</span></a>
-          
-          <li>
-              <a href="/categories/terraform/">terraform<span class="count">2</span></a>
-          
-          <li>
-              <a href="/categories/jenkins/">jenkins<span class="count">1</span></a>
+              <a href="/categories/python/">python<span class="count">3</span></a>
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
@@ -533,16 +519,16 @@ fii_table.to_csv(&#39;fii_table.csv&#39;)
       </ul>
   
   <p class="copyright">
-    © 2022 Fabio M. Lopes
+    © 2021 Fabio M. Lopes
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.101.0' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.68.3' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.6ab4a41619da5555e3319311deec177d4fcfd0a33f412338cfce5d7810e4f58b.js" integrity="sha256-arSkFhnaVVXjMZMR3uwXfU/P0KM/QSM4z85deBDk9Ys="></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.5955090a3253deadcd66071270aa2274dabe15ffc97094cec252d87b6f3f00bf.js" integrity="sha256-WVUJCjJT3q3NZgcScKoidNq&#43;Ff/JcJTOwlLYe28/AL8="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>
