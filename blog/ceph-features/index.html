@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=2">
+  <link rel="manifest" href="/favicon/site.webmanifest?v=2">
+  
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+<meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="Ceph features and its relation to the client kernel version">
   <meta property="og:description" content="How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective">
   <meta property="description" content="How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective">
@@ -18,7 +26,7 @@
       <meta property="og:image:alt" content="Ceph Nautilus">
     
   
-  <link rel="stylesheet" href="/css/bundle.min.d9e04ae08c9b3049b766dbd4aeab7d862c5ea1d13679b621490e0f5df5507497.css" integrity="sha256-2eBK4IybMEm3ZtvUrqt9hixeodE2ebYhSQ4PXfVQdJc="><link rel="stylesheet" href="/css/add-on.css">
+  <link rel="stylesheet" href="/css/bundle.min.6ad9eb85bff384c75937a02036b01425a2ca63f19a96535b8ba5b181db62a4b3.css" integrity="sha256-atnrhb/zhMdZN6AgNrAUJaLKY/GallNbi6WxgdtipLM="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -240,70 +248,70 @@
       <p>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.</p>
 <!--more--->  
 <p>I started checking the documentation as always, but all i found was a command called <code>ceph features</code>, which gives a summarized output:</p>
-<pre><code>[root@mon-1 ~]# ceph features
+<pre tabindex="0"><code>[root@mon-1 ~]# ceph features
 {
-    &quot;mon&quot;: {
-        &quot;group&quot;: {
-            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
-            &quot;release&quot;: &quot;luminous&quot;,
-            &quot;num&quot;: 3
+    &#34;mon&#34;: {
+        &#34;group&#34;: {
+            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
+            &#34;release&#34;: &#34;luminous&#34;,
+            &#34;num&#34;: 3
         }
     },
-    &quot;mds&quot;: {
-        &quot;group&quot;: {
-            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
-            &quot;release&quot;: &quot;luminous&quot;,
-            &quot;num&quot;: 3
+    &#34;mds&#34;: {
+        &#34;group&#34;: {
+            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
+            &#34;release&#34;: &#34;luminous&#34;,
+            &#34;num&#34;: 3
         }
     },
-    &quot;osd&quot;: {
-        &quot;group&quot;: {
-            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
-            &quot;release&quot;: &quot;luminous&quot;,
-            &quot;num&quot;: 192
+    &#34;osd&#34;: {
+        &#34;group&#34;: {
+            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
+            &#34;release&#34;: &#34;luminous&#34;,
+            &#34;num&#34;: 192
         }
     },
-    &quot;client&quot;: {
-        &quot;group&quot;: {
-            &quot;features&quot;: &quot;0x27018fb86aa42ada&quot;,
-            &quot;release&quot;: &quot;jewel&quot;,
-            &quot;num&quot;: 422
+    &#34;client&#34;: {
+        &#34;group&#34;: {
+            &#34;features&#34;: &#34;0x27018fb86aa42ada&#34;,
+            &#34;release&#34;: &#34;jewel&#34;,
+            &#34;num&#34;: 422
         },
-        &quot;group&quot;: {
-            &quot;features&quot;: &quot;0x2f018fb86aa42ada&quot;,
-            &quot;release&quot;: &quot;luminous&quot;,
-            &quot;num&quot;: 95
+        &#34;group&#34;: {
+            &#34;features&#34;: &#34;0x2f018fb86aa42ada&#34;,
+            &#34;release&#34;: &#34;luminous&#34;,
+            &#34;num&#34;: 95
         },
-        &quot;group&quot;: {
-            &quot;features&quot;: &quot;0x3ffddff8eeacfffb&quot;,
-            &quot;release&quot;: &quot;luminous&quot;,
-            &quot;num&quot;: 18
+        &#34;group&#34;: {
+            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
+            &#34;release&#34;: &#34;luminous&#34;,
+            &#34;num&#34;: 18
         }
     }
 }
 </code></pre><p>So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &ldquo;born&rdquo; in jewel, I thought that it might be the case that many clients didn&rsquo;t get any upgrades since.</p>
 <p>Another way to see who&rsquo;s connected to the cluster is the command <code>ceph tell mds.\</code>hostname` client ls`, but it shows only cephfs clients, which solves only a part of the problem. At least we can see the client&rsquo;s IP address (adresses and names omitted with [&hellip;]):</p>
-<pre><code>&quot;inst&quot;: &quot;client.1400410 v1:[...]]:0/1769731892&quot;,
-        &quot;completed_requests&quot;: [],
-        &quot;prealloc_inos&quot;: [],
-        &quot;used_inos&quot;: [],
-        &quot;client_metadata&quot;: {
-            &quot;features&quot;: &quot;0x00000000000001ff&quot;,
-            &quot;entity_id&quot;: [...],
-            &quot;hostname&quot;: [...],
-            &quot;kernel_version&quot;: &quot;4.19.[...]&quot;,
-            &quot;root&quot;: [...]
+<pre tabindex="0"><code>&#34;inst&#34;: &#34;client.1400410 v1:[...]]:0/1769731892&#34;,
+        &#34;completed_requests&#34;: [],
+        &#34;prealloc_inos&#34;: [],
+        &#34;used_inos&#34;: [],
+        &#34;client_metadata&#34;: {
+            &#34;features&#34;: &#34;0x00000000000001ff&#34;,
+            &#34;entity_id&#34;: [...],
+            &#34;hostname&#34;: [...],
+            &#34;kernel_version&#34;: &#34;4.19.[...]&#34;,
+            &#34;root&#34;: [...]
         }
 </code></pre><p><strong>Short note</strong>: there&rsquo;s no documentation explaining those codes and its respective features, so I&rsquo;m going to look at the source code and try to come up with a table. I&rsquo;ll post it as soon as I manage to.</p>
 <p>Searching further i came across the command <code>ceph daemon mon.hostname sessions</code>:</p>
-<pre><code>[root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep jewel
-    &quot;MonSession(client.354037 v1:[...]]:0/3173650400 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.394132 v1:[...]:0/295867623 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.785407 v1:[...]:0/507474248 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.367883 v1:[...]:0/3274665177 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.812187 v1:[...]:0/733157529 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.1390811 v1:[...]:0/1470215921 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.1400452 v1:[...]:0/3851374868 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
+<pre tabindex="0"><code>[root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep jewel
+    &#34;MonSession(client.354037 v1:[...]]:0/3173650400 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.394132 v1:[...]:0/295867623 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.785407 v1:[...]:0/507474248 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.367883 v1:[...]:0/3274665177 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.812187 v1:[...]:0/733157529 is open allow profile rbd, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.1390811 v1:[...]:0/1470215921 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.1400452 v1:[...]:0/3851374868 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
 </code></pre><p>Now i started to see some light at the end, since that command gave me the ip address and the version for each client connected. I knew that we didn&rsquo;t have any clients using ceph-fuse, so it was safe to assume that everyone was using the kernel module to mount either RBD or cephfs. That cleared some confusion I had at the beginning between the <code>ceph-common</code> package version and the kernel version. It is not required to have that package installed in order to use the kernel module, so i then pointed my efforts at checking the clients&rsquo; kernel versions.</p>
 <p>The documentation also recommended some debugging at mon:</p>
 <blockquote>
@@ -311,7 +319,7 @@
 If the debugging level for Monitors is set to 10 (debug mon = 10), addresses and features of connecting and disconnecting clients are logged to log file on a local file system.</p>
 </blockquote>
 <p>So i tried that and here&rsquo;s what we get with <code>debug mon = 10</code>:</p>
-<pre><code>2020-11-10 08:55:59.084 7f31c9015700  0 --1- [v2:[...]:3300/0,v1:[...]:6789/0] &gt;&gt;  conn(0x561a94aed180 0x561a94ba5000 :6789 s=ACCE
+<pre tabindex="0"><code>2020-11-10 08:55:59.084 7f31c9015700  0 --1- [v2:[...]:3300/0,v1:[...]:6789/0] &gt;&gt;  conn(0x561a94aed180 0x561a94ba5000 :6789 s=ACCE
 PTING pgs=0 cs=0 l=0).handle_client_banner accept peer addr is really - (socket is v1:[...]:40764/0)
 2020-11-10 08:55:59.085 7f31c500d700 10 mon.ceph-1@0(leader) e1 ms_handle_accept con 0x561a94aed180 no session
 2020-11-10 08:55:59.085 7f31c500d700 10 mon.ceph-1@0(leader) e1 _ms_dispatch new session 0x561a94adcd80 MonSession(unknown.0 - is open , featu
@@ -327,28 +335,28 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
 <p>That is very useful to detect the clients&rsquo; features when they are connecting, but not so much when you can&rsquo;t have the luxury to reset everyone&rsquo;s connection. Besides, leaving that level of debugging enabled all the time would flag our node as an abuser at the log server in a matter of hours.</p>
 <p>What i knew already about our clients was that there was some elastic nodes using RBD, probably with CentOS 7 and consequently using kernel 3.x; Some other stuff also using RBD on either CentOS 7 or CentOS 8; and a kubernetes cluster using CoreOS and Flatcar with kernel 4.x. So after some checking, I compared the output from a client using kernel 4.19.x and another with 5.4.x:</p>
 <p><strong>4.19.x:</strong></p>
-<pre><code>[root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep [...]
-    &quot;MonSession(client.95408384 [...]:0/923650579 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.95446387 [...]:0/421761626 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(client.95427342 [...]:0/1106672011 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/2823489235 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/4141488860 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/662892667 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/940509445 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/1147570690 is open allow r, features 0x27018fb86aa42ada (jewel))&quot;,
+<pre tabindex="0"><code>[root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep [...]
+    &#34;MonSession(client.95408384 [...]:0/923650579 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.95446387 [...]:0/421761626 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(client.95427342 [...]:0/1106672011 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/2823489235 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/4141488860 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/662892667 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/940509445 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/1147570690 is open allow r, features 0x27018fb86aa42ada (jewel))&#34;,
 </code></pre><p><strong>5.4.x:</strong></p>
-<pre><code>root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep [...]
-    &quot;MonSession(unknown.0 [...]:0/2258512824 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/4186418195 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/232634731 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(client.95587947 [...]:0/3963151684 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/1164059037 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/1228306108 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/2811111809 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/4254695077 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(client.95587926 [...]:0/479729343 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/340770437 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
-    &quot;MonSession(unknown.0 [...]:0/425381347 is open allow r, features 0x2f018fb86aa42ada (luminous))&quot;,
+<pre tabindex="0"><code>root@mon-1 ~]# ceph daemon mon.`hostname` sessions | grep [...]
+    &#34;MonSession(unknown.0 [...]:0/2258512824 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/4186418195 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/232634731 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(client.95587947 [...]:0/3963151684 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/1164059037 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/1228306108 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/2811111809 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/4254695077 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(client.95587926 [...]:0/479729343 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/340770437 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
+    &#34;MonSession(unknown.0 [...]:0/425381347 is open allow r, features 0x2f018fb86aa42ada (luminous))&#34;,
 </code></pre><p>After that I could come with some conclusion. We&rsquo;ll probably keep seeing jewel features for a long time, since CentOS/RHEL 8 and most of the main distros uses kernel 4.x on their latest LTS versions. I expected that at kernel 3.x i&rsquo;d get Jewel features and from 4.x on we would get Luminous, but apparently the latest features are only available on kernels 5.x and beyond. I&rsquo;m not sure if there is any feature that would be marked as nautilus or any newer ceph version, so I still need to dig deeper on that subject.</p>
 <p><strong>References:</strong></p>
 <p><a href="https://ceph.io/community/new-luminous-upgrade-complete/">https://ceph.io/community/new-luminous-upgrade-complete/</a></p>
@@ -386,7 +394,7 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
   <article class="post">
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -428,52 +436,52 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
       </header>
       
       <article class="mini-post">
+          <a href="/blog/terraform-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg" alt="terraform">
+  </a>
+        <header>
+          <h2><a href="/blog/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></h2>
+          <time class="published" datetime="2022-08-01 00:00:00 &#43;0000 UTC">August 1, 2022</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
+  </a>
+        <header>
+          <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
+          <time class="published" datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
+  </a>
+        <header>
+          <h2><a href="/blog/jenkins-1/">Getting started with Jenkins Declarative Pipelines</a></h2>
+          <time class="published" datetime="2021-10-18 00:00:00 &#43;0000 UTC">October 18, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
+          <time class="published" datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
   </a>
         <header>
           <h2><a href="/blog/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></h2>
           <time class="published" datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
-          <time class="published" datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
-  </a>
-        <header>
-          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
-          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/ceph-features-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
-  </a>
-        <header>
-          <h2><a href="/blog/ceph-features-2/">Obtaining a list of Ceph features from the hexadecimal value</a></h2>
-          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
         </header>
       </article>
       
@@ -496,10 +504,16 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
           
           
           <li>
-              <a href="/categories/ceph/">ceph<span class="count">3</span></a>
+              <a href="/categories/ceph/">ceph<span class="count">4</span></a>
           
           <li>
-              <a href="/categories/python/">python<span class="count">3</span></a>
+              <a href="/categories/python/">python<span class="count">4</span></a>
+          
+          <li>
+              <a href="/categories/terraform/">terraform<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/jenkins/">jenkins<span class="count">1</span></a>
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
@@ -573,16 +587,16 @@ res 0x27018fb86aa42ada (jewel)) features 0x27018fb86aa42ada
       </ul>
   
   <p class="copyright">
-    © 2021 Fabio M. Lopes
+    © 2022 Fabio M. Lopes
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.68.3' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.101.0' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.5955090a3253deadcd66071270aa2274dabe15ffc97094cec252d87b6f3f00bf.js" integrity="sha256-WVUJCjJT3q3NZgcScKoidNq&#43;Ff/JcJTOwlLYe28/AL8="></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.6ab4a41619da5555e3319311deec177d4fcfd0a33f412338cfce5d7810e4f58b.js" integrity="sha256-arSkFhnaVVXjMZMR3uwXfU/P0KM/QSM4z85deBDk9Ys="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>

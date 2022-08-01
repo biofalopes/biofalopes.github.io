@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="generator" content="Hugo 0.68.3" /><meta property="og:site_name" content="Fabio M. Lopes">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=2">
+  <link rel="manifest" href="/favicon/site.webmanifest?v=2">
+  
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+<meta name="generator" content="Hugo 0.101.0" /><meta property="og:site_name" content="Fabio M. Lopes">
   <meta property="og:title" content="Fabio M. Lopes">
   <meta property="og:description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
   <meta property="description" content="Personal Blog - My Studies, Scripts, Labs and Tests.">
@@ -15,7 +23,7 @@
   
     <meta property="og:image" content="https://www.fabiolopes.tk/img/main/logo.jpg">
   
-  <link rel="stylesheet" href="/css/bundle.min.d9e04ae08c9b3049b766dbd4aeab7d862c5ea1d13679b621490e0f5df5507497.css" integrity="sha256-2eBK4IybMEm3ZtvUrqt9hixeodE2ebYhSQ4PXfVQdJc="><link rel="stylesheet" href="/css/add-on.css">
+  <link rel="stylesheet" href="/css/bundle.min.6ad9eb85bff384c75937a02036b01425a2ca63f19a96535b8ba5b181db62a4b3.css" integrity="sha256-atnrhb/zhMdZN6AgNrAUJaLKY/GallNbi6WxgdtipLM="><link rel="stylesheet" href="/css/add-on.css">
 </head>
 
   <body>
@@ -31,9 +39,9 @@
 <ol>
 <li>Users that have front matter that utilize <code>images</code> (backwards compatibility for <code>featured</code> and associated parameters still remains) <em>will</em> need to adjust from <code>[images]=&quot;SRC&quot;</code> to the new format.</li>
 </ol>
-<pre><code>[[images]]
-    src = &quot;&quot; // Link to image
-    alt = &quot;&quot; // Alt text for image
+<pre tabindex="0"><code>[[images]]
+    src = &#34;&#34; // Link to image
+    alt = &#34;&#34; // Alt text for image
     stretch = // Optional: See screenshots for referenced values and outcomes
 </code></pre><p>If you utilize any of the following, there <em>might</em> be a breaking:</p>
 <ol>
@@ -219,36 +227,85 @@
   <header>
   <div class="title">
     
-      <h2><a href="/blog/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></h2>
+      <h2><a href="/blog/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></h2>
     
     
-      <p>We used Rook to leverage Ceph storage on some Kubernetes clusters with unused storage devices to provide a great option for persistent volumes.</p>
+      <p>Using Terraform to manage AWS Autoscaling Groups and Load Balancers</p>
     
   </div>
   <div class="meta">
-    <time datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
+    <time datetime="2022-08-01 00:00:00 &#43;0000 UTC">August 1, 2022</time>
+    
+    <p>5-Minute Read</p>
+  </div>
+</header>
+
+  <div class="content">
+    <a href="/blog/terraform-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg" alt="terraform">
+  </a>
+    
+    <p>This time I&rsquo;ll be using an environment with a Load Balancer and an Autoscaling Group, which is a more complex architecture than the previous one.</p>
+  </div>
+  <footer>
+    <a href="/blog/terraform-2/" class="button big">Read More</a>
+    <div class="stats">
+  
+    <ul class="categories">
+      
+        
+          <li><a class="article-terms-link" href="/categories/terraform/">terraform</a></li>
+        
+      
+    </ul>
+  
+  
+    <ul class="tags">
+      
+        
+          <li><a class="article-terms-link" href="/tags/terraform/">terraform</a></li>
+        
+      
+    </ul>
+  
+</div>
+
+  </footer>
+</article>
+
+  
+    <article class="post">
+  <header>
+  <div class="title">
+    
+      <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
+    
+    
+      <p>Using Terraform to deploy a basic dev environment on AWS</p>
+    
+  </div>
+  <div class="meta">
+    <time datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
     
     <p>6-Minute Read</p>
   </div>
 </header>
 
   <div class="content">
-    <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
+    <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
   </a>
     
-    <p>I recently got 10 servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.</p>
+    <p>It&rsquo;s good to have a basic terraform code that deploys a basic environment on AWS whenever you need to run some quick tests on a free tier account.</p>
   </div>
   <footer>
-    <a href="/blog/rook/" class="button big">Read More</a>
+    <a href="/blog/terraform-1/" class="button big">Read More</a>
     <div class="stats">
   
     <ul class="categories">
       
         
-          <li><a class="article-terms-link" href="/categories/ceph/">ceph</a></li>
-        
-          <li><a class="article-terms-link" href="/categories/kubernetes/">kubernetes</a></li>
+          <li><a class="article-terms-link" href="/categories/terraform/">terraform</a></li>
         
       
     </ul>
@@ -257,9 +314,7 @@
     <ul class="tags">
       
         
-          <li><a class="article-terms-link" href="/tags/ceph/">ceph</a></li>
-        
-          <li><a class="article-terms-link" href="/tags/kubernetes/">kubernetes</a></li>
+          <li><a class="article-terms-link" href="/tags/terraform/">terraform</a></li>
         
       
     </ul>
@@ -274,34 +329,34 @@
   <header>
   <div class="title">
     
-      <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
+      <h2><a href="/blog/jenkins-1/">Getting started with Jenkins Declarative Pipelines</a></h2>
     
     
-      <p>Scrapping FIIs using Python</p>
+      <p>My approach on running declarative pipelines on Jenkins to build, test and deploy a sample springboot application, using Docker and some useful integrations like Git and Slack.</p>
     
   </div>
   <div class="meta">
-    <time datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
+    <time datetime="2021-10-18 00:00:00 &#43;0000 UTC">October 18, 2021</time>
     
-    <p>2-Minute Read</p>
+    <p>14-Minute Read</p>
   </div>
 </header>
 
   <div class="content">
-    <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
+    <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
   </a>
     
-    <p>So I needed to learn how to scrape a web page using Python.</p>
+    <p>After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.</p>
   </div>
   <footer>
-    <a href="/blog/python-web-scrapper-fii/" class="button big">Read More</a>
+    <a href="/blog/jenkins-1/" class="button big">Read More</a>
     <div class="stats">
   
     <ul class="categories">
       
         
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
+          <li><a class="article-terms-link" href="/categories/jenkins/">jenkins</a></li>
         
       
     </ul>
@@ -310,58 +365,7 @@
     <ul class="tags">
       
         
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
-        
-      
-    </ul>
-  
-</div>
-
-  </footer>
-</article>
-
-  
-    <article class="post">
-  <header>
-  <div class="title">
-    
-      <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-    
-    
-      <p>Measuring runtime of sorting algorithms using Python decorators</p>
-    
-  </div>
-  <div class="meta">
-    <time datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-    
-    <p>3-Minute Read</p>
-  </div>
-</header>
-
-  <div class="content">
-    <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-    
-    <p>So I needed to learn how to use decorators in Python.</p>
-  </div>
-  <footer>
-    <a href="/blog/python-sort-comparsion/" class="button big">Read More</a>
-    <div class="stats">
-  
-    <ul class="categories">
-      
-        
-          <li><a class="article-terms-link" href="/categories/python/">python</a></li>
-        
-      
-    </ul>
-  
-  
-    <ul class="tags">
-      
-        
-          <li><a class="article-terms-link" href="/tags/python/">python</a></li>
+          <li><a class="article-terms-link" href="/tags/jenkins/">jenkins</a></li>
         
       
     </ul>
@@ -388,52 +392,52 @@
       </header>
       
       <article class="mini-post">
+          <a href="/blog/terraform-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/aws-diagram.jpg" alt="terraform">
+  </a>
+        <header>
+          <h2><a href="/blog/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></h2>
+          <time class="published" datetime="2022-08-01 00:00:00 &#43;0000 UTC">August 1, 2022</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/terraform-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/terraform/terraform-aws-dark.jpg" alt="terraform">
+  </a>
+        <header>
+          <h2><a href="/blog/terraform-1/">Basic Dev Environment on AWS using Terraform</a></h2>
+          <time class="published" datetime="2022-07-30 00:00:00 &#43;0000 UTC">July 30, 2022</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/jenkins-1/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/jenkins/Jenkins-logo-001.svg" alt="jenkins">
+  </a>
+        <header>
+          <h2><a href="/blog/jenkins-1/">Getting started with Jenkins Declarative Pipelines</a></h2>
+          <time class="published" datetime="2021-10-18 00:00:00 &#43;0000 UTC">October 18, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
+          <a href="/blog/python-s3-monitoring/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
+    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
+  </a>
+        <header>
+          <h2><a href="/blog/python-s3-monitoring/">Using Python and Docker to monitor Ceph S3 from outside</a></h2>
+          <time class="published" datetime="2021-09-20 00:00:00 &#43;0000 UTC">September 20, 2021</time>
+        </header>
+      </article>
+      
+      <article class="mini-post">
           <a href="/blog/rook/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/rook.png');">
     <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/rook.png" alt="Rook">
   </a>
         <header>
           <h2><a href="/blog/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></h2>
           <time class="published" datetime="2021-07-17 00:00:00 &#43;0000 UTC">July 17, 2021</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-web-scrapper-fii/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/pandas.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/pandas.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-web-scrapper-fii/">Web scrapper using Python</a></h2>
-          <time class="published" datetime="2020-11-20 00:00:00 &#43;0000 UTC">November 20, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/python-sort-comparsion/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/python/decorators.jpg');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/python/decorators.jpg" alt="Python">
-  </a>
-        <header>
-          <h2><a href="/blog/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></h2>
-          <time class="published" datetime="2020-11-17 00:00:00 &#43;0000 UTC">November 17, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/ceph-features/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/ceph_banner.png" alt="Ceph Nautilus">
-  </a>
-        <header>
-          <h2><a href="/blog/ceph-features/">Ceph features and its relation to the client kernel version</a></h2>
-          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
-        </header>
-      </article>
-      
-      <article class="mini-post">
-          <a href="/blog/ceph-features-2/" class="image" style="--bg-image: url('https://www.fabiolopes.tk/img/main/ceph/cephalopod.png');">
-    <img class="stretchV" src="https://www.fabiolopes.tk/img/main/ceph/cephalopod.png" alt="Cephalopod">
-  </a>
-        <header>
-          <h2><a href="/blog/ceph-features-2/">Obtaining a list of Ceph features from the hexadecimal value</a></h2>
-          <time class="published" datetime="2020-11-16 00:00:00 &#43;0000 UTC">November 16, 2020</time>
         </header>
       </article>
       
@@ -456,10 +460,16 @@
           
           
           <li>
-              <a href="/categories/ceph/">ceph<span class="count">3</span></a>
+              <a href="/categories/ceph/">ceph<span class="count">4</span></a>
           
           <li>
-              <a href="/categories/python/">python<span class="count">3</span></a>
+              <a href="/categories/python/">python<span class="count">4</span></a>
+          
+          <li>
+              <a href="/categories/terraform/">terraform<span class="count">2</span></a>
+          
+          <li>
+              <a href="/categories/jenkins/">jenkins<span class="count">1</span></a>
           
           <li>
               <a href="/categories/kubernetes/">kubernetes<span class="count">1</span></a>
@@ -535,16 +545,16 @@
       </ul>
   
   <p class="copyright">
-    © 2021 Fabio M. Lopes
+    © 2022 Fabio M. Lopes
       <br>
-    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.68.3' target='_blank' rel='noopener'>Hugo</a>
+    Theme: <a href='https://github.com/pacollins/hugo-future-imperfect-slim' target='_blank' rel='noopener'>Hugo Future Imperfect Slim</a><br>A <a href='https://html5up.net/future-imperfect' target='_blank' rel='noopener'>HTML5 UP port</a> | Powered by <a href='https://gohugo.io/' title='0.101.0' target='_blank' rel='noopener'>Hugo</a>
   </p>
 </footer>
 <a id="back-to-top" href="#" class="fas fa-arrow-up fa-2x"></a>
 
       <script src="/js/highlight.js"></script>
     
-    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.5955090a3253deadcd66071270aa2274dabe15ffc97094cec252d87b6f3f00bf.js" integrity="sha256-WVUJCjJT3q3NZgcScKoidNq&#43;Ff/JcJTOwlLYe28/AL8="></script>
+    <script>hljs.initHighlightingOnLoad();</script><script src="/js/bundle.min.6ab4a41619da5555e3319311deec177d4fcfd0a33f412338cfce5d7810e4f58b.js" integrity="sha256-arSkFhnaVVXjMZMR3uwXfU/P0KM/QSM4z85deBDk9Ys="></script>
     <script src="/js/add-on.js"></script>
     </div>
   </body>
