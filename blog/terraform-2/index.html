@@ -270,7 +270,6 @@
 <li><strong>datasources.tf</strong>: we&rsquo;ll get the AMI information here</li>
 <li><strong>userdata.tpl</strong>: script to be executed on first boot</li>
 </ul>
-<p>I added a local-exec provisioner that adds the host information in the ssh configuration, and with that we can then use it with VS Code and Remote SSH extension to connect directly to it and run our code.</p>
 <p>I&rsquo;ll put the code first and then explain the most important parts. Let&rsquo;s start with <code>providers.tf</code>:</p>
 <pre tabindex="0"><code>terraform {
   required_providers {
