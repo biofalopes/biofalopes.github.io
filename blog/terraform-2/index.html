@@ -541,9 +541,9 @@ resource &#34;aws_cloudwatch_metric_alarm&#34; &#34;web_cpu_alarm_down&#34; {
 }
 </code></pre><p>Since it is a big file, let&rsquo;s divide it in parts:</p>
 <ul>
-<li>VPC, subnets, route tables and routes, internet gateway, security group and key pair: the foundation or basic part of the infrastructure'</li>
+<li>VPC, subnets, route tables and routes, internet gateway, security group and key pair: the foundation or basic part of the infrastructure;</li>
 <li>Launch Configuration: this is where we define the parameters for the EC2 instances that the Autoscaling Group will launch. It&rsquo;s very similar to when we deploy a single EC2 instance;</li>
-<li>Elastic Load Balancer: we deploy a security group specifically for the ELB first, and then the ELB itself. We have to specify which subnets, the listener and the health checks we&rsquo;ll use.</li>
+<li>Elastic Load Balancer: we deploy a security group specifically for the ELB first, and then the ELB itself. We have to specify which subnets, the listener and the health checks we&rsquo;ll use;</li>
 <li>Autoscaling Group: this is the most important part regarding on how the infrastructure will &ldquo;behave&rdquo;, let&rsquo;s say. We define a minimum, desired and maximum number of instances; specify what is going to be the health check, in this case is ELB so instance availability will be provided by it; then we set some Cloudwatch metrics to provide observability and add tags to identify the instances.</li>
 </ul>
 <p><code>outputs.tf</code>:</p>
