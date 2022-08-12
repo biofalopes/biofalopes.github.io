@@ -323,26 +323,74 @@ AUTHOR WEBSITE: https://themefisher.com
 </tbody>
 </table>
 <p>What I&rsquo;m gonna do here is go over each of the objectives and cover (almost) everything required to know in order to pass the exam. Most of the contents are provided on the official <a href="https://learn.hashicorp.com/tutorials/terraform/associate-study">study guide</a> and the <a href="https://learn.hashicorp.com/tutorials/terraform/associate-review?in=terraform/certification">exam review</a>, so I&rsquo;ll be using it as a reference. It&rsquo;s probably be a long read, but I rather have it all in one place than making several posts and split the content.</p>
-<h3 id="1-understand-infrastructure-as-code-iac-concepts">1. Understand Infrastructure as Code (IaC) concepts</h3>
-<h5 id="1a-explain-what-iac-is">1a. Explain what IaC is</h5>
-<p>Infrastructure as code (IaC) tools allow you to manage infrastructure with configuration files rather than through a graphical user interface. IaC allows you to build, change, and manage your infrastructure in a safe, consistent, and repeatable way by defining resource configurations that you can version, reuse, and share.</p>
-<h5 id="1b-describe-advantages-of-iac-patterns">1b. Describe advantages of IaC patterns</h5>
-<p>IaC makes it easy to provision and apply infrastructure configurations by standardizing the workflow. This is accomplished by using a common syntax across a number of different infrastructure providers (e.g. AWS, GCP). Some key advantages of using IaC patterns are:</p>
+<h3 id="1-understand-infrastructure-as-code-iac-concepts">1. Understand Infrastructure as Code (IaC) concepts 
+  <a href="#1-understand-infrastructure-as-code-iac-concepts">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="alpha-101">1a. Explain what IaC is 
+  <a href="#alpha-101">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Infrastructure as code (IaC) tools allow you to manage infrastructure with configuration files rather than through a graphical user interface. IaC allows you to build, change, and manage your infrastructure in a safe, consistent, and repeatable way by defining resource configurations that you can version, reuse, and share.</p>
+<h5 id="1b-describe-advantages-of-iac-patterns">1b. Describe advantages of IaC patterns 
+  <a href="#1b-describe-advantages-of-iac-patterns">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>IaC makes it easy to provision and apply infrastructure configurations by standardizing the workflow. This is accomplished by using a common syntax across a number of different infrastructure providers (e.g. AWS, GCP). Some key advantages of using IaC patterns are:</p>
 <ul>
 <li>Reusability: you can write or use modules to reuse code that are common between different projects;</li>
 <li>Consistency: managing infrastructure manually are prone to errors;</li>
 <li>Idempotency: no matter how many times you run your IaC and, what your starting state is, you will end up with the same end state. This simplifies the provisioning of Infrastructure and reduces the chances of inconsistent results;</li>
 <li>Versioning and Source Control: by using a VCS like Git you can get visibility and security on your infrastructure.</li>
 </ul>
-<h3 id="2-understand-terraforms-purpose-vs-other-iac">2. Understand Terraform&rsquo;s purpose (vs other IaC)</h3>
-<h5 id="2a-explain-multi-cloud-and-provider-agnostic-benefits">2a. Explain multi-cloud and provider-agnostic benefits</h5>
-<p>Terraform is cloud-agnostic and allows a single configuration to be used to manage multiple providers, and to even handle cross-cloud dependencies. With Terraform, users can manage a heterogeneous environment with the same workflow by creating a configuration file to fit the needs of that platform or project.
+<h3 id="2-understand-terraforms-purpose-vs-other-iac">2. Understand Terraform&rsquo;s purpose (vs other IaC) 
+  <a href="#2-understand-terraforms-purpose-vs-other-iac">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="2a-explain-multi-cloud-and-provider-agnostic-benefits">2a. Explain multi-cloud and provider-agnostic benefits 
+  <a href="#2a-explain-multi-cloud-and-provider-agnostic-benefits">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Terraform is cloud-agnostic and allows a single configuration to be used to manage multiple providers, and to even handle cross-cloud dependencies. With Terraform, users can manage a heterogeneous environment with the same workflow by creating a configuration file to fit the needs of that platform or project.
 Terraform plugins called providers let Terraform interact with cloud platforms and other services via their application programming interfaces (APIs). HashiCorp and the Terraform community have written over 1,000 providers to manage resources on Amazon Web Services (AWS), Azure, Google Cloud Platform (GCP), Kubernetes, Helm, GitHub, Splunk, and DataDog, just to name a few.</p>
-<h5 id="2b-explain-the-benefits-of-state">2b. Explain the benefits of state</h5>
-<p>Terraform keeps track of your real infrastructure in a state file, which acts as a source of truth for your environment. Terraform uses the state file to determine the changes to make to your infrastructure so that it will match your configuration.</p>
-<h3 id="3-understand-terraform-basics">3. Understand Terraform basics</h3>
-<h5 id="3a-handle-terraform-and-provider-installation-and-versioning">3a. Handle Terraform and provider installation and versioning</h5>
-<p>Terraform can be installed using the user’s terminal: <br>
+<h5 id="2b-explain-the-benefits-of-state">2b. Explain the benefits of state 
+  <a href="#2b-explain-the-benefits-of-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Terraform keeps track of your real infrastructure in a state file, which acts as a source of truth for your environment. Terraform uses the state file to determine the changes to make to your infrastructure so that it will match your configuration.</p>
+<h3 id="3-understand-terraform-basics">3. Understand Terraform basics 
+  <a href="#3-understand-terraform-basics">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="3a-handle-terraform-and-provider-installation-and-versioning">3a. Handle Terraform and provider installation and versioning 
+  <a href="#3a-handle-terraform-and-provider-installation-and-versioning">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Terraform can be installed using the user’s terminal: <br>
 <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">https://learn.hashicorp.com/tutorials/terraform/install-cli</a></p>
 <p>Examples:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span><span style="color:#75715e">## Mac OS
@@ -355,8 +403,14 @@ Terraform plugins called providers let Terraform interact with cloud platforms a
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt install terraform
 </span></span></code></pre></div><p>There might be previous steps necessary according to your system, like installing the package manager or adding the repository.</p>
 <p>Alternatively, Terraform can be manually installed by downloading the binary to your computer.</p>
-<h5 id="3b-describe-plug-in-based-architecture">3b. Describe plug-in based architecture</h5>
-<p>Terraform uses a plugin-based architecture to support hundreds of infrastructure and service providers. Initializing a configuration directory downloads and installs providers used in the configuration. Terraform plugins are compiled for a specific operating system and architecture, and any plugins in the root of the user’s plugins directory must be compiled for the current system. A provider is a plugin that Terraform uses to translate the API interactions with that platform or service.</p>
+<h5 id="3b-describe-plug-in-based-architecture">3b. Describe plug-in based architecture 
+  <a href="#3b-describe-plug-in-based-architecture">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Terraform uses a plugin-based architecture to support hundreds of infrastructure and service providers. Initializing a configuration directory downloads and installs providers used in the configuration. Terraform plugins are compiled for a specific operating system and architecture, and any plugins in the root of the user’s plugins directory must be compiled for the current system. A provider is a plugin that Terraform uses to translate the API interactions with that platform or service.</p>
 <p>Terraform must initialize a provider before it can be used. The initialization process downloads and installs the provider&rsquo;s plugin so that it can later be executed. Terraform knows which provider(s) to download based on what is declared in the configuration files. For example:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;aws&#34;</span> {
 </span></span><span style="display:flex;"><span> region  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-west-2&#34;</span>
@@ -379,8 +433,14 @@ Terraform plugins called providers let Terraform interact with cloud platforms a
 </span></span></code></pre></div><p>Given that provider plugins can be quite large, users can optionally use a local directory as a shared plugin cache. This is enabled through using the <code>plugin_cache_dir</code> setting in<a href="https://www.terraform.io/docs/commands/cli-config.html"> the CLI configuration file</a>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>plugin_cache_dir = &#34;$HOME/.terraform.d/plugin-cache&#34;
 </span></span></code></pre></div><p>This configuration ensures each plugin binary is downloaded only once.</p>
-<h5 id="3c-demonstrate-using-multiple-providers">3c. Demonstrate using multiple providers</h5>
-<p>To instantiate the same provider for multiple configurations, use the <code>alias</code> argument. For example, the AWS provider requires specifying the region argument. The following code block demonstrates how <code>alias</code> can be used to provision resources across multiple regions using the same configuration files.</p>
+<h5 id="3c-demonstrate-using-multiple-providers">3c. Demonstrate using multiple providers 
+  <a href="#3c-demonstrate-using-multiple-providers">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>To instantiate the same provider for multiple configurations, use the <code>alias</code> argument. For example, the AWS provider requires specifying the region argument. The following code block demonstrates how <code>alias</code> can be used to provision resources across multiple regions using the same configuration files.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;aws&#34;</span> {
 </span></span><span style="display:flex;"><span>	region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1&#34;</span>
 </span></span><span style="display:flex;"><span>}
@@ -394,8 +454,14 @@ Terraform plugins called providers let Terraform interact with cloud platforms a
 </span></span><span style="display:flex;"><span>	cidr_block <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;10.0.0.0/16&#34;</span>
 </span></span><span style="display:flex;"><span>	provider   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aws.pncda&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h5 id="3d-describe-how-terraform-finds-and-fetches-providers">3d. Describe how Terraform finds and fetches providers</h5>
-<p>Providers are released on a separate rhythm from Terraform itself, and so each provider has its own version number. For production use, consider constraining the acceptable provider versions in the configuration to ensure that new versions with breaking changes will not be automatically installed by <code>terraform init</code> in future.</p>
+</span></span></code></pre></div><h5 id="3d-describe-how-terraform-finds-and-fetches-providers">3d. Describe how Terraform finds and fetches providers 
+  <a href="#3d-describe-how-terraform-finds-and-fetches-providers">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Providers are released on a separate rhythm from Terraform itself, and so each provider has its own version number. For production use, consider constraining the acceptable provider versions in the configuration to ensure that new versions with breaking changes will not be automatically installed by <code>terraform init</code> in future.</p>
 <p>Any non-certified or third-party providers must be manually installed, since <code>terraform init</code> cannot automatically download them.</p>
 <p>The <code>required_version</code> setting can be used to constrain which versions of Terraform can be used with the configuration.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">terraform</span> {
@@ -458,8 +524,14 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </span></span><span style="display:flex;"><span>	version <span style="color:#f92672">=</span> &#34;&gt;<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>It is recommended to use these operators in production to ensure the correct version is being used and avoid accidental upgrades that might have breaking changes.</p>
-<h5 id="3e-explain-when-to-use-and-not-use-provisioners-and-when-to-use-local-exec-or-remote-exec">3e. Explain when to use and not use provisioners and when to use local-exec or remote-exec</h5>
-<p>Provisioners can be used to model specific actions on the local machine or on a remote machine. For example, a provisioner can enable uploading files, running shell scripts, or installing or triggering other software (e.g. configuration management) to conduct initial setup on an instance. Provisioners are defined within a resource block:</p>
+<h5 id="3e-explain-when-to-use-and-not-use-provisioners-and-when-to-use-local-exec-or-remote-exec">3e. Explain when to use and not use provisioners and when to use local-exec or remote-exec 
+  <a href="#3e-explain-when-to-use-and-not-use-provisioners-and-when-to-use-local-exec-or-remote-exec">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Provisioners can be used to model specific actions on the local machine or on a remote machine. For example, a provisioner can enable uploading files, running shell scripts, or installing or triggering other software (e.g. configuration management) to conduct initial setup on an instance. Provisioners are defined within a resource block:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;example&#34;</span> {
 </span></span><span style="display:flex;"><span> ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-b374d5a5&#34;</span>
 </span></span><span style="display:flex;"><span> instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
@@ -473,10 +545,22 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 
 <div class="notices note" ><p>HashiCorp recommends that provisioners should only be used as a last resort.</p></div>
 
-<h6 id="types-of-provisioners">Types of Provisioners</h6>
-<p>This section will cover the various types of generic provisioners. There are also vendor specific provisioners for configuration management tools (e.g. Salt, Puppet).</p>
-<h6 id="1-file">1. File</h6>
-<p>The file provisioner is used to copy files or directories from the machine executing Terraform to the newly created resource.</p>
+<h6 id="types-of-provisioners">Types of Provisioners 
+  <a href="#types-of-provisioners">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>This section will cover the various types of generic provisioners. There are also vendor specific provisioners for configuration management tools (e.g. Salt, Puppet).</p>
+<h6 id="1-file">1. File 
+  <a href="#1-file">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>The file provisioner is used to copy files or directories from the machine executing Terraform to the newly created resource.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;web&#34;</span> {<span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # ...
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
@@ -486,15 +570,27 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The file provisioner supports both ssh and winrm type connections.</p>
-<h6 id="2-local-exec">2. <code>local-exec</code></h6>
-<p>The <code>local-exec</code> provisioner runs by invoking a process local to the user’s machine running Terraform. This is used to do something on the machine running Terraform, not the resource provisioned. For example, a user may want to create an SSH key on the local machine.</p>
+<h6 id="2-local-exec">2. <code>local-exec</code> 
+  <a href="#2-local-exec">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>The <code>local-exec</code> provisioner runs by invoking a process local to the user’s machine running Terraform. This is used to do something on the machine running Terraform, not the resource provisioned. For example, a user may want to create an SSH key on the local machine.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;null_resource&#34; &#34;generate-sshkey&#34;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">provisioner</span> <span style="color:#e6db74">&#34;local-exec&#34;</span> {
 </span></span><span style="display:flex;"><span>        command <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes y | ssh-keygen -b 4096 -t rsa -C &#39;terraform-kubernetes&#39; -N &#39;&#39; -f ${var.kubernetes_controller.[&#34;private_key&#34;]}&#34;</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h6 id="3-remote-exec">3. <code>remote-exec</code></h6>
-<p>Comparatively, <code>remote-exec</code> which invokes a script or process on a remote resource after it is created. For example, this may be used to bootstrap a newly provisioned cluster or to run a script.</p>
+</span></span></code></pre></div><h6 id="3-remote-exec">3. <code>remote-exec</code> 
+  <a href="#3-remote-exec">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>Comparatively, <code>remote-exec</code> which invokes a script or process on a remote resource after it is created. For example, this may be used to bootstrap a newly provisioned cluster or to run a script.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;example&#34;</span> {
 </span></span><span style="display:flex;"><span> key_name      <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_key_pair</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">key_name</span>
 </span></span><span style="display:flex;"><span> ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-04590e7389a6e577c&#34;</span>
@@ -543,17 +639,35 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>By default, a provisioner only runs at creation. To run a provisioned at deletion, it must be explicitly defined.</p>
-<h3 id="4-use-the-terraform-cli-outside-of-core-workflow">4. Use the Terraform CLI (outside of core workflow)</h3>
-<h5 id="4a-given-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">4a. Given a scenario: choose when to use <code>terraform fmt</code> to format code</h5>
-<p>The <code>terraform fmt</code> command is used to reformat Terraform configuration files in a canonical format and style. Using this command applies a subset of the Terraform language style conventions, along with other minor adjustments for readability. The following are common flags that may be used:</p>
+<h3 id="4-use-the-terraform-cli-outside-of-core-workflow">4. Use the Terraform CLI (outside of core workflow) 
+  <a href="#4-use-the-terraform-cli-outside-of-core-workflow">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="4a-given-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">4a. Given a scenario: choose when to use <code>terraform fmt</code> to format code 
+  <a href="#4a-given-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>The <code>terraform fmt</code> command is used to reformat Terraform configuration files in a canonical format and style. Using this command applies a subset of the Terraform language style conventions, along with other minor adjustments for readability. The following are common flags that may be used:</p>
 <ul>
 <li><code>terraform fmt -diff</code> - to output differences in formatting;</li>
 <li><code>terraform fmt -recursive</code> - apply format to subdirectories;</li>
 <li><code>terraform fmt -list=false</code> - when formatting many files across a number of directories, use this to not list files formatted using command.</li>
 </ul>
 <p>The canonical format may change between Terraform versions, so it&rsquo;s a good practice to run <code>terraform fmt</code> after upgrading. This should be done on any modules along with other changes being made to adopt the new version.</p>
-<h5 id="4b-given-a-scenario-choose-when-to-use-terraform-taint-to-taint-terraform-resources">4b. Given a scenario: choose when to use <code>terraform taint</code> to taint Terraform resources</h5>
-<p>The <code>terraform taint</code> command manually marks a Terraform-managed resource as tainted, which marks the resource to be destroyed and recreated at the next <code>apply</code> command. Command usage resembles:</p>
+<h5 id="4b-given-a-scenario-choose-when-to-use-terraform-taint-to-taint-terraform-resources">4b. Given a scenario: choose when to use <code>terraform taint</code> to taint Terraform resources 
+  <a href="#4b-given-a-scenario-choose-when-to-use-terraform-taint-to-taint-terraform-resources">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>The <code>terraform taint</code> command manually marks a Terraform-managed resource as tainted, which marks the resource to be destroyed and recreated at the next <code>apply</code> command. Command usage resembles:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform taint [options] address
 </span></span><span style="display:flex;"><span>terraform taint aws_security_group.allow_all
 </span></span></code></pre></div><p>To taint a resource inside a module:</p>
@@ -565,14 +679,26 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 <p>The <code>terraform untaint</code> command is used to unmark a Terraform-managed resource as tainted, restoring it as the primary instance in the state.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform untaint aws_security_group.allow_all
 </span></span></code></pre></div><p>Similarly, this command does not modify infrastructure, but does modify the state file in order to unmark a resource as tainted.</p>
-<h5 id="4c-given-a-scenario-choose-when-to-use-terraform-import-to-import-existing-infrastructure-into-your-terraform-state">4c. Given a scenario: choose when to use <code>terraform import</code> to import existing infrastructure into your Terraform state</h5>
-<p>The <code>terraform import</code> command is used to import existing resources to be managed by Terraform. Effectively this imports existing infrastructure (created by other means) and allows Terraform to manage the resource, including destroy. The <code>terraform import</code> command finds the existing resource from ID and imports it into the Terraform state at the given <code>address</code>. Command usage resembles:</p>
+<h5 id="4c-given-a-scenario-choose-when-to-use-terraform-import-to-import-existing-infrastructure-into-your-terraform-state">4c. Given a scenario: choose when to use <code>terraform import</code> to import existing infrastructure into your Terraform state 
+  <a href="#4c-given-a-scenario-choose-when-to-use-terraform-import-to-import-existing-infrastructure-into-your-terraform-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>The <code>terraform import</code> command is used to import existing resources to be managed by Terraform. Effectively this imports existing infrastructure (created by other means) and allows Terraform to manage the resource, including destroy. The <code>terraform import</code> command finds the existing resource from ID and imports it into the Terraform state at the given <code>address</code>. Command usage resembles:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform import [options] address ID
 </span></span><span style="display:flex;"><span>terraform import aws_vpc.vpcda vpc-0a1be4pncda9
 </span></span></code></pre></div><p>The <code>ID</code> is dependent on the resource type being imported. For example, for AWS instances the <code>ID</code> resembles <code>i-abcd1234</code> whereas the zone <code>ID</code> for AWS Route53 resembles <code>L69ZFG4TCUOZ1M</code>.</p>
 <p>Because any resource address is valid, the <code>import</code> command can import resources into modules as well directly into the root of state. Note that resources can be imported directly into modules.</p>
-<h5 id="4d-given-a-scenario-choose-when-to-use-terraform-workspace-to-create-workspaces">4d. Given a scenario: choose when to use <code>terraform workspace</code> to create workspaces</h5>
-<p>Workspaces are technically equivalent to renaming a state file. Each Terraform configuration has an associated backend that defines how operations are executed and where persistent data (e.g. Terraform state) is stored. This persistent data stored in the backend belongs to a workspace. A default configuration has only one workspace named <code>default</code> with a single Terraform state. Some backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. Command usage resembles:</p>
+<h5 id="4d-given-a-scenario-choose-when-to-use-terraform-workspace-to-create-workspaces">4d. Given a scenario: choose when to use <code>terraform workspace</code> to create workspaces 
+  <a href="#4d-given-a-scenario-choose-when-to-use-terraform-workspace-to-create-workspaces">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Workspaces are technically equivalent to renaming a state file. Each Terraform configuration has an associated backend that defines how operations are executed and where persistent data (e.g. Terraform state) is stored. This persistent data stored in the backend belongs to a workspace. A default configuration has only one workspace named <code>default</code> with a single Terraform state. Some backends support multiple named workspaces, allowing multiple states to be associated with a single configuration. Command usage resembles:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform workspace list
 </span></span><span style="display:flex;"><span>terraform workspace new &lt;<span style="color:#f92672">name</span>&gt;
 </span></span><span style="display:flex;"><span>terraform workspace show
@@ -592,8 +718,14 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p>A common use case for multiple workspaces is to create a parallel, distinct copy of a set of infrastructure in order to test a set of changes before modifying the main production infrastructure. For example, a developer working on a complex set of infrastructure changes might create a new temporary workspace in order to freely experiment with changes without affecting the default workspace.</p>
 <p>For a local state configuration, Terraform stores the workspace states in a directory called <code>terraform.tfstate.d</code>.</p>
-<h5 id="4e-given-a-scenario-choose-when-to-use-terraform-state-to-view-terraform-state">4e. Given a scenario: choose when to use <code>terraform state</code> to view Terraform state</h5>
-<p>There are cases in which the Terraform state needs to be modified. Rather than modify the state directly, the <code>terraform state</code> commands should be used instead.</p>
+<h5 id="4e-given-a-scenario-choose-when-to-use-terraform-state-to-view-terraform-state">4e. Given a scenario: choose when to use <code>terraform state</code> to view Terraform state 
+  <a href="#4e-given-a-scenario-choose-when-to-use-terraform-state-to-view-terraform-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>There are cases in which the Terraform state needs to be modified. Rather than modify the state directly, the <code>terraform state</code> commands should be used instead.</p>
 <p>The <code>terraform state list</code> command is used to list resources within the state.</p>
 <p>The command will list all resources in the state file matching the given addresses (if any). If no addresses are given, then all resources are listed. To specify a resource:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform state list aws_instance.bar
@@ -605,46 +737,256 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform state rm &#39;aws_instance.worker&#39;
 </span></span><span style="display:flex;"><span>terraform state rm &#39;module.compute&#39;
 </span></span></code></pre></div><p>It is important to note that items removed from the Terraform state are not physically destroyed, these items are simply no longer managed by Terraform. For example, if an AWS instance is deleted from the state, the AWS instance will continue running, but <code>terraform plan</code> will no longer manage that instance.</p>
-<h5 id="4f-given-a-scenario-choose-when-to-enable-verbose-logging-and-what-the-outcomevalue-is">4f. Given a scenario: choose when to enable verbose logging and what the outcome/value is</h5>
-<p>Terraform has detailed logs that can be enabled by setting the <code>TF_LOG</code> environment variable to any value. This will cause detailed logs to appear on stderr.</p>
+<h5 id="4f-given-a-scenario-choose-when-to-enable-verbose-logging-and-what-the-outcomevalue-is">4f. Given a scenario: choose when to enable verbose logging and what the outcome/value is 
+  <a href="#4f-given-a-scenario-choose-when-to-enable-verbose-logging-and-what-the-outcomevalue-is">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Terraform has detailed logs that can be enabled by setting the <code>TF_LOG</code> environment variable to any value. This will cause detailed logs to appear on stderr.</p>
 <p>Users can set <code>TF_LOG</code> to one of the log levels <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code> or <code>ERROR</code> to change the verbosity of the logs. <code>TRACE</code> is the most verbose and it is the default if <code>TF_LOG</code> is set to something other than a log level name.</p>
 <p>To persist logged output users can set <code>TF_LOG_PATH</code> in order to force the log to always be appended to a specific file when logging is enabled. Note that even if <code>TF_LOG_PATH</code> is set, <code>TF_LOG</code> must be set in order for any logging to be enabled.</p>
-<h3 id="5-interact-with-terraform-modules">5. Interact with Terraform modules</h3>
-<h5 id="5a-contrast-module-source-options">5a. Contrast module source options</h5>
-<p>Modules can either be loaded from the local filesystem, or a remote source. Terraform supports a variety of remote sources, including the Terraform Registry, most version control systems, HTTP URLs, and Terraform Cloud or Terraform Enterprise private module registries.</p>
-<h5 id="5b-interact-with-module-inputs-and-outputs">5b. Interact with module inputs and outputs</h5>
-<h5 id="5c-describe-variable-scope-within-moduleschild-modules">5c. Describe variable scope within modules/child modules</h5>
-<h5 id="5d-discover-modules-from-the-public-terraform-module-registry">5d. Discover modules from the public Terraform Module Registry</h5>
-<h5 id="5e-defining-module-version">5e. Defining module version</h5>
-<h3 id="6-navigate-terraform-workflow">6. Navigate Terraform workflow</h3>
-<h5 id="6a-describe-terraform-workflow--write---plan---create-">6a. Describe Terraform workflow ( Write -&gt; Plan -&gt; Create )</h5>
-<h5 id="6b-initialize-a-terraform-working-directory-terraform-init">6b. Initialize a Terraform working directory (<code>terraform init</code>)</h5>
-<h5 id="6c-validate-a-terraform-configuration-terraform-validate">6c. Validate a Terraform configuration (<code>terraform validate</code>)</h5>
-<h5 id="6d-generate-and-review-an-execution-plan-for-terraform-terraform-plan">6d. Generate and review an execution plan for Terraform (<code>terraform plan</code>)</h5>
-<h5 id="6e-execute-changes-to-infrastructure-with-terraform-terraform-apply">6e. Execute changes to infrastructure with Terraform (<code>terraform apply</code>)</h5>
-<h5 id="6f-destroy-terraform-managed-infrastructure-terraform-destroy">6f. Destroy Terraform managed infrastructure (<code>terraform destroy</code>)</h5>
-<h3 id="7-implement-and-maintain-state">7. Implement and maintain state</h3>
-<h5 id="7a-describe-default-local-backend">7a. Describe default local backend</h5>
-<h5 id="7b-outline-state-locking">7b. Outline state locking</h5>
-<h5 id="7c-handle-backend-authentication-methods">7c. Handle backend authentication methods</h5>
-<h5 id="7d-describe-remote-state-storage-mechanisms-and-supported-standard-backends">7d. Describe remote state storage mechanisms and supported standard backends</h5>
-<h5 id="7e-describe-effect-of-terraform-refresh-on-state">7e. Describe effect of Terraform refresh on state</h5>
-<h5 id="7f-describe-backend-block-in-configuration-and-best-practices-for-partial-configurations">7f. Describe backend block in configuration and best practices for partial configurations</h5>
-<h5 id="7g-understand-secret-management-in-state-files">7g. Understand secret management in state files</h5>
-<h3 id="8-read-generate-and-modify-configuration">8. Read, generate, and modify configuration</h3>
-<h5 id="8a-demonstrate-use-of-variables-and-outputs">8a. Demonstrate use of variables and outputs</h5>
-<h5 id="8b-describe-secure-secret-injection-best-practice">8b. Describe secure secret injection best practice</h5>
-<h5 id="8c-understand-the-use-of-collection-and-structural-types">8c. Understand the use of collection and structural types</h5>
-<h5 id="8d-create-and-differentiate-resource-and-data-configuration">8d. Create and differentiate resource and data configuration</h5>
-<h5 id="8e-use-resource-addressing-and-resource-parameters-to-connect-resources-together">8e. Use resource addressing and resource parameters to connect resources together</h5>
-<h5 id="8f-use-terraform-built-in-functions-to-write-configuration">8f. Use Terraform built-in functions to write configuration</h5>
-<h5 id="8g-configure-resource-using-a-dynamic-block">8g. Configure resource using a dynamic block</h5>
-<h5 id="8h-describe-built-in-dependency-management-order-of-execution-based">8h. Describe built-in dependency management (order of execution based)</h5>
-<h3 id="9-understand-terraform-cloud-and-enterprise-capabilities">9. Understand Terraform Cloud and Enterprise capabilities</h3>
-<h5 id="9a-describe-the-benefits-of-sentinel-registry-and-workspaces">9a. Describe the benefits of Sentinel, registry, and workspaces</h5>
-<h5 id="9b-differentiate-oss-and-terraform-cloud-workspaces">9b. Differentiate OSS and Terraform Cloud workspaces</h5>
-<h5 id="9c-summarize-features-of-terraform-cloud">9c. Summarize features of Terraform Cloud</h5>
-
+<h3 id="5-interact-with-terraform-modules">5. Interact with Terraform modules 
+  <a href="#5-interact-with-terraform-modules">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="5a-contrast-module-source-options">5a. Contrast module source options 
+  <a href="#5a-contrast-module-source-options">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Modules can either be loaded from the local filesystem, or a remote source. Terraform supports a variety of remote sources, including the Terraform Registry, most version control systems, HTTP URLs, and Terraform Cloud or Terraform Enterprise private module registries.</p>
+<h5 id="5b-interact-with-module-inputs-and-outputs">5b. Interact with module inputs and outputs 
+  <a href="#5b-interact-with-module-inputs-and-outputs">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="5c-describe-variable-scope-within-moduleschild-modules">5c. Describe variable scope within modules/child modules 
+  <a href="#5c-describe-variable-scope-within-moduleschild-modules">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="5d-discover-modules-from-the-public-terraform-module-registry">5d. Discover modules from the public Terraform Module Registry 
+  <a href="#5d-discover-modules-from-the-public-terraform-module-registry">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="5e-defining-module-version">5e. Defining module version 
+  <a href="#5e-defining-module-version">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h3 id="6-navigate-terraform-workflow">6. Navigate Terraform workflow 
+  <a href="#6-navigate-terraform-workflow">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="6a-describe-terraform-workflow--write---plan---create-">6a. Describe Terraform workflow ( Write -&gt; Plan -&gt; Create ) 
+  <a href="#6a-describe-terraform-workflow--write---plan---create-">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="6b-initialize-a-terraform-working-directory-terraform-init">6b. Initialize a Terraform working directory (<code>terraform init</code>) 
+  <a href="#6b-initialize-a-terraform-working-directory-terraform-init">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="6c-validate-a-terraform-configuration-terraform-validate">6c. Validate a Terraform configuration (<code>terraform validate</code>) 
+  <a href="#6c-validate-a-terraform-configuration-terraform-validate">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="6d-generate-and-review-an-execution-plan-for-terraform-terraform-plan">6d. Generate and review an execution plan for Terraform (<code>terraform plan</code>) 
+  <a href="#6d-generate-and-review-an-execution-plan-for-terraform-terraform-plan">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="6e-execute-changes-to-infrastructure-with-terraform-terraform-apply">6e. Execute changes to infrastructure with Terraform (<code>terraform apply</code>) 
+  <a href="#6e-execute-changes-to-infrastructure-with-terraform-terraform-apply">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="6f-destroy-terraform-managed-infrastructure-terraform-destroy">6f. Destroy Terraform managed infrastructure (<code>terraform destroy</code>) 
+  <a href="#6f-destroy-terraform-managed-infrastructure-terraform-destroy">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h3 id="7-implement-and-maintain-state">7. Implement and maintain state 
+  <a href="#7-implement-and-maintain-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="7a-describe-default-local-backend">7a. Describe default local backend 
+  <a href="#7a-describe-default-local-backend">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="7b-outline-state-locking">7b. Outline state locking 
+  <a href="#7b-outline-state-locking">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="7c-handle-backend-authentication-methods">7c. Handle backend authentication methods 
+  <a href="#7c-handle-backend-authentication-methods">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="7d-describe-remote-state-storage-mechanisms-and-supported-standard-backends">7d. Describe remote state storage mechanisms and supported standard backends 
+  <a href="#7d-describe-remote-state-storage-mechanisms-and-supported-standard-backends">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="7e-describe-effect-of-terraform-refresh-on-state">7e. Describe effect of Terraform refresh on state 
+  <a href="#7e-describe-effect-of-terraform-refresh-on-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="7f-describe-backend-block-in-configuration-and-best-practices-for-partial-configurations">7f. Describe backend block in configuration and best practices for partial configurations 
+  <a href="#7f-describe-backend-block-in-configuration-and-best-practices-for-partial-configurations">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="7g-understand-secret-management-in-state-files">7g. Understand secret management in state files 
+  <a href="#7g-understand-secret-management-in-state-files">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h3 id="8-read-generate-and-modify-configuration">8. Read, generate, and modify configuration 
+  <a href="#8-read-generate-and-modify-configuration">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="8a-demonstrate-use-of-variables-and-outputs">8a. Demonstrate use of variables and outputs 
+  <a href="#8a-demonstrate-use-of-variables-and-outputs">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8b-describe-secure-secret-injection-best-practice">8b. Describe secure secret injection best practice 
+  <a href="#8b-describe-secure-secret-injection-best-practice">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8c-understand-the-use-of-collection-and-structural-types">8c. Understand the use of collection and structural types 
+  <a href="#8c-understand-the-use-of-collection-and-structural-types">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8d-create-and-differentiate-resource-and-data-configuration">8d. Create and differentiate resource and data configuration 
+  <a href="#8d-create-and-differentiate-resource-and-data-configuration">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8e-use-resource-addressing-and-resource-parameters-to-connect-resources-together">8e. Use resource addressing and resource parameters to connect resources together 
+  <a href="#8e-use-resource-addressing-and-resource-parameters-to-connect-resources-together">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8f-use-terraform-built-in-functions-to-write-configuration">8f. Use Terraform built-in functions to write configuration 
+  <a href="#8f-use-terraform-built-in-functions-to-write-configuration">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8g-configure-resource-using-a-dynamic-block">8g. Configure resource using a dynamic block 
+  <a href="#8g-configure-resource-using-a-dynamic-block">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="8h-describe-built-in-dependency-management-order-of-execution-based">8h. Describe built-in dependency management (order of execution based) 
+  <a href="#8h-describe-built-in-dependency-management-order-of-execution-based">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h3 id="9-understand-terraform-cloud-and-enterprise-capabilities">9. Understand Terraform Cloud and Enterprise capabilities 
+  <a href="#9-understand-terraform-cloud-and-enterprise-capabilities">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="9a-describe-the-benefits-of-sentinel-registry-and-workspaces">9a. Describe the benefits of Sentinel, registry, and workspaces 
+  <a href="#9a-describe-the-benefits-of-sentinel-registry-and-workspaces">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="9b-differentiate-oss-and-terraform-cloud-workspaces">9b. Differentiate OSS and Terraform Cloud workspaces 
+  <a href="#9b-differentiate-oss-and-terraform-cloud-workspaces">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><h5 id="9c-summarize-features-of-terraform-cloud">9c. Summarize features of Terraform Cloud 
+  <a href="#9c-summarize-features-of-terraform-cloud">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5>
         </div>
       </div>
     </div>
