@@ -333,13 +333,31 @@ Traditionally, Jenkins jobs were created using the Jenkins UI and were called Fr
 </center>
 <p>If you&rsquo;d like to watch the video, here&rsquo;s the YouTube link to it: <a href="https://www.youtube.com/watch?v=mLyOj_QD4a4&amp;t=4s">Leeroy Jenkins HD 1080p</a></p>
 <p>Alright, let’s start with the basics.</p>
-<h3 id="1-whats-a-cicd-pipeline">1. What&rsquo;s a CI/CD Pipeline?</h3>
-<p>A CI/CD pipeline is usually described as the processes and stages of automation on software delivery. There&rsquo;s usually a specific tool used to achieve this, that orchestrates with SCM and the other tools. It can be used to build code, run unit tests, smoke tests, call external tools like SonarQube, Anchore, Trivy, build Docker images and deploy to environments like Kubernetes or wherever the application is delivered. By performing standardized operations and tests, a CI/CD pipeline can help reduce manual errors, provide feedback to developers, and allow fast iterations.</p>
-<h3 id="2-whats-a-jenkinsfile">2. What&rsquo;s a Jenkinsfile?</h3>
-<p>A <code>Jenkinsfile</code> is just a text file, usually checked in along with the project&rsquo;s source code in an SCM. Ideally, each application will have its  Jenkinsfile.
+<h3 id="1-whats-a-cicd-pipeline">1. What&rsquo;s a CI/CD Pipeline? 
+  <a href="#1-whats-a-cicd-pipeline">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>A CI/CD pipeline is usually described as the processes and stages of automation on software delivery. There&rsquo;s usually a specific tool used to achieve this, that orchestrates with SCM and the other tools. It can be used to build code, run unit tests, smoke tests, call external tools like SonarQube, Anchore, Trivy, build Docker images and deploy to environments like Kubernetes or wherever the application is delivered. By performing standardized operations and tests, a CI/CD pipeline can help reduce manual errors, provide feedback to developers, and allow fast iterations.</p>
+<h3 id="2-whats-a-jenkinsfile">2. What&rsquo;s a Jenkinsfile? 
+  <a href="#2-whats-a-jenkinsfile">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>A <code>Jenkinsfile</code> is just a text file, usually checked in along with the project&rsquo;s source code in an SCM. Ideally, each application will have its  Jenkinsfile.
 A Jenkinsfile can be written in two ways - &ldquo;scripted pipeline syntax&rdquo; or &ldquo;declarative pipeline syntax&rdquo;.</p>
-<h3 id="3-whats-a-jenkins-scripted-pipeline">3. What&rsquo;s a Jenkins Scripted Pipeline?</h3>
-<p>Scripted pipelines run on the Jenkins master with the help of a lightweight executor. It uses very few resources to translate the pipeline into atomic commands. Both declarative and scripted syntax are different from each other and are defined differently. Scripted pipelines are written in Groovy.</p>
+<h3 id="3-whats-a-jenkins-scripted-pipeline">3. What&rsquo;s a Jenkins Scripted Pipeline? 
+  <a href="#3-whats-a-jenkins-scripted-pipeline">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>Scripted pipelines run on the Jenkins master with the help of a lightweight executor. It uses very few resources to translate the pipeline into atomic commands. Both declarative and scripted syntax are different from each other and are defined differently. Scripted pipelines are written in Groovy.</p>
 <ul>
 <li>It requires knowledge of the Groovy language;</li>
 <li>The Jenkinsfile starts with the word &rsquo;node';</li>
@@ -364,8 +382,14 @@ A Jenkinsfile can be written in two ways - &ldquo;scripted pipeline syntax&rdquo
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>  
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><h3 id="4-whats-a-jenkins-declarative-pipeline">4. What&rsquo;s a Jenkins Declarative Pipeline?</h3>
-<p>The Declarative Pipeline is relatively new and provides a simplified, opinionated syntax on top of the Pipeline subsystems. Its syntax offers an easy way to create pipelines. It contains a predefined hierarchy and gives you the ability to control all aspects of a pipeline execution in a simple, straightforward manner.</p>
+</span></span></code></pre></div><h3 id="4-whats-a-jenkins-declarative-pipeline">4. What&rsquo;s a Jenkins Declarative Pipeline? 
+  <a href="#4-whats-a-jenkins-declarative-pipeline">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>The Declarative Pipeline is relatively new and provides a simplified, opinionated syntax on top of the Pipeline subsystems. Its syntax offers an easy way to create pipelines. It contains a predefined hierarchy and gives you the ability to control all aspects of a pipeline execution in a simple, straightforward manner.</p>
 <ul>
 <li>The latest addition in Jenkins pipeline job creation technique;</li>
 <li>Needs to use the predefined constructs to create pipelines; Hence, it is not flexible as a scripted pipeline;</li>
@@ -373,8 +397,14 @@ A Jenkinsfile can be written in two ways - &ldquo;scripted pipeline syntax&rdquo
 <li>Usually, the preferred way to start, as they offer a rich set of features, come with less learning curve &amp; no prerequisite to learn a programming language like Groovy just for the sake of writing pipeline code;</li>
 <li>We can also validate the syntax of the Declarative pipeline code before running the job. It helps to avoid a lot of runtime issues with the build script.</li>
 </ul>
-<h3 id="5-why-run-jenkins-on-docker">5. Why run Jenkins on Docker?</h3>
-<p>Despite the inherent advantages (and caveats) of running anything in Docker, the main reasons I could think of are:</p>
+<h3 id="5-why-run-jenkins-on-docker">5. Why run Jenkins on Docker? 
+  <a href="#5-why-run-jenkins-on-docker">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>Despite the inherent advantages (and caveats) of running anything in Docker, the main reasons I could think of are:</p>
 <ul>
 <li>Ability to keep the server configuration under version control;</li>
 <li>Run multiple copies of the server anywhere;</li>
@@ -384,8 +414,14 @@ A Jenkinsfile can be written in two ways - &ldquo;scripted pipeline syntax&rdquo
 </ul>
 <p>The main (Drawback|Caveat|Problem|Issue|Flaw) is when you want to use agents with docker too. To do that you&rsquo;re gonna need some implementation of Docker in Docker. There are a few ways to do that, but the two easiest ways are connecting the Jenkins container directly to the host&rsquo;s Docker socket using <code>-v /var/run/docker.sock:/var/run/docker.sock</code> and changing the permissions, or enabling TCP on the Docker server-side. <br>
 If you can run your Jenkins server on Kubernetes, you can enable it to launch new agent pods inside the cluster which gives you even more flexibility. I&rsquo;ll try that in the future since I&rsquo;m out of credits on AWS and my dev cluster is behind a proxy, which is a real pain to deal with.</p>
-<h3 id="6-building-a-jenkins-image">6. Building a Jenkins Image</h3>
-<p>The <code>Dockerfile</code> below creates an image based on the latest Jenkins LTS from Dockerhub, and preinstalls the plugins needed:</p>
+<h3 id="6-building-a-jenkins-image">6. Building a Jenkins Image 
+  <a href="#6-building-a-jenkins-image">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>The <code>Dockerfile</code> below creates an image based on the latest Jenkins LTS from Dockerhub, and preinstalls the plugins needed:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> jenkins/jenkins:lts</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Skip setup wizard</span><span style="color:#960050;background-color:#1e0010">
@@ -443,8 +479,14 @@ If you can run your Jenkins server on Kubernetes, you can enable it to launch ne
 </span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
 </span></span></code></pre></div><p>Now that we have a running Jenkins instance with the plugins installed and with access to the host&rsquo;s dockerd, let&rsquo;s start using it to automate a build.</p>
-<h3 id="7-the-spring-petclinic-sample-application">7. The Spring PetClinic Sample Application</h3>
-<p>To test everything, I downloaded the &ldquo;Spring PetClinic Sample Application&rdquo; (can be found here: <a href="https://github.com/spring-projects/spring-petclinic)">https://github.com/spring-projects/spring-petclinic)</a>, which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you&rsquo;ll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let&rsquo;s first build, test, and run the application manually:</p>
+<h3 id="7-the-spring-petclinic-sample-application">7. The Spring PetClinic Sample Application 
+  <a href="#7-the-spring-petclinic-sample-application">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>To test everything, I downloaded the &ldquo;Spring PetClinic Sample Application&rdquo; (can be found here: <a href="https://github.com/spring-projects/spring-petclinic)">https://github.com/spring-projects/spring-petclinic)</a>, which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you&rsquo;ll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let&rsquo;s first build, test, and run the application manually:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Clone the repo</span>
 </span></span><span style="display:flex;"><span>git clone https://github.com/spring-projects/spring-petclinic.git
 </span></span><span style="display:flex;"><span>
@@ -509,8 +551,14 @@ If you can run your Jenkins server on Kubernetes, you can enable it to launch ne
 </span></span><span style="display:flex;"><span>2021-10-19 11:38:36.371  INFO <span style="color:#ae81ff">39806</span> --- <span style="color:#f92672">[</span>           main<span style="color:#f92672">]</span> o.s.b.a.e.web.EndpointLinksResolver      : Exposing <span style="color:#ae81ff">13</span> endpoint<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> beneath base path <span style="color:#e6db74">&#39;/actuator&#39;</span>
 </span></span><span style="display:flex;"><span>2021-10-19 11:38:36.441  INFO <span style="color:#ae81ff">39806</span> --- <span style="color:#f92672">[</span>           main<span style="color:#f92672">]</span> o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>: <span style="color:#ae81ff">8080</span> <span style="color:#f92672">(</span>http<span style="color:#f92672">)</span> with context path <span style="color:#e6db74">&#39;&#39;</span>
 </span></span><span style="display:flex;"><span>2021-10-19 11:38:36.453  INFO <span style="color:#ae81ff">39806</span> --- <span style="color:#f92672">[</span>           main<span style="color:#f92672">]</span> o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 5.753 seconds <span style="color:#f92672">(</span>JVM running <span style="color:#66d9ef">for</span> 6.136<span style="color:#f92672">)</span>
-</span></span></code></pre></div><h3 id="8-using-maven-on-jenkins">8. Using Maven on Jenkins</h3>
-<p>There are a couple of different ways to use Maven with Jenkins. There is a Maven plugin for Jenkins, and we can install Maven on the Jenkins server and set it up at &ldquo;Global Tool Configuration&rdquo;. Since we want to use docker containers as executors or agents, that would not be an option. We could also use the wrapper that comes with the project, but a better and simple route would be to use the official Maven docker image, and that way we can have an agent always updated and completely separate Maven from our Jenkins server. This approach makes it easier to manage the environment and also allows for a single Jenkins server to work with different types of builds with a single installation, without having to embed every tool used on the server.</p>
+</span></span></code></pre></div><h3 id="8-using-maven-on-jenkins">8. Using Maven on Jenkins 
+  <a href="#8-using-maven-on-jenkins">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p>There are a couple of different ways to use Maven with Jenkins. There is a Maven plugin for Jenkins, and we can install Maven on the Jenkins server and set it up at &ldquo;Global Tool Configuration&rdquo;. Since we want to use docker containers as executors or agents, that would not be an option. We could also use the wrapper that comes with the project, but a better and simple route would be to use the official Maven docker image, and that way we can have an agent always updated and completely separate Maven from our Jenkins server. This approach makes it easier to manage the environment and also allows for a single Jenkins server to work with different types of builds with a single installation, without having to embed every tool used on the server.</p>
 <p>I built a pipeline with six stages: <strong>Init</strong>, <strong>Build</strong>, <strong>Test</strong> and <strong>Build Image</strong>, <strong>Publish Image</strong> and <strong>Prod</strong>. Some of the main aspects are:</p>
 <ul>
 <li>It mounts the m2 directory, which is used by maven, locally to have cache between builds, and also settings.xml to enable setting custom parameters to Maven;</li>
@@ -627,17 +675,41 @@ If you can run your Jenkins server on Kubernetes, you can enable it to launch ne
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;java&#34;</span>,<span style="color:#e6db74">&#34;-Djava.security.egd=file:/dev/./urandom&#34;</span>,<span style="color:#e6db74">&#34;-jar&#34;</span>,<span style="color:#e6db74">&#34;/app/*.jar&#34;</span>]<span style="color:#960050;background-color:#1e0010">
 </span></span></span></code></pre></div><p>That is a working pipeline, and I wanted to include most of the concepts I saw in the courses. There are other features I&rsquo;d like to try in the future like shared libraries and multi-branch pipelines, but this might go into a different post.</p>
-<h3 id="9-courses-i-either-took-or-recommend">9. Courses I either took or recommend:</h3>
-<h5 id="a-jenkins-from-zero-to-hero-become-a-devops-jenkins-master">a. Jenkins, From Zero To Hero: Become a DevOps Jenkins Master</h5>
-<p>Udemy, by Ricardo Andre Gonzalez Gomez, 2018 <br>
+<h3 id="9-courses-i-either-took-or-recommend">9. Courses I either took or recommend: 
+  <a href="#9-courses-i-either-took-or-recommend">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><h5 id="a-jenkins-from-zero-to-hero-become-a-devops-jenkins-master">a. Jenkins, From Zero To Hero: Become a DevOps Jenkins Master 
+  <a href="#a-jenkins-from-zero-to-hero-become-a-devops-jenkins-master">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Udemy, by Ricardo Andre Gonzalez Gomez, 2018 <br>
 <a href="https://www.udemy.com/course/jenkins-from-zero-to-hero/">https://www.udemy.com/course/jenkins-from-zero-to-hero/</a></p>
 <p>I found this course a little outdated and looks like the author stopped maintaining it in 2020. However, if you never used Jenkins before and want a cheap course to start, I strongly recommend this one. It&rsquo;s also well recommended in many other sources and has a high rate at Udemy. Ricardo focuses a lot on Docker, so it might be better targeted to someone without any experience in Docker also.</p>
-<h5 id="b-continuous-integration-with-jenkins">b. Continuous Integration with Jenkins</h5>
-<p>Pluralsight, by different authors, updated constantly <br>
+<h5 id="b-continuous-integration-with-jenkins">b. Continuous Integration with Jenkins 
+  <a href="#b-continuous-integration-with-jenkins">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h5><p>Pluralsight, by different authors, updated constantly <br>
 <a href="https://app.pluralsight.com/paths/skill/continuous-integration-with-jenkins">https://app.pluralsight.com/paths/skill/continuous-integration-with-jenkins</a></p>
 <p>Pluralsight has a total of 8 courses, each with around 2 hours of duration, which makes the Jenkins Skill Path. I took four of them during the last Pluralsight Free Week and like other courses I took from Pluralsight, the quality was much superior. Unfortunately, Pluralsight costs a great amount of money, so I usually stay on the lookout for their periodically free weeks and free weekends. The good thing is that you can download the course material and most of the authors have GitHub repositories where you can check the code later.</p>
-<h3 id="10-references">10. References</h3>
-<p><a href="https://stackoverflow.com/questions/44440164/what-are-the-advantages-of-running-jenkins-in-a-docker-container">https://stackoverflow.com/questions/44440164/what-are-the-advantages-of-running-jenkins-in-a-docker-container</a></p>
+<h3 id="10-references">10. References 
+  <a href="#10-references">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h3><p><a href="https://stackoverflow.com/questions/44440164/what-are-the-advantages-of-running-jenkins-in-a-docker-container">https://stackoverflow.com/questions/44440164/what-are-the-advantages-of-running-jenkins-in-a-docker-container</a></p>
 <p><a href="https://www.cinqict.nl/blog/building-a-jenkins-development-docker-image">https://www.cinqict.nl/blog/building-a-jenkins-development-docker-image</a></p>
 <p><a href="https://tomgregory.com/building-a-spring-boot-application-in-jenkins/">https://tomgregory.com/building-a-spring-boot-application-in-jenkins/</a></p>
 <br>

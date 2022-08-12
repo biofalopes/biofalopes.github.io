@@ -275,8 +275,14 @@ AUTHOR WEBSITE: https://themefisher.com
 <p>We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation. With those metrics we can then create graphics, panels and alerts using Grafana for instance.
 Using some kind of KISS methodology (keep it simple, stupid), running everything inside a docker container would give the flexibility to throw it anywhere and get the same results. The initial goal was to run two containers on AWS pointing to both sites (where the two main Ceph Clusters live) and two others on each site, one pointing to the other.</p>
 <p>For the task I used Python as the programming language with the Prometheus Client for Python, found at <a href="https://github.com/prometheus/client_python">Prometheus client_python</a>. I divided the code in sections to talk about each part separatedly.</p>
-<h4 id="1-libraries">1. Libraries</h4>
-<p>I used: <code>prometheus_client</code> for metrics, <code>boto3</code> for s3 connection and <code>random</code>.</p>
+<h4 id="1-libraries">1. Libraries 
+  <a href="#1-libraries">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>I used: <code>prometheus_client</code> for metrics, <code>boto3</code> for s3 connection and <code>random</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> prometheus_client <span style="color:#f92672">import</span> Histogram, start_http_server, Summary, Gauge, Counter
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
@@ -284,8 +290,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> logging
-</span></span></code></pre></div><h4 id="2-variables">2. Variables</h4>
-<p>Here we define our endpoint address, credentials, name of the bucket and objects, the interval between tests, the histogram buckets and how many objects we want to put simultaneously (for histogram metrics):</p>
+</span></span></code></pre></div><h4 id="2-variables">2. Variables 
+  <a href="#2-variables">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Here we define our endpoint address, credentials, name of the bucket and objects, the interval between tests, the histogram buckets and how many objects we want to put simultaneously (for histogram metrics):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>CLUSTER_ENDPOINT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
 </span></span><span style="display:flex;"><span>ACCESS_KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
 </span></span><span style="display:flex;"><span>SECRET_ACCESS_KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
@@ -296,8 +308,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span style="display:flex;"><span>LOG_LEVEL<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO
 </span></span><span style="display:flex;"><span>BUCKETS<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.15</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.45</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.55</span>, <span style="color:#ae81ff">0.6</span>, <span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.75</span>, <span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">0.85</span>, <span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.95</span> ,<span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>OBJCOUNT<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>
-</span></span></code></pre></div><h4 id="3-metrics">3. Metrics</h4>
-<p>Here we define what metrics we want to generate, or collect: ALL_TESTSm S3_FAIL, CREATE, PUT, DELETE, GET_OBJECT, LIST_OBJECTS, REMOVE_BUCKET, DELETE_OBJECTS. For each operation there are three metrics defined: Summary, Gauge and Histogram. Labels were used for each operation.</p>
+</span></span></code></pre></div><h4 id="3-metrics">3. Metrics 
+  <a href="#3-metrics">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Here we define what metrics we want to generate, or collect: ALL_TESTSm S3_FAIL, CREATE, PUT, DELETE, GET_OBJECT, LIST_OBJECTS, REMOVE_BUCKET, DELETE_OBJECTS. For each operation there are three metrics defined: Summary, Gauge and Histogram. Labels were used for each operation.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ALL_TESTS_SUMMARY <span style="color:#f92672">=</span> Summary(<span style="color:#e6db74">&#39;s3_request_duration_seconds&#39;</span>, <span style="color:#e6db74">&#39;Time spent running the test&#39;</span>,[<span style="color:#e6db74">&#39;task&#39;</span>])
 </span></span><span style="display:flex;"><span>ALL_TESTS_GAUGE <span style="color:#f92672">=</span> Gauge(<span style="color:#e6db74">&#39;s3_request_last_duration_seconds&#39;</span>,<span style="color:#e6db74">&#39;Time spent on the last test&#39;</span>,[<span style="color:#e6db74">&#39;task&#39;</span>])
 </span></span><span style="display:flex;"><span>ALL_TESTS_HIST <span style="color:#f92672">=</span> Histogram(<span style="color:#e6db74">&#39;s3_request_duration_seconds_histogram&#39;</span>,<span style="color:#e6db74">&#39;Time spent on the last test&#39;</span>,[<span style="color:#e6db74">&#39;task&#39;</span>],buckets<span style="color:#f92672">=</span>BUCKETS)
@@ -326,8 +344,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span style="display:flex;"><span>DELETE_OBJECTS_SUMMARY <span style="color:#f92672">=</span> ALL_TESTS_SUMMARY<span style="color:#f92672">.</span>labels(<span style="color:#e6db74">&#39;delete_many&#39;</span>)
 </span></span><span style="display:flex;"><span>DELETE_OBJECTS_GAUGE <span style="color:#f92672">=</span> ALL_TESTS_GAUGE<span style="color:#f92672">.</span>labels(<span style="color:#e6db74">&#39;delete_many&#39;</span>)
 </span></span><span style="display:flex;"><span>DELETE_OBJECTS_HIST <span style="color:#f92672">=</span> ALL_TESTS_HIST<span style="color:#f92672">.</span>labels(<span style="color:#e6db74">&#39;delete_many&#39;</span>)
-</span></span></code></pre></div><h4 id="4-class-s3metrics">4. Class S3Metrics</h4>
-<p>This is where stuff gets done! There is an init function to set the parameters from the variables, start logging and create an a s3 resource from the boto3 library. Decorators were used to measure the time spend in each function and the run_all_tests funcion calls all the tests, which is the one we use as we&rsquo;ll see next.</p>
+</span></span></code></pre></div><h4 id="4-class-s3metrics">4. Class S3Metrics 
+  <a href="#4-class-s3metrics">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>This is where stuff gets done! There is an init function to set the parameters from the variables, start logging and create an a s3 resource from the boto3 library. Decorators were used to measure the time spend in each function and the run_all_tests funcion calls all the tests, which is the one we use as we&rsquo;ll see next.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">S3Metrics</span>:
 </span></span><span style="display:flex;"><span>    s3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 </span></span><span style="display:flex;"><span>    bucket <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
@@ -467,8 +491,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span style="display:flex;"><span>            random_integer <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">32</span>, MAX_LIMIT)
 </span></span><span style="display:flex;"><span>            data <span style="color:#f92672">+=</span> (chr(random_integer))
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>data <span style="color:#f92672">=</span> data
-</span></span></code></pre></div><h4 id="5-main">5. Main</h4>
-<p>Here we start the prometheus exporter and call the method run_all_tests() from class S3Metrics inside an infinite while loop, so the script will run continuously until manually stopped.</p>
+</span></span></code></pre></div><h4 id="5-main">5. Main 
+  <a href="#5-main">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Here we start the prometheus exporter and call the method run_all_tests() from class S3Metrics inside an infinite while loop, so the script will run continuously until manually stopped.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
 </span></span><span style="display:flex;"><span>    start_http_server(PORT)
 </span></span><span style="display:flex;"><span>    s3metrics <span style="color:#f92672">=</span> S3Metrics(BUCKET_NAME, OBJECT_NAME)
@@ -479,8 +509,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
 </span></span><span style="display:flex;"><span>    main()
 </span></span></code></pre></div><p>So now that we have our <code>s3metrics.py</code>, we have to build a container to run it. I created a <code>requirements.txt</code> file to make it easier to adjust the package versions in the future, and used in the Dockerfile the <code>python:3</code> base image since it already have most of what I need.</p>
-<h4 id="6-requirements">6. Requirements</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>boto3<span style="color:#f92672">==</span><span style="color:#ae81ff">1.17.54</span>
+<h4 id="6-requirements">6. Requirements 
+  <a href="#6-requirements">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>boto3<span style="color:#f92672">==</span><span style="color:#ae81ff">1.17.54</span>
 </span></span><span style="display:flex;"><span>botocore<span style="color:#f92672">==</span><span style="color:#ae81ff">1.20.54</span>
 </span></span><span style="display:flex;"><span>jmespath<span style="color:#f92672">==</span><span style="color:#ae81ff">0.10.0</span>
 </span></span><span style="display:flex;"><span>prometheus<span style="color:#f92672">-</span>client<span style="color:#f92672">==</span><span style="color:#ae81ff">0.10.1</span>
@@ -488,8 +524,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span style="display:flex;"><span>s3transfer<span style="color:#f92672">==</span><span style="color:#ae81ff">0.4.0</span>
 </span></span><span style="display:flex;"><span>six<span style="color:#f92672">==</span><span style="color:#ae81ff">1.15.0</span>
 </span></span><span style="display:flex;"><span>urllib3<span style="color:#f92672">==</span><span style="color:#ae81ff">1.26.4</span>
-</span></span></code></pre></div><h4 id="7-dockerfile">7. Dockerfile</h4>
-<p>Using the <code>python:3</code> base image and putting our <code>.py</code> file inside, we can run it inside a container:</p>
+</span></span></code></pre></div><h4 id="7-dockerfile">7. Dockerfile 
+  <a href="#7-dockerfile">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Using the <code>python:3</code> base image and putting our <code>.py</code> file inside, we can run it inside a container:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:3</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
@@ -501,10 +543,22 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> python3 -m venv .venv; bash -c <span style="color:#e6db74">&#39;source .venv/bin/activate&#39;</span>; pip install -r requirements.txt<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [ <span style="color:#e6db74">&#34;python&#34;</span>, <span style="color:#e6db74">&#34;./s3-metrics.py&#34;</span> ]<span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h4 id="8-build-and-run">8. Build and Run</h4>
-<p>Now we can run the container inside an EC2 instance or anywhere capable of running a docker container (you don&rsquo;t say, lol). I&rsquo;ll later post my terraform script used to deploy it on AWS with more details. Now for the Grafana part:</p>
-<h4 id="9-grafana">9. Grafana</h4>
-<p>Here&rsquo;s how I configured a Bar gauge graph to see the PUT Histogram:</p>
+</span></span></span></code></pre></div><h4 id="8-build-and-run">8. Build and Run 
+  <a href="#8-build-and-run">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Now we can run the container inside an EC2 instance or anywhere capable of running a docker container (you don&rsquo;t say, lol). I&rsquo;ll later post my terraform script used to deploy it on AWS with more details. Now for the Grafana part:</p>
+<h4 id="9-grafana">9. Grafana 
+  <a href="#9-grafana">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Here&rsquo;s how I configured a Bar gauge graph to see the PUT Histogram:</p>
 <center>
 
 
@@ -651,8 +705,14 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 
 
 </center>
-<h4 id="10-conclusion">10. Conclusion</h4>
-<p>That kind of monitoring can give a good observability to a service like Ceph S3 Gateway, but this could easily be applied to any other service with some changes. Before that, we used UpTimeRobot to achieve a similar goal, but from my perspective you can have much more control and flexibility with a container like that performing connectivity tests, and in this case we go much deeper by mimicking user operations on our tests.</p>
+<h4 id="10-conclusion">10. Conclusion 
+  <a href="#10-conclusion">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>That kind of monitoring can give a good observability to a service like Ceph S3 Gateway, but this could easily be applied to any other service with some changes. Before that, we used UpTimeRobot to achieve a similar goal, but from my perspective you can have much more control and flexibility with a container like that performing connectivity tests, and in this case we go much deeper by mimicking user operations on our tests.</p>
 
         </div>
       </div>
