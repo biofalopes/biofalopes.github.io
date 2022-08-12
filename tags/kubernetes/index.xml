@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubernetes on Fabio M. Lopes - Personal Blog</title>
+    <title>kubernetes on Fabio M. Lopes</title>
     <link>https://www.fabiolopes.tk/tags/kubernetes/</link>
-    <description>Recent content in Kubernetes on Fabio M. Lopes - Personal Blog</description>
+    <description>Recent content in kubernetes on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
     <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
@@ -12,7 +13,8 @@
       <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/rook/</guid>
-      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.</description>
+      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.
+As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers.</description>
     </item>
     
   </channel>

@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Fabio M. Lopes - Personal Blog</title>
+    <title>Blog on Fabio M. Lopes</title>
     <link>https://www.fabiolopes.tk/blog/</link>
-    <description>Recent content in Blog on Fabio M. Lopes - Personal Blog</description>
+    <description>Recent content in Blog on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 11 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/blog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>HashiCorp Certified: Terraform Associate Exam</title>
-      <link>https://www.fabiolopes.tk/blog/terraform-study-guide/</link>
-      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/terraform-study-guide/</guid>
-      <description>In order to pass the Terraform Associate Exam I followed the Official guide as a baseline for my studies, as I usually do for certification exams and it always works out well for me.</description>
-    </item>
-    
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing AWS Autoscaling Groups and Load Balancers using Terraform</title>
-      <link>https://www.fabiolopes.tk/blog/terraform-aws-asg/</link>
+      <link>https://www.fabiolopes.tk/blog/terraform-2/</link>
       <pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/blog/terraform-aws-asg/</guid>
-      <description>This time I’ll be using an environment with a Load Balancer and an Autoscaling Group, which is a more complex architecture than the previous one.</description>
+      <guid>https://www.fabiolopes.tk/blog/terraform-2/</guid>
+      <description>This time I&amp;rsquo;ll be using an environment with a Load Balancer and an Autoscaling Group, which is a more complex architecture than the previous one.
+We&amp;rsquo;ll have the following resources deployed with this procedure:
+1 VPC 2 Subnets 1 Internet Gateway 1 Route Table (with a default route and an association) 2 Security groups 1 Key Pair 1 EC2 Instance 1 Launch Configuration 1 ELB 1 ASG 2 Autoscaling Policies 2 Cloudwatch Metric Alarms It&amp;rsquo;s a very simple and you can build on top of it according to your needs, like the previous infrastructure.</description>
     </item>
     
     <item>
       <title>Basic Dev Environment on AWS using Terraform</title>
-      <link>https://www.fabiolopes.tk/blog/terraform-aws-devenv/</link>
+      <link>https://www.fabiolopes.tk/blog/terraform-1/</link>
       <pubDate>Sat, 30 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/blog/terraform-aws-devenv/</guid>
-      <description>It&amp;rsquo;s good to have a basic terraform code that deploys a basic environment on AWS whenever you need to run some quick tests on a free tier account.</description>
+      <guid>https://www.fabiolopes.tk/blog/terraform-1/</guid>
+      <description>It&amp;rsquo;s good to have a basic terraform code that deploys a basic environment on AWS whenever you need to run some quick tests on a free tier account.
+We&amp;rsquo;ll have the following resources deployed with this procedure:
+1 VPC 1 Subnet 1 Internet Gateway 1 Route Table (with a default route and an association) 1 Security group 1 Key Pair 1 EC2 Instance It&amp;rsquo;s a very simple and you can build on top of it according to your needs, like adding a RDS instance or more EC2 instances, changing the instance type and so on.</description>
     </item>
     
     <item>
@@ -39,7 +35,18 @@
       <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/jenkins-1/</guid>
-      <description>After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.</description>
+      <description>After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.
+It is known that there are many other more modern solutions today, like GitHub Actions or Gitlab CI, for instance, which is a common approach since you can leverage the SCM directly to automate your tasks instead of depending on an external tool.</description>
+    </item>
+    
+    <item>
+      <title>Using Python and Docker to monitor Ceph S3 from outside</title>
+      <link>https://www.fabiolopes.tk/blog/python-s3-monitoring/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.tk/blog/python-s3-monitoring/</guid>
+      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.
+We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation.</description>
     </item>
     
     <item>
@@ -48,7 +55,8 @@
       <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/rook/</guid>
-      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.</description>
+      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.
+As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers.</description>
     </item>
     
     <item>
@@ -57,7 +65,8 @@
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/python-web-scrapper-fii/</guid>
-      <description>So I needed to learn how to scrape a web page using Python. My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs.</description>
+      <description>So I needed to learn how to scrape a web page using Python.
+My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs. I did some research and found some good examples using a module called pandas (https://realpython.com/python-csv/) , a tool designed for data analisys and manipulation and very popular among people working with data science.My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.</description>
     </item>
     
     <item>
@@ -67,7 +76,7 @@
       
       <guid>https://www.fabiolopes.tk/blog/python-sort-comparsion/</guid>
       <description>So I needed to learn how to use decorators in Python.
-I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
+I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.</description>
     </item>
     
     <item>
@@ -76,7 +85,9 @@ I tried to come up with something within my current knowledge and since I was st
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
-      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, I needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.</description>
+      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.
+I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
+[root@mon-1 ~]# ceph features{&amp;#34;mon&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 3}},&amp;#34;mds&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 3}},&amp;#34;osd&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 192}},&amp;#34;client&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x27018fb86aa42ada&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;jewel&amp;#34;,&amp;#34;num&amp;#34;: 422},&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x2f018fb86aa42ada&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 95},&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 18}}} So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while.</description>
     </item>
     
     <item>
@@ -85,16 +96,9 @@ I tried to come up with something within my current knowledge and since I was st
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://www.fabiolopes.tk/blog/ceph-features-2/</guid>
-      <description>After some digging I found the list of possible features, its respective kernel version requirement and/or when it became available.</description>
-    </item>
-    
-    <item>
-      <title>Using Python and Docker to monitor Ceph S3 from the internet</title>
-      <link>https://www.fabiolopes.tk/blog/python-s3-monitoring/</link>
-      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/python-s3-monitoring/</guid>
-      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience.</description>
+      <description>After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.
+This can be found in src/include/ceph_features.h, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .
+That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility.</description>
     </item>
     
   </channel>
