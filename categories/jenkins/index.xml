@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>jenkins on Fabio M. Lopes</title>
-    <link>https://www.fabiolopes.tk/categories/jenkins/</link>
-    <description>Recent content in jenkins on Fabio M. Lopes</description>
+    <title>Jenkins on Fabio M. Lopes - Personal Blog</title>
+    <link>https://www.fabiolopes.page/categories/jenkins/</link>
+    <description>Recent content in Jenkins on Fabio M. Lopes - Personal Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/categories/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/categories/jenkins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Jenkins Declarative Pipelines</title>
-      <link>https://www.fabiolopes.tk/blog/jenkins-1/</link>
+      <link>https://www.fabiolopes.page/blog/jenkins-1/</link>
       <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/blog/jenkins-1/</guid>
-      <description>After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.
-It is known that there are many other more modern solutions today, like GitHub Actions or Gitlab CI, for instance, which is a common approach since you can leverage the SCM directly to automate your tasks instead of depending on an external tool.</description>
+      <guid>https://www.fabiolopes.page/blog/jenkins-1/</guid>
+      <description>After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.</description>
     </item>
     
   </channel>

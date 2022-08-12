@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ceph on Fabio M. Lopes</title>
-    <link>https://www.fabiolopes.tk/tags/ceph/</link>
-    <description>Recent content in ceph on Fabio M. Lopes</description>
+    <title>Ceph on Fabio M. Lopes - Personal Blog</title>
+    <link>https://www.fabiolopes.page/tags/ceph/</link>
+    <description>Recent content in Ceph on Fabio M. Lopes - Personal Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 20 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Using Python and Docker to monitor Ceph S3 from outside</title>
-      <link>https://www.fabiolopes.tk/blog/python-s3-monitoring/</link>
-      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.tk/blog/python-s3-monitoring/</guid>
-      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.
-We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation.</description>
-    </item>
-    
+    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
-      <link>https://www.fabiolopes.tk/blog/rook/</link>
+      <link>https://www.fabiolopes.page/blog/rook/</link>
       <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/blog/rook/</guid>
-      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.
-As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers.</description>
+      <guid>https://www.fabiolopes.page/blog/rook/</guid>
+      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.</description>
     </item>
     
     <item>
       <title>Ceph features and its relation to the client kernel version</title>
-      <link>https://www.fabiolopes.tk/blog/ceph-features/</link>
+      <link>https://www.fabiolopes.page/blog/ceph-features/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/blog/ceph-features/</guid>
-      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.
-I started checking the documentation as always, but all i found was a command called ceph features, which gives a summarized output:
-[root@mon-1 ~]# ceph features{&amp;#34;mon&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 3}},&amp;#34;mds&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 3}},&amp;#34;osd&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 192}},&amp;#34;client&amp;#34;: {&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x27018fb86aa42ada&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;jewel&amp;#34;,&amp;#34;num&amp;#34;: 422},&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x2f018fb86aa42ada&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 95},&amp;#34;group&amp;#34;: {&amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&amp;#34;num&amp;#34;: 18}}} So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while.</description>
+      <guid>https://www.fabiolopes.page/blog/ceph-features/</guid>
+      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, I needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.</description>
     </item>
     
     <item>
       <title>Obtaining a list of Ceph features from the hexadecimal value</title>
-      <link>https://www.fabiolopes.tk/blog/ceph-features-2/</link>
+      <link>https://www.fabiolopes.page/blog/ceph-features-2/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://www.fabiolopes.tk/blog/ceph-features-2/</guid>
-      <description>After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.
-This can be found in src/include/ceph_features.h, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .
-That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility.</description>
+      <guid>https://www.fabiolopes.page/blog/ceph-features-2/</guid>
+      <description>After some digging I found the list of possible features, its respective kernel version requirement and/or when it became available.</description>
+    </item>
+    
+    <item>
+      <title>Using Python and Docker to monitor Ceph S3 from the internet</title>
+      <link>https://www.fabiolopes.page/blog/python-s3-monitoring/</link>
+      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.page/blog/python-s3-monitoring/</guid>
+      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience.</description>
     </item>
     
   </channel>
