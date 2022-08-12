@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Terraform on Fabio M. Lopes - Personal Blog</title>
+    <title>Terraform on Fabio M. Lopes</title>
     <link>https://www.fabiolopes.page/tags/terraform/</link>
-    <description>Recent content in Terraform on Fabio M. Lopes - Personal Blog</description>
+    <description>Recent content in Terraform on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 11 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     <item>
