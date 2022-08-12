@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jenkins on Fabio M. Lopes - Personal Blog</title>
-    <link>https://fabiolopes.tk/tags/jenkins/</link>
+    <link>https://www.fabiolopes.tk/tags/jenkins/</link>
     <description>Recent content in Jenkins on Fabio M. Lopes - Personal Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://fabiolopes.tk/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Jenkins Declarative Pipelines</title>
-      <link>https://fabiolopes.tk/blog/jenkins-1/</link>
+      <link>https://www.fabiolopes.tk/blog/jenkins-1/</link>
       <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://fabiolopes.tk/blog/jenkins-1/</guid>
+      <guid>https://www.fabiolopes.tk/blog/jenkins-1/</guid>
       <description>After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.</description>
     </item>
     

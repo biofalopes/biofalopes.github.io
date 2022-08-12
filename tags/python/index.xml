@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Fabio M. Lopes - Personal Blog</title>
-    <link>https://fabiolopes.tk/tags/python/</link>
+    <link>https://www.fabiolopes.tk/tags/python/</link>
     <description>Recent content in Python on Fabio M. Lopes - Personal Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 20 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://fabiolopes.tk/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.tk/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Web scrapper using Python</title>
-      <link>https://fabiolopes.tk/blog/python-web-scrapper-fii/</link>
+      <link>https://www.fabiolopes.tk/blog/python-web-scrapper-fii/</link>
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fabiolopes.tk/blog/python-web-scrapper-fii/</guid>
+      <guid>https://www.fabiolopes.tk/blog/python-web-scrapper-fii/</guid>
       <description>So I needed to learn how to scrape a web page using Python. My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs.</description>
     </item>
     
     <item>
       <title>Comparsion of Sorting Algorithms using Python Decorators</title>
-      <link>https://fabiolopes.tk/blog/python-sort-comparsion/</link>
+      <link>https://www.fabiolopes.tk/blog/python-sort-comparsion/</link>
       <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fabiolopes.tk/blog/python-sort-comparsion/</guid>
+      <guid>https://www.fabiolopes.tk/blog/python-sort-comparsion/</guid>
       <description>So I needed to learn how to use decorators in Python.
 I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
     </item>
     
     <item>
       <title>Obtaining a list of Ceph features from the hexadecimal value</title>
-      <link>https://fabiolopes.tk/blog/ceph-features-2/</link>
+      <link>https://www.fabiolopes.tk/blog/ceph-features-2/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fabiolopes.tk/blog/ceph-features-2/</guid>
+      <guid>https://www.fabiolopes.tk/blog/ceph-features-2/</guid>
       <description>After some digging I found the list of possible features, its respective kernel version requirement and/or when it became available.</description>
     </item>
     
     <item>
       <title>Using Python and Docker to monitor Ceph S3 from the internet</title>
-      <link>https://fabiolopes.tk/blog/python-s3-monitoring/</link>
+      <link>https://www.fabiolopes.tk/blog/python-s3-monitoring/</link>
       <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://fabiolopes.tk/blog/python-s3-monitoring/</guid>
+      <guid>https://www.fabiolopes.tk/blog/python-s3-monitoring/</guid>
       <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience.</description>
     </item>
     
