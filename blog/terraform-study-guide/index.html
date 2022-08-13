@@ -1018,21 +1018,128 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8b-describe-secure-secret-injection-best-practice">8b. Describe secure secret injection best practice 
+</h5><h6 id="input-variables">Input variables: 
+  <a href="#input-variables">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>Input variables are a means to parameterize Terraform configurations. This is particularly useful for abstracting away sensitive values. These are defined using the variable block type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;region&#34;</span> {
+</span></span><span style="display:flex;"><span> default <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sa-east-1&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To then reference and use this variable, the resulting syntax would be <code>var.region</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;aws&#34;</span> {
+</span></span><span style="display:flex;"><span> region <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">region</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There are three ways to assign configuration variables:</p>
+<ul>
+<li><strong>Command-line flags</strong> - use a command similar to <code>terraform apply -var 'region=sa-east-1'</code>;</li>
+<li><strong>File</strong> - for persistent variable values, create a file called <code>terraform.tfvars</code> with the variable assignments; different files can be created for different environments (e.g. dev or prod);</li>
+<li><strong>Environment variables</strong> - Terraform reads environment variables in the form of <code>TF_VAR_name</code> to find the variable value. For example, the <code>TF_VAR_region</code> variable can be set in the shell to set the Terraform variable for a region. Environment variables can only populate string-type variables; list and map type variables must be populated using another mechanism;</li>
+<li><strong>Interactively</strong> - if <code>terraform apply</code> is executed with any variable unspecified, Terraform prompts users to input the values interactively; while these values are not saved, it does provide a convenient workflow when getting started.</li>
+</ul>
+<p>Strings and numbers are the most commonly used variables, but lists (arrays) and maps (hashtables or dictionaries) can also be used. Lists are defined either explicitly or implicitly. Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e">## Declare implicitly by using brackets []
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;cidrs&#34;</span> { 
+</span></span><span style="display:flex;"><span>  default <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">## Declare explicitly with &#39;list&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;cidrs&#34;</span> { 
+</span></span><span style="display:flex;"><span>  type <span style="color:#f92672">=</span> <span style="color:#66d9ef">list</span> 
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">## Specify list values in terraform.tfvars file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cidrs <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#34;10.0.0.0/16&#34;, &#34;10.1.0.0/16&#34;</span> ]
+</span></span></code></pre></div><br>
+<p>A map is a key/value data structure that can contain other keys and values. Maps are a way to create variables that are lookup tables. Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e">## Declare variables
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;region&#34;</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;amis&#34;</span> {
+</span></span><span style="display:flex;"><span>  type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;map&#34;</span>
+</span></span><span style="display:flex;"><span>  default <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    &#34;us-east-1&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-b374d5a5&#34;</span>
+</span></span><span style="display:flex;"><span>    &#34;us-west-2&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-fc0b939c&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">## Reference variables
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">amis</span>[<span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">region</span>]
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The above mechanisms for setting variables can be used together in any combination. If the same variable is assigned multiple values, Terraform uses the last value it finds, overriding any previous values. Terraform loads variables in the following order, with later sources taking precedence over earlier ones:</p>
+<ul>
+<li>environment variables;</li>
+<li>the <code>terraform.tfvars</code> file, if present;</li>
+<li>the <code>terraform.tfvars.json</code> file, if present;</li>
+<li>any <code>*.auto.tfvars</code> or <code>*.auto.tfvars.json</code> files, processed in lexical order of their filenames;</li>
+<li>any <code>-var</code> and <code>-var-file</code> options on the command line, in the order provided (this includes variables set by a Terraform Cloud workspace).</li>
+</ul>
+
+
+<div class="notices note" ><p>The same variable cannot be assigned multiple values within a single source.</p></div>
+
+<h6 id="output-variables">Output variables: 
+  <a href="#output-variables">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>An output variable is a way to organize data to be easily queried and shown back to the Terraform user. Outputs are a way to tell Terraform what data is important and should be referenceable. This data is output when <code>apply</code> is called and can be queried using the terraform output command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e">## Define Resources
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;importugues&#34;</span> {
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-08d70e59c07c61a3a&#34;</span>
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_eip&#34; &#34;ip&#34;</span> {
+</span></span><span style="display:flex;"><span>  vpc      <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  instance <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_instance</span>.<span style="color:#66d9ef">importugues</span>.<span style="color:#66d9ef">id</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">## Define Output
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">output</span> <span style="color:#e6db74">&#34;ip&#34;</span> {
+</span></span><span style="display:flex;"><span>  value <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_eip</span>.<span style="color:#66d9ef">ip</span>.<span style="color:#66d9ef">public_ip</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The example specifies to output the <code>public_ip</code> attribute. Run <code>terraform apply</code> to populate the output. The output can also be viewed by using the <code>terraform output ip</code> command, with <code>ip</code> in this example referencing the defined output.</p>
+<h5 id="8b-describe-secure-secret-injection-best-practice">8b. Describe secure secret injection best practice 
   <a href="#8b-describe-secure-secret-injection-best-practice">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8c-understand-the-use-of-collection-and-structural-types">8c. Understand the use of collection and structural types 
+</h5><p>Some providers, such as AWS, allow users to store credentials in a separate configuration file. It is a good practice in these instances to store credential keys in a config file such as <code>.aws/credentials</code> and not in the Terraform code.</p>
+<p>Vault is a secrets management system that allows users to secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.</p>
+<p>It is recommended that the <code>terraform.tfstate</code> or <code>.auto.tfvars</code> files should be ignored by Git when committing code to a repository. The <code>terraform.tfvars</code> file may contain sensitive data, such as passwords or IP addresses of an environment that should not be shared with others.</p>
+<h5 id="8c-understand-the-use-of-collection-and-structural-types">8c. Understand the use of collection and structural types 
   <a href="#8c-understand-the-use-of-collection-and-structural-types">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8d-create-and-differentiate-resource-and-data-configuration">8d. Create and differentiate resource and data configuration 
+</h5><p>A complex type groups multiple values into a single value. There are two categories of complex types:</p>
+<ul>
+<li><strong>Collection types</strong> for grouping <em>similar</em> values
+<ul>
+<li><code>list(...)</code> - a sequence of values identified by consecutive whole numbers starting with zero</li>
+<li><code>map(...)</code> - a collection of values where each is identified by a string label</li>
+<li><code>set(...)</code> - a collection of unique values that do not have any secondary identifiers or ordering</li>
+</ul>
+</li>
+<li><strong>Structural types</strong> for grouping potentially <em>dissimilar</em> values
+<ul>
+<li><code>object(...)</code> - a collection of named attributes that each have their own type</li>
+<li><code>tuple(...)</code> - a sequence of elements identified by consecutive whole numbers starting with zero, where each element has its own type</li>
+</ul>
+</li>
+</ul>
+<h5 id="8d-create-and-differentiate-resource-and-data-configuration">8d. Create and differentiate resource and data configuration 
   <a href="#8d-create-and-differentiate-resource-and-data-configuration">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -1053,14 +1160,46 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8g-configure-resource-using-a-dynamic-block">8g. Configure resource using a dynamic block 
+</h5><p>The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values. The general syntax for function calls is a function name followed by comma-separated arguments in parentheses:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">max</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">9</span>)
+</span></span></code></pre></div><p>The following is a non-exhaustive list of built-in functions:</p>
+<ul>
+<li><code>filebase64(path)</code> - reads the contents of a file at the given path and returns as a base64-encoded string</li>
+<li><code>formatdate(spec, timestamp)</code> - converts a timestamp into a different time format</li>
+<li><code>jsonencode({&quot;hello&quot;=&quot;world&quot;})</code> - encodes a given value to a string using JSON syntax</li>
+<li><code>cidrhost(&quot;10.12.127.0/20&quot;, 16)</code> - calculates a full host IP address for a given host number within a given IP network address prefix</li>
+<li><code>file</code> - reads the contents of a file and returns as a string</li>
+<li><code>flatten</code> - takes a list and replaces any elements that are list with a flattened sequence of the list contents</li>
+<li><code>lookup</code> - retrieves the value of a single element from a map, given its key. If the given key does not exist, a the given default value is returned instead</li>
+</ul>
+
+
+<div class="notices note" ><p>The Terraform language does not support user-defined functions, therefore only the built-in functions are available for use.</p></div>
+
+<h5 id="8g-configure-resource-using-a-dynamic-block">8g. Configure resource using a dynamic block 
   <a href="#8g-configure-resource-using-a-dynamic-block">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8h-describe-built-in-dependency-management-order-of-execution-based">8h. Describe built-in dependency management (order of execution based) 
+</h5><p>Some resource types include repeatable nested blocks in their arguments. Users can dynamically construct repeatable nested blocks like <code>setting</code> using a special <code>dynamic</code> block type, which is supported inside <code>resource</code>, <code>data</code>, <code>provider</code>, and <code>provisioner</code> blocks:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_elastic_beanstalk_environment&#34; &#34;bean&#34;</span> {
+</span></span><span style="display:flex;"><span>  name                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tf-beanstalk&#34;</span>
+</span></span><span style="display:flex;"><span>  application         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${aws_elastic_beanstalk_application.tftest.name}&#34;</span>
+</span></span><span style="display:flex;"><span>  solution_stack_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;64bit Amazon Linux 2018.03 v2.11.4 running Go 1.12.6&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">dynamic</span> <span style="color:#e6db74">&#34;setting&#34;</span> {
+</span></span><span style="display:flex;"><span>    for_each <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">settings</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">content</span> {
+</span></span><span style="display:flex;"><span>      namespace <span style="color:#f92672">=</span> <span style="color:#66d9ef">setting</span>.<span style="color:#66d9ef">value</span>[<span style="color:#e6db74">&#34;namespace&#34;</span>]
+</span></span><span style="display:flex;"><span>      name <span style="color:#f92672">=</span> <span style="color:#66d9ef">setting</span>.<span style="color:#66d9ef">value</span>[<span style="color:#e6db74">&#34;name&#34;</span>]
+</span></span><span style="display:flex;"><span>      value <span style="color:#f92672">=</span> <span style="color:#66d9ef">setting</span>.<span style="color:#66d9ef">value</span>[<span style="color:#e6db74">&#34;value&#34;</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A <code>dynamic</code> block acts similar to a <code>for</code> expression, but instead produces nested blocks rather than a complex typed value. It iterates over a given complex value, and generates a nested block for each element of that complex value.</p>
+<h5 id="8h-describe-built-in-dependency-management-order-of-execution-based">8h. Describe built-in dependency management (order of execution based) 
   <a href="#8h-describe-built-in-dependency-management-order-of-execution-based">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -1081,21 +1220,113 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="9b-differentiate-oss-and-terraform-cloud-workspaces">9b. Differentiate OSS and Terraform Cloud workspaces 
+</h5><h6 id="sentinel">Sentinel: 
+  <a href="#sentinel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>Sentinel is a policy as code framework that enables the same practices to be applied to enforcing and managing policy as used for infrastructure. These policies fall into a few categories:</p>
+<ul>
+<li>Compliance - ensuring adherence to external standards like GDPR or PCI-DSS</li>
+<li>Security - ensuring protection of data privacy and infrastructure integrity (i.e. exposing only certain ports)</li>
+<li>Operational Excellence - preventing outages or service degradations (i.e. n+1 minimums)</li>
+</ul>
+<p>Sentinel has been integrated into Terraform Enterprise.</p>
+<h6 id="registry">Registry: 
+  <a href="#registry">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>The <a href="https://registry.terraform.io/">Module Registry</a> gives Terraform users easy access to templates for setting up and running infrastructure with verified and community modules.</p>
+<p>Terraform Cloud&rsquo;s private module registry helps users share Terraform modules across an organization. It includes support for module versioning, a searchable and filterable list of available modules, and a configuration designer to help users build new workspaces faster.</p>
+<p>By design, the private module registry works similarly to the public registry.</p>
+<h6 id="workspaces">Workspaces: 
+  <a href="#workspaces">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>Using Terraform CLI, it is the working directory used to manage collections of resources. But, this is where Terraform Cloud differs: workspaces are used to collect and organize infrastructure instead of directories. A workspace contains everything Terraform needs to manage a given collection of infrastructure, and separate workspaces function like completely separate working directories.</p>
+
+
+<div class="notices note" ><p>Terraform Cloud and Terraform CLI both have features called workspaces, but the features are slightly different. CLI workspaces are alternate state files in the same working directory; a convenience feature for using one configuration to manage multiple similar groups of resources.</p></div>
+
+<h5 id="9b-differentiate-oss-and-terraform-cloud-workspaces">9b. Differentiate OSS and Terraform Cloud workspaces 
   <a href="#9b-differentiate-oss-and-terraform-cloud-workspaces">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="9c-summarize-features-of-terraform-cloud">9c. Summarize features of Terraform Cloud 
+</h5><table>
+  <tr>
+   <td><strong>Feature</strong>
+   </td>
+   <td><strong>OSS</strong>
+   </td>
+   <td><strong>Terraform Cloud</strong>
+   </td>
+   <td><strong>Enterprise</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Terraform Configuration
+   </td>
+   <td>Local or version control repo
+   </td>
+   <td>Version control repo or periodically updated via CLI/API
+   </td>
+   <td rowspan="4" >Same as Terraform Cloud, but also has the following features:
+<ul>
+<li>SAML/SSO
+<li>Audit Logs
+<li>Private Network Connectivity
+<li>Clustering
+</li>
+</ul>
+   </td>
+  </tr>
+  <tr>
+   <td>Variable Values
+   </td>
+   <td>As .tfvars file, as CLI arguments, or in shell environment
+   </td>
+   <td>In workspace
+   </td>
+  </tr>
+  <tr>
+   <td>State
+   </td>
+   <td>On disk or in remote backend
+   </td>
+   <td>In workspace
+   </td>
+  </tr>
+  <tr>
+   <td>Credential and Secrets
+   </td>
+   <td>In shell environments or prompted
+   </td>
+   <td>In workspace, stored as sensitive variables
+   </td>
+  </tr>
+</table>
+<h5 id="9c-summarize-features-of-terraform-cloud">9c. Summarize features of Terraform Cloud 
   <a href="#9c-summarize-features-of-terraform-cloud">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5>
+</h5><p>Terraform Cloud is an application that helps teams use Terraform together. It manages Terraform runs in a consistent and reliable environment, and includes easy access to shared state and secret data, access controls for approving changes to infrastructure, a private registry for sharing Terraform modules, detailed policy controls for governing the contents of Terraform configurations, and more.</p>
+<p>Terraform Cloud is available as a hosted service at <a href="https://app.terraform.io">https://app.terraform.io</a>. Small teams can sign up for free to connect Terraform to version control, share variables, run Terraform in a stable remote environment, and securely store remote state. Paid tiers allow you to add more than five users, create teams with different levels of permissions, enforce policies before creating infrastructure, and collaborate more effectively.</p>
+<p>The Business tier allows large organizations to scale to multiple concurrent runs, create infrastructure in private environments, manage user access with SSO, and automates self-service provisioning for infrastructure end users.</p>
+
         </div>
       </div>
     </div>
