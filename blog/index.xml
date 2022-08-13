@@ -67,7 +67,7 @@
       
       <guid>https://www.fabiolopes.page/blog/python-sort-comparsion/</guid>
       <description>So I needed to learn how to use decorators in Python.
-I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
+ I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
     </item>
     
     <item>
