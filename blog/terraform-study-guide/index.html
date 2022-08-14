@@ -1125,17 +1125,17 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
   </a>
 </h5><p>A complex type groups multiple values into a single value. There are two categories of complex types:</p>
 <ul>
-<li><strong>Collection types</strong> for grouping <em>similar</em> values
+<li><strong>Collection types</strong> for grouping <em>similar</em> values:
 <ul>
-<li><code>list(...)</code> - a sequence of values identified by consecutive whole numbers starting with zero</li>
-<li><code>map(...)</code> - a collection of values where each is identified by a string label</li>
-<li><code>set(...)</code> - a collection of unique values that do not have any secondary identifiers or ordering</li>
+<li><code>list(...)</code> - a sequence of values identified by consecutive whole numbers starting with zero;</li>
+<li><code>map(...)</code> - a collection of values where each is identified by a string label;</li>
+<li><code>set(...)</code> - a collection of unique values that do not have any secondary identifiers or ordering.</li>
 </ul>
 </li>
-<li><strong>Structural types</strong> for grouping potentially <em>dissimilar</em> values
+<li><strong>Structural types</strong> for grouping potentially <em>dissimilar</em> values:
 <ul>
-<li><code>object(...)</code> - a collection of named attributes that each have their own type</li>
-<li><code>tuple(...)</code> - a sequence of elements identified by consecutive whole numbers starting with zero, where each element has its own type</li>
+<li><code>object(...)</code> - a collection of named attributes that each have their own type;</li>
+<li><code>tuple(...)</code> - a sequence of elements identified by consecutive whole numbers starting with zero, where each element has its own type.</li>
 </ul>
 </li>
 </ul>
@@ -1146,14 +1146,56 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8e-use-resource-addressing-and-resource-parameters-to-connect-resources-together">8e. Use resource addressing and resource parameters to connect resources together 
+</h5><h6 id="resources">Resources 
+  <a href="#resources">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>Resources are the most important element in the Terraform language. Each resource block describes one or more infrastructure objects, such as a compute instance.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;web&#34;</span> {
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-a1b2c3d4&#34;</span>
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A resource block declares a resource of a given type (<code>&quot;aws_instance&quot;</code>) with a given local name (<code>&quot;web&quot;</code>). The name is used to refer to this resource from elsewhere in the same Terraform module.</p>
+<h6 id="data-sources">Data Sources 
+  <a href="#data-sources">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h6><p>Data Sources are the way for Terraform to query a platform (e.g. AWS) and retrieve data (e.g. API request to get information). The use of data sources enables Terraform configuration to make use of information defined outside of this Terraform configuration. A provider determines what data sources are available alongside its set of resource types.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_ami&#34; &#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  most_recent <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  owners <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;self&#34;</span>]
+</span></span><span style="display:flex;"><span>  tags <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    Name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;app-server&#34;</span>
+</span></span><span style="display:flex;"><span>    Tested <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A data block lets Terraform read data from a given data source type (<code>aws_ami</code>) and export the result under the given local name (<code>example</code>). Data source attributes are interpolated with the syntax <code>data.TYPE.NAME.ATTRIBUTE</code>. To reference the data source example above, use <code>data.aws_ami.example.id</code>.</p>
+<h5 id="8e-use-resource-addressing-and-resource-parameters-to-connect-resources-together">8e. Use resource addressing and resource parameters to connect resources together 
   <a href="#8e-use-resource-addressing-and-resource-parameters-to-connect-resources-together">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h5><h5 id="8f-use-terraform-built-in-functions-to-write-configuration">8f. Use Terraform built-in functions to write configuration 
+</h5><p>A Resource Address is a string that references a specific resource in a larger infrastructure. An address is made up of two parts:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>[<span style="color:#66d9ef">module</span> <span style="color:#66d9ef">path</span>][<span style="color:#66d9ef">resource</span> <span style="color:#66d9ef">spec</span>]
+</span></span></code></pre></div><p>A resource spec addresses a specific resource in the config. It takes the form of:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource_type</span>.<span style="color:#66d9ef">resource_name</span>[<span style="color:#66d9ef">resource</span> <span style="color:#66d9ef">index</span>]
+</span></span></code></pre></div><p>In which these constructs are defined as:</p>
+<ul>
+<li><code>resource_type</code> - type of the resource being addressed</li>
+<li><code>resource_name</code> - user-defined name of the resource</li>
+<li><code>resource index]</code> - an optional index into a resource with multiple instances, surrounded by square braces <code>[</code> and <code>]</code>.</li>
+</ul>
+<p>For full reference to values, see <a href="https://www.terraform.io/docs/configuration/expressions/references.html">here</a>.</p>
+<h5 id="8f-use-terraform-built-in-functions-to-write-configuration">8f. Use Terraform built-in functions to write configuration 
   <a href="#8f-use-terraform-built-in-functions-to-write-configuration">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -1326,6 +1368,18 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </h5><p>Terraform Cloud is an application that helps teams use Terraform together. It manages Terraform runs in a consistent and reliable environment, and includes easy access to shared state and secret data, access controls for approving changes to infrastructure, a private registry for sharing Terraform modules, detailed policy controls for governing the contents of Terraform configurations, and more.</p>
 <p>Terraform Cloud is available as a hosted service at <a href="https://app.terraform.io">https://app.terraform.io</a>. Small teams can sign up for free to connect Terraform to version control, share variables, run Terraform in a stable remote environment, and securely store remote state. Paid tiers allow you to add more than five users, create teams with different levels of permissions, enforce policies before creating infrastructure, and collaborate more effectively.</p>
 <p>The Business tier allows large organizations to scale to multiple concurrent runs, create infrastructure in private environments, manage user access with SSO, and automates self-service provisioning for infrastructure end users.</p>
+<h4 id="references">References 
+  <a href="#references">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p><a href="https://learn.hashicorp.com/tutorials/terraform/associate-study">Official Study Guide</a></p>
+<p><a href="https://learn.hashicorp.com/tutorials/terraform/associate-review?in=terraform/certification">Official Exam Review</a></p>
+<p><a href="https://learn.hashicorp.com/collections/terraform/certification?_gl=1*sgb3yj*_ga*NjM4NzQ3OTYxLjE2NTA5MDk2Njg.*_ga_P7S46ZYEKW*MTY2MDQ4MTc2OS41Mi4xLjE2NjA0ODI3OTguMA..">Prepare for Certification</a></p>
+<p><a href="https://app.pluralsight.com/paths/skill/managing-infrastructure-with-terraform">Pluralsight Terraform Path</a></p>
+<p><a href="https://github.com/ned1313">Ned Bellavance&rsquo;s GitHub</a></p>
 
         </div>
       </div>
