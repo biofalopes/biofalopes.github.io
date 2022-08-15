@@ -1344,12 +1344,98 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h6><p>Resources are the most important element in the Terraform language. Each resource block describes one or more infrastructure objects, such as a compute instance.</p>
+</h6><p>Resources are the most important element in the Terraform language. Each resource block describes one or more infrastructure objects, such as virtual networks, compute instances, or higher-level components such as DNS records. Example:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;web&#34;</span> {
 </span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-a1b2c3d4&#34;</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>A resource block declares a resource of a given type (<code>&quot;aws_instance&quot;</code>) with a given local name (<code>&quot;web&quot;</code>). The name is used to refer to this resource from elsewhere in the same Terraform module.</p>
+<p>Special arguments that can be used with every resource type, including <code>depends_on</code>, <code>count</code>, <code>for_each</code>, <code>provider</code>, and <code>lifecycle</code>:</p>
+<ul>
+<li><code>depends_on</code>: used to handle hidden resource or module dependencies that Terraform cannot automatically infer;</li>
+<li><code>count</code>: creates that many instances of the resource or module. Each instance has a distinct infrastructure object associated with it, and each is separately created, updated, or destroyed when the configuration is applied;</li>
+<li><code>for_each</code>: If a resource or module block includes a for_each argument whose value is a map or a set of strings, Terraform will create one instance for each member of that map or set;</li>
+<li><code>provider</code>: specifies which provider configuration to use for a resource, overriding Terraform&rsquo;s default behavior of selecting one based on the resource type name;</li>
+<li><code>lifecycle</code>: the arguments available within a lifecycle block are create_before_destroy, prevent_destroy, ignore_changes, and replace_triggered_by.</li>
+</ul>
+<p>Examples:</p>
+<p>depends_on:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_iam_role&#34; &#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;example&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # assume_role_policy is omitted for brevity in this example. Refer to the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # documentation for aws_iam_role for a complete example.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  assume_role_policy <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;...&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_iam_instance_profile&#34; &#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  role <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_iam_role</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">name</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_iam_role_policy&#34; &#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;example&#34;</span>
+</span></span><span style="display:flex;"><span>  role   <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_iam_role</span>.<span style="color:#66d9ef">example</span>.<span style="color:#66d9ef">name</span>
+</span></span><span style="display:flex;"><span>  policy <span style="color:#f92672">=</span> <span style="color:#66d9ef">jsonencode</span>({
+</span></span><span style="display:flex;"><span>    &#34;Statement&#34; <span style="color:#f92672">=</span> [{
+</span></span><span style="display:flex;"><span>      &#34;Action&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s3:*&#34;</span>,
+</span></span><span style="display:flex;"><span>      &#34;Effect&#34; <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Allow&#34;</span>,
+</span></span><span style="display:flex;"><span>    }],
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;example&#34;</span> {
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-a1b2c3d4&#34;</span>
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  depends_on <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">aws_iam_role_policy</span>.<span style="color:#66d9ef">example</span>
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>count:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;server&#34;</span> {
+</span></span><span style="display:flex;"><span>  count <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#75715e"> # create four similar EC2 instances
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-a1b2c3d4&#34;</span>
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  tags <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Server ${count.index}&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>for_each:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_iam_user&#34; &#34;the-accounts&#34;</span> {
+</span></span><span style="display:flex;"><span>  for_each <span style="color:#f92672">=</span> <span style="color:#66d9ef">toset</span>( [<span style="color:#e6db74">&#34;Todd&#34;, &#34;James&#34;, &#34;Alice&#34;, &#34;Dottie&#34;</span>] )
+</span></span><span style="display:flex;"><span>  name     <span style="color:#f92672">=</span> <span style="color:#66d9ef">each</span>.<span style="color:#66d9ef">key</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>provider:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e"># default configuration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;google&#34;</span> {
+</span></span><span style="display:flex;"><span>  region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-central1&#34;</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># alternate configuration, whose alias is &#34;europe&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;google&#34;</span> {
+</span></span><span style="display:flex;"><span>  alias  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;europe&#34;</span>
+</span></span><span style="display:flex;"><span>  region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;europe-west1&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;google_compute_instance&#34; &#34;example&#34;</span> {<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # This &#34;provider&#34; meta-argument selects the google provider
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # configuration whose alias is &#34;europe&#34;, rather than the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # default configuration.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  provider <span style="color:#f92672">=</span> <span style="color:#66d9ef">google</span>.<span style="color:#66d9ef">europe</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>lifecycle:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;azurerm_resource_group&#34; &#34;example&#34;</span> {<span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  # ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">lifecycle</span> {
+</span></span><span style="display:flex;"><span>    create_before_destroy <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><br>
 <h6 id="data-sources">Data Sources 
   <a href="#data-sources">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
@@ -1559,6 +1645,27 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </h5><p>Terraform Cloud is an application that helps teams use Terraform together. It manages Terraform runs in a consistent and reliable environment, and includes easy access to shared state and secret data, access controls for approving changes to infrastructure, a private registry for sharing Terraform modules, detailed policy controls for governing the contents of Terraform configurations, and more.</p>
 <p>Terraform Cloud is available as a hosted service at <a href="https://app.terraform.io">https://app.terraform.io</a>. Small teams can sign up for free to connect Terraform to version control, share variables, run Terraform in a stable remote environment, and securely store remote state. Paid tiers allow you to add more than five users, create teams with different levels of permissions, enforce policies before creating infrastructure, and collaborate more effectively.</p>
 <p>The Business tier allows large organizations to scale to multiple concurrent runs, create infrastructure in private environments, manage user access with SSO, and automates self-service provisioning for infrastructure end users.</p>
+<h4 id="extra-expressions">Extra: Expressions 
+  <a href="#extra-expressions">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+      <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
+      <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
+    </svg>
+  </a>
+</h4><p>Expressions are used to refer to or compute values within a configuration. The Terraform language allows complex expressions such as references to data exported by resources, arithmetic, conditional evaluation, and a number of built-in functions. It is important to understand an know how to use them not only for the test but for the most varied applications when using Terraform. Each expression is well documented on the official Terraform page, so i&rsquo;ll link them below instead of writing about them here. Here&rsquo;s a list of expressions and the link to the official page describing the features of eacho Terraform&rsquo;s expression syntax:</p>
+<ul>
+<li><a href="https://www.terraform.io/language/expressions/types">Types and Values</a> documents the data types that Terraform expressions can resolve to, and the literal syntaxes for values of those types;</li>
+<li><a href="https://www.terraform.io/language/expressions/strings">Strings and Templates</a> documents the syntaxes for string literals, including interpolation sequences and template directives;</li>
+<li><a href="https://www.terraform.io/language/expressions/references">References to Values</a> documents how to refer to named values like variables and resource attributes;</li>
+<li><a href="https://www.terraform.io/language/expressions/operators">Operators</a> documents the arithmetic, comparison, and logical operators;</li>
+<li><a href="https://www.terraform.io/language/expressions/function-calls">Function Calls</a> documents the syntax for calling Terraform&rsquo;s built-in functions;</li>
+<li><a href="https://www.terraform.io/language/expressions/conditionals">Conditional Expressions</a> documents the <code>&lt;CONDITION&gt; ? &lt;TRUE VAL&gt; : &lt;FALSE VAL&gt;</code> expression, which chooses between two values based on a bool condition;</li>
+<li><a href="https://www.terraform.io/language/expressions/for">For Expressions</a> documents expressions like <code>[for s in var.list : upper(s)]</code>, which can transform a complex type value into another complex type value;</li>
+<li><a href="https://www.terraform.io/language/expressions/splat">Splat Expressions</a> documents expressions like <code>var.list[*].id</code>, which can extract simpler collections from more complicated expressions;</li>
+<li><a href="https://www.terraform.io/language/expressions/dynamic-blocks">Dynamic Blocks</a> documents a way to create multiple repeatable nested blocks within a resource or other construct;</li>
+<li><a href="https://www.terraform.io/language/expressions/type-constraints">Type Constraints</a> documents the syntax for referring to a type, rather than a value of that type. Input variables expect this syntax in their type argument;</li>
+<li><a href="https://www.terraform.io/language/expressions/version-constraints">Version Constraints</a> documents the syntax of special strings that define a set of allowed software versions. Terraform uses version constraints in several places.</li>
+</ul>
 <h4 id="references">References 
   <a href="#references">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
