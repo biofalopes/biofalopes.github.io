@@ -646,7 +646,183 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
       <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>
     </svg>
   </a>
-</h3><h5 id="4a-given-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">4a. Given a scenario: choose when to use <code>terraform fmt</code> to format code 
+</h3><p>Let&rsquo;s first have an overview on all of the CLI commands available:</p>
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class="" role="group" aria-describedby="caption-Terraform CLI">
+  <img title="" loading="lazy" decoding="async" class="text-center mb-2" width="636" height="628" src="/images/terraform/cli_hu8462919d3c90d016e858031390fff9b2_78032_636x628_fill_q95_h2_box_smart1_3.webp" alt="cli" onerror="this.onerror='null';this.src='\/images\/terraform\/cli_hu8462919d3c90d016e858031390fff9b2_78032_636x628_fill_q95_box_smart1_3.png'">
+  <figcaption class="text-center" id="caption-Terraform CLI">Terraform CLI</figcaption>
+</figure>
+
+
+
+
+
+
+
+</center>
+<p>Some of the commands above are not covered in detail by the official study guide, like <code>terraform graph</code> for instance. This command renders the output below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>% terraform graph
+</span></span><span style="display:flex;"><span>digraph <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        compound <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>        newrank <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>        subgraph <span style="color:#e6db74">&#34;root&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] aws_instance.biofa_node (expand)&#34;</span> <span style="color:#f92672">[</span>label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aws_instance.biofa_node&#34;</span>, shape <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;box&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] aws_internet_gateway.biofa_internet_gw (expand)&#34;</span> <span style="color:#f92672">[</span>label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aws_internet_gateway.biofa_internet_gw&#34;</span>, shape <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;box&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] aws_key_pair.biofa_key (expand)&#34;</span> <span style="color:#f92672">[</span>label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aws_key_pair.biofa_key&#34;</span>, shape <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;box&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] provider[\&#34;registry.terraform.io/hashicorp/aws\&#34;] (close)&#34;</span> -&gt; <span style="color:#e6db74">&#34;[root] aws_instance.biofa_node (expand)&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] provider[\&#34;registry.terraform.io/hashicorp/aws\&#34;] (close)&#34;</span> -&gt; <span style="color:#e6db74">&#34;[root] aws_main_route_table_association.biofa_public_assoc (expand)&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] provider[\&#34;registry.terraform.io/hashicorp/aws\&#34;] (close)&#34;</span> -&gt; <span style="color:#e6db74">&#34;[root] aws_route.biofa_default_route (expand)&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] root&#34;</span> -&gt; <span style="color:#e6db74">&#34;[root] output.dev_ip&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;[root] root&#34;</span> -&gt; <span style="color:#e6db74">&#34;[root] provider[\&#34;registry.terraform.io/hashicorp/aws\&#34;] (close)&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>The graph is presented in the DOT language. The typical program that can read this format is GraphViz, but many web services are also available to read this format, like <a href="https://dreampuf.github.io/GraphvizOnline/">this</a>. here&rsquo;s an example of a graphical representation of this:</p>
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class="" role="group" aria-describedby="caption-graph">
+  <img title="" loading="lazy" decoding="async" class="text-center mb-2" width="943" height="346" src="/images/terraform/graph_hud78568522ed5dea618f0bc4cfbab5904_36468_943x346_fill_q95_h2_box_smart1_3.webp" alt="graph" onerror="this.onerror='null';this.src='\/images\/terraform\/graph_hud78568522ed5dea618f0bc4cfbab5904_36468_943x346_fill_q95_box_smart1_3.png'">
+  <figcaption class="text-center" id="caption-graph">graph</figcaption>
+</figure>
+
+
+
+
+
+
+
+</center>
+<p>Another command that is worth mentioning is <code>terraform providers</code>, which prints out a tree of modules in the referenced configuration annotated with their provider requirements:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>% terraform providers
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Providers required by configuration:
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>└── provider<span style="color:#f92672">[</span>registry.terraform.io/hashicorp/aws<span style="color:#f92672">]</span> ~&gt; 3.0
+</span></span></code></pre></div><br>
+<h5 id="4a-given-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">4a. Given a scenario: choose when to use <code>terraform fmt</code> to format code 
   <a href="#4a-given-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
       <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -681,7 +857,7 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 </span></span></code></pre></div><p>Similarly, this command does not modify infrastructure, but does modify the state file in order to unmark a resource as tainted.</p>
 
 
-<div class="notices warning" ><p>This command is deprecated. For Terraform v0.15.2 and later, it is recommended using the -replace option with terraform apply instead.</p></div>
+<div class="notices warning" ><p>This command is deprecated. For Terraform v0.15.2 and later, it is recommended using the <code>-replace</code> option with terraform apply instead.</p></div>
 
 <p>Using the <code>-replace</code> option with <code>terraform apply</code> will force Terraform to replace an object even though there are no configuration changes that would require it. Example:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>terraform apply -replace=&#34;aws_instance.example[0]&#34;
