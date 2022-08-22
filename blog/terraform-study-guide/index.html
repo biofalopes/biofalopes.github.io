@@ -159,6 +159,18 @@ AUTHOR WEBSITE: https://themefisher.com
               </li>
               
               
+              
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-855J736ZLY"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-855J736ZLY', { 'anonymize_ip': false });
+}
+</script>
+
             </ul>
             
             
@@ -1483,13 +1495,13 @@ Must use a version greater than or equal to v0.14 but less than v0.15 (which inc
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">max</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">9</span>)
 </span></span></code></pre></div><p>The following is a non-exhaustive list of built-in functions:</p>
 <ul>
-<li><code>filebase64(path)</code> - reads the contents of a file at the given path and returns as a base64-encoded string</li>
-<li><code>formatdate(spec, timestamp)</code> - converts a timestamp into a different time format</li>
-<li><code>jsonencode({&quot;hello&quot;=&quot;world&quot;})</code> - encodes a given value to a string using JSON syntax</li>
-<li><code>cidrhost(&quot;10.12.127.0/20&quot;, 16)</code> - calculates a full host IP address for a given host number within a given IP network address prefix</li>
-<li><code>file</code> - reads the contents of a file and returns as a string</li>
-<li><code>flatten</code> - takes a list and replaces any elements that are list with a flattened sequence of the list contents</li>
-<li><code>lookup</code> - retrieves the value of a single element from a map, given its key. If the given key does not exist, a the given default value is returned instead</li>
+<li><code>filebase64(path)</code> - reads the contents of a file at the given path and returns as a base64-encoded string;</li>
+<li><code>formatdate(spec, timestamp)</code> - converts a timestamp into a different time format;</li>
+<li><code>jsonencode({&quot;hello&quot;=&quot;world&quot;})</code> - encodes a given value to a string using JSON syntax;</li>
+<li><code>cidrhost(&quot;10.12.127.0/20&quot;, 16)</code> - calculates a full host IP address for a given host number within a given IP network address prefix;</li>
+<li><code>file</code> - reads the contents of a file and returns as a string;</li>
+<li><code>flatten</code> - takes a list and replaces any elements that are list with a flattened sequence of the list contents;</li>
+<li><code>lookup</code> - retrieves the value of a single element from a map, given its key. If the given key does not exist, the given default value is returned instead.</li>
 </ul>
 
 
