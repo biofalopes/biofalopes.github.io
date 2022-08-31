@@ -285,35 +285,59 @@ if (!doNotTrack) {
           <p>So I needed to learn how to use decorators in Python.</p>
 <!--more--->  I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.
 <p>Decorators can be very useful when you need to add functionalities to an existing function/method/class, without having to change its code. Let&rsquo;s say you need to add an additional check, time the function or log but you are using a module instead of writing your own function, or you want to reuse the code more efficiently, then using decorators might be the way to go.</p>
-<p>There are many other ways to use decorators that i still have to explore, like chained decorators for instance.</p>
+<p>There are many other ways to use decorators that I still have to explore, like chained decorators for instance.</p>
 <p>I found a good post at <a href="https://kleiber.me/blog/2017/08/10/tutorial-decorator-primer/">https://kleiber.me/blog/2017/08/10/tutorial-decorator-primer/</a> , where the author uses the same example I used (comparing sorting algorithms), but he used the <code>pygorithm.sorting</code> module, while I used my own functions.</p>
-<p><img src="/img/main/python/decorator_tutorial_code.png" alt="decorator"></p>
-<p>There are many different ways to approach this, and we can always improve our older codes as we get better at a programming language. With that in mind, here&rsquo;s the code i came up with, using Python 3:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> functools
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<strong class="text-danger mb-3 d-inline-block">https://www.fabiolopes.pageimages/python/decorator_tutorial_code.png.jpg does not exist</strong>
+
+
+
+
+
+</center>
+<p>There are many different ways to approach this, and we can always improve our older codes as we get better at a programming language. With that in mind, here&rsquo;s the code I came up with, using Python 3 and referencing the examples given at the stackoverflow thread indicated at the end of the post:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># define the function to measure time</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">timeIt</span>(func):
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># wraps the function using functools</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@functools</span><span style="color:#f92672">.</span>wraps(func)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newfunc</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># check to enter the function only once</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> hasattr(newfunc, <span style="color:#e6db74">&#39;_entered&#39;</span>):
-</span></span><span style="display:flex;"><span>            newfunc<span style="color:#f92672">.</span>_entered <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># starts the measurement</span>
-</span></span><span style="display:flex;"><span>            startTime <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
-</span></span><span style="display:flex;"><span>            func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># finishes the measurement</span>
-</span></span><span style="display:flex;"><span>            elapsedTime <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time() <span style="color:#f92672">-</span> startTime
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># prints the result</span>
-</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#39;function [</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">] finished in </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> ms&#39;</span><span style="color:#f92672">.</span>format(
-</span></span><span style="display:flex;"><span>                func<span style="color:#f92672">.</span>__name__, int(elapsedTime <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)))
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">del</span> newfunc<span style="color:#f92672">.</span>_entered
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> newfunc
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">timing</span>(f):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrap</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> hasattr(f, <span style="color:#e6db74">&#39;_entered&#39;</span>): <span style="color:#75715e"># check to enter the function only once (mergeSort has recursion)</span>
+</span></span><span style="display:flex;"><span>            f<span style="color:#f92672">.</span>_entered <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>            starttime <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>            ret <span style="color:#f92672">=</span> f(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+</span></span><span style="display:flex;"><span>            finishtime <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#39;function [</span><span style="color:#e6db74">{:s}</span><span style="color:#e6db74">] finished in </span><span style="color:#e6db74">{:.3f}</span><span style="color:#e6db74"> ms&#39;</span><span style="color:#f92672">.</span>format(f<span style="color:#f92672">.</span>__name__, (finishtime<span style="color:#f92672">-</span>starttime)<span style="color:#f92672">*</span><span style="color:#ae81ff">1000.0</span>))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">del</span> f<span style="color:#f92672">.</span>_entered
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ret
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> wrap
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># the @ inserts decorator</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@timeIt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@timing</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mergeSort</span>(L):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(L) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
 </span></span><span style="display:flex;"><span>        mid <span style="color:#f92672">=</span> len(L) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
@@ -340,8 +364,7 @@ if (!doNotTrack) {
 </span></span><span style="display:flex;"><span>            j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>            k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@timeIt</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@timing</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">selectionSort</span>(L):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(L)):
 </span></span><span style="display:flex;"><span>        min_i <span style="color:#f92672">=</span> i
@@ -351,7 +374,7 @@ if (!doNotTrack) {
 </span></span><span style="display:flex;"><span>    L[i], L[min_i] <span style="color:#f92672">=</span> L[min_i], L[i]
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@timeIt</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@timing</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bubbleSort</span>(L):
 </span></span><span style="display:flex;"><span>    elem <span style="color:#f92672">=</span> len(L) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>    issorted <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
@@ -372,9 +395,7 @@ if (!doNotTrack) {
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#f92672">[</span>mergeSort<span style="color:#f92672">]</span> finished in <span style="color:#ae81ff">2</span> ms
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#f92672">[</span>selectionSort<span style="color:#f92672">]</span> finished in <span style="color:#ae81ff">930</span> ms
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#f92672">[</span>bubbleSort<span style="color:#f92672">]</span> finished in <span style="color:#ae81ff">2828</span> ms
-</span></span></code></pre></div><p>ecco!</p>
-<p><strong>References:</strong></p>
-<p><a href="https://docs.python.org/3/library/timeit.html">https://docs.python.org/3/library/timeit.html</a></p>
+</span></span></code></pre></div><p><strong>References:</strong></p>
 <p><a href="https://stackoverflow.com/questions/5478351/python-time-measure-function">https://stackoverflow.com/questions/5478351/python-time-measure-function</a></p>
 
         </div>
