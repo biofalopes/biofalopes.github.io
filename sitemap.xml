@@ -3,18 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.fabiolopes.page/blog/</loc>
-    <lastmod>2022-08-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.fabiolopes.page/categories/</loc>
-    <lastmod>2022-08-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.fabiolopes.page/</loc>
-    <lastmod>2022-08-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.fabiolopes.page/blog/terraform-study-guide/</loc>
-    <lastmod>2022-08-11T00:00:00+00:00</lastmod>
+    <loc>https://www.fabiolopes.page/tags/python/</loc>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.fabiolopes.page/categories/python/</loc>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.fabiolopes.page/blog/python-sort-comparsion/</loc>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.fabiolopes.page/tags/</loc>
+    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.fabiolopes.page/blog/terraform-study-guide/</loc>
     <lastmod>2022-08-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.fabiolopes.page/tags/terraform/</loc>
@@ -59,17 +68,8 @@
     <loc>https://www.fabiolopes.page/blog/rook/</loc>
     <lastmod>2021-07-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.fabiolopes.page/tags/python/</loc>
-    <lastmod>2020-11-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.fabiolopes.page/categories/python/</loc>
-    <lastmod>2020-11-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://www.fabiolopes.page/blog/python-web-scrapper-fii/</loc>
     <lastmod>2020-11-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.fabiolopes.page/blog/python-sort-comparsion/</loc>
-    <lastmod>2020-11-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.fabiolopes.page/blog/ceph-features/</loc>
     <lastmod>2020-11-16T00:00:00+00:00</lastmod>

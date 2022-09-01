@@ -5,7 +5,17 @@
     <link>https://www.fabiolopes.page/categories/python/</link>
     <description>Recent content in Python on Fabio M. Lopes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 20 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sorting Algorithms and Decorators in Python</title>
+      <link>https://www.fabiolopes.page/blog/python-sort-comparsion/</link>
+      <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.fabiolopes.page/blog/python-sort-comparsion/</guid>
+      <description>So I needed to practice using decorators in Python.
+I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
+    </item>
+    
     <item>
       <title>Web scrapper using Python</title>
       <link>https://www.fabiolopes.page/blog/python-web-scrapper-fii/</link>
@@ -13,16 +23,6 @@
       
       <guid>https://www.fabiolopes.page/blog/python-web-scrapper-fii/</guid>
       <description>So I needed to learn how to scrape a web page using Python. My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs.</description>
-    </item>
-    
-    <item>
-      <title>Comparsion of Sorting Algorithms using Python Decorators</title>
-      <link>https://www.fabiolopes.page/blog/python-sort-comparsion/</link>
-      <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/python-sort-comparsion/</guid>
-      <description>So I needed to learn how to use decorators in Python.
-I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
     </item>
     
     <item>
