@@ -281,7 +281,7 @@ if (!doNotTrack) {
         </div>
         
 
-        <div class="content">
+        <div class="content text-justify">
           <p>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.</p>
 <!--more---> 
 <p>As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers. But i want to talk about what i did with the remaining six servers, that became two kubernetes clusters - one with Flatcar and the other with Centos, to replicate some production scenarios we have. Since the servers have 8 2TB HDD each and we use just one for the OS, that would be a perfect scenario to experiment with Rook. I tinkered with it previously with some labs but now i could really test its usability.</p>

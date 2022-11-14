@@ -2,10 +2,10 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8">
-  <title>Kubernetes</title>
+  <title>Monitoring Kubernetes with Prometheus and Grafana</title>
 
   <meta name="author" content="Themefisher">
-  <meta name="description" content="  Personal Blog  ">
+  <meta name="description" content=" Monitoring Kubernetes with Prometheus and Grafana ">
 
   <!-- mobile responsive meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -202,47 +202,6 @@ if (!doNotTrack) {
 </div>
 
   
-  <section class="section-sm pb-2 page-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 mx-auto text-center">
-
-        
-        
-        <h4 class="mb-3 text-dark font-weight-bold">Showing posts from <mark>Kubernetes</mark></h4>
-        
-        
-
-
-        <ul class="list-inline breadcrumb-menu">
-        
-        
-        <li class="list-inline-item"><a href="/">Home</a></li>
-        
-        
-        
-        
-        
-        
-        <li class="list-inline-item">/ &nbsp; <a href="https://www.fabiolopes.pagecategories">Categories</a></li>
-        
-        
-        
-        
-        
-        <li class="list-inline-item">/ &nbsp; <a href="https://www.fabiolopes.pagecategories/kubernetes">Kubernetes</a></li>
-        
-        
-        
-        
-        
-        
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-  
   
 
 
@@ -250,15 +209,26 @@ if (!doNotTrack) {
 
 <section class="section-sm">
   <div class="container">
-    <div class="row no-gutters justify-content-center">
+    <div class="row justify-content-center">
       <div class="col-lg-10">
-        <div class="row">
+        <div class="text-center mb-5">
+          <h3 class="h2 mb-4 post-title">Monitoring Kubernetes with Prometheus and Grafana</h3>
+          <ul class="card-meta list-inline">
+            <li class="list-inline-item">
+              <a href="#!" class="card-meta-author">
+                
+              </a>
+            </li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item">
+              <span>12 November 2022</span>
+            </li>
+          </ul>
+        </div>
+
+        
+        <div class="mb-5 text-center">
           
-          <div class="col-lg-6">
-            <article class="card post-card">
-  
-  <a href="https://www.fabiolopes.page/blog/monitoring-k8s-prometheus-grafana/">
-    
 
 
 
@@ -301,43 +271,622 @@ if (!doNotTrack) {
   <source srcset="/images/kubernetes/k8s-prom-grafana_huba068d7f2fa22ae68258ef91a003d6b1_42252_600x0_resize_q95_h2_box_3.webp" media="(max-width: 767px)">
   <source srcset="/images/kubernetes/k8s-prom-grafana_huba068d7f2fa22ae68258ef91a003d6b1_42252_700x0_resize_q95_h2_box_3.webp" media="(max-width: 991px)">
   <source srcset="/images/kubernetes/k8s-prom-grafana_huba068d7f2fa22ae68258ef91a003d6b1_42252_1110x0_resize_q95_h2_box_3.webp">
-  <img loading="lazy" decoding="async" class="w-100 h-auto rounded" src="/images/kubernetes/k8s-prom-grafana_huba068d7f2fa22ae68258ef91a003d6b1_42252_1110x0_resize_box_3.png" alt="Monitoring Kubernetes with Prometheus and Grafana" width="790" height="202">
+  <img loading="lazy" decoding="async" class="img-fluid rounded" src="/images/kubernetes/k8s-prom-grafana_huba068d7f2fa22ae68258ef91a003d6b1_42252_1110x0_resize_box_3.png" alt="Post image" width="790" height="202">
 </picture>
  
  
  
 
 
-  </a>
-  
-  <div class="card-body">
-    <ul class="card-meta list-inline mb-2">
-      <li class="list-inline-item mb-2">
+        </div>
         
-      </li>
-      <li class="list-inline-item mb-2">
-        <span>12 Nov, 2022</span>
-      </li>
-      <li class="list-inline-item mb-2">
-        <ul class="card-meta-tag list-inline">
-          
-          <li class="list-inline-item"><a href="https://www.fabiolopes.pagetags/kubernetes">Kubernetes</a></li>
-          
-        </ul>
-      </li>
-    </ul>
-    <h3 class="mb-3">
-      <a class="post-title" href="https://www.fabiolopes.page/blog/monitoring-k8s-prometheus-grafana/">Monitoring Kubernetes with Prometheus and Grafana</a>
-    </h3>
-    <p>After experimenting with many different approaches and manually creating lots of prometheus jobs and grafana dashboards, I came across the …</p>
 
+        <div class="content text-justify">
+          <p>After experimenting with many different approaches and manually creating lots of prometheus jobs and grafana dashboards, I came across the kube-prometheus-stack helm chart from the prometheus-community GitHub repository (<a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)">https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)</a>. That chart comes with all the components I was looking for, specially because it covers almost everything I had previously and a few more metrics. On top of that, it comes with preconfigured alertmanager rules for all of the components, which is very handy.</p>
+<p>It is possible to select only the components you require by overriding the values.yaml file from the chart and tailor it to better suit your needs. In my case, I disabled the Grafana component since I already had one deployed on the environment and it was being used by other team members.</p>
+<p>I&rsquo;m usually not a big fan of helm charts, because altough they make it easy to deploy many components and have a lifecycle management of a helm release, if you need to change some parameter not covered by the template you will have to fork the chart and modify it locally. Another situation is when you integrate with ArgoCD. You can create an application object and call a helm chart on it, but the behavior is a bit different for drift detection and remediation when ArgoCD is dealing with the kubernetes object themselves directly, and in some cases if you update the chart, ArgoCD will end up deleting and recreating everything, or you might to manually trigger a redeployment because ArgoCD won&rsquo;t detect a change on the chart automatically.</p>
+<p>So usually what I do is: first try and adjust everything until I have a decent architecture for whatever I&rsquo;m deploying, and then proceed to create my own set of manifests without the use of helm.</p>
+<p>As is mentioned before, I created an override-values.yaml file with some customizations. I enabled the creation of ingress objects and set a pvc so I could have persistence. I also configured the etcd parameters since I was targeting a Kubernetes cluster with etcd deployed as a service directly on the hosts, and not as pods. that is the default Kubespray behavior, which was my scenario. And finally I disabled Grafana.</p>
+<ol>
+<li>Generate a new file called override-values.yaml:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">alertmanager</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ingress</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ingressClassName</span>: <span style="color:#ae81ff">haproxy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hosts</span>:
+</span></span><span style="display:flex;"><span>       - <span style="color:#ae81ff">alertmanager.somedomain.br</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tls</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">hosts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">alertmanager.somedomain.br</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">alertmanagerSpec</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeClaimTemplate</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">storageClassName</span>: <span style="color:#ae81ff">ssd-hc</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">accessModes</span>: [<span style="color:#e6db74">&#34;ReadWriteOnce&#34;</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">50Gi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">prometheus</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ingress</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ingressClassName</span>: <span style="color:#ae81ff">haproxy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hosts</span>:
+</span></span><span style="display:flex;"><span>       - <span style="color:#ae81ff">prometheus.somedomain.br</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tls</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">hosts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">prometheus.somedomain.br</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">prometheusSpec</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">storageSpec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeClaimTemplate</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">storageClassName</span>: <span style="color:#ae81ff">ssd-hc</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">accessModes</span>: [<span style="color:#e6db74">&#34;ReadWriteOnce&#34;</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">50Gi</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secrets</span>: [<span style="color:#e6db74">&#34;etcd-client-cert&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">additionalScrapeConfigs</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kubeEtcd</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">endpoints</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">10.1.2.11</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">10.1.2.12</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">10.1.2.13</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">service</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">2379</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">2379</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">serviceMonitor</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">scheme</span>: <span style="color:#ae81ff">https</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">insecureSkipVerify</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">caFile</span>: <span style="color:#ae81ff">/etc/prometheus/secrets/etcd-client-cert/etcd-ca.pem</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">certFile</span>: <span style="color:#ae81ff">/etc/prometheus/secrets/etcd-client-cert/etcd-client-prometheus.crt</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">keyFile</span>: <span style="color:#ae81ff">/etc/prometheus/secrets/etcd-client-cert/etcd-client-prometheus.key</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">grafana</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><p>I still have to push the docker images to our private registry and change that on the file (todo).</p>
+<p>An extra step is required so Prometheus can access the etcd metrics, since it has SSL enabled. In order to do that, I got the etcd ca certificate and key from a master node (they are located at <code>/etc/ssl/etcd/ssl</code>) and copied them to my working directory. Then i used <code>cfssl</code> to easily generate the client certificate to prometheus. I won&rsquo;t cover installing cfssl, but you can find instructions at <a href="https://github.com/cloudflare/cfssl">https://github.com/cloudflare/cfssl</a>.</p>
+<ol start="2">
+<li>Generate the json templates:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cfssl print-defaults csr &gt; prometheus.json
+</span></span><span style="display:flex;"><span>cfssl print-defaults config &gt; ca-config.json
+</span></span></code></pre></div><ol start="3">
+<li>Customize ca-config.json:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;signing&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;default&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;expiry&#34;</span>: <span style="color:#e6db74">&#34;43800h&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;profiles&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;server&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;expiry&#34;</span>: <span style="color:#e6db74">&#34;43800h&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;usages&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;server auth&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;client&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;expiry&#34;</span>: <span style="color:#e6db74">&#34;43800h&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;usages&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;client auth&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;peer&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;expiry&#34;</span>: <span style="color:#e6db74">&#34;43800h&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;usages&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;server auth&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;client auth&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="4">
+<li>Customize prometheus.json:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;CN&#34;</span>: <span style="color:#e6db74">&#34;prometheus.somedomain.br&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;hosts&#34;</span>: [<span style="color:#e6db74">&#34;&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;key&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;algo&#34;</span>: <span style="color:#e6db74">&#34;ecdsa&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;size&#34;</span>: <span style="color:#ae81ff">256</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;names&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;C&#34;</span>: <span style="color:#e6db74">&#34;BR&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;L&#34;</span>: <span style="color:#e6db74">&#34;PN&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;ST&#34;</span>: <span style="color:#e6db74">&#34;Bacheland&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="5">
+<li>Generate and rename the certificate:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cfssl gencert -ca<span style="color:#f92672">=</span>etcd-ca.pem -ca-key<span style="color:#f92672">=</span>etcd-ca-key.pem -config<span style="color:#f92672">=</span>ca-config.json -profile<span style="color:#f92672">=</span>client prometheus.json | cfssljson -bare prometheus
+</span></span><span style="display:flex;"><span>mv etcd-client-prometheus.pem etcd-client-prometheus.crt
+</span></span></code></pre></div><ol start="6">
+<li>Create the secret:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl -n monitoring create secret generic etcd-client-cert --from-file<span style="color:#f92672">=</span>./etcd-ca.pem --from-file<span style="color:#f92672">=</span>./etcd-client-prometheus.crt --from-file<span style="color:#f92672">=</span>./etcd-client-prometheus.key
+</span></span></code></pre></div><p>In order to collect kube-proxy metrics, it is necessary to change its ConfigMap and modify the metricsBindAddress parameter to make it listen on all interfaces.</p>
+<ol start="7">
+<li>Edit kube-proxy ConfigMap and restart the pods:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl -n kube-system edit cm kube-proxy
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># metricsBindAddress: 127.0.0.1:10249</span>
+</span></span><span style="display:flex;"><span>  metricsBindAddress: 0.0.0.0:10249
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl -n kube-system delete pod kube-proxy-&lt;id&gt; <span style="color:#75715e"># delete all pods</span>
+</span></span></code></pre></div><ol start="8">
+<li>Run helm install:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>helm install --create-namespace -n monitoring kube-prometheus-stack prometheus-community/kube-prometheus-stack -f override-values.yaml
+</span></span></code></pre></div><ol start="9">
+<li>Check the deployment:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl -n monitoring get all
+</span></span><span style="display:flex;"><span>NAME                                                          READY   STATUS    RESTARTS        AGE
+</span></span><span style="display:flex;"><span>pod/alertmanager-kube-prometheus-stack-alertmanager-0         2/2     Running   <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>2d17h ago<span style="color:#f92672">)</span>   2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-kube-state-metrics-c7bbf884-428wq   1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-operator-57f5866866-4l9kt           1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-prometheus-node-exporter-49wmv      1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-prometheus-node-exporter-9cvx4      1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-prometheus-node-exporter-llr9z      1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-prometheus-node-exporter-qdl74      1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/kube-prometheus-stack-prometheus-node-exporter-t5n4x      1/1     Running   <span style="color:#ae81ff">0</span>               2d17h
+</span></span><span style="display:flex;"><span>pod/prometheus-kube-prometheus-stack-prometheus-0             2/2     Running   <span style="color:#ae81ff">0</span>               2d16h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>                      AGE
+</span></span><span style="display:flex;"><span>service/alertmanager-operated                            ClusterIP   None             &lt;none&gt;        9093/TCP,9094/TCP,9094/UDP   2d17h
+</span></span><span style="display:flex;"><span>service/kube-prometheus-stack-alertmanager               ClusterIP   192.168.7.85     &lt;none&gt;        9093/TCP                     2d17h
+</span></span><span style="display:flex;"><span>service/kube-prometheus-stack-kube-state-metrics         ClusterIP   192.168.37.114   &lt;none&gt;        8080/TCP                     2d17h
+</span></span><span style="display:flex;"><span>service/kube-prometheus-stack-operator                   ClusterIP   192.168.49.194   &lt;none&gt;        443/TCP                      2d17h
+</span></span><span style="display:flex;"><span>service/kube-prometheus-stack-prometheus                 ClusterIP   192.168.10.77    &lt;none&gt;        9090/TCP                     2d17h
+</span></span><span style="display:flex;"><span>service/kube-prometheus-stack-prometheus-node-exporter   ClusterIP   192.168.39.150   &lt;none&gt;        9100/TCP                     2d17h
+</span></span><span style="display:flex;"><span>service/prometheus-operated                              ClusterIP   None             &lt;none&gt;        9090/TCP                     2d17h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                                            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+</span></span><span style="display:flex;"><span>daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   <span style="color:#ae81ff">5</span>         <span style="color:#ae81ff">5</span>         <span style="color:#ae81ff">5</span>       <span style="color:#ae81ff">5</span>            <span style="color:#ae81ff">5</span>           &lt;none&gt;          2d17h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                                       READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1     <span style="color:#ae81ff">1</span>            <span style="color:#ae81ff">1</span>           2d17h
+</span></span><span style="display:flex;"><span>deployment.apps/kube-prometheus-stack-operator             1/1     <span style="color:#ae81ff">1</span>            <span style="color:#ae81ff">1</span>           2d17h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                                                DESIRED   CURRENT   READY   AGE
+</span></span><span style="display:flex;"><span>replicaset.apps/kube-prometheus-stack-kube-state-metrics-c7bbf884   <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>       2d17h
+</span></span><span style="display:flex;"><span>replicaset.apps/kube-prometheus-stack-operator-57f5866866           <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>       2d17h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                                               READY   AGE
+</span></span><span style="display:flex;"><span>statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1     2d17h
+</span></span><span style="display:flex;"><span>statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1     2d17h
+</span></span></code></pre></div><p>At this point we can access Prometheus and check if our targets were created correctly and are reachable:</p>
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img title="" loading="lazy" decoding="async" class="rounded img-fluid " width="1000" height="838" src="/images/kubernetes/prom_targets_hu7602ff3adf4d55985e358a46c5de10a6_123837_1000x838_resize_q95_h2_box_3.webp" alt="" onerror="this.onerror='null';this.src='\/images\/kubernetes\/prom_targets_hu7602ff3adf4d55985e358a46c5de10a6_123837_1000x838_resize_box_3.png'">
+
+
+
+
+
+
+
+</center>
+<p>If any of the targets is down, check the message and eventually verify the Prometheus pod logs. Any unreachable target will appear on the logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl -n monitoring logs prometheus-kube-prometheus-stack-prometheus-0
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.783Z caller<span style="color:#f92672">=</span>main.go:543 level<span style="color:#f92672">=</span>info msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Starting Prometheus Server&#34;</span> mode<span style="color:#f92672">=</span>server version<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(version=2.39.1, branch=HEAD, revision=dcd6af9e0d56165c6f5c64ebbc1fae798d24933a)&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.783Z caller<span style="color:#f92672">=</span>main.go:548 level<span style="color:#f92672">=</span>info build_context<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(go=go1.19.2, user=root@273d60c69592, date=20221007-15:57:09)&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.783Z caller<span style="color:#f92672">=</span>main.go:549 level<span style="color:#f92672">=</span>info host_details<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(Linux 5.10.142-flatcar #1 SMP Tue Oct 11 18:43:33 -00 2022 x86_64 prometheus-kube-prometheus-stack-prometheus-0 (none))&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.783Z caller<span style="color:#f92672">=</span>main.go:550 level<span style="color:#f92672">=</span>info fd_limits<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(soft=1073741816, hard=1073741816)&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.783Z caller<span style="color:#f92672">=</span>main.go:551 level<span style="color:#f92672">=</span>info vm_limits<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(soft=unlimited, hard=unlimited)&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.785Z caller<span style="color:#f92672">=</span>web.go:559 level<span style="color:#f92672">=</span>info component<span style="color:#f92672">=</span>web msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Start listening for connections&#34;</span> address<span style="color:#f92672">=</span>0.0.0.0:9090
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.786Z caller<span style="color:#f92672">=</span>main.go:980 level<span style="color:#f92672">=</span>info msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Starting TSDB ...&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.789Z caller<span style="color:#f92672">=</span>tls_config.go:231 level<span style="color:#f92672">=</span>info component<span style="color:#f92672">=</span>web msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TLS is disabled.&#34;</span> http2<span style="color:#f92672">=</span>false
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.790Z caller<span style="color:#f92672">=</span>head.go:551 level<span style="color:#f92672">=</span>info component<span style="color:#f92672">=</span>tsdb msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Replaying on-disk memory mappable chunks if any&#34;</span>
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.790Z caller<span style="color:#f92672">=</span>head.go:595 level<span style="color:#f92672">=</span>info component<span style="color:#f92672">=</span>tsdb msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;On-disk memory mappable chunks replay completed&#34;</span> duration<span style="color:#f92672">=</span>1.654µs
+</span></span><span style="display:flex;"><span>ts<span style="color:#f92672">=</span>2022-11-11T18:43:46.790Z caller<span style="color:#f92672">=</span>head.go:601 level<span style="color:#f92672">=</span>info component<span style="color:#f92672">=</span>tsdb msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Replaying WAL, this may take a while&#34;</span>
+</span></span></code></pre></div><p>Next, we have to import the Grafana dashboards. If you installed grafana together, your deployment already has everything configured. In my case, i needed to &ldquo;extract&rdquo; the dashboard json files from the helm templates and manually import them. I uploaded the dashboards on my GitHub if you want to make use of them: <a href="https://github.com/biofalopes/grafana_dashboards">https://github.com/biofalopes/grafana_dashboards</a>.</p>
+<p>And now you can check your metrics and alerts and start enabling notifications, thresholds and set up your monitoring process.</p>
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img title="" loading="lazy" decoding="async" class="rounded img-fluid " width="1888" height="940" src="/images/kubernetes/grafana_dash1_hu85a5d27243229801fe2f3c9cf205d9ce_165881_1888x940_resize_q95_h2_box_3.webp" alt="" onerror="this.onerror='null';this.src='\/images\/kubernetes\/grafana_dash1_hu85a5d27243229801fe2f3c9cf205d9ce_165881_1888x940_resize_box_3.png'">
+
+
+
+
+
+
+
+</center>
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img title="" loading="lazy" decoding="async" class="rounded img-fluid " width="1875" height="924" src="/images/kubernetes/grafana_dash2_hu371b38f6b2f48491aa36000b2cbf7c7c_219521_1875x924_resize_q95_h2_box_3.webp" alt="" onerror="this.onerror='null';this.src='\/images\/kubernetes\/grafana_dash2_hu371b38f6b2f48491aa36000b2cbf7c7c_219521_1875x924_resize_box_3.png'">
+
+
+
+
+
+
+
+</center>
+<center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img title="" loading="lazy" decoding="async" class="rounded img-fluid " width="1886" height="931" src="/images/kubernetes/prom_alerts_hu8bddf126a6b6ed776732083d0ce8d599_86012_1886x931_resize_q95_h2_box_3.webp" alt="" onerror="this.onerror='null';this.src='\/images\/kubernetes\/prom_alerts_hu8bddf126a6b6ed776732083d0ce8d599_86012_1886x931_resize_box_3.png'">
+
+
+
+
+
+
+
+</center>
+        </div>
+      </div>
+    </div>
+
+    <div class="single-post-meta">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 text-center text-md-left">
+          <ul class="post-meta-tags list-unstyled list-inline">
+            
+            <li class="list-inline-item"><a href="https://www.fabiolopes.page/tags/kubernetes">Kubernetes</a></li>
+            
+          </ul>
+        </div>
+        <div class="col-lg-5 col-md-6 text-center text-md-right mt-4 mt-md-0">
+<ul class="social-links has-bg-color list-unstyled list-inline" style="line-height:0">
+  <li class="list-inline-item">
     
-  </div>
-</article>
+    <a class="resp-sharing-button__link d-block" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.fabiolopes.page%2fblog%2fmonitoring-k8s-prometheus-grafana%2f" target="_blank"
+      rel="noopener" aria-label="">
+      <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small">
+        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+          <i class="lab la-facebook-f text-dark"></i>
+        </div>
+      </div>
+    </a>
+  </li>
+
+  <li class="list-inline-item">
+    
+    <a class="resp-sharing-button__link d-block" href="https://twitter.com/intent/tweet/?text=Monitoring%20Kubernetes%20with%20Prometheus%20and%20Grafana&amp;url=https%3a%2f%2fwww.fabiolopes.page%2fblog%2fmonitoring-k8s-prometheus-grafana%2f"
+      target="_blank" rel="noopener" aria-label="">
+      <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+          <i class="lab la-twitter text-dark"></i>
+        </div>
+      </div>
+    </a>
+  </li>
+
+  <li class="list-inline-item">
+    
+    <a class="resp-sharing-button__link d-block" href="https://plus.google.com/share?url=https%3a%2f%2fwww.fabiolopes.page%2fblog%2fmonitoring-k8s-prometheus-grafana%2f" target="_blank"
+      rel="noopener" aria-label="">
+      <div class="resp-sharing-button resp-sharing-button--google resp-sharing-button--small">
+        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+          <i class="lab la-google-plus-g text-dark"></i>
+        </div>
+      </div>
+    </a>
+  </li>
+
+  <li class="list-inline-item">
+    
+    <a class="resp-sharing-button__link d-block" href="mailto:?subject=Monitoring%20Kubernetes%20with%20Prometheus%20and%20Grafana&amp;body=https%3a%2f%2fwww.fabiolopes.page%2fblog%2fmonitoring-k8s-prometheus-grafana%2f" target="_self"
+      rel="noopener" aria-label="">
+      <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small">
+        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+          <i class="las la-envelope text-dark"></i>
+        </div>
+      </div>
+    </a>
+  </li>
+
+  <li class="list-inline-item">
+    
+    <a class="resp-sharing-button__link d-block" href="whatsapp://send?text=Monitoring%20Kubernetes%20with%20Prometheus%20and%20Grafana%20https%3a%2f%2fwww.fabiolopes.page%2fblog%2fmonitoring-k8s-prometheus-grafana%2f" target="_blank"
+      rel="noopener" aria-label="">
+      <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small">
+        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+          <i class="lab la-whatsapp text-dark"></i>
+        </div>
+      </div>
+    </a>
+  </li>
+
+  <li class="list-inline-item">
+    
+    <a class="resp-sharing-button__link d-block" href="https://www.linkedin.com/shareArticle?url=https%3a%2f%2fwww.fabiolopes.page%2fblog%2fmonitoring-k8s-prometheus-grafana%2f&title=Monitoring%20Kubernetes%20with%20Prometheus%20and%20Grafana" target="_blank"
+      rel="noopener" aria-label="">
+      <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small">
+        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+          <i class="lab la-linkedin text-dark"></i>
+        </div>
+      </div>
+    </a>
+  </li>
+
+</ul></div>
+      </div>
+    </div>
+
+    <div class="single-post-author">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="media d-block d-sm-flex text-center text-sm-left">
+            
           </div>
-          
-          <div class="col-lg-6">
-            <article class="card post-card">
+        </div>
+      </div>
+    </div>
+
+    <div class="single-post-similer">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="row mt-3">
+            <div class="col-12">
+              <h3 class="text-dark font-weight-800 mb-4 pb-2">You May Also Like</h3>
+            </div>
+            
+              
+            <div class="col-md-6">
+              <article class="card post-card">
   
   <a href="https://www.fabiolopes.page/blog/rook/">
     
@@ -418,8 +967,91 @@ if (!doNotTrack) {
     
   </div>
 </article>
-          </div>
+            </div>
+            
+            <div class="col-md-6">
+              <article class="card post-card">
+  
+  <a href="https://www.fabiolopes.page/blog/python-sort-comparsion/">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<picture>
+  <source srcset="/images/python/python_sort_hu55fb749aad769cd565746d49d6d87aa5_202550_545x0_resize_q95_h2_box_3.webp" media="(max-width: 575px)">
+  <source srcset="/images/python/python_sort_hu55fb749aad769cd565746d49d6d87aa5_202550_600x0_resize_q95_h2_box_3.webp" media="(max-width: 767px)">
+  <source srcset="/images/python/python_sort_hu55fb749aad769cd565746d49d6d87aa5_202550_700x0_resize_q95_h2_box_3.webp" media="(max-width: 991px)">
+  <source srcset="/images/python/python_sort_hu55fb749aad769cd565746d49d6d87aa5_202550_1110x0_resize_q95_h2_box_3.webp">
+  <img loading="lazy" decoding="async" class="w-100 h-auto rounded" src="/images/python/python_sort_hu55fb749aad769cd565746d49d6d87aa5_202550_1110x0_resize_box_3.png" alt="Sorting Algorithms and Decorators in Python" width="946" height="460">
+</picture>
+ 
+ 
+ 
+
+
+  </a>
+  
+  <div class="card-body">
+    <ul class="card-meta list-inline mb-2">
+      <li class="list-inline-item mb-2">
+        
+      </li>
+      <li class="list-inline-item mb-2">
+        <span>01 Sep, 2022</span>
+      </li>
+      <li class="list-inline-item mb-2">
+        <ul class="card-meta-tag list-inline">
           
+          <li class="list-inline-item"><a href="https://www.fabiolopes.pagetags/python">Python</a></li>
+          
+        </ul>
+      </li>
+    </ul>
+    <h3 class="mb-3">
+      <a class="post-title" href="https://www.fabiolopes.page/blog/python-sort-comparsion/">Sorting Algorithms and Decorators in Python</a>
+    </h3>
+    <p>So I needed to practice using decorators in Python. I tried to come up with something within my current knowledge and since I was studying sorting …</p>
+
+    
+  </div>
+</article>
+            </div>
+            
+          </div>
         </div>
       </div>
     </div>
