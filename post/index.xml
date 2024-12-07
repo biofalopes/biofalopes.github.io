@@ -8,8 +8,15 @@
     <language>en</language>
     <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
     <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
-    <lastBuildDate>Fri, 06 Dec 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Dec 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://fabiolopes.page/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing a Ceph Cluster</title>
+      <link>https://fabiolopes.page/post/deploy-ceph-cluster/</link>
+      <pubDate>Sat, 07 Dec 2024 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://fabiolopes.page/post/deploy-ceph-cluster/</guid>
+      <description>&lt;p&gt;In this example I used the Red Hat Ceph, but the procedure is the same for the community version. The official guide for RHCS 7 can be found here: &lt;a href=&#34;https://docs.redhat.com/en/documentation/red_hat_ceph_storage/7/html/installation_guide/index&#34;&gt;RedHat guide&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;preparation&#34;&gt;Preparation:&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Configure a Workbench&lt;/li&gt;&#xA;&lt;li&gt;Populate the hosts inventory&lt;/li&gt;&#xA;&lt;li&gt;Run the preflight playbook&lt;/li&gt;&#xA;&lt;li&gt;Create the &lt;code&gt;initial-config.yaml&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Run the Bootstrap Script&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;SSH Key Distribution:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Create an &lt;code&gt;admin&lt;/code&gt; user on all servers, with a password and sudo privileges.&lt;/li&gt;&#xA;&lt;li&gt;Generate an SSH key pair for the &lt;code&gt;admin&lt;/code&gt; user on the workbench.&lt;/li&gt;&#xA;&lt;li&gt;Use &lt;code&gt;ssh-copy-id&lt;/code&gt; to copy the public key to all servers for the &lt;code&gt;admin&lt;/code&gt; user.&lt;/li&gt;&#xA;&lt;li&gt;Copy the public and private keys to &lt;code&gt;/home/admin/.ssh&lt;/code&gt; on MON 1.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;Bootstrap&lt;/strong&gt;: Execute from MON 1, using &lt;code&gt;sudo&lt;/code&gt; as the &lt;code&gt;admin&lt;/code&gt; user.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Deploying a Local EKS Cluster on AWS Outposts</title>
       <link>https://fabiolopes.page/post/eks_outpost/</link>

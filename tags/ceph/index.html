@@ -205,6 +205,76 @@
         <div class="posts-list">
           
             <article class="post-preview">
+    <a href="https://fabiolopes.page/post/deploy-ceph-cluster/">
+        <h2 class="post-title">Installing a Ceph Cluster</h2>
+        
+        <h3 class="post-subtitle">
+            Using cephadm to easily deploy a Ceph Cluster
+        </h3>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on December 7, 2024
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1686&nbsp;words
+  
+  
+    
+      
+        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Fabio M. Lopes
+      
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        <p>In this example I used the Red Hat Ceph, but the procedure is the same for the community version. The official guide for RHCS 7 can be found here: <a href="https://docs.redhat.com/en/documentation/red_hat_ceph_storage/7/html/installation_guide/index">RedHat guide</a></p>
+<h3 id="preparation">Preparation:</h3>
+<ul>
+<li>Configure a Workbench</li>
+<li>Populate the hosts inventory</li>
+<li>Run the preflight playbook</li>
+<li>Create the <code>initial-config.yaml</code></li>
+<li>Run the Bootstrap Script</li>
+</ul>
+<p>SSH Key Distribution:</p>
+<ol>
+<li>Create an <code>admin</code> user on all servers, with a password and sudo privileges.</li>
+<li>Generate an SSH key pair for the <code>admin</code> user on the workbench.</li>
+<li>Use <code>ssh-copy-id</code> to copy the public key to all servers for the <code>admin</code> user.</li>
+<li>Copy the public and private keys to <code>/home/admin/.ssh</code> on MON 1.</li>
+</ol>
+<p><strong>Bootstrap</strong>: Execute from MON 1, using <code>sudo</code> as the <code>admin</code> user.</p>
+        <a href="https://fabiolopes.page/post/deploy-ceph-cluster/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="https://fabiolopes.page/tags/ceph/">ceph</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
     <a href="https://fabiolopes.page/post/python-s3-monitoring/">
         <h2 class="post-title">Using Python and Docker to monitor Ceph S3 from outside</h2>
         

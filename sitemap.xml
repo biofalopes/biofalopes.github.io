@@ -3,7 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fabiolopes.page/</loc>
-    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabiolopes.page/tags/ceph/</loc>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabiolopes.page/post/deploy-ceph-cluster/</loc>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabiolopes.page/post/</loc>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://fabiolopes.page/tags/</loc>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabiolopes.page/tags/aws/</loc>
     <lastmod>2024-12-06T00:00:00+00:00</lastmod>
@@ -12,12 +24,6 @@
     <lastmod>2024-12-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabiolopes.page/tags/kubernetes/</loc>
-    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabiolopes.page/post/</loc>
-    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabiolopes.page/tags/</loc>
     <lastmod>2024-12-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabiolopes.page/tags/terraform/</loc>
@@ -37,9 +43,6 @@
   </url><url>
     <loc>https://fabiolopes.page/tags/jenkins/</loc>
     <lastmod>2021-10-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://fabiolopes.page/tags/ceph/</loc>
-    <lastmod>2021-09-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://fabiolopes.page/tags/python/</loc>
     <lastmod>2021-09-20T00:00:00+00:00</lastmod>
