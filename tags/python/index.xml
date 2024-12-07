@@ -2,45 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Fabio M. Lopes</title>
-    <link>https://www.fabiolopes.page/tags/python/</link>
+    <link>https://biofalopes.github.io/tags/python/</link>
     <description>Recent content in Python on Fabio M. Lopes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
+    <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
+    <lastBuildDate>Mon, 20 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://biofalopes.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Sorting Algorithms and Decorators in Python</title>
-      <link>https://www.fabiolopes.page/blog/python-sort-comparsion/</link>
-      <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/python-sort-comparsion/</guid>
-      <description>So I needed to practice using decorators in Python. I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them.</description>
+      <title>Using Python and Docker to monitor Ceph S3 from outside</title>
+      <link>https://biofalopes.github.io/post/python-s3-monitoring/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/python-s3-monitoring/</guid>
+      <description>&lt;p&gt;I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation. With those metrics we can then create graphics, panels and alerts using Grafana for instance.&#xA;Using some kind of KISS methodology (keep it simple, stupid), running everything inside a docker container would give the flexibility to throw it anywhere and get the same results. The initial goal was to run two containers on AWS pointing to both sites (where the two main Ceph Clusters live) and two others on each site, one pointing to the other.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Web scrapper using Python</title>
-      <link>https://www.fabiolopes.page/blog/python-web-scrapper-fii/</link>
-      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/python-web-scrapper-fii/</guid>
-      <description>So I needed to learn how to scrape a web page using Python. My teammate suggested that I could learn a few tricks in python by scraping FIIs, which is the brazilian equivalent to american REITs.</description>
+      <link>https://biofalopes.github.io/post/python-web-scrapper-fii/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/python-web-scrapper-fii/</guid>
+      <description>&lt;p&gt;So I needed to learn how to scrape a web page using Python.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.&lt;/p&gt;&#xA;&lt;p&gt;I based my code on Renata Magner&amp;rsquo;s (&lt;a href=&#34;https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)&#34;&gt;https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)&lt;/a&gt;. I still have to implement error handling and many other improvements on the code, that&amp;rsquo;s just the first version. Without further ado, that&amp;rsquo;s what i came up with:&lt;/p&gt;</description>
     </item>
-    
+    <item>
+      <title>Comparsion of Sorting Algorithms using Python Decorators</title>
+      <link>https://biofalopes.github.io/post/python-sort-comparsion/</link>
+      <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/python-sort-comparsion/</guid>
+      <description>&lt;p&gt;So I needed to learn how to use decorators in Python.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;Decorators can be very useful when you need to add functionalities to an existing function/method/class, without having to change its code. Let&amp;rsquo;s say you need to add an additional check, time the function or log but you are using a module instead of writing your own function, or you want to reuse the code more efficiently, then using decorators might be the way to go.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Obtaining a list of Ceph features from the hexadecimal value</title>
-      <link>https://www.fabiolopes.page/blog/ceph-features-2/</link>
-      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/ceph-features-2/</guid>
-      <description>After some digging I found the list of possible features, its respective kernel version requirement and/or when it became available.</description>
+      <link>https://biofalopes.github.io/post/ceph-features-2/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/ceph-features-2/</guid>
+      <description>&lt;p&gt;After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;This can be found in &lt;code&gt;src/include/ceph_features.h&lt;/code&gt;, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .&lt;/p&gt;&#xA;&lt;p&gt;That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility. It&amp;rsquo;s always ideal to have every new feature availabe whenever possible, but that is not always the case when you have a medium to large deployment, multiple clients with different workloads and scenarios - in other words, a Real World situation.&lt;/p&gt;</description>
     </item>
-    
-    <item>
-      <title>Using Python and Docker to monitor Ceph S3 from the internet</title>
-      <link>https://www.fabiolopes.page/blog/python-s3-monitoring/</link>
-      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/python-s3-monitoring/</guid>
-      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience.</description>
-    </item>
-    
   </channel>
 </rss>

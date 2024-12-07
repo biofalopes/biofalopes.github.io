@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>HashiCorp Certified: Terraform Associate Exam - Hi, I’m Fabio</title>
+
+  <meta name="description" content="My Study Guide for the HashiCorp Certified: Terraform Associate Exam">
+  <meta name="author" content="Fabio M. Lopes"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Fabio M. Lopes",
+    
+    "url": "https:\/\/biofalopes.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/biofalopes.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/biofalopes.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/biofalopes.github.io\/post\/terraform-study-guide\/",
+          "name": "Hashi corp certified terraform associate exam"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Fabio M. Lopes"
+  },
+  "headline": "HashiCorp Certified: Terraform Associate Exam",
+  "description" : "In order to pass the Terraform Associate Exam I followed the Official guide as a baseline for my studies, as I usually do for certification exams and it always works out well for me.\nThe HashiCorp Terraform Associate is considered a foundational level certification, so you can expect to have essential knowledge and skills on the concepts and not necessarily lots of hands-on practice. If you already work with Terraform you probably be able to go very quicky over the topics but it is important to know some details and also some commands that might not be very common for you. You must also know the features that exist on Terraform Enterprise packages and Terraform Cloud.\n",
+  "inLanguage" : "en",
+  "wordCount":  2212 ,
+  "datePublished" : "2022-08-07T00:00:00\u002b00:00",
+  "dateModified" : "2022-08-07T00:00:00\u002b00:00",
+  "image" : "https:\/\/biofalopes.github.io\/img\/logo.jpg",
+  "keywords" : [ "terraform" ],
+  "mainEntityOfPage" : "https:\/\/biofalopes.github.io\/post\/terraform-study-guide\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/biofalopes.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/biofalopes.github.io\/img\/logo.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+<meta property="og:title" content="HashiCorp Certified: Terraform Associate Exam" />
+<meta property="og:description" content="My Study Guide for the HashiCorp Certified: Terraform Associate Exam">
+<meta property="og:image" content="https://biofalopes.github.io/img/logo.jpg" />
+<meta property="og:url" content="https://biofalopes.github.io/post/terraform-study-guide/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Fabio M. Lopes" />
+
+  <meta name="twitter:title" content="HashiCorp Certified: Terraform Associate Exam" />
+  <meta name="twitter:description" content="My Study Guide for the HashiCorp Certified: Terraform Associate Exam">
+  <meta name="twitter:image" content="https://biofalopes.github.io/img/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='https://biofalopes.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.139.3">
+  <link rel="alternate" href="https://biofalopes.github.io/index.xml" type="application/rss+xml" title="Fabio M. Lopes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://biofalopes.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://biofalopes.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://biofalopes.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://biofalopes.github.io/">Fabio M. Lopes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Fabio M. Lopes" href="https://biofalopes.github.io/">
+            <img class="avatar-img" src="https://biofalopes.github.io/img/logo.jpg" alt="Fabio M. Lopes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+    <div id="header-big-imgs" data-num-img=1
+      
+         
+          data-img-src-1="https://biofalopes.github.io/img/terraform/terraform-cert.png"
+         
+         data-img-desc-1="terraform-cert"
+      ></div>
+  
+
+  <header class="header-section has-img">
+    
+      
+      <div class="intro-header big-img" style="background-image: url('img/terraform/terraform-cert.png');">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="post-heading">
+                <h1>HashiCorp Certified: Terraform Associate Exam</h1>
+                  
+                    
+                      <h2 class="post-subheading">My Study Guide for the HashiCorp Certified: Terraform Associate Exam</h2>
+                    
+                  
+                  
+                    <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 7, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;11&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2212&nbsp;words
+  
+  
+    
+      
+        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Fabio M. Lopes
+      
+    
+  
+  
+</span>
+
+
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="img-desc" style="display: inline;">terraform-cert</span>
+      </div>
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>HashiCorp Certified: Terraform Associate Exam</h1>
+              
+              
+              
+                
+                  <h2 class="post-subheading">My Study Guide for the HashiCorp Certified: Terraform Associate Exam</h2>
+                
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 7, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;11&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2212&nbsp;words
+  
+  
+    
+      
+        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Fabio M. Lopes
+      
+    
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>In order to pass the Terraform Associate Exam I followed the Official guide as a baseline for my studies, as I usually do for certification exams and it always works out well for me.</p>
+<!-- raw HTML omitted -->
+<p>The HashiCorp Terraform Associate is considered a <strong>foundational level</strong> certification, so you can expect to have essential knowledge and skills on the concepts and not necessarily lots of hands-on practice. If you already work with Terraform you probably be able to go very quicky over the topics but it is important to know some details and also some commands that might not be very common for you. You must also know the features that exist on Terraform Enterprise packages and Terraform Cloud.</p>
+<p>Important notes about the test: it is 57 questions long and is a proctored exam. You get 60 minutes to complete and you can mark questions for later review. the certification is valid for two years. Since Terraform is quickly and constantly evolving, it makes sense that it has a shorter validity than most certifications, which is three years.</p>
+<p>My personal tips for this and any other certification exam: do lots of practice tests, go over every subject at least once even if you know it already from previous experience, make notes and don&rsquo;t just study for the test, apply the knowledge in labs or personal projects. I would say that practicing is at least 2x more efficient in making the knowledge permanent than reading or watching videos.</p>
+<p>Official Exam Information from Hashicorp can be found here: <a href="https://www.hashicorp.com/certification/terraform-associate?_gl=1*f0bstl*_ga*NjM4NzQ3OTYxLjE2NTA5MDk2Njg.*_ga_P7S46ZYEKW*MTY1OTg2ODY2NC4zMS4xLjE2NTk4Njk0NzQuMA..">HashiCorp Certified: Terraform Associate (002)</a></p>
+<table>
+  <thead>
+      <tr>
+          <th>Objective</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>Understand Infrastructure as Code (IaC) concepts</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>Understand Terraform&rsquo;s purpose (vs other IaC)</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>Understand Terraform basics</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>Use the Terraform CLI (outside of core workflow)</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>Interact with Terraform modules</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>Navigate Terraform workflow</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>Implement and maintain state</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>Read, generate, and modify configuration</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>Understand Terraform Cloud and Enterprise capabilities</td>
+      </tr>
+  </tbody>
+</table>
+<p>What I&rsquo;m gonna do here is go over each of the objectives and cover (almost) everything required to know in order to pass the exam. Most of the contents are provided on the official <a href="https://learn.hashicorp.com/tutorials/terraform/associate-study">study guide</a> and the <a href="https://learn.hashicorp.com/tutorials/terraform/associate-review?in=terraform/certification">exam review</a>, so I&rsquo;ll be using it as a reference. It&rsquo;s probably be a long read, but I rather have it all in one place than making several posts and split the content.</p>
+<h3 id="1understand-infrastructure-as-code-iac-concepts">1:	Understand Infrastructure as Code (IaC) concepts</h3>
+<h5 id="1aexplain-what-iac-is">1a:	Explain what IaC is</h5>
+<p>Infrastructure as code (IaC) tools allow you to manage infrastructure with configuration files rather than through a graphical user interface. IaC allows you to build, change, and manage your infrastructure in a safe, consistent, and repeatable way by defining resource configurations that you can version, reuse, and share.</p>
+<h5 id="1bdescribe-advantages-of-iac-patterns">1b	Describe advantages of IaC patterns</h5>
+<p>IaC makes it easy to provision and apply infrastructure configurations by standardizing the workflow. This is accomplished by using a common syntax across a number of different infrastructure providers (e.g. AWS, GCP). Some key advantages of using IaC patterns are:</p>
+<ul>
+<li>Reusability: you can write or use modules to reuse code that are common between different projects;</li>
+<li>Consistency: managing infrastructure manually are prone to errors;</li>
+<li>Idempotency: no matter how many times you run your IaC and, what your starting state is, you will end up with the same end state. This simplifies the provisioning of Infrastructure and reduces the chances of inconsistent results;</li>
+<li>Versioning and Source Control: by using a VCS like Git you can get visibility and security on your infrastructure.</li>
+</ul>
+<h3 id="2understand-terraforms-purpose-vs-other-iac">2	Understand Terraform&rsquo;s purpose (vs other IaC)</h3>
+<h5 id="2aexplain-multi-cloud-and-provider-agnostic-benefits">2a	Explain multi-cloud and provider-agnostic benefits</h5>
+<p>Terraform is cloud-agnostic and allows a single configuration to be used to manage multiple providers, and to even handle cross-cloud dependencies. With Terraform, users can manage a heterogeneous environment with the same workflow by creating a configuration file to fit the needs of that platform or project.
+Terraform plugins called providers let Terraform interact with cloud platforms and other services via their application programming interfaces (APIs). HashiCorp and the Terraform community have written over 1,000 providers to manage resources on Amazon Web Services (AWS), Azure, Google Cloud Platform (GCP), Kubernetes, Helm, GitHub, Splunk, and DataDog, just to name a few.</p>
+<h5 id="2bexplain-the-benefits-of-state">2b	Explain the benefits of state</h5>
+<p>Terraform keeps track of your real infrastructure in a state file, which acts as a source of truth for your environment. Terraform uses the state file to determine the changes to make to your infrastructure so that it will match your configuration.</p>
+<h3 id="3understand-terraform-basics">3	Understand Terraform basics</h3>
+<h5 id="3ahandle-terraform-and-provider-installation-and-versioning">3a	Handle Terraform and provider installation and versioning</h5>
+<p>Terraform can be installed using the user’s terminal: <br>
+<a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">https://learn.hashicorp.com/tutorials/terraform/install-cli</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Mac OS
+</span></span><span class="line"><span class="cl">brew install terraform
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## Windows
+</span></span><span class="line"><span class="cl">choco install terraform
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## Linux
+</span></span><span class="line"><span class="cl">sudo apt install terraform
+</span></span></code></pre></div><p>Alternatively, Terraform can be manually installed by downloading the binary to your computer.</p>
+<h5 id="3bdescribe-plug-in-based-architecture">3b	Describe plug-in based architecture</h5>
+<p>Terraform uses a plugin-based architecture to support hundreds of infrastructure and service providers. Initializing a configuration directory downloads and installs providers used in the configuration. Terraform plugins are compiled for a specific operating system and architecture, and any plugins in the root of the user’s plugins directory must be compiled for the current system. A provider is a plugin that Terraform uses to translate the API interactions with that platform or service.</p>
+<p>Terraform must initialize a provider before it can be used. The initialization process downloads and installs the provider&rsquo;s plugin so that it can later be executed. Terraform knows which provider(s) to download based on what is declared in the configuration files. For example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">provider &#34;aws&#34; {
+</span></span><span class="line"><span class="cl"> region  = &#34;us-west-2&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>The provider block can contain the following meta-arguments:</p>
+<ul>
+<li><code>version</code> - constrains which provider versions are allowed
+<ul>
+<li>Note: HashiCorp recommends using <a href="https://www.terraform.io/docs/configuration/provider-requirements.html">provider requirements</a> instead</li>
+</ul>
+</li>
+<li><code>alias</code> - enables using the same provider with different configurations (e.g. provisioning resources in multiple AWS regions)</li>
+</ul>
+<p>By default, a plugin is downloaded into a subdirectory of the working directory so that each working directory is self-contained. As a consequence, if there are multiple configurations that use the same provider then a separate copy of its plugin will be downloaded for each configuration. To manually install a provider, move it to:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## MacOS / Linux
+</span></span><span class="line"><span class="cl">~/.terraform.d/plugins
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## Windows
+</span></span><span class="line"><span class="cl">%APPDATA%\terraform.d\plugins
+</span></span></code></pre></div><p>Given that provider plugins can be quite large, users can optionally use a local directory as a shared plugin cache. This is enabled through using the <code>plugin_cache_dir</code> setting in<a href="https://www.terraform.io/docs/commands/cli-config.html"> the CLI configuration file</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">plugin_cache_dir = &#34;$HOME/.terraform.d/plugin-cache&#34;
+</span></span></code></pre></div><p>This configuration ensures each plugin binary is downloaded only once.</p>
+<h5 id="3cdemonstrate-using-multiple-providers">3c	Demonstrate using multiple providers</h5>
+<p>To instantiate the same provider for multiple configurations, use the <code>alias</code> argument. For example, the AWS provider requires specifying the region argument. The following code block demonstrates how <code>alias</code> can be used to provision resources across multiple regions using the same configuration files.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">provider &#34;aws&#34; {
+</span></span><span class="line"><span class="cl">	region = &#34;us-east-1&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">provider &#34;aws&#34; {
+</span></span><span class="line"><span class="cl">	region = &#34;us-west-1&#34;
+</span></span><span class="line"><span class="cl">	alias = &#34;pncda&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">resource &#34;aws_vpc&#34; &#34;vpc-pncda&#34; {
+</span></span><span class="line"><span class="cl">	cidr_block = &#34;10.0.0.0/16&#34;
+</span></span><span class="line"><span class="cl">	provider   = &#34;aws.pncda&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><h5 id="3ddescribe-how-terraform-finds-and-fetches-providers">3d	Describe how Terraform finds and fetches providers</h5>
+<p>Providers are released on a separate rhythm from Terraform itself, and so each provider has its own version number. For production use, consider constraining the acceptable provider versions in the configuration to ensure that new versions with breaking changes will not be automatically installed by <code>terraform init</code> in future.</p>
+<p>Any non-certified or third-party providers must be manually installed, since <code>terraform init</code> cannot automatically download them.</p>
+<p>The <code>required_version</code> setting can be used to constrain which versions of Terraform can be used with the configuration.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">terraform {
+</span></span><span class="line"><span class="cl">  required_version = &#34;&gt;= 0.14.3&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>The value for <code>required_version</code> is a string containing a comma-delimited list of constraints. Each constraint is an operator followed by a version number. The following operators are allowed:</p>
+<!-- raw HTML omitted -->
+<p>Similarly, a provider version requirement can be specified. The following is an example limited the version of AWS provider:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">provider &#34;aws&#34; {
+</span></span><span class="line"><span class="cl">	region = &#34;us-west-2&#34;
+</span></span><span class="line"><span class="cl">	version = &#34;&gt;=3.1.0&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>It is recommended to use these operators in production to ensure the correct version is being used and avoid accidental upgrades that might have breaking changes.</p>
+<h5 id="3eexplain-when-to-use-and-not-use-provisioners-and-when-to-use-local-exec-or-remote-exec">3e	Explain when to use and not use provisioners and when to use local-exec or remote-exec</h5>
+<p>Provisioners can be used to model specific actions on the local machine or on a remote machine. For example, a provisioner can enable uploading files, running shell scripts, or installing or triggering other software (e.g. configuration management) to conduct initial setup on an instance. Provisioners are defined within a resource block:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">resource &#34;aws_instance&#34; &#34;example&#34; {
+</span></span><span class="line"><span class="cl"> ami           = &#34;ami-b374d5a5&#34;
+</span></span><span class="line"><span class="cl"> instance_type = &#34;t2.micro&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> provisioner &#34;local-exec&#34; {
+</span></span><span class="line"><span class="cl">   command = &#34;echo hello &gt; hello.txt&#34;
+</span></span><span class="line"><span class="cl"> }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>Multiple provisioner blocks can be used to define multiple provisioning steps.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Note: HashiCorp recommends that provisioners should only be used as a last resort. 
+</span></span></code></pre></div><h6 id="types-of-provisioners">Types of Provisioners</h6>
+<p>This section will cover the various types of generic provisioners. There are also vendor specific provisioners for configuration management tools (e.g. Salt, Puppet).</p>
+<h6 id="1-file">1. File</h6>
+<p>The file provisioner is used to copy files or directories from the machine executing Terraform to the newly created resource.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">resource &#34;aws_instance&#34; &#34;web&#34; {
+</span></span><span class="line"><span class="cl">  # ...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  provisioner &#34;file&#34; {
+</span></span><span class="line"><span class="cl">    source      = &#34;conf/myapp.conf&#34;
+</span></span><span class="line"><span class="cl">    destination = &#34;/etc/myapp.conf&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>The file provisioner supports both ssh and winrm type connections.</p>
+<h6 id="2-local-exec">2. <code>local-exec</code></h6>
+<p>The <code>local-exec</code> provisioner runs by invoking a process local to the user’s machine running Terraform. This is used to do something on the machine running Terraform, not the resource provisioned. For example, a user may want to create an SSH key on the local machine.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;null_resource&#34;</span> <span class="s2">&#34;generate-sshkey&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">provisioner</span> <span class="s2">&#34;local-exec&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">command</span> <span class="o">=</span> <span class="s2">&#34;yes y | ssh-keygen -b 4096 -t rsa -C &#39;terraform-kubernetes&#39; -N &#39;&#39; -f ${var.kubernetes_controller.[&#34;</span><span class="n">private_key</span><span class="s2">&#34;]}&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h6 id="3-remote-exec">3. <code>remote-exec</code></h6>
+<p>Comparatively, <code>remote-exec</code> which invokes a script or process on a remote resource after it is created. For example, this may be used to bootstrap a newly provisioned cluster or to run a script.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">resource &#34;aws_instance&#34; &#34;example&#34; {
+</span></span><span class="line"><span class="cl"> key_name      = aws_key_pair.example.key_name
+</span></span><span class="line"><span class="cl"> ami           = &#34;ami-04590e7389a6e577c&#34;
+</span></span><span class="line"><span class="cl"> instance_type = &#34;t2.micro&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">connection {
+</span></span><span class="line"><span class="cl">   type        = &#34;ssh&#34;
+</span></span><span class="line"><span class="cl">   user        = &#34;ec2-user&#34;
+</span></span><span class="line"><span class="cl">   private_key = file(&#34;~/.ssh/terraform&#34;)
+</span></span><span class="line"><span class="cl">   host        = self.public_ip
+</span></span><span class="line"><span class="cl"> }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">provisioner &#34;remote-exec&#34; {
+</span></span><span class="line"><span class="cl">   inline = [
+</span></span><span class="line"><span class="cl">     &#34;sudo amazon-linux-extras enable nginx1.12&#34;,
+</span></span><span class="line"><span class="cl">     &#34;sudo yum -y install nginx&#34;,
+</span></span><span class="line"><span class="cl">     &#34;sudo systemctl start nginx&#34;
+</span></span><span class="line"><span class="cl">   ]
+</span></span><span class="line"><span class="cl"> }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>Both SSH and winrm connections are supported.</p>
+<p>By default, provisioners are executed when the defined resource is created and during updates or other parts of the lifecycle. It is intended to be used for bootstrapping a system. If a provisioner fails at creation time, the resource is marked as tainted. Terraform will plan to destroy and recreate the tainted resource at the next <code>terraform apply</code> command.</p>
+<p>By default, when a provisioner fails, it will also cause the <code>terraform apply</code> command to fail. The <code>on_failure</code> parameter can be used to specify different behavior.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">resource &#34;aws_instance&#34; &#34;web&#34; {
+</span></span><span class="line"><span class="cl"> # ...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> provisioner &#34;local-exec&#34; {
+</span></span><span class="line"><span class="cl">   command  = &#34;echo The server&#39;s IP address is ${self.private_ip}&#34;
+</span></span><span class="line"><span class="cl">   on_failure = &#34;continue&#34;
+</span></span><span class="line"><span class="cl"> }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>Note: Expressions in provisioner blocks cannot refer to the parent resource by name. Use the self object to represent the provisioner&rsquo;s parent resource (see previous example).</p>
+<p>Additionally, provisioners can also be configured to run when the defined resource is destroyed. This is configured by specifying when = “destroy” within the provisioner block.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">resource &#34;aws_instance&#34; &#34;web&#34; {
+</span></span><span class="line"><span class="cl">  # ...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  provisioner &#34;local-exec&#34; {
+</span></span><span class="line"><span class="cl">    when    = &#34;destroy&#34;
+</span></span><span class="line"><span class="cl">    command = &#34;echo &#39;Destroy-time provisioner&#39;&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>By default, a provisioner only runs at creation. To run a provisioned at deletion, it must be explicitly defined.</p>
+<h3 id="4use-the-terraform-cli-outside-of-core-workflow">4	Use the Terraform CLI (outside of core workflow)</h3>
+<h5 id="4agiven-a-scenario-choose-when-to-use-terraform-fmt-to-format-code">4a	Given a scenario: choose when to use <code>terraform fmt</code> to format code</h5>
+<h5 id="4bgiven-a-scenario-choose-when-to-use-terraform-taint-to-taint-terraform-resources">4b	Given a scenario: choose when to use <code>terraform taint</code> to taint Terraform resources</h5>
+<h5 id="4cgiven-a-scenario-choose-when-to-use-terraform-import-to-import-existing-infrastructure-into-your-terraform-state">4c	Given a scenario: choose when to use <code>terraform import</code> to import existing infrastructure into your Terraform state</h5>
+<h5 id="4dgiven-a-scenario-choose-when-to-use-terraform-workspace-to-create-workspaces">4d	Given a scenario: choose when to use <code>terraform workspace</code> to create workspaces</h5>
+<h5 id="4egiven-a-scenario-choose-when-to-use-terraform-state-to-view-terraform-state">4e	Given a scenario: choose when to use <code>terraform state</code> to view Terraform state</h5>
+<h5 id="4fgiven-a-scenario-choose-when-to-enable-verbose-logging-and-what-the-outcomevalue-is">4f	Given a scenario: choose when to enable verbose logging and what the outcome/value is</h5>
+<h3 id="5interact-with-terraform-modules">5	Interact with Terraform modules</h3>
+<h5 id="5acontrast-module-source-options">5a	Contrast module source options</h5>
+<h5 id="5binteract-with-module-inputs-and-outputs">5b	Interact with module inputs and outputs</h5>
+<h5 id="5cdescribe-variable-scope-within-moduleschild-modules">5c	Describe variable scope within modules/child modules</h5>
+<h5 id="5ddiscover-modules-from-the-public-terraform-module-registry">5d	Discover modules from the public Terraform Module Registry</h5>
+<h5 id="5edefining-module-version">5e	Defining module version</h5>
+<h3 id="6navigate-terraform-workflow">6	Navigate Terraform workflow</h3>
+<h5 id="6adescribe-terraform-workflow--write---plan---create-">6a	Describe Terraform workflow ( Write -&gt; Plan -&gt; Create )</h5>
+<h5 id="6binitialize-a-terraform-working-directory-terraform-init">6b	Initialize a Terraform working directory (<code>terraform init</code>)</h5>
+<h5 id="6cvalidate-a-terraform-configuration-terraform-validate">6c	Validate a Terraform configuration (<code>terraform validate</code>)</h5>
+<h5 id="6dgenerate-and-review-an-execution-plan-for-terraform-terraform-plan">6d	Generate and review an execution plan for Terraform (<code>terraform plan</code>)</h5>
+<h5 id="6eexecute-changes-to-infrastructure-with-terraform-terraform-apply">6e	Execute changes to infrastructure with Terraform (<code>terraform apply</code>)</h5>
+<h5 id="6fdestroy-terraform-managed-infrastructure-terraform-destroy">6f	Destroy Terraform managed infrastructure (<code>terraform destroy</code>)</h5>
+<h3 id="7implement-and-maintain-state">7	Implement and maintain state</h3>
+<h5 id="7adescribe-default-local-backend">7a	Describe default local backend</h5>
+<h5 id="7boutline-state-locking">7b	Outline state locking</h5>
+<h5 id="7chandle-backend-authentication-methods">7c	Handle backend authentication methods</h5>
+<h5 id="7ddescribe-remote-state-storage-mechanisms-and-supported-standard-backends">7d	Describe remote state storage mechanisms and supported standard backends</h5>
+<h5 id="7edescribe-effect-of-terraform-refresh-on-state">7e	Describe effect of Terraform refresh on state</h5>
+<h5 id="7fdescribe-backend-block-in-configuration-and-best-practices-for-partial-configurations">7f	Describe backend block in configuration and best practices for partial configurations</h5>
+<h5 id="7gunderstand-secret-management-in-state-files">7g	Understand secret management in state files</h5>
+<h3 id="8read-generate-and-modify-configuration">8	Read, generate, and modify configuration</h3>
+<h5 id="8ademonstrate-use-of-variables-and-outputs">8a	Demonstrate use of variables and outputs</h5>
+<h5 id="8bdescribe-secure-secret-injection-best-practice">8b	Describe secure secret injection best practice</h5>
+<h5 id="8cunderstand-the-use-of-collection-and-structural-types">8c	Understand the use of collection and structural types</h5>
+<h5 id="8dcreate-and-differentiate-resource-and-data-configuration">8d	Create and differentiate resource and data configuration</h5>
+<h5 id="8euse-resource-addressing-and-resource-parameters-to-connect-resources-together">8e	Use resource addressing and resource parameters to connect resources together</h5>
+<h5 id="8fuse-terraform-built-in-functions-to-write-configuration">8f	Use Terraform built-in functions to write configuration</h5>
+<h5 id="8gconfigure-resource-using-a-dynamic-block">8g	Configure resource using a dynamic block</h5>
+<h5 id="8hdescribe-built-in-dependency-management-order-of-execution-based">8h	Describe built-in dependency management (order of execution based)</h5>
+<h3 id="9understand-terraform-cloud-and-enterprise-capabilities">9	Understand Terraform Cloud and Enterprise capabilities</h3>
+<h5 id="9adescribe-the-benefits-of-sentinel-registry-and-workspaces">9a	Describe the benefits of Sentinel, registry, and workspaces</h5>
+<h5 id="9bdifferentiate-oss-and-terraform-cloud-workspaces">9b	Differentiate OSS and Terraform Cloud workspaces</h5>
+<h5 id="9csummarize-features-of-terraform-cloud">9c	Summarize features of Terraform Cloud</h5>
+
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="https://biofalopes.github.io/tags/terraform/">terraform</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fbiofalopes.github.io%2fpost%2fterraform-study-guide%2f&amp;text=HashiCorp%20Certified%3a%20Terraform%20Associate%20Exam&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fbiofalopes.github.io%2fpost%2fterraform-study-guide%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fbiofalopes.github.io%2fpost%2fterraform-study-guide%2f&amp;title=HashiCorp%20Certified%3a%20Terraform%20Associate%20Exam" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fbiofalopes.github.io%2fpost%2fterraform-study-guide%2f&amp;title=HashiCorp%20Certified%3a%20Terraform%20Associate%20Exam" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fbiofalopes.github.io%2fpost%2fterraform-study-guide%2f&amp;title=HashiCorp%20Certified%3a%20Terraform%20Associate%20Exam" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fbiofalopes.github.io%2fpost%2fterraform-study-guide%2f&amp;description=HashiCorp%20Certified%3a%20Terraform%20Associate%20Exam" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/eks_outpost/">Deploying a Local EKS Cluster on AWS Outposts</a></li>
+                
+                    <li><a href="/post/terraform-2/">Managing AWS Autoscaling Groups and Load Balancers using Terraform</a></li>
+                
+                    <li><a href="/post/terraform-1/">Basic Dev Environment on AWS using Terraform</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://biofalopes.github.io/post/terraform-2/" data-toggle="tooltip" data-placement="top" title="Managing AWS Autoscaling Groups and Load Balancers using Terraform">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://biofalopes.github.io/post/eks_outpost/" data-toggle="tooltip" data-placement="top" title="Deploying a Local EKS Cluster on AWS Outposts">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+      
+      
+      
+      
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="https://biofalopes.github.io/post/terraform-study-guide">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'https:\/\/biofalopes.github.io\/post\/terraform-study-guide';
+            };
+
+          </script>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:fabioctba01@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/biofalopes" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/fabiomlopes" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://fabiolopes.page">Fabio M. Lopes</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2024
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://biofalopes.github.io/">Fabio M. Lopes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.139.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="https://biofalopes.github.io/js/main.js"></script>
+<script src="https://biofalopes.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://biofalopes.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'fabiomlopes';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//fabiomlopes.disqus.com/count.js" async></script>
+
+
+
+
+    
+  </body>
+</html>
+
