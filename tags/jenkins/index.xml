@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jenkins on Fabio M. Lopes</title>
-    <link>https://biofalopes.github.io/tags/jenkins/</link>
+    <link>https://fabiolopes.page/tags/jenkins/</link>
     <description>Recent content in Jenkins on Fabio M. Lopes</description>
     <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
     <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
     <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://biofalopes.github.io/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://fabiolopes.page/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting started with Jenkins Declarative Pipelines</title>
-      <link>https://biofalopes.github.io/post/jenkins-1/</link>
+      <link>https://fabiolopes.page/post/jenkins-1/</link>
       <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/jenkins-1/</guid>
+      <guid>https://fabiolopes.page/post/jenkins-1/</guid>
       <description>&lt;p&gt;After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;It is known that there are many other more modern solutions today, like GitHub Actions or Gitlab CI, for instance, which is a common approach since you can leverage the SCM directly to automate your tasks instead of depending on an external tool. However, Jenkins is still widely adopted and you can perform many automation tasks without much effort using it. It&amp;rsquo;s all going to depend on the situation, the current project, and the team.&#xA;Traditionally, Jenkins jobs were created using the Jenkins UI and were called FreeStyle jobs. In Jenkins 2.0, a new way was introduced using a technique called pipeline as code, where jobs are created using a script file containing the steps to be executed. That scripted file is called Jenkinsfile. That&amp;rsquo;s just a glimpse on Jenkins pipelines, there&amp;rsquo;s much more depth to it and you can always dive deeper using the official documentation at &lt;a href=&#34;https://www.jenkins.io/doc/book/pipeline/&#34;&gt;https://www.jenkins.io/doc/book/pipeline/&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>

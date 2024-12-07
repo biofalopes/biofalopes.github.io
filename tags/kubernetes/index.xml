@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubernetes on Fabio M. Lopes</title>
-    <link>https://biofalopes.github.io/tags/kubernetes/</link>
+    <link>https://fabiolopes.page/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on Fabio M. Lopes</description>
     <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
     <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
     <lastBuildDate>Fri, 06 Dec 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://biofalopes.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://fabiolopes.page/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deploying a Local EKS Cluster on AWS Outposts</title>
-      <link>https://biofalopes.github.io/post/eks_outpost/</link>
+      <link>https://fabiolopes.page/post/eks_outpost/</link>
       <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/eks_outpost/</guid>
+      <guid>https://fabiolopes.page/post/eks_outpost/</guid>
       <description>&lt;p&gt;The Terraform code provisions an EKS cluster on an AWS Outpost, with the control plane running locally on the Outpost. This differs significantly from deploying an EKS cluster in a standard AWS region, primarily in how worker nodes are managed.&lt;/p&gt;&#xA;&lt;p&gt;The Amazon EKS update history demonstrates the platform&amp;rsquo;s continuous evolution, focusing on enhanced security, scalability, and integration with other AWS services. Since its initial release in June 2018, there&amp;rsquo;s been a significant increase in available features and functionalities, including support for newer Kubernetes versions, expansion to new AWS regions, and the introduction of new deployment options like Fargate and local clusters on AWS Outposts, which is the focus of this work. The introduction of features like managed node groups significantly simplified infrastructure management, automating tasks such as provisioning and lifecycle management of nodes. The availability of EKS-optimized AMIs, including options with GPU support and the Bottlerocket operating system, offers greater flexibility and performance for diverse workloads. Furthermore, integration with services like Amazon EBS, EFS, and FSx for Lustre, via CSI drivers, expanded storage options for the clusters. However, for a local Amazon EKS cluster on AWS Outposts, these resources are significantly more limited; managed node groups are unavailable.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
-      <link>https://biofalopes.github.io/post/rook/</link>
+      <link>https://fabiolopes.page/post/rook/</link>
       <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/rook/</guid>
+      <guid>https://fabiolopes.page/post/rook/</guid>
       <description>&lt;p&gt;I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers. But i want to talk about what i did with the remaining six servers, that became two kubernetes clusters - one with Flatcar and the other with Centos, to replicate some production scenarios we have. Since the servers have 8 2TB HDD each and we use just one for the OS, that would be a perfect scenario to experiment with Rook. I tinkered with it previously with some labs but now i could really test its usability.&lt;/p&gt;</description>
     </item>
   </channel>
