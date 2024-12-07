@@ -2,63 +2,55 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Fabio M. Lopes</title>
-    <link>https://www.fabiolopes.page/tags/</link>
+    <link>https://biofalopes.github.io/tags/</link>
     <description>Recent content in Tags on Fabio M. Lopes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 12 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
+    <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
+    <lastBuildDate>Fri, 06 Dec 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://biofalopes.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aws</title>
+      <link>https://biofalopes.github.io/tags/aws/</link>
+      <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Kubernetes</title>
-      <link>https://www.fabiolopes.page/tags/kubernetes/</link>
-      <pubDate>Sat, 12 Nov 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/tags/kubernetes/</guid>
+      <link>https://biofalopes.github.io/tags/kubernetes/</link>
+      <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://www.fabiolopes.page/tags/python/</link>
-      <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/tags/python/</guid>
-      <description></description>
-    </item>
-    
     <item>
       <title>Terraform</title>
-      <link>https://www.fabiolopes.page/tags/terraform/</link>
-      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/tags/terraform/</guid>
+      <link>https://biofalopes.github.io/tags/terraform/</link>
+      <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/tags/terraform/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>AWS</title>
-      <link>https://www.fabiolopes.page/tags/aws/</link>
-      <pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/tags/aws/</guid>
-      <description></description>
-    </item>
-    
     <item>
       <title>Jenkins</title>
-      <link>https://www.fabiolopes.page/tags/jenkins/</link>
-      <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/tags/jenkins/</guid>
+      <link>https://biofalopes.github.io/tags/jenkins/</link>
+      <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/tags/jenkins/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Ceph</title>
-      <link>https://www.fabiolopes.page/tags/ceph/</link>
-      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/tags/ceph/</guid>
+      <link>https://biofalopes.github.io/tags/ceph/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/tags/ceph/</guid>
       <description></description>
     </item>
-    
+    <item>
+      <title>Python</title>
+      <link>https://biofalopes.github.io/tags/python/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/tags/python/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

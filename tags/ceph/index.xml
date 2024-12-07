@@ -2,45 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ceph on Fabio M. Lopes</title>
-    <link>https://www.fabiolopes.page/tags/ceph/</link>
+    <link>https://biofalopes.github.io/tags/ceph/</link>
     <description>Recent content in Ceph on Fabio M. Lopes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 17 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.fabiolopes.page/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
+    <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
+    <lastBuildDate>Mon, 20 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://biofalopes.github.io/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using Python and Docker to monitor Ceph S3 from outside</title>
+      <link>https://biofalopes.github.io/post/python-s3-monitoring/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/python-s3-monitoring/</guid>
+      <description>&lt;p&gt;I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation. With those metrics we can then create graphics, panels and alerts using Grafana for instance.&#xA;Using some kind of KISS methodology (keep it simple, stupid), running everything inside a docker container would give the flexibility to throw it anywhere and get the same results. The initial goal was to run two containers on AWS pointing to both sites (where the two main Ceph Clusters live) and two others on each site, one pointing to the other.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
-      <link>https://www.fabiolopes.page/blog/rook/</link>
-      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/rook/</guid>
-      <description>I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware.</description>
+      <link>https://biofalopes.github.io/post/rook/</link>
+      <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/rook/</guid>
+      <description>&lt;p&gt;I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers. But i want to talk about what i did with the remaining six servers, that became two kubernetes clusters - one with Flatcar and the other with Centos, to replicate some production scenarios we have. Since the servers have 8 2TB HDD each and we use just one for the OS, that would be a perfect scenario to experiment with Rook. I tinkered with it previously with some labs but now i could really test its usability.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Ceph features and its relation to the client kernel version</title>
-      <link>https://www.fabiolopes.page/blog/ceph-features/</link>
-      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/ceph-features/</guid>
-      <description>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, I needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.</description>
+      <link>https://biofalopes.github.io/post/ceph-features/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/ceph-features/</guid>
+      <description>&lt;p&gt;While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;I started checking the documentation as always, but all i found was a command called &lt;code&gt;ceph features&lt;/code&gt;, which gives a summarized output:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[root@mon-1 ~]# ceph features&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;mon&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 3&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;mds&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 3&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;osd&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 192&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;client&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x27018fb86aa42ada&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;jewel&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 422&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x2f018fb86aa42ada&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 95&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 18&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &amp;ldquo;born&amp;rdquo; in jewel, I thought that it might be the case that many clients didn&amp;rsquo;t get any upgrades since.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Obtaining a list of Ceph features from the hexadecimal value</title>
-      <link>https://www.fabiolopes.page/blog/ceph-features-2/</link>
-      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/ceph-features-2/</guid>
-      <description>After some digging I found the list of possible features, its respective kernel version requirement and/or when it became available.</description>
+      <link>https://biofalopes.github.io/post/ceph-features-2/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
+      <guid>https://biofalopes.github.io/post/ceph-features-2/</guid>
+      <description>&lt;p&gt;After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;This can be found in &lt;code&gt;src/include/ceph_features.h&lt;/code&gt;, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .&lt;/p&gt;&#xA;&lt;p&gt;That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility. It&amp;rsquo;s always ideal to have every new feature availabe whenever possible, but that is not always the case when you have a medium to large deployment, multiple clients with different workloads and scenarios - in other words, a Real World situation.&lt;/p&gt;</description>
     </item>
-    
-    <item>
-      <title>Using Python and Docker to monitor Ceph S3 from the internet</title>
-      <link>https://www.fabiolopes.page/blog/python-s3-monitoring/</link>
-      <pubDate>Sun, 20 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.fabiolopes.page/blog/python-s3-monitoring/</guid>
-      <description>I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience.</description>
-    </item>
-    
   </channel>
 </rss>
