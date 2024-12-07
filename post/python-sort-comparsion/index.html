@@ -338,40 +338,40 @@
 <p>I found a good post at <a href="https://kleiber.me/blog/2017/08/10/tutorial-decorator-primer/">https://kleiber.me/blog/2017/08/10/tutorial-decorator-primer/</a> , where the author uses the same example I used (comparing sorting algorithms), but he used the <code>pygorithm.sorting</code> module, while I used my own functions.</p>
 <p><img src="/img/python/decorator_tutorial_code.png" alt="decorator"></p>
 <p>There are many different ways to approach this, and we can always improve our older codes as we get better at a programming language. With that in mind, here&rsquo;s the code i came up with, using Python 3:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">import</span> <span class="n">random</span>
-</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">functools</span>
-</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">time</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">functools</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># define the function to measure time</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">timeIt</span><span class="p">(</span><span class="k">func</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">timeIt</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># wraps the function using functools</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="k">func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">newfunc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="c1"># check to enter the function only once</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">hasattr</span><span class="p">(</span><span class="n">newfunc</span><span class="p">,</span> <span class="s1">&#39;_entered&#39;</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">            <span class="n">newfunc</span><span class="o">.</span><span class="n">_entered</span> <span class="o">=</span> <span class="n">True</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">newfunc</span><span class="p">,</span> <span class="s1">&#39;_entered&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">newfunc</span><span class="o">.</span><span class="n">_entered</span> <span class="o">=</span> <span class="kc">True</span>
 </span></span><span class="line"><span class="cl">            <span class="c1"># starts the measurement</span>
 </span></span><span class="line"><span class="cl">            <span class="n">startTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">            <span class="k">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="c1"># finishes the measurement</span>
 </span></span><span class="line"><span class="cl">            <span class="n">elapsedTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTime</span>
 </span></span><span class="line"><span class="cl">            <span class="c1"># prints the result</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;function [{}] finished in {} ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">                <span class="k">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="ne">int</span><span class="p">(</span><span class="n">elapsedTime</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">            <span class="n">del</span> <span class="n">newfunc</span><span class="o">.</span><span class="n">_entered</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;function [</span><span class="si">{}</span><span class="s1">] finished in </span><span class="si">{}</span><span class="s1"> ms&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">elapsedTime</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">del</span> <span class="n">newfunc</span><span class="o">.</span><span class="n">_entered</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">newfunc</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># the @ inserts decorator</span>
-</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="n">timeIt</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@timeIt</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mergeSort</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">mid</span> <span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
 </span></span><span class="line"><span class="cl">        <span class="n">left</span> <span class="o">=</span> <span class="n">L</span><span class="p">[:</span><span class="n">mid</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">mid</span><span class="p">:]</span>
 </span></span><span class="line"><span class="cl">        <span class="n">mergeSort</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">mergeSort</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">=</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">                <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -379,37 +379,37 @@
 </span></span><span class="line"><span class="cl">                <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">left</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">            <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">            <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">            <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="n">timeIt</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@timeIt</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">selectionSort</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">L</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)):</span>
 </span></span><span class="line"><span class="cl">        <span class="n">min_i</span> <span class="o">=</span> <span class="n">i</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">L</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)):</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">min_i</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">                <span class="n">min_i</span> <span class="o">=</span> <span class="n">right</span>
 </span></span><span class="line"><span class="cl">    <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="n">min_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">min_i</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="n">timeIt</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@timeIt</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">bubbleSort</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">elem</span> <span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">    <span class="n">issorted</span> <span class="o">=</span> <span class="n">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">elem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">issorted</span> <span class="o">=</span> <span class="kc">False</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="ow">not</span> <span class="n">issorted</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">issorted</span> <span class="o">=</span> <span class="n">True</span>
+</span></span><span class="line"><span class="cl">        <span class="n">issorted</span> <span class="o">=</span> <span class="kc">True</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">                <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">                <span class="n">issorted</span> <span class="o">=</span> <span class="n">False</span>
+</span></span><span class="line"><span class="cl">                <span class="n">issorted</span> <span class="o">=</span> <span class="kc">False</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">randomList</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="mi">5000</span><span class="p">)</span>
@@ -418,9 +418,9 @@
 </span></span><span class="line"><span class="cl"><span class="n">selectionSort</span><span class="p">(</span><span class="n">randomList</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl"><span class="n">bubbleSort</span><span class="p">(</span><span class="n">randomList</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 </span></span></code></pre></div><p>And the results:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">function [mergeSort] finished in 2 ms
-</span></span><span class="line"><span class="cl">function [selectionSort] finished in 930 ms
-</span></span><span class="line"><span class="cl">function [bubbleSort] finished in 2828 ms
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">function</span> <span class="o">[</span>mergeSort<span class="o">]</span> finished in <span class="m">2</span> ms
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="o">[</span>selectionSort<span class="o">]</span> finished in <span class="m">930</span> ms
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="o">[</span>bubbleSort<span class="o">]</span> finished in <span class="m">2828</span> ms
 </span></span></code></pre></div><p>ecco!</p>
 <p><strong>References:</strong></p>
 <p><a href="https://docs.python.org/3/library/timeit.html">https://docs.python.org/3/library/timeit.html</a></p>

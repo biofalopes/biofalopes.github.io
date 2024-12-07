@@ -340,72 +340,72 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 <li>Libraries</li>
 </ol>
 <p>prometheus_client for metrics, boto3 for s3 connection, random</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">from prometheus_client import Histogram, start_http_server, Summary, Gauge, Counter
-</span></span><span class="line"><span class="cl">import boto3
-</span></span><span class="line"><span class="cl">import random
-</span></span><span class="line"><span class="cl">from io import BytesIO
-</span></span><span class="line"><span class="cl">import os
-</span></span><span class="line"><span class="cl">import time
-</span></span><span class="line"><span class="cl">import logging
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">prometheus_client</span> <span class="kn">import</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">start_http_server</span><span class="p">,</span> <span class="n">Summary</span><span class="p">,</span> <span class="n">Gauge</span><span class="p">,</span> <span class="n">Counter</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">boto3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">logging</span>
 </span></span></code></pre></div><ol start="2">
 <li>Variables</li>
 </ol>
 <p>Here we define our endpoint address, credentials, name of the bucket and objects, the interval between tests, the histogram buckets and how many objects we want to put simultaneously (for histogram metrics):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CLUSTER_ENDPOINT = &#39;&#39;
-</span></span><span class="line"><span class="cl">ACCESS_KEY = &#39;&#39;
-</span></span><span class="line"><span class="cl">SECRET_ACCESS_KEY = &#39;&#39;
-</span></span><span class="line"><span class="cl">BUCKET_NAME = &#39;the_lord_of_buckets&#39;
-</span></span><span class="line"><span class="cl">OBJECT_NAME = &#39;the_ruler&#39;
-</span></span><span class="line"><span class="cl">PORT=9102
-</span></span><span class="line"><span class="cl">TIME_TO_SLEEP = 120
-</span></span><span class="line"><span class="cl">LOG_LEVEL=logging.INFO
-</span></span><span class="line"><span class="cl">BUCKETS=[0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 ,1]
-</span></span><span class="line"><span class="cl">OBJCOUNT=15
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">CLUSTER_ENDPOINT</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ACCESS_KEY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SECRET_ACCESS_KEY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BUCKET_NAME</span> <span class="o">=</span> <span class="s1">&#39;the_lord_of_buckets&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJECT_NAME</span> <span class="o">=</span> <span class="s1">&#39;the_ruler&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PORT</span><span class="o">=</span><span class="m">9102</span>
+</span></span><span class="line"><span class="cl"><span class="nv">TIME_TO_SLEEP</span> <span class="o">=</span> <span class="m">120</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LOG_LEVEL</span><span class="o">=</span>logging.INFO
+</span></span><span class="line"><span class="cl"><span class="nv">BUCKETS</span><span class="o">=[</span>0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 ,1<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJCOUNT</span><span class="o">=</span><span class="m">15</span>
 </span></span></code></pre></div><ol start="3">
 <li>Metrics</li>
 </ol>
 <p>Here we define what metrics we want to generate, or collect: ALL_TESTSm S3_FAIL, CREATE, PUT, DELETE, GET_OBJECT, LIST_OBJECTS, REMOVE_BUCKET, DELETE_OBJECTS. For each operation there are three metrics defined: Summary, Gauge and Histogram. Labels were used for each operation.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ALL_TESTS_SUMMARY = Summary(&#39;s3_request_duration_seconds&#39;, &#39;Time spent running the test&#39;,[&#39;task&#39;])
-</span></span><span class="line"><span class="cl">ALL_TESTS_GAUGE = Gauge(&#39;s3_request_last_duration_seconds&#39;,&#39;Time spent on the last test&#39;,[&#39;task&#39;])
-</span></span><span class="line"><span class="cl">ALL_TESTS_HIST = Histogram(&#39;s3_request_duration_seconds_histogram&#39;,&#39;Time spent on the last test&#39;,[&#39;task&#39;],buckets=BUCKETS)
-</span></span><span class="line"><span class="cl">S3_FAIL = Counter(&#39;s3_requests_fails&#39;, &#39;Number of fails in this process&#39;)
-</span></span><span class="line"><span class="cl">CREATE_BUCKET_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;create&#39;)
-</span></span><span class="line"><span class="cl">CREATE_BUCKET_GAUGE = ALL_TESTS_GAUGE.labels(&#39;create&#39;)
-</span></span><span class="line"><span class="cl">CREATE_BUCKET_HIST = ALL_TESTS_HIST.labels(&#39;create&#39;)
-</span></span><span class="line"><span class="cl">PUT_OBJECT_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;put&#39;)
-</span></span><span class="line"><span class="cl">PUT_OBJECT_GAUGE = ALL_TESTS_GAUGE.labels(&#39;put&#39;)
-</span></span><span class="line"><span class="cl">PUT_OBJECT_HIST = ALL_TESTS_HIST.labels(&#39;put&#39;)
-</span></span><span class="line"><span class="cl">DELETE_OBJECT_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;delete&#39;)
-</span></span><span class="line"><span class="cl">DELETE_OBJECT_GAUGE = ALL_TESTS_GAUGE.labels(&#39;delete&#39;)
-</span></span><span class="line"><span class="cl">DELETE_OBJECT_HIST = ALL_TESTS_HIST.labels(&#39;delete&#39;)
-</span></span><span class="line"><span class="cl">GET_OBJECT_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;get&#39;)
-</span></span><span class="line"><span class="cl">GET_OBJECT_GAUGE = ALL_TESTS_GAUGE.labels(&#39;get&#39;)
-</span></span><span class="line"><span class="cl">GET_OBJECT_HIST = ALL_TESTS_HIST.labels(&#39;get&#39;)
-</span></span><span class="line"><span class="cl">LIST_OBJECTS_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;list_objects&#39;)
-</span></span><span class="line"><span class="cl">LIST_OBJECTS_GAUGE = ALL_TESTS_GAUGE.labels(&#39;list_objects&#39;)
-</span></span><span class="line"><span class="cl">LIST_OBJECTS_HIST = ALL_TESTS_HIST.labels(&#39;list_objects&#39;)
-</span></span><span class="line"><span class="cl">LIST_BUCKETS_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;list_buckets&#39;)
-</span></span><span class="line"><span class="cl">LIST_BUCKETS_GAUGE = ALL_TESTS_GAUGE.labels(&#39;list_buckets&#39;)
-</span></span><span class="line"><span class="cl">LIST_BUCKETS_HIST = ALL_TESTS_HIST.labels(&#39;list_buckets&#39;)
-</span></span><span class="line"><span class="cl">REMOVE_BUCKET_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;remove&#39;)
-</span></span><span class="line"><span class="cl">REMOVE_BUCKET_GAUGE = ALL_TESTS_GAUGE.labels(&#39;remove&#39;)
-</span></span><span class="line"><span class="cl">REMOVE_BUCKET_HIST = ALL_TESTS_HIST.labels(&#39;remove&#39;)
-</span></span><span class="line"><span class="cl">DELETE_OBJECTS_SUMMARY = ALL_TESTS_SUMMARY.labels(&#39;delete_many&#39;)
-</span></span><span class="line"><span class="cl">DELETE_OBJECTS_GAUGE = ALL_TESTS_GAUGE.labels(&#39;delete_many&#39;)
-</span></span><span class="line"><span class="cl">DELETE_OBJECTS_HIST = ALL_TESTS_HIST.labels(&#39;delete_many&#39;)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">ALL_TESTS_SUMMARY</span> <span class="o">=</span> Summary<span class="o">(</span><span class="s1">&#39;s3_request_duration_seconds&#39;</span>, <span class="s1">&#39;Time spent running the test&#39;</span>,<span class="o">[</span><span class="s1">&#39;task&#39;</span><span class="o">])</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ALL_TESTS_GAUGE</span> <span class="o">=</span> Gauge<span class="o">(</span><span class="s1">&#39;s3_request_last_duration_seconds&#39;</span>,<span class="s1">&#39;Time spent on the last test&#39;</span>,<span class="o">[</span><span class="s1">&#39;task&#39;</span><span class="o">])</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ALL_TESTS_HIST</span> <span class="o">=</span> Histogram<span class="o">(</span><span class="s1">&#39;s3_request_duration_seconds_histogram&#39;</span>,<span class="s1">&#39;Time spent on the last test&#39;</span>,<span class="o">[</span><span class="s1">&#39;task&#39;</span><span class="o">]</span>,buckets<span class="o">=</span>BUCKETS<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">S3_FAIL</span> <span class="o">=</span> Counter<span class="o">(</span><span class="s1">&#39;s3_requests_fails&#39;</span>, <span class="s1">&#39;Number of fails in this process&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CREATE_BUCKET_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;create&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CREATE_BUCKET_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;create&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CREATE_BUCKET_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;create&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PUT_OBJECT_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;put&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PUT_OBJECT_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;put&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PUT_OBJECT_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;put&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DELETE_OBJECT_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;delete&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DELETE_OBJECT_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;delete&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DELETE_OBJECT_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;delete&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GET_OBJECT_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;get&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GET_OBJECT_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;get&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GET_OBJECT_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;get&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIST_OBJECTS_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;list_objects&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIST_OBJECTS_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;list_objects&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIST_OBJECTS_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;list_objects&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIST_BUCKETS_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;list_buckets&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIST_BUCKETS_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;list_buckets&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIST_BUCKETS_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;list_buckets&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">REMOVE_BUCKET_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;remove&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">REMOVE_BUCKET_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;remove&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">REMOVE_BUCKET_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;remove&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DELETE_OBJECTS_SUMMARY</span> <span class="o">=</span> ALL_TESTS_SUMMARY.labels<span class="o">(</span><span class="s1">&#39;delete_many&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DELETE_OBJECTS_GAUGE</span> <span class="o">=</span> ALL_TESTS_GAUGE.labels<span class="o">(</span><span class="s1">&#39;delete_many&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DELETE_OBJECTS_HIST</span> <span class="o">=</span> ALL_TESTS_HIST.labels<span class="o">(</span><span class="s1">&#39;delete_many&#39;</span><span class="o">)</span>
 </span></span></code></pre></div><ol start="4">
 <li>Class S3Metrics</li>
 </ol>
 <p>This is where stuff gets done! There is an init function to set the parameters from the variables, start logging and create an a s3 resource from the boto3 library. Decorators were used to measure the time spend in each function and the run_all_tests funcion calls all the tests, which is the one we use as we&rsquo;ll see next.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">class</span> <span class="n">S3Metrics</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s3</span> <span class="o">=</span> <span class="n">None</span>
-</span></span><span class="line"><span class="cl">    <span class="n">bucket</span> <span class="o">=</span> <span class="n">None</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">S3Metrics</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s3</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bucket</span> <span class="o">=</span> <span class="kc">None</span>
 </span></span><span class="line"><span class="cl">    <span class="n">file_size</span> <span class="o">=</span> <span class="mi">512</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">None</span>
-</span></span><span class="line"><span class="cl">    <span class="n">key_name</span> <span class="o">=</span> <span class="n">None</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data_out</span> <span class="o">=</span> <span class="n">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">key_name</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data_out</span> <span class="o">=</span> <span class="kc">None</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">,</span> <span class="n">key_name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket_name</span><span class="p">,</span> <span class="n">key_name</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="n">cluster_endpoint</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLUSTER_ENDPOINT&#39;</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="n">CLUSTER_ENDPOINT</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">access_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;ACCESS_KEY&#39;</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="n">ACCESS_KEY</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">secret_access_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SECRET_ACCESS_KEY&#39;</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="n">SECRET_ACCESS_KEY</span><span class="p">)</span>
@@ -413,108 +413,108 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket_name</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">key_name</span> <span class="o">=</span> <span class="n">key_name</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">generate_data</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="ne">int</span><span class="p">(</span><span class="n">log_level</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">log_level</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                      <span class="n">endpoint_url</span><span class="o">=</span><span class="n">cluster_endpoint</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                      <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">access_key</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                      <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">secret_access_key</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">CREATE_BUCKET_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">CREATE_BUCKET_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">CREATE_BUCKET_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@CREATE_BUCKET_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@CREATE_BUCKET_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@CREATE_BUCKET_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">create_bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">PUT_OBJECT_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">PUT_OBJECT_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">PUT_OBJECT_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@PUT_OBJECT_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@PUT_OBJECT_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@PUT_OBJECT_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">put_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">key_name</span><span class="o">=</span><span class="n">OBJECT_NAME</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">Key</span><span class="o">=</span><span class="n">key_name</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">Body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">put_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">OBJCOUNT</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key_name</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">DELETE_OBJECT_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">DELETE_OBJECT_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">DELETE_OBJECT_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@DELETE_OBJECT_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@DELETE_OBJECT_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@DELETE_OBJECT_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">del_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">key_name</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">key_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">DELETE_OBJECTS_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">DELETE_OBJECTS_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">DELETE_OBJECTS_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@DELETE_OBJECTS_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@DELETE_OBJECTS_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@DELETE_OBJECTS_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">del_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">objects</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">object</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                <span class="n">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">GET_OBJECT_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">GET_OBJECT_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">GET_OBJECT_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@GET_OBJECT_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@GET_OBJECT_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@GET_OBJECT_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">data_out</span> <span class="o">=</span> <span class="n">None</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">data_out</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">data</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span><span class="o">.</span><span class="n">download_fileobj</span><span class="p">(</span><span class="n">Fileobj</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_name</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">data_out</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">compare_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_out</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">LIST_BUCKETS_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">LIST_BUCKETS_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">LIST_BUCKETS_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@LIST_BUCKETS_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@LIST_BUCKETS_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@LIST_BUCKETS_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">list_buckets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">all_buckets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">buckets</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="n">all_buckets</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">bucket</span><span class="o">.</span><span class="n">creation_date</span><span class="p">,</span> <span class="n">bucket</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">LIST_OBJECTS_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">LIST_OBJECTS_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">LIST_OBJECTS_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@LIST_OBJECTS_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@LIST_OBJECTS_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@LIST_OBJECTS_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">list_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">objects</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">object</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nb">object</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">REMOVE_BUCKET_HIST</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">REMOVE_BUCKET_GAUGE</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="n">REMOVE_BUCKET_SUMMARY</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@REMOVE_BUCKET_HIST.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@REMOVE_BUCKET_GAUGE.time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@REMOVE_BUCKET_SUMMARY.time</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">remove_bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">bucket</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">S3_FAIL</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">run_all_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -534,48 +534,48 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
 </span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_size</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">            <span class="n">random_integer</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">MAX_LIMIT</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">data</span> <span class="o">+=</span> <span class="p">(</span><span class="n">chr</span><span class="p">(</span><span class="n">random_integer</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data</span> <span class="o">+=</span> <span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">random_integer</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 </span></span></code></pre></div><ol start="5">
 <li>Main</li>
 </ol>
 <p>Here we start the prometheus exporter and call the method run_all_tests() from class S3Metrics inside an infinite while loop, so the script will run continuously until manually stopped.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">def main():
-</span></span><span class="line"><span class="cl">    start_http_server(PORT)
-</span></span><span class="line"><span class="cl">    s3metrics = S3Metrics(BUCKET_NAME, OBJECT_NAME)
-</span></span><span class="line"><span class="cl">    while True:
-</span></span><span class="line"><span class="cl">        s3metrics.run_all_tests()
-</span></span><span class="line"><span class="cl">        time.sleep(TIME_TO_SLEEP)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_http_server</span><span class="p">(</span><span class="n">PORT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s3metrics</span> <span class="o">=</span> <span class="n">S3Metrics</span><span class="p">(</span><span class="n">BUCKET_NAME</span><span class="p">,</span> <span class="n">OBJECT_NAME</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s3metrics</span><span class="o">.</span><span class="n">run_all_tests</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">TIME_TO_SLEEP</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">if __name__ == &#39;__main__&#39;:
-</span></span><span class="line"><span class="cl">    main()
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
 </span></span></code></pre></div><p>So now that we have our <code>s3metrics.py</code>, we have to build a container to run it. I created a <code>requirements.txt</code> file to make it easier to adjust the package versions in the future, and used in the Dockerfile the <code>python:3</code> base image since it already have most of what I need.</p>
 <ol start="6">
 <li>Requirements</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">boto3==1.17.54
-</span></span><span class="line"><span class="cl">botocore==1.20.54
-</span></span><span class="line"><span class="cl">jmespath==0.10.0
-</span></span><span class="line"><span class="cl">prometheus-client==0.10.1
-</span></span><span class="line"><span class="cl">python-dateutil==2.8.1
-</span></span><span class="line"><span class="cl">s3transfer==0.4.0
-</span></span><span class="line"><span class="cl">six==1.15.0
-</span></span><span class="line"><span class="cl">urllib3==1.26.4
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">boto3</span><span class="o">==</span><span class="mf">1.17.54</span>
+</span></span><span class="line"><span class="cl"><span class="n">botocore</span><span class="o">==</span><span class="mf">1.20.54</span>
+</span></span><span class="line"><span class="cl"><span class="n">jmespath</span><span class="o">==</span><span class="mf">0.10.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">prometheus</span><span class="o">-</span><span class="n">client</span><span class="o">==</span><span class="mf">0.10.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span><span class="o">-</span><span class="n">dateutil</span><span class="o">==</span><span class="mf">2.8.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">s3transfer</span><span class="o">==</span><span class="mf">0.4.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">six</span><span class="o">==</span><span class="mf">1.15.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">urllib3</span><span class="o">==</span><span class="mf">1.26.4</span>
 </span></span></code></pre></div><ol start="7">
 <li>Dockerfile</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">WORKDIR /app
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY requirements.txt .
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY s3-metrics.py .
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">RUN python3 -m venv .venv; bash -c &#39;source .venv/bin/activate&#39;; pip install -r requirements.txt
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">CMD [ &#34;python&#34;, &#34;./s3-metrics.py&#34; ]
-</span></span></code></pre></div><ol start="8">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> python:3</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> requirements.txt .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> s3-metrics.py .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> python3 -m venv .venv<span class="p">;</span> bash -c <span class="s1">&#39;source .venv/bin/activate&#39;</span><span class="p">;</span> pip install -r requirements.txt<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span> <span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="s2">&#34;./s3-metrics.py&#34;</span> <span class="p">]</span><span class="err">
+</span></span></span></code></pre></div><ol start="8">
 <li>Build and Run</li>
 </ol>
 <p>Now we can run the container inside an EC2 instance or anywhere capable of running a docker container (you don&rsquo;t say, lol). I&rsquo;ll later post my terraform script used to deploy it on AWS with more details. Now for the Grafana part:</p>
@@ -672,6 +672,8 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
                   <ul>
                 
                 
+                    <li><a href="/post/deploy-ceph-cluster/">Installing a Ceph Cluster</a></li>
+                
                     <li><a href="/post/rook/">Using Rook to leverage Ceph storage on a Kubernetes cluster</a></li>
                 
                     <li><a href="/post/python-web-scrapper-fii/">Web scrapper using Python</a></li>
@@ -679,8 +681,6 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
                     <li><a href="/post/python-sort-comparsion/">Comparsion of Sorting Algorithms using Python Decorators</a></li>
                 
                     <li><a href="/post/ceph-features/">Ceph features and its relation to the client kernel version</a></li>
-                
-                    <li><a href="/post/ceph-features-2/">Obtaining a list of Ceph features from the hexadecimal value</a></li>
                 
               </ul>
 

@@ -219,6 +219,76 @@
           
           
             <article class="post-preview">
+    <a href="https://fabiolopes.page/post/deploy-ceph-cluster/">
+        <h2 class="post-title">Installing a Ceph Cluster</h2>
+        
+        <h3 class="post-subtitle">
+            Using cephadm to easily deploy a Ceph Cluster
+        </h3>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on December 7, 2024
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1686&nbsp;words
+  
+  
+    
+      
+        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Fabio M. Lopes
+      
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        <p>In this example I used the Red Hat Ceph, but the procedure is the same for the community version. The official guide for RHCS 7 can be found here: <a href="https://docs.redhat.com/en/documentation/red_hat_ceph_storage/7/html/installation_guide/index">RedHat guide</a></p>
+<h3 id="preparation">Preparation:</h3>
+<ul>
+<li>Configure a Workbench</li>
+<li>Populate the hosts inventory</li>
+<li>Run the preflight playbook</li>
+<li>Create the <code>initial-config.yaml</code></li>
+<li>Run the Bootstrap Script</li>
+</ul>
+<p>SSH Key Distribution:</p>
+<ol>
+<li>Create an <code>admin</code> user on all servers, with a password and sudo privileges.</li>
+<li>Generate an SSH key pair for the <code>admin</code> user on the workbench.</li>
+<li>Use <code>ssh-copy-id</code> to copy the public key to all servers for the <code>admin</code> user.</li>
+<li>Copy the public and private keys to <code>/home/admin/.ssh</code> on MON 1.</li>
+</ol>
+<p><strong>Bootstrap</strong>: Execute from MON 1, using <code>sudo</code> as the <code>admin</code> user.</p>
+        <a href="https://fabiolopes.page/post/deploy-ceph-cluster/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="https://fabiolopes.page/tags/ceph/">ceph</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
     <a href="https://fabiolopes.page/post/eks_outpost/">
         <h2 class="post-title">Deploying a Local EKS Cluster on AWS Outposts</h2>
         
@@ -755,104 +825,6 @@ Using some kind of KISS methodology (keep it simple, stupid), running everything
         
        
        <a href="https://fabiolopes.page/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://fabiolopes.page/post/ceph-features/">
-        <h2 class="post-title">Ceph features and its relation to the client kernel version</h2>
-        
-        <h3 class="post-subtitle">
-            How the kernel version used on rbd/cephfs clients reflects on ceph features from the cluster perspective
-        </h3>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 16, 2020
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;6&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1121&nbsp;words
-  
-  
-    
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Fabio M. Lopes
-      
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p>While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.</p>
-<!-- raw HTML omitted -->
-<p>I started checking the documentation as always, but all i found was a command called <code>ceph features</code>, which gives a summarized output:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@mon-1 ~]# ceph features
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">    &#34;mon&#34;: {
-</span></span><span class="line"><span class="cl">        &#34;group&#34;: {
-</span></span><span class="line"><span class="cl">            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
-</span></span><span class="line"><span class="cl">            &#34;release&#34;: &#34;luminous&#34;,
-</span></span><span class="line"><span class="cl">            &#34;num&#34;: 3
-</span></span><span class="line"><span class="cl">        }
-</span></span><span class="line"><span class="cl">    },
-</span></span><span class="line"><span class="cl">    &#34;mds&#34;: {
-</span></span><span class="line"><span class="cl">        &#34;group&#34;: {
-</span></span><span class="line"><span class="cl">            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
-</span></span><span class="line"><span class="cl">            &#34;release&#34;: &#34;luminous&#34;,
-</span></span><span class="line"><span class="cl">            &#34;num&#34;: 3
-</span></span><span class="line"><span class="cl">        }
-</span></span><span class="line"><span class="cl">    },
-</span></span><span class="line"><span class="cl">    &#34;osd&#34;: {
-</span></span><span class="line"><span class="cl">        &#34;group&#34;: {
-</span></span><span class="line"><span class="cl">            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
-</span></span><span class="line"><span class="cl">            &#34;release&#34;: &#34;luminous&#34;,
-</span></span><span class="line"><span class="cl">            &#34;num&#34;: 192
-</span></span><span class="line"><span class="cl">        }
-</span></span><span class="line"><span class="cl">    },
-</span></span><span class="line"><span class="cl">    &#34;client&#34;: {
-</span></span><span class="line"><span class="cl">        &#34;group&#34;: {
-</span></span><span class="line"><span class="cl">            &#34;features&#34;: &#34;0x27018fb86aa42ada&#34;,
-</span></span><span class="line"><span class="cl">            &#34;release&#34;: &#34;jewel&#34;,
-</span></span><span class="line"><span class="cl">            &#34;num&#34;: 422
-</span></span><span class="line"><span class="cl">        },
-</span></span><span class="line"><span class="cl">        &#34;group&#34;: {
-</span></span><span class="line"><span class="cl">            &#34;features&#34;: &#34;0x2f018fb86aa42ada&#34;,
-</span></span><span class="line"><span class="cl">            &#34;release&#34;: &#34;luminous&#34;,
-</span></span><span class="line"><span class="cl">            &#34;num&#34;: 95
-</span></span><span class="line"><span class="cl">        },
-</span></span><span class="line"><span class="cl">        &#34;group&#34;: {
-</span></span><span class="line"><span class="cl">            &#34;features&#34;: &#34;0x3ffddff8eeacfffb&#34;,
-</span></span><span class="line"><span class="cl">            &#34;release&#34;: &#34;luminous&#34;,
-</span></span><span class="line"><span class="cl">            &#34;num&#34;: 18
-</span></span><span class="line"><span class="cl">        }
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></div><p>So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &ldquo;born&rdquo; in jewel, I thought that it might be the case that many clients didn&rsquo;t get any upgrades since.</p>
-        <a href="https://fabiolopes.page/post/ceph-features/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="https://fabiolopes.page/tags/ceph/">ceph</a>&nbsp;
          
     </div>
     
