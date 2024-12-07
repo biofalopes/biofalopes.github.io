@@ -2,96 +2,96 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fabio M. Lopes</title>
-    <link>https://biofalopes.github.io/</link>
+    <link>https://fabiolopes.page/</link>
     <description>Recent content on Fabio M. Lopes</description>
     <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>fabioctba01@gmail.com (Fabio M. Lopes)</managingEditor>
     <webMaster>fabioctba01@gmail.com (Fabio M. Lopes)</webMaster>
     <lastBuildDate>Fri, 06 Dec 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://biofalopes.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://fabiolopes.page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deploying a Local EKS Cluster on AWS Outposts</title>
-      <link>https://biofalopes.github.io/post/eks_outpost/</link>
+      <link>https://fabiolopes.page/post/eks_outpost/</link>
       <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/eks_outpost/</guid>
+      <guid>https://fabiolopes.page/post/eks_outpost/</guid>
       <description>&lt;p&gt;The Terraform code provisions an EKS cluster on an AWS Outpost, with the control plane running locally on the Outpost. This differs significantly from deploying an EKS cluster in a standard AWS region, primarily in how worker nodes are managed.&lt;/p&gt;&#xA;&lt;p&gt;The Amazon EKS update history demonstrates the platform&amp;rsquo;s continuous evolution, focusing on enhanced security, scalability, and integration with other AWS services. Since its initial release in June 2018, there&amp;rsquo;s been a significant increase in available features and functionalities, including support for newer Kubernetes versions, expansion to new AWS regions, and the introduction of new deployment options like Fargate and local clusters on AWS Outposts, which is the focus of this work. The introduction of features like managed node groups significantly simplified infrastructure management, automating tasks such as provisioning and lifecycle management of nodes. The availability of EKS-optimized AMIs, including options with GPU support and the Bottlerocket operating system, offers greater flexibility and performance for diverse workloads. Furthermore, integration with services like Amazon EBS, EFS, and FSx for Lustre, via CSI drivers, expanded storage options for the clusters. However, for a local Amazon EKS cluster on AWS Outposts, these resources are significantly more limited; managed node groups are unavailable.&lt;/p&gt;</description>
     </item>
     <item>
       <title>HashiCorp Certified: Terraform Associate Exam</title>
-      <link>https://biofalopes.github.io/post/terraform-study-guide/</link>
+      <link>https://fabiolopes.page/post/terraform-study-guide/</link>
       <pubDate>Sun, 07 Aug 2022 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/terraform-study-guide/</guid>
+      <guid>https://fabiolopes.page/post/terraform-study-guide/</guid>
       <description>&lt;p&gt;In order to pass the Terraform Associate Exam I followed the Official guide as a baseline for my studies, as I usually do for certification exams and it always works out well for me.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;The HashiCorp Terraform Associate is considered a &lt;strong&gt;foundational level&lt;/strong&gt; certification, so you can expect to have essential knowledge and skills on the concepts and not necessarily lots of hands-on practice. If you already work with Terraform you probably be able to go very quicky over the topics but it is important to know some details and also some commands that might not be very common for you. You must also know the features that exist on Terraform Enterprise packages and Terraform Cloud.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Managing AWS Autoscaling Groups and Load Balancers using Terraform</title>
-      <link>https://biofalopes.github.io/post/terraform-2/</link>
+      <link>https://fabiolopes.page/post/terraform-2/</link>
       <pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/terraform-2/</guid>
+      <guid>https://fabiolopes.page/post/terraform-2/</guid>
       <description>&lt;p&gt;This time I&amp;rsquo;ll be using an environment with a Load Balancer and an Autoscaling Group, which is a more complex architecture than the previous one.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;We&amp;rsquo;ll have the following resources deployed with this procedure:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;1 VPC&lt;/li&gt;&#xA;&lt;li&gt;2 Subnets&lt;/li&gt;&#xA;&lt;li&gt;1 Internet Gateway&lt;/li&gt;&#xA;&lt;li&gt;1 Route Table (with a default route and an association)&lt;/li&gt;&#xA;&lt;li&gt;2 Security groups&lt;/li&gt;&#xA;&lt;li&gt;1 Key Pair&lt;/li&gt;&#xA;&lt;li&gt;1 EC2 Instance&lt;/li&gt;&#xA;&lt;li&gt;1 Launch Configuration&lt;/li&gt;&#xA;&lt;li&gt;1 ELB&lt;/li&gt;&#xA;&lt;li&gt;1 ASG&lt;/li&gt;&#xA;&lt;li&gt;2 Autoscaling Policies&lt;/li&gt;&#xA;&lt;li&gt;2 Cloudwatch Metric Alarms&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;It&amp;rsquo;s a very simple and you can build on top of it according to your needs, like the previous infrastructure. The code will be organized in the following structure:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Basic Dev Environment on AWS using Terraform</title>
-      <link>https://biofalopes.github.io/post/terraform-1/</link>
+      <link>https://fabiolopes.page/post/terraform-1/</link>
       <pubDate>Sat, 30 Jul 2022 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/terraform-1/</guid>
+      <guid>https://fabiolopes.page/post/terraform-1/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s good to have a basic terraform code that deploys a basic environment on AWS whenever you need to run some quick tests on a free tier account.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;We&amp;rsquo;ll have the following resources deployed with this procedure:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;1 VPC&lt;/li&gt;&#xA;&lt;li&gt;1 Subnet&lt;/li&gt;&#xA;&lt;li&gt;1 Internet Gateway&lt;/li&gt;&#xA;&lt;li&gt;1 Route Table (with a default route and an association)&lt;/li&gt;&#xA;&lt;li&gt;1 Security group&lt;/li&gt;&#xA;&lt;li&gt;1 Key Pair&lt;/li&gt;&#xA;&lt;li&gt;1 EC2 Instance&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;It&amp;rsquo;s a very simple and you can build on top of it according to your needs, like adding a RDS instance or more EC2 instances, changing the instance type and so on. The code will be organized in the following structure:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Getting started with Jenkins Declarative Pipelines</title>
-      <link>https://biofalopes.github.io/post/jenkins-1/</link>
+      <link>https://fabiolopes.page/post/jenkins-1/</link>
       <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/jenkins-1/</guid>
+      <guid>https://fabiolopes.page/post/jenkins-1/</guid>
       <description>&lt;p&gt;After hours and hours of training, videos, documentation, and tutorials, it was time to put into practice the concepts I learned about Jenkins, one of the most used automation tools for CI/CD.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;It is known that there are many other more modern solutions today, like GitHub Actions or Gitlab CI, for instance, which is a common approach since you can leverage the SCM directly to automate your tasks instead of depending on an external tool. However, Jenkins is still widely adopted and you can perform many automation tasks without much effort using it. It&amp;rsquo;s all going to depend on the situation, the current project, and the team.&#xA;Traditionally, Jenkins jobs were created using the Jenkins UI and were called FreeStyle jobs. In Jenkins 2.0, a new way was introduced using a technique called pipeline as code, where jobs are created using a script file containing the steps to be executed. That scripted file is called Jenkinsfile. That&amp;rsquo;s just a glimpse on Jenkins pipelines, there&amp;rsquo;s much more depth to it and you can always dive deeper using the official documentation at &lt;a href=&#34;https://www.jenkins.io/doc/book/pipeline/&#34;&gt;https://www.jenkins.io/doc/book/pipeline/&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Using Python and Docker to monitor Ceph S3 from outside</title>
-      <link>https://biofalopes.github.io/post/python-s3-monitoring/</link>
+      <link>https://fabiolopes.page/post/python-s3-monitoring/</link>
       <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/python-s3-monitoring/</guid>
+      <guid>https://fabiolopes.page/post/python-s3-monitoring/</guid>
       <description>&lt;p&gt;I needed to perform external monitoring on our S3 endpoints to better observe how the service was performing, thus getting a better representation of user experience. I use basically Python and Docker to accomplish the task.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;We have two relatively large Ceph clusters (2.5PB, 600 OSDs) at the company that provides object storage using implementing the S3 API, so we can leverage the AWS SDK and use it to perform operations like creating buckets, putting objects and so on, and measuring the success and the time consumed to perform each operation. With those metrics we can then create graphics, panels and alerts using Grafana for instance.&#xA;Using some kind of KISS methodology (keep it simple, stupid), running everything inside a docker container would give the flexibility to throw it anywhere and get the same results. The initial goal was to run two containers on AWS pointing to both sites (where the two main Ceph Clusters live) and two others on each site, one pointing to the other.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Using Rook to leverage Ceph storage on a Kubernetes cluster</title>
-      <link>https://biofalopes.github.io/post/rook/</link>
+      <link>https://fabiolopes.page/post/rook/</link>
       <pubDate>Sat, 17 Jul 2021 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/rook/</guid>
+      <guid>https://fabiolopes.page/post/rook/</guid>
       <description>&lt;p&gt;I recently got 10 bare-metal servers to play with, they used to be part of our first Ceph cluster and got replaced with more powerful hardware. So i built two k8s clusters and decided to give Rook a try.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;As the cluster grew bigger, we purchased not only more servers but with different configuration. But those Dell R530 servers still have pretty decent power to run many internal demands we have, so i built a Ceph cluster with four of them using CentOS 8, Ceph Octopus and deployed everything in containers. But i want to talk about what i did with the remaining six servers, that became two kubernetes clusters - one with Flatcar and the other with Centos, to replicate some production scenarios we have. Since the servers have 8 2TB HDD each and we use just one for the OS, that would be a perfect scenario to experiment with Rook. I tinkered with it previously with some labs but now i could really test its usability.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Web scrapper using Python</title>
-      <link>https://biofalopes.github.io/post/python-web-scrapper-fii/</link>
+      <link>https://fabiolopes.page/post/python-web-scrapper-fii/</link>
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/python-web-scrapper-fii/</guid>
+      <guid>https://fabiolopes.page/post/python-web-scrapper-fii/</guid>
       <description>&lt;p&gt;So I needed to learn how to scrape a web page using Python.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;My goal was much less ambitious but i thought i might as well use what everyone else is using, since it would provide a good learning opportunity.&lt;/p&gt;&#xA;&lt;p&gt;I based my code on Renata Magner&amp;rsquo;s (&lt;a href=&#34;https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)&#34;&gt;https://github.com/RenataMagner/web_scraping_fii/blob/master/web_scraping-fiiv2.ipynb)&lt;/a&gt;. I still have to implement error handling and many other improvements on the code, that&amp;rsquo;s just the first version. Without further ado, that&amp;rsquo;s what i came up with:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Comparsion of Sorting Algorithms using Python Decorators</title>
-      <link>https://biofalopes.github.io/post/python-sort-comparsion/</link>
+      <link>https://fabiolopes.page/post/python-sort-comparsion/</link>
       <pubDate>Tue, 17 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/python-sort-comparsion/</guid>
+      <guid>https://fabiolopes.page/post/python-sort-comparsion/</guid>
       <description>&lt;p&gt;So I needed to learn how to use decorators in Python.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;Decorators can be very useful when you need to add functionalities to an existing function/method/class, without having to change its code. Let&amp;rsquo;s say you need to add an additional check, time the function or log but you are using a module instead of writing your own function, or you want to reuse the code more efficiently, then using decorators might be the way to go.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Ceph features and its relation to the client kernel version</title>
-      <link>https://biofalopes.github.io/post/ceph-features/</link>
+      <link>https://fabiolopes.page/post/ceph-features/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/ceph-features/</guid>
+      <guid>https://fabiolopes.page/post/ceph-features/</guid>
       <description>&lt;p&gt;While working on an upgrade on one of our ceph cluster from Luminous to Nautilus, i needed to come up with a way to detect any client with older versions, and check if we could break anything after the upgrade.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;I started checking the documentation as always, but all i found was a command called &lt;code&gt;ceph features&lt;/code&gt;, which gives a summarized output:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[root@mon-1 ~]# ceph features&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;mon&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 3&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;mds&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 3&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;osd&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 192&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &amp;#34;client&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x27018fb86aa42ada&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;jewel&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 422&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x2f018fb86aa42ada&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 95&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &amp;#34;group&amp;#34;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;features&amp;#34;: &amp;#34;0x3ffddff8eeacfffb&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;release&amp;#34;: &amp;#34;luminous&amp;#34;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &amp;#34;num&amp;#34;: 18&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So that got me worried, since I was now looking at 422 clients apparently using jewel and we were already using Nautilus for a while. Since this specific cluster was &amp;ldquo;born&amp;rdquo; in jewel, I thought that it might be the case that many clients didn&amp;rsquo;t get any upgrades since.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Obtaining a list of Ceph features from the hexadecimal value</title>
-      <link>https://biofalopes.github.io/post/ceph-features-2/</link>
+      <link>https://fabiolopes.page/post/ceph-features-2/</link>
       <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/post/ceph-features-2/</guid>
+      <guid>https://fabiolopes.page/post/ceph-features-2/</guid>
       <description>&lt;p&gt;After some digging i found the list of possible features, its respective kernel version requirement and/or when it became available.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;This can be found in &lt;code&gt;src/include/ceph_features.h&lt;/code&gt;, and I got it by cloning the ceph repo at git://github.com/ceph/ceph .&lt;/p&gt;&#xA;&lt;p&gt;That information might be useful when you are trying to determine if your clients might need a kernel upgrade and what kind of RBD or cephfs features you can enable on your server side without breaking compatibility. It&amp;rsquo;s always ideal to have every new feature availabe whenever possible, but that is not always the case when you have a medium to large deployment, multiple clients with different workloads and scenarios - in other words, a Real World situation.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About me</title>
-      <link>https://biofalopes.github.io/page/about/</link>
+      <link>https://fabiolopes.page/page/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>fabioctba01@gmail.com (Fabio M. Lopes)</author>
-      <guid>https://biofalopes.github.io/page/about/</guid>
+      <guid>https://fabiolopes.page/page/about/</guid>
       <description>&lt;p&gt;I’m  a Cloud Engineer based in Curitiba/Brazil, currently working at SERPRO.&lt;/p&gt;&#xA;&lt;h3 id=&#34;a-little-bit-about-my-history&#34;&gt;A little bit about my history&lt;/h3&gt;&#xA;&lt;p&gt;I’m a generalist Site Reliability Engineer with 20+ years of experience with solid academic education in Computer Science, Computer Networking and Project Management. I have been responsible for ensuring the reliability of many different critical systems, reducing mean time to recovery, and improving incident response processes. I have also been instrumental in automating various tasks to reduce manual workloads and improve efficiency.&lt;/p&gt;</description>
     </item>
   </channel>
