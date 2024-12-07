@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-flow: column;
   height: 100vh;
+  text-align: justify;
 }
 @media (prefers-color-scheme: dark) {
   body {
@@ -81,8 +82,13 @@ hr.small {
   border-radius: 3px;
 }
 
+.post-content {
+  text-align: justify;
+}
+
 .main-content {
   padding-top: 80px;
+
 }
 @media only screen and (min-width: 768px) {
   .main-content {
@@ -421,6 +427,7 @@ footer div.disclaimer {
 .post-preview {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
+  text-align: justify;
 }
 @media only screen and (min-width: 768px) {
   .post-preview {
