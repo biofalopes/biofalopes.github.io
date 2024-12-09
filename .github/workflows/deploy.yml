@@ -1,0 +1,41 @@
+name: Deploy Hugo Site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+
+    - name: Build Site
+      run: hugo --minify
+
+    - name: Checkout GitHub Pages Repository
+      uses: actions/checkout@v3
+      with:
+        repository: biofalopes/biofalopes.github.io
+        token: ${{ secrets.GH_TOKEN }}
+        path: public
+
+    - name: Sync Built Site to Pages Repo
+      run: |
+        cp -r public/* .
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Deploy updated Hugo site" || echo "No changes to commit"
+        git push
