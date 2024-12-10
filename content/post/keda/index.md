@@ -206,7 +206,7 @@ docker tag <repo_name>:<tag> <account_id>.dkr.ecr.<aws_region>.amazonaws.com/<re
 docker push <account_id>.dkr.ecr.<aws_region>.amazonaws.com/<repo_name>:<tag>
 ```
 
-Then, create a kubernetes Deployment (sqs-worker-deployment.yaml):**
+Then, create a kubernetes Deployment `sqs-worker-deployment.yaml`:
 
 ```yaml
 apiVersion: apps/v1
