@@ -1,7 +1,7 @@
 +++
 title = "Preparation for Google Cloud: Professional Cloud Architect (PCA) Exam"
 description = "My journey on how I prepared for the Google PCA exam, resources I used, insights and practical tips."
-date =  "2024-09-03"
+date =  "2024-12-11"
 draft = false
 toc = true
 categories = ["gcp", "kubernetes"]
@@ -65,19 +65,19 @@ The Google Professional Cloud Architect certification serves two key purposes:
 > - Prioritized Labs and Quizzes
 > - Familiarized with the 4 case studies
 > - Complemented with Ranga Karanam's Udemy Course
-> - Familiarized with Google Service Comparsion Chart
+> - Familiarized with Google Service Comparison Chart
 > - Reviewed with Sebastian Hooker's Exam Guide
 > - Did many practice exams
 
-I studied for about three months, altough not every day, with some gaps that lasted more than a week. I started with **Google Cloud Skills Boost**, since it was a prerequisite for an exam voucher, provided due to a partnership between my company and Google. I did the Cloud Architect Learning Path, comprised of 18 courses. My study style is very practical, so I skipped most of the videos from the courses and focused on the labs and quizzes. I also have previous experience with AWS and Azure, so many of the concepts are the same between those cloud providers. What I noticed was that, between the 18 required courses for completing the learning path, there is a lot of overlapping. Many of the labs were almost the same, or even too basic. The evaluation system was also a hassle, I had problems on some of them, wasting time trying to figure out what was different to make it recognize the task as completed instead of effectively learning anything. From what I read, that is a common issue that many people encounter with the platform.
+I studied for about three months, although not every day, with some gaps that lasted more than a week. I started with **Google Cloud Skills Boost**, since it was a prerequisite for an exam voucher, provided due to a partnership between my company and Google. I did the Cloud Architect Learning Path, comprised of 18 courses. My study style is very practical, so I skipped most of the videos from the courses and focused on the labs and quizzes. I also have previous experience with AWS and Azure, so many of the concepts are the same between those cloud providers. What I noticed was that, between the 18 required courses for completing the learning path, there is a lot of overlapping. Many of the labs were almost the same, or even too basic. The evaluation system was also a hassle, I had problems on some of them, wasting time trying to figure out what was different to make it recognize the task as completed instead of effectively learning anything. From what I read, that is a common issue that many people encounter with the platform.
 
 One crucial takeaway from the exam guide is the importance of the case studies. Before the test, I thoroughly reviewed all four case studies to save time during the exam itself. With only 2 hours to complete the test and potentially lengthy questions, it’s essential to be well-prepared. I strongly recommend leveraging the information in the case studies to optimize your efficiency and make the most of your time during the exam.
 
-After that, I went on to Ranga Karanam's Udemy Course. It had a good rating on the platform, and I personally like Udemy as it is easy to use. Since this was already my second take on all of the content, I listened to the material while doing other stuff, without focusing completely on it. To help me trace a parallel between GCP's services and the equivalent ones on AWS and Azure, I spent some time studying the comparsion chart, provided by Google itself.
+After that, I went on to Ranga Karanam's Udemy Course. It had a good rating on the platform, and I personally like Udemy as it is easy to use. Since this was already my second take on all of the content, I listened to the material while doing other stuff, without focusing completely on it. To help me trace a parallel between GCP's services and the equivalent ones on AWS and Azure, I spent some time studying the comparison chart, provided by Google itself.
 
-Next, I started to review the content and found and excellent summary from Sebastian Hooker, which I read completely and looked deeply on subjects I felt I didn't know very well. I also went through some excellent prep notes I found online, provided freely by [Ammett Williams](https://www.linkedin.com/in/ammett).
+Next, I started to review the content and found an excellent summary from Sebastian Hooker, which I read completely and looked deeply on subjects I felt I didn't know very well. I also went through some excellent prep notes I found online, provided freely by [Ammett Williams](https://www.linkedin.com/in/ammett).
 
-Then it was time to do some practice tests. I started with Ditectrev's ACE Practice Test, since PCA and ACE have a lot of overlapping and it was free. Then i went to ExamPrepper, which also have some free content, and on the last stretch I used Skillcertpro. I felt very confident after doing so many practice questions, but that strategy always worked for me on my previous certifications. PCA will be my 20th so far. The exam is scheduled for next month, but I wanted to write this guide before, since it also helped me organize everything I needed to cover for the exam. The only paid resources were the Udemy course and Skillcertpro.
+Then it was time to do some practice tests. I started with Ditectrev's ACE Practice Test, since PCA and ACE have a great deal of overlap and it was free. Then i went to ExamPrepper, which also has some free content, and on the last stretch I used Skillcertpro. I felt very confident after doing so many practice questions, but that strategy always worked for me on my previous certifications. PCA will be my 20th so far. The exam is scheduled for next month, but I wanted to write this guide before, since it also helped me organize everything I needed to cover for the exam. The only paid resources were the Udemy course and Skillcertpro.
 
 
 ## Key Skills for PCA
@@ -91,8 +91,6 @@ Then it was time to do some practice tests. I started with Ditectrev's ACE Pract
 
 
 ## Minimum Services to Know
-
- Minimum Services to know (not an exhaustive list):
 
 - **Infra & Ops**: [Cloud Operations](https://cloud.google.com/products/operations), [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview), [Cloud Logging](https://cloud.google.com/logging/docs/overview), [Persistent Disks](https://cloud.google.com/compute/docs/disks/persistent-disks), [Managed Instance Group](https://cloud.google.com/compute/docs/instance-groups), [Cloud KMS](https://cloud.google.com/kms/docs/key-management-service), [Organization Policies](https://cloud.google.com/resource-manager/docs/organization-policy/overview), [Cloud Storage](https://cloud.google.com/storage/docs), [Google Compute Engine](https://cloud.google.com/compute/docs/instances), [Cloud IAM](https://cloud.google.com/iam/docs/concepts)
 - **Network**: [VPC](https://cloud.google.com/vpc/docs/overview), [Shared VPC](https://cloud.google.com/vpc/docs/shared-vpc), [VPC Peering](https://cloud.google.com/vpc/docs/vpc-peering), [VPC Flow Logging](https://cloud.google.com/vpc/docs/using-flow-logs), [Serverless VPC Access](https://cloud.google.com/vpc/docs/serverless-vpc-access), [Cloud NAT](https://cloud.google.com/nat/docs/overview#:~:text=Cloud%20NAT%20is%20a%20distributed,VMs%20without%20external%20IP%20addresses.), [Cloud VPN](https://cloud.google.com/network-connectivity/docs/vpn/concepts/overview#:~:text=Cloud%20VPN%20securely%20connects%20your,it%20travels%20over%20the%20internet.), [Cloud Interconnect](https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview)
@@ -111,6 +109,14 @@ The exam will probably have two case studies that might take a lot of time and c
 - [TerramEarth](https://services.google.com/fh/files/blogs/master_case_study_terramearth.pdf)
 
 
+## Opinion About the Exam
+The exam is challenging, requiring both a deep understanding of low-level details—such as command-line parameters for tools like gcloud and gsutil—and a solid grasp of high-level concepts across many GCP products.
+
+Having previously passed the Kubernetes CKA exam, which is an “open book” format, I can draw some comparisons. For the CKA, you’re allowed to refer to documentation on kubernetes.io, which makes the exam focused more on practical problem-solving than rote memorization. Although the CKA was difficult, I was well-prepared and finished it significantly faster than the allotted time. There’s little opportunity to rely heavily on documentation during the test, so it’s crucial to have a strong foundational knowledge. The documentation is best used for quick lookups or copying manifest templates to save time. Overall, the CKA was an enjoyable experience because it emphasized real-world tasks. Working directly in the command line to solve problems provided a sense of accomplishment, and it avoided requiring you to memorize information that’s readily available online.
+
+In contrast, the GCP PCA exam is very different. That is also true for all other AWS and Azure exams I took. It requires memorization of details you'd typically copy/paste in your daily work rather than hands-on problem-solving. Without practical, scenario-based tasks, it’s harder to gauge whether you're fully equipped to handle real challenges on GCP. This difference makes you feel less confident about how well the exam aligns with practical skills needed for day-to-day work in the cloud. 
+
+
 ## Summary:
 
 In short, my journey to prepare for the Google Cloud Professional Cloud Architect certification involved a focused, three-month study plan leveraging a blend of free and paid resources. I prioritized hands-on labs and quizzes from Google Cloud Skills Boost, supplemented by Ranga Karanam's Udemy course for broader conceptual understanding and Sebastian Hooker's concise exam guide for focused review. Mastering the four official case studies proved invaluable, as did extensive practice exams. While the exam itself demands significant memorization, my prior cloud experience and targeted approach helped me feel confident going in. I hope this detailed account of my preparation, including the resources and strategies I used, provides a helpful roadmap for your own PCA journey. Remember to prioritize hands-on experience and a deep understanding of the case studies – they are key to success.
@@ -124,7 +130,7 @@ Exam Guide: https://cloud.google.com/learn/certification/guides/professional-clo
 
 Ranga Karanam's Udemy Google PCA Course: https://www.udemy.com/course/google-cloud-professional-cloud-architect-certification
 
-Service Comparsion Chart: https://cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison
+Service Comparison Chart: https://cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison
 
 Sebastian Hooker's Full Exam Guide: https://www.sebhook.com/2024/08/28/google-cloud-professional-cloud-architect-pca-full-exam-guide/
 
@@ -135,11 +141,3 @@ ExamPrepper: https://www.examprepper.co/exam/3/1
 Skillcertpro practice test: https://skillcertpro.com/product/google-cloud-certified-professional-cloud-architect-practice-exam-test/
 
 Prep Notes by Ammett Williams: https://drive.google.com/file/d/1_UfKnzxodTTk5CuwT0ScSmXegtmgpV5v/view
-
-
-## Opinion About the Exam
-The exam is challenging, requiring both a deep understanding of low-level details—such as command-line parameters for tools like gcloud and gsutil—and a solid grasp of high-level concepts across many GCP products.
-
-Having previously passed the Kubernetes CKA exam, which is an “open book” format, I can draw some comparisons. For the CKA, you’re allowed to refer to documentation on kubernetes.io, which makes the exam focused more on practical problem-solving than rote memorization. Although the CKA was difficult, I was well-prepared and finished it significantly faster than the allotted time. There’s little opportunity to rely heavily on documentation during the test, so it’s crucial to have a strong foundational knowledge. The documentation is best used for quick lookups or copying manifest templates to save time. Overall, the CKA was an enjoyable experience because it emphasized real-world tasks. Working directly in the command line to solve problems provided a sense of accomplishment, and it avoided requiring you to memorize information that’s readily available online.
-
-In contrast, the GCP PCA exam is very different. That is also true for all other AWS and Azure exams I took. It requires memorization of details you'd typically copy/paste in your daily work rather than hands-on problem-solving. Without practical, scenario-based tasks, it’s harder to gauge whether you're fully equipped to handle real challenges on GCP. This difference makes you feel less confident about how well the exam aligns with practical skills needed for day-to-day work in the cloud. 
