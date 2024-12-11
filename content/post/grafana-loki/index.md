@@ -200,4 +200,71 @@ helm install --namespace loki grafana/loki loki -f override-values.yaml
 
 After Loki is installed, you'll need to configure Grafana to connect to it. This involves adding a Loki data source in Grafana, specifying the Loki endpoint (usually `http://loki-query-frontend.<namespace>.svc.cluster.local`).  Refer to the Grafana documentation for detailed instructions on configuring Loki as a data source, which is very straightforward.
 
+**8. Promtail:**
+
+This is an example of Promtail running on a HAProxy server. In my case, the server was using rsyslog and the log format was not standard, so i needed to create a veryu standard scrape config with just one label, since each label create a new index shard on Loki, thus considerably increasing resource usage.
+
+Installation (RHEL/CentOS):
+```bash
+wget https://github.com/grafana/loki/releases/download/v2.9.9/promtail-2.9.9.x86_64.rpm
+rpm -ivh promtail-2.9.9.x86_64.rpm
+```
+
+`/etc/promtail/config.yml`:
+
+```yaml
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /var/tmp/promtail/positions.yml
+
+clients:
+        - url: https://loki-in-sp-logs.spo.estaleiro.serpro/loki/api/v1/push
+
+scrape_configs:
+  - job_name: haproxy
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: haproxy
+        __path__: /var/log/haproxy.log
+```
+
+Adjust the systemd unit to run as root:
+
+```bash
+[Unit]
+Description=Promtail service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/promtail -config.file /etc/promtail/config.yml
+# Give a reasonable amount of time for promtail to start up/shut down
+TimeoutSec = 60
+Restart = on-failure
+RestartSec = 2
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Create the positions folder:
+
+```bash
+# mkdir /var/tmp/promtail
+```
+
+Enable and start the service:
+
+```bash
+systemctl daemon-reload
+systemctl enable promtail
+systemctl start promtail
+```
+
 This expanded post provides a more comprehensive guide to deploying Loki on Kubernetes, emphasizing its integration with Grafana for a complete log management solution.
