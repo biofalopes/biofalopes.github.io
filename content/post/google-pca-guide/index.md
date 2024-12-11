@@ -117,12 +117,12 @@ Having previously passed the Kubernetes CKA exam, which is an “open book” fo
 In contrast, the GCP PCA exam is very different. That is also true for all other AWS and Azure exams I took. It requires memorization of details you'd typically copy/paste in your daily work rather than hands-on problem-solving. Without practical, scenario-based tasks, it’s harder to gauge whether you're fully equipped to handle real challenges on GCP. This difference makes you feel less confident about how well the exam aligns with practical skills needed for day-to-day work in the cloud. 
 
 
-## Summary:
+## Summary
 
 In short, my journey to prepare for the Google Cloud Professional Cloud Architect certification involved a focused, three-month study plan leveraging a blend of free and paid resources. I prioritized hands-on labs and quizzes from Google Cloud Skills Boost, supplemented by Ranga Karanam's Udemy course for broader conceptual understanding and Sebastian Hooker's concise exam guide for focused review. Mastering the four official case studies proved invaluable, as did extensive practice exams. While the exam itself demands significant memorization, my prior cloud experience and targeted approach helped me feel confident going in. I hope this detailed account of my preparation, including the resources and strategies I used, provides a helpful roadmap for your own PCA journey. Remember to prioritize hands-on experience and a deep understanding of the case studies – they are key to success.
 
 
-## Resources:
+## Resources
 
 Google Cloud Skills Boost - Cloud Architect Learning Path: https://www.cloudskillsboost.google/paths/12/
 
