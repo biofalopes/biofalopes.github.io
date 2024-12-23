@@ -99,3 +99,5 @@ If reporting is mentioned: **Looker**.
   - **Workload Identity**: Integrates GKE workloads with Active Directory.  
   - **Security Command Center (SCC)**: Visibility into security vulnerabilities.  
   - **Data Loss Prevention (DLP)**: Identifies and protects sensitive data.  
+
+---
