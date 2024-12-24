@@ -6,7 +6,7 @@ draft = false
 toc = false
 categories = ["gcp", "kubernetes"]
 tags = ["gcp", "kubernetes"]
-image = "helicopter.png"
+image = "DALL-E.webp"
 author = "Fabio M. Lopes"
 +++
 

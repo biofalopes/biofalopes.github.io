@@ -1,12 +1,12 @@
 +++
-title = "Google Professional Cloud Architect - TerramEa!h Case Study"
+title = "Google Professional Cloud Architect - TerramEarth Case Study"
 description = "TerramEa!h Case Study - Aligning GCP services with the given requirements."
 date =  "2024-12-20"
 draft = false
 toc = false
 categories = ["gcp", "kubernetes"]
 tags = ["gcp", "kubernetes"]
-image = "terramearth.png"
+image = "DALL-E.webp"
 author = "Fabio M. Lopes"
 +++
 
