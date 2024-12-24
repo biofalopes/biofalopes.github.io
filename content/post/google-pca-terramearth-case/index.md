@@ -1,6 +1,6 @@
 +++
 title = "Google Professional Cloud Architect - TerramEarth Case Study"
-description = "TerramEa!h Case Study - Aligning GCP services with the given requirements."
+description = "TerramEarth Case Study - Aligning GCP services with the given requirements."
 date =  "2024-12-20"
 draft = false
 toc = false
