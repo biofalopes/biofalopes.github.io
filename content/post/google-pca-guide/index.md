@@ -6,7 +6,7 @@ draft = false
 toc = true
 categories = ["gcp", "kubernetes"]
 tags = ["gcp", "kubernetes"]
-image = "gcp_pca.png"
+image = "dall-e-pca.webp"
 author = "Fabio M. Lopes"
 +++
 
