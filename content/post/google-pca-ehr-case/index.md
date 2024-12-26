@@ -20,7 +20,7 @@ Link: https://services.google.com/fh/files/blogs/master_case_study_ehr_healthcar
 
 | Requirement	| GCP Solution |
 | ---- | --- |
-| Container Management |	GKE
+| Container Management |	Anthos / GKE |
 | Hybrid Connectivity |	Cloud Interconnect, VPN |
 | Monitoring & Logging |	Cloud Operations Suite |
 | Availability and Latency |	Load Balancer, Multi-Region GKE |
@@ -29,13 +29,14 @@ Link: https://services.google.com/fh/files/blogs/master_case_study_ehr_healthcar
 | Legacy Integration |	Apigee API Management, Pub/Sub |
 | Security and Compliance |	IAM, SCC, DLP, Workload Identity |
 | CI/CD |	Cloud Build, Artifact Registry |
+| AD FS | Google Cloud Directory Sync |
 
 ### 3. Question Breakdown by Subject
 
 #### **A. Application Modernization (Container-Based Apps)**  
 - **Likely Exam Question**: *"Which GCP service provides a consistent way to manage container-based applications?"*  
 - **Answer**: **Google Kubernetes Engine (GKE)**  
-- **Why**: It’s fully managed, scales automatically, and is designed for containerized workloads.
+- **Why**: It’s fully managed, scales automatically, and is designed for containerized workloads. Choose Anthos if on-premises or hybrid environment is a required.
 
 ---
 
@@ -48,7 +49,7 @@ Link: https://services.google.com/fh/files/blogs/master_case_study_ehr_healthcar
 
 #### **C. Logging and Monitoring**  
 - **Likely Exam Question**: *"How can EHR centrally monitor and take proactive action on system performance?"*  
-- **Answer**: **Google Cloud Operations Suite** (formerly Stackdriver).  
+- **Answer**: **Google Cloud Operations Suite**.  
 - **Why**: It provides consistent monitoring, logging, and alerting across cloud and hybrid environments.  
 
 **Key Tools to Recognize**:  
@@ -99,5 +100,10 @@ If reporting is mentioned: **Looker**.
   - **Workload Identity**: Integrates GKE workloads with Active Directory.  
   - **Security Command Center (SCC)**: Visibility into security vulnerabilities.  
   - **Data Loss Prevention (DLP)**: Identifies and protects sensitive data.  
+
+#### **I. Active Directory Federation Services**  
+- **Likely Exam Question**: *"How can EHR sync local AD users with the cloud?"*  
+- **Answer**:  
+  - **Google Cloud Directory Sync**: Synchronize users and group from local AD to Cloud Identity.  
 
 ---
