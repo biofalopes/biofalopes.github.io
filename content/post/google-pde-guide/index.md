@@ -38,41 +38,37 @@ While Skills Boost provided a solid foundation, in my opinion it lacks in-depth 
 ### 3. Key Skills for a Google Professional Data Engineer
 
 - **Designing Data Processing Systems**: Architecting batch and streaming data processing solutions using GCP tools such as Dataflow, Dataproc, and Pub/Sub.
-
 - **Operationalizing Machine Learning Models**: Deploying and managing ML models using Vertex AI, AI Platform, and AutoML.
-
 - **Building and Maintaining Data Pipelines**: Implementing reliable and efficient ETL workflows with Cloud Composer and Dataflow.
-
 - **Ensuring Solution Quality**: Applying best practices for data governance, security, and compliance using IAM, Data Catalog, and encryption techniques.
-
 - **Optimizing Data Solutions**: Performance tuning and cost optimization for BigQuery, Cloud Storage, and other GCP data services.
-
 - **Monitoring and Troubleshooting Data Pipelines**: Implementing observability with Cloud Logging, Cloud Monitoring, and error handling strategies.
 
 ### 3. Minimum Services to Know
 
 #### Data Storage
-- BigQuery
-- Bigtable
-- Cloud Storage
-- Cloud Spanner
-- Cloud SQL
+- [BigQuery](https://cloud.google.com/bigquery)
+- [Bigtable](https://cloud.google.com/bigtable)
+- [Cloud Storage](https://cloud.google.com/storage?hl=en)
+- [Cloud Spanner](https://cloud.google.com/spanner)
+- [Cloud SQL](https://cloud.google.com/sql)
 
 #### Data Processing
-- Dataflow
-- Dataproc
-- Pub/Sub
-- Cloud Composer (Airflow)
+- [Dataflow](https://cloud.google.com/products/dataflow)
+- [Dataproc](https://cloud.google.com/dataproc)
+- [Pub/Sub](https://cloud.google.com/pubsub/docs/overview)
+- [Cloud Composer](https://cloud.google.com/composer)
 
 #### ML & AI
-- Vertex AI
-- AI Platform
-- AutoML
+- [Vertex AI](https://cloud.google.com/vertex-ai)
+- [AI Platform](https://cloud.google.com/products/ai)
+- [AutoML](https://cloud.google.com/automl)
+- [Dataplex](https://cloud.google.com/dataplex)
 
 #### Security & Governance
-- Cloud IAM
-- Data Catalog
-- Encryption & Key Management
+- [Cloud IAM](https://cloud.google.com/security/products/iam)
+- [Data Catalog](https://cloud.google.com/data-catalog/docs/concepts/overview)
+- [Encryption & Key Management](https://cloud.google.com/security/products/security-key-management)
 
 ### 4. Understanding open source versus Google Cloud managed services
 
@@ -88,13 +84,13 @@ Many powerful open-source tools support modern data engineering workflows. To st
 
 ### 5. Summary
 
-My preparation involved structured learning through **Google Cloud Skills Boost**, deep dive with labs and extensive **practice exams**. Understanding **data storage, processing, security, architecture and use cases** is critical. If you plan to take the PDE exam, ensure hands-on experience with **BigQuery, Dataflow, and Dataproc**, and be ready to evaluate real-world scenarios involving data engineering.
+My preparation involved structured learning through Google Cloud Skills Boost, deep dive with labs and extensive practice exams. Understanding data storage, processing, security, architecture and use cases is critical. If you plan to take the PDE exam, ensure hands-on experience with BigQuery, Dataflow, and Dataproc, and be ready to evaluate real-world scenarios involving data engineering.
 
 ### 6. Resources
 
 - **Google Cloud Skills Boost - Data Engineer Learning Path**: https://www.cloudskillsboost.google/paths/16/
 - **Exam Guide**: https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf
-- **Sample Questions**: https://docs.google.com/forms/d/e/1FAIpQLSfkWEzBCP0wQ09ZuFm7G2_4qtkYbfmk_0getojdnPdCYmq37Q/viewform
+- **Official Sample Questions**: https://docs.google.com/forms/d/e/1FAIpQLSfkWEzBCP0wQ09ZuFm7G2_4qtkYbfmk_0getojdnPdCYmq37Q/viewform
 - **Google Cloud Community Guide**: https://www.googlecloudcommunity.com/gc/Community-Blogs/Your-guide-to-preparing-for-the-Google-Cloud-Professional-Data/ba-p/543105
 - **Practice Tests on Udemy**: https://www.udemy.com/course/gcp-professional-data-engineer-exam-practice-tests-2024/?couponCode=ST5MT020225
 - **Practice Tests on ExamPrepper**: https://www.examprepper.co/exam/10/1
