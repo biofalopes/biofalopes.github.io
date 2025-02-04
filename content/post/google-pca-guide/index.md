@@ -12,7 +12,6 @@ author = "Fabio M. Lopes"
 
 If you're considering a career in cloud computing, particularly with Google Cloud Platform (GCP), pursuing the Google Cloud Professional Cloud Architect (PCA) certification is a demanding yet rewarding path. By adopting the right learning approach and training plan, you can master key elements of GCP, including enterprise cloud strategies, solution design, and architectural best practices to achieve impactful business results. In this article, I’ll share my journey, insights, and practical tips to help you succeed. All the links mentioned are referred at the end of the post.
 
-
 ## Required Experience and Skills
 
 While there are no formal prerequisites for the Google Professional Cloud Architect exam, Google recommends significant experience. Specifically, candidates should possess:
@@ -23,18 +22,6 @@ While there are no formal prerequisites for the Google Professional Cloud Archit
 * **Solution Analysis and Optimization:**  The ability to analyze and optimize technical and business solutions, considering both technical and business needs.
 * **Real-World Implementation and Reliability:**  Successful candidates will have managed the implementation of cloud architectures in a real-world setting and demonstrate a strong understanding of how to ensure solution and operations reliability.
 
-
-## Ideal Candidates
-
-The Google Professional Cloud Architect certification is an advanced credential best suited for IT professionals with substantial experience.  Ideal candidates include:
-
-* Network and Cloud Administrators
-* Network Solutions Architects
-* Network and Cloud Architects
-
-These roles typically require several years of experience to develop the necessary skills and knowledge.
-
-
 ## Is the Certification Worth It?
 
 For most administrators and network architects, the Google Professional Cloud Architect certification offers significant value.  Its benefits extend beyond career advancement:
@@ -42,21 +29,10 @@ For most administrators and network architects, the Google Professional Cloud Ar
 * **Advanced Skill Validation:**  The certification validates critical skills such as creative problem-solving, critical thinking regarding network operations, and the ability to quickly adapt and find solutions.
 * **Career Advancement:** It's particularly valuable for IT professionals aiming for senior roles, demonstrating a mastery of GCP.  Even early-career professionals can benefit, using it as a roadmap for skill development.
 
-
-## Using the Certification for Skill Development and Validation
-
-The Google Professional Cloud Architect certification serves two key purposes:
-
-**1. Skill Development:** The certification acts as a benchmark, highlighting the skills necessary to become a proficient cloud architect.  It provides a structured learning path, guiding individuals to master the skills required to leverage GCP's capabilities effectively and solve complex business problems.  This includes analyzing business objectives, understanding existing technological infrastructure, and designing cost-effective, reliable network architectures.
-
-**2. Skill Validation:** For experienced professionals already proficient in GCP, the certification serves as validation of their existing expertise.  It provides formal recognition of their ability to design, implement, and manage complex cloud solutions.  This is beneficial for career progression and demonstrating competency to potential employers.
-
-
 ## My Starting Point
 **Experience**: 20 years of commercial IT experience — network, sysadmin, ops, architecture, project management; 2 years with AWS and Azure as an architect; 2 months of GCP experience.
 
 **Certifications**: AWS Certified Solutions Architect Professional (1 year ago), Microsoft Certified Azure Solutions Architect Expert (2 years ago), Certified Kubernetes Administator (3 years ago).
-
 
 ## Learning Process
 
@@ -79,17 +55,6 @@ Next, I started to review the content and found an excellent summary from Sebast
 
 Then it was time to do some practice tests. I started with Ditectrev's ACE Practice Test, since PCA and ACE have a great deal of overlap and it was free. Then i went to ExamPrepper, which also has some free content, and on the last stretch I used Skillcertpro. I felt very confident after doing so many practice questions, but that strategy always worked for me on my previous certifications. PCA will be my 20th so far. The exam is scheduled for next month, but I wanted to write this guide before, since it also helped me organize everything I needed to cover for the exam. The only paid resources were the Udemy course and Skillcertpro.
 
-
-## Key Skills for PCA
-
-- Design and plan a cloud solution architecture
-- Manage and provision the cloud solution infrastructure
-- Design for security and compliance
-- Analyze and optimize technical and business processes
-- Manage implementations of cloud architecture
-- Ensure solution and operations reliability 
-
-
 ## Minimum Services to Know
 
 - **Infra & Ops**: [Cloud Operations](https://cloud.google.com/products/operations), [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview), [Cloud Logging](https://cloud.google.com/logging/docs/overview), [Persistent Disks](https://cloud.google.com/compute/docs/disks/persistent-disks), [Managed Instance Group](https://cloud.google.com/compute/docs/instance-groups), [Cloud KMS](https://cloud.google.com/kms/docs/key-management-service), [Organization Policies](https://cloud.google.com/resource-manager/docs/organization-policy/overview), [Cloud Storage](https://cloud.google.com/storage/docs), [Google Compute Engine](https://cloud.google.com/compute/docs/instances), [Cloud IAM](https://cloud.google.com/iam/docs/concepts)
@@ -97,7 +62,6 @@ Then it was time to do some practice tests. I started with Ditectrev's ACE Pract
 - **Apps/Dev**: [App Engine](https://cloud.google.com/appengine/docs), [Cloud Build](https://cloud.google.com/build/docs/overview), [Cloud Scheduler](https://cloud.google.com/scheduler/docs/overview), [Cloud Functions](https://cloud.google.com/functions), [Cloud Run](https://cloud.google.com/run/docs/overview/what-is-cloud-run), [Firebase](https://firebase.google.com/docs), [Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/overview)
 - **Data**: [BigQuery](https://cloud.google.com/bigquery/docs/introduction), [Cloud Bigtable](https://cloud.google.com/bigtable/docs/overview), [Cloud Dataproc](https://cloud.google.com/dataproc/docs/concepts/overview), [Cloud Firestore](https://cloud.google.com/firestore), [Cloud SQL](https://cloud.google.com/sql/docs/?utm_source=ext&utm_medium=partner&utm_campaign=CDR_pve_gcp_4words_4words_&utm_content=-), [Cloud Spanner](https://cloud.google.com/spanner/docs/?utm_source=ext&utm_medium=partner&utm_campaign=CDR_pve_gcp_4words_4words_&utm_content=-)
 - **Processes**: [Organization Best practices](https://cloud.google.com/architecture/identity/best-practices-for-planning), [GKE Best Practices](https://cloud.google.com/kubernetes-engine/docs/best-practices/networking), [IAM Best practices](https://cloud.google.com/iam/docs/using-iam-securely), [Troubleshooting GKE](https://cloud.google.com/kubernetes-engine/docs/troubleshooting), [Cloud Storage Best practices](https://cloud.google.com/storage/docs/best-practices)
-
 
 ## Case Studies
 
@@ -108,7 +72,6 @@ The exam will probably have two case studies that might take a lot of time and c
 - [Mountkirk Games](https://services.google.com/fh/files/blogs/master_case_study_mountkirk_games.pdf)
 - [TerramEarth](https://services.google.com/fh/files/blogs/master_case_study_terramearth.pdf)
 
-
 ## Opinion About the Exam
 The exam is challenging, requiring both a deep understanding of low-level details—such as command-line parameters for tools like gcloud and gsutil—and a solid grasp of high-level concepts across many GCP products.
 
@@ -116,11 +79,9 @@ Having previously passed the Kubernetes CKA exam, which is an “open book” fo
 
 In contrast, the GCP PCA exam is very different. That is also true for all other AWS and Azure exams I took. It requires memorization of details you'd typically copy/paste in your daily work rather than hands-on problem-solving. Without practical, scenario-based tasks, it’s harder to gauge whether you're fully equipped to handle real challenges on GCP. This difference makes you feel less confident about how well the exam aligns with practical skills needed for day-to-day work in the cloud. 
 
-
 ## Summary
 
 In short, my journey to prepare for the Google Cloud Professional Cloud Architect certification involved a focused, three-month study plan leveraging a blend of free and paid resources. I prioritized hands-on labs and quizzes from Google Cloud Skills Boost, supplemented by Ranga Karanam's Udemy course for broader conceptual understanding and Sebastian Hooker's concise exam guide for focused review. Mastering the four official case studies proved invaluable, as did extensive practice exams. While the exam itself demands significant memorization, my prior cloud experience and targeted approach helped me feel confident going in. I hope this detailed account of my preparation, including the resources and strategies I used, provides a helpful roadmap for your own PCA journey. Remember to prioritize hands-on experience and a deep understanding of the case studies – they are key to success.
-
 
 ## Resources
 
