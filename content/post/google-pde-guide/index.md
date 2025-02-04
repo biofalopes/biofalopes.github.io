@@ -1,7 +1,7 @@
 +++
 title = "Preparation for Google Cloud: Professional Data Engineer (PDE) Exam"
 description = "My journey on how I prepared for the Google PDE exam, resources I used, insights, and practical tips."
-date = "2025-04-02"
+date = "2025-02-04"
 draft = false
 toc = true
 categories = ["gcp", "data"]
