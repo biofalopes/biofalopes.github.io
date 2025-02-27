@@ -2,11 +2,11 @@
 title = "Comparison of Sorting Algorithms using Python"
 description = "Revisiting Sorting Algorithms: A Python Diary Entry"
 date = "2025-02-27"
-draft = true
+draft = false
 toc = false
 categories = ["python"]
 tags = ["python"]
-image = "decorators.jpg"
+image = "sorting_1.webp"
 +++
 
 This isn’t about teaching anyone—honestly, it’s more like a journal for myself. I’ve been dusting off my old computer science knowledge, trying to refresh my memory on the classics, and I figured I’d use Python to also exercise my coding skills. Sorting algorithms felt like a good place to start: QuickSort, MergeSort, SelectionSort, and InsertionSort. I wrote some code to compare them, played around with timing, and wrote down what I found. Here’s how it went.
