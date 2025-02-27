@@ -16,7 +16,7 @@ Decorators can be very useful when you need to add functionalities to an existin
 
 There are many other ways to use decorators that i still have to explore, like chained decorators for instance.
 
-I found a good post at https://kleiber.me/blog/2017/08/10/tutorial-decorator-primer/ , where the author uses the same example I used (comparing sorting algorithms), but he used the `pygorithm.sorting` module, while I used my own functions.
+I found a good post at https://kleiber.me/blog/2017/08/09/tutorial-decorator-primer/, where the author uses the same example I used (comparing sorting algorithms), but he used the `pygorithm.sorting` module, while I used my own functions.
 
 ![decorator](decorator_tutorial_code.png)
 
