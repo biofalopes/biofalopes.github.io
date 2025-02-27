@@ -1,7 +1,7 @@
 baseurl: https://fabiolopes.page/
 languageCode: en-us
 theme: hugo-theme-stack
-title: Fabio M. Lopes
+title: Fabio Lopes | Cloud Architect & DevOps | AWS, Azure, GCP Expert
 copyright: Fabio M. Lopes
 enableEmoji: true
 
@@ -19,18 +19,18 @@ sitemap:
 languages:
     en:
         languageName: English
-        title: Fabio's Blog
+        title: Fabio Lopes | Cloud Architect & DevOps | AWS, Azure, GCP Expert
         weight: 1
         params:
             sidebar:
-                subtitle: My personal projects
+                subtitle: Cloud Architect & DevOps specialist with expertise in Kubernetes, Ceph, Terraform & multi-cloud (AWS, Azure, GCP). Building scalable, data-driven solutions.
     pt-br:
         languageName: Português
-        title: Blog do Fabio
+        title: Fabio Lopes | Cloud Architect & DevOps | AWS, Azure, GCP Expert
         weight: 2
         params:
             sidebar:
-                subtitle: Meus projetos pessoais
+                subtitle: Arquiteto de Nuvem & especialista em DevOps com expertise em Kubernetes, Ceph, Terraform & multi-cloud (AWS, Azure, GCP). Construindo soluções escaláveis e orientadas a dados.
 
 services:
     # Change it to your Disqus shortname before using
@@ -38,7 +38,7 @@ services:
         shortname: "fabiomlopes"
     # GA Tracking ID
     googleAnalytics:
-        id:
+        id: G-855J736ZLY
 
 pagination:
     pagerSize: 3
