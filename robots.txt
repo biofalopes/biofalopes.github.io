@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /wp-admin/  # Remove this if you're not using WordPress
+Disallow: /private/
+Disallow: /tmp/
+Allow: /
+
+Sitemap: https://fabiolopes.page/sitemap.xml
