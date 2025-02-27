@@ -11,6 +11,11 @@ DefaultContentLanguage: en
 
 hasCJKLanguage: false
 
+enableRobotsTXT: true
+
+sitemap:
+  filename: sitemap.xml
+
 languages:
     en:
         languageName: English
