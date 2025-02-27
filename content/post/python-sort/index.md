@@ -1,5 +1,5 @@
 +++
-title = "Comparsion of Sorting Algorithms using Python Decorators"
+title = "Comparison of Sorting Algorithms using Python Decorators"
 description = "Measuring runtime of sorting algorithms using Python decorators"
 date = "2020-11-17"
 draft = false
