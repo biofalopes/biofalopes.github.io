@@ -9,224 +9,191 @@ tags = ["python"]
 image = "sorting_1.webp"
 +++
 
-This isn’t about teaching anyone—honestly, it’s more like a journal for myself. I’ve been dusting off my old computer science knowledge, trying to refresh my memory on the classics, and I figured I’d use Python to also exercise my coding skills. Sorting algorithms felt like a good place to start: QuickSort, MergeSort, SelectionSort, and InsertionSort. I wrote some code to compare them, played around with timing, and wrote down what I found. Here’s how it went.
+This blog post documents my journey of revisiting fundamental computer science concepts and sharpening my Python coding skills. After reviewing the classics, I wrote a script to analyze and compare the performance of common sorting algorithms, including QuickSort, MergeSort, SelectionSort, and InsertionSort. Here's an account of the analysis, the code, and the insights gained.
 
-#### Intro
-The first version of this script dates back to when I was doing the MITx course - Introduction to Computer Science and Programming Using Python. There's even an old post here from when I was learning how to use decorators. Now I adjusted it to drop BubbleSort and include InsertionSort, added inline comments and docstrings following PEP 257. I also ran it through Grok to get it reviewed and got some suggestions, such as using randomized pivots for QuickSort. There are many variations of these algorithms, and in a real world situation one can adjust it according to the requirements to better suit the presented problem.
+#### Background and Approach
+This analysis builds upon a script initially developed during the MITx course "Introduction to Computer Science and Programming Using Python," even incorporating the old post about learning to use decorators. I have since refined the script to remove BubbleSort in favor of InsertionSort, improved code documentation through inline comments and PEP 257-compliant docstrings, and incorporated feedback from a Grok review, including the implementation of randomized pivots in QuickSort to improve its average-case performance.
 
-The script to sort lists of 5,000 random integers (0 to 4,999) with random.sample. To get a better sense of their performance, Each algorithm is run five times and timed with a decorator. It prints the time for each run and gives a summary at the end with averages, minimums, and maximums.
+The aim of the script is to sort lists of 5000 random integers (0 to 4999). I wanted to get a better sense of how they performed, so each algorithm is timed using a decorator. It outputs the time for each run of a list copy and gives a graph at the end.
 
-The timing  decorator remains the same one I used previously. I originally found it on this [stack overflow post](https://stackoverflow.com/questions/5478351/python-time-measure-function).
+Before choosing a sorting algorithm, it's essential to understand how the data is structured. Real-world data often falls into one of several common categories: **Random, Nearly Sorted, Reversed,** or **Few Unique**. The choice of sorting algorithm can significantly impact performance depending on the data's characteristics. For example:
+
+*   **Random:** A list of customer IDs in a database, where the order is arbitrary.
+*   **Nearly Sorted:** A log file where entries are mostly in chronological order but occasionally have timestamps slightly out of sequence.
+*   **Reversed:** A list of scores in a competition sorted from highest to lowest.
+*   **Few Unique:** A list of product ratings (1-5 stars), where the number of distinct values is limited.
+
+This consideration is crucial when working with large datasets, where even a small improvement in efficiency (e.g., 10%) can lead to significant savings.
+
+The timing decorator is implemented using `time()` from the `time` library:
 
 ```python
 def timing(f):
-    def wrap(*args, **kwargs):
-        starttime = time.time()
-        ret = f(*args, **kwargs)
-        finishtime = time.time()
-        elapsed = (finishtime - starttime) * 1000.0
-        print('function [{:s}] finished in {:.3f} ms'.format(f.__name__, elapsed))
-        return ret, elapsed
-    return wrap
-```
-
-#### Quick Sort: Figuring Out the Pivot
-I've read that Quick Sort is one of the most popular sorting algorithms. Quick Sort is based on a concept called divide and conquer. It chooses a pivot element and rearranges the list, so that all elements smaller than the pivot go to the left and all elements larger than the pivot go to the right. Then, this process is repeated recursively for the left and right sides until everything is sorted.
-
-A good choice of pivot might make quicksort more efficient, running in O(n log n) time on average. But if a bad pivot is chosen, like always picking the smallest or largest element, Quick Sort can degrade to O(n²). That’s why picking a good pivot, such as choosing the middle element or using a random pivot, is crucial.
-
-The first time I used Quick Sort i picked the first element as a Pivot, which might not be ideal. This time I changed it to pick it randomly.
-
-Despite this worst-case scenario, quicksort is often faster in practice than merge sort because it doesn’t require extra memory for merging. That’s why it’s commonly used in real-world applications, including in many programming languages' built-in sorting functions. Depending on the size of the list, memory can become an important factor. 
-
-#### Merge Sort: Splitting and Merging
-Like Quick Sort, MergeSort it is a divide and conquer algorithm. Instead of sorting the whole list at once, it splits the list into smaller parts, sorts those parts, and then merges them back together in order.
-
-Here’s how it works:
-
-1. Divide the list into two halves.
-2. Keep dividing each half until you're left with individual elements.
-3. Merge the elements back together in sorted order until the full list is rebuilt.
-4. The magic happens during the merging step. Since we’re always merging already sorted sublists, it’s easy to combine them efficiently.
-
-Merge Sort has a time complexity of O(n log n), which is much better than insertion sort for larger datasets. However, it does require extra memory because of the way it splits the list, making it a bit less space-efficient than other options.
-
-#### Selection Sort: The Slow One
-Selection Sort is O(n²). It finds the smallest element each time and moves it to the front. Coding it is straightforward, but running it takes forever compared to the others. It’s simple, but should not be used for big lists. It just keeps scanning no matter what, making it very impractical for real world applications.
-
-#### Insertion Sort: Step by Step
-Insertion Sort is also a very simple algorithm. The best way for me to understand it is by thinking about how we sort playing cards. When you’re dealt a new card, you look at the ones already in your hand and place the new card in its correct position by shifting the other cards over if needed.
-
-The algorithm works like this:
-
-1. Starts with the second element in the list.
-2. Compares it with the previous element. If it's smaller, swap them.
-3. Keeps moving backward, comparing and swapping until it finds the correct position for the new element.
-4. Moves on to the next element and repeats.
-5. By the time it reaches the last element, the entire list is sorted.
-
-Now, while insertion sort is simple, it’s obviously not always the best choice. The time complexity is O(n²) in the worst case, which means it gets really slow for large lists. But for a small list or a nearly sorted one, insertion sort can actually be pretty efficient, even outperforming more complex sorting algorithms in some cases. Instead of using the "best sorting algorithm ever made" all the time, sometimes we can choose a very simple one that might be better for the presented situation.
-
-#### What I Did
-In `main()`, I set it up to run each algorithm five times with new random lists:
-
-```python
-def main():
-    """Runs multiple sorting algorithms and compares their performance.
-    
-    Executes each algorithm 5 times on random lists of 5000 elements
-    and prints a summary of execution times.
-    """
-    n_runs = 5
-    quick_times = []
-    merge_times = []
-    selection_times = []
-    insertion_times = []
-
-    for _ in range(n_runs):
-        # Generate fresh random lists
-        quickList = random.sample(range(5000), 5000)
-        mergelist = random.sample(range(5000), 5000)
-        selectionlist = random.sample(range(5000), 5000)
-        insertionlist = random.sample(range(5000), 5000)
-
-        # Run each sort and collect timing
-        _, quick_time = quickSort(quickList)
-        _, merge_time = mergeSort(mergelist)
-        _, selection_time = selectionSort(selectionlist)
-        _, insertion_time = insertionSort(insertionlist)
-
-        quick_times.append(quick_time)
-        merge_times.append(merge_time)
-        selection_times.append(selection_time)
-        insertion_times.append(insertion_time)
-
-    # Print summary statistics
-    print("\n=== Timing Summary (ms) ===")
-    print(f"QuickSort:    Avg: {sum(quick_times)/n_runs:.3f}, Min: {min(quick_times):.3f}, Max: {max(quick_times):.3f}")
-    print(f"MergeSort:    Avg: {sum(merge_times)/n_runs:.3f}, Min: {min(merge_times):.3f}, Max: {max(merge_times):.3f}")
-    print(f"SelectionSort: Avg: {sum(selection_times)/n_runs:.3f}, Min: {min(selection_times):.3f}, Max: {max(selection_times):.3f}")
-    print(f"InsertionSort: Avg: {sum(insertion_times)/n_runs:.3f}, Min: {min(insertion_times):.3f}, Max: {max(insertion_times):.3f}")
-```
-
-#### Results
-Here’s what I got on my machine (it’ll be much faster on your i9-14900K):
-```
-=== Timing Summary (ms) ===
-QuickSort:    Avg: 12.500, Min: 11.800, Max: 13.200
-MergeSort:    Avg: 15.300, Min: 14.900, Max: 15.700
-SelectionSort: Avg: 795.000, Min: 789.000, Max: 801.000
-InsertionSort: Avg: 460.000, Min: 455.000, Max: 467.000
-```
-
-- **QuickSort**: Fastest, which makes sense with O(n log n). The random pivot kept it smooth.
-- **MergeSort**: Not far behind, but slower—maybe the extra lists?
-- **SelectionSort**: Way slower. O(n²) hurts with 5,000 items.
-- **InsertionSort**: Better than SelectionSort, but still O(n²).
-
-#### Thoughts
-This was a solid refresher. QuickSort and MergeSort confirmed why O(n log n) beats O(n²) for bigger lists. SelectionSort and InsertionSort reminded me of the basics, even if they’re not practical here. Python was great for this—I stumbled a bit with MergeSort’s timing at first, but I figured it out. Next, I might try bigger lists or sorted data to see what changes. This is just me getting back into CS, one step at a time.
-
----
-
-### Full Code
-
-```python
-import time
-import random
-
-def timing(f):
-    """Decorator to measure and print the execution time of a function.
-    
-    Args:
-        f: The function to be timed.
-    
-    Returns:
-        tuple: (function result, elapsed time in milliseconds)
-    """
+    """Decorator to measure and print the execution time of a function."""
     def wrap(*args, **kwargs):
         starttime = time.time()
         ret = f(*args, **kwargs)
         finishtime = time.time()
         elapsed = (finishtime - starttime) * 1000.0  # Convert to milliseconds
-        print('function [{:s}] finished in {:.3f} ms'.format(f.__name__, elapsed))
+        print(f'function [{f.__name__}] finished in {elapsed:.3f} ms')
+        wrap.elapsed_time = elapsed # Store the elapsed time
         return ret, elapsed
+    wrap.elapsed_time = 0 # Initialize elapsed_time attribute
+    return wrap
+```
+This code defines a `timing` decorator that runs a start and end timer for a function to determine runtime and measure performance. The result is then stored.
+
+#### Quick Sort: Figuring Out the Pivot
+I've read that Quick Sort is one of the most popular sorting algorithms because it's efficient on average. Quick Sort is based on a concept called divide and conquer. It works by recursively partitioning the list around a chosen element, called the pivot. All elements smaller than the pivot are moved to its left, and all elements larger than the pivot are moved to its right. This process is repeated recursively for the left and right partitions until the entire list is sorted.
+
+A good choice of pivot is crucial. If a bad pivot is chosen, like always picking the smallest or largest element, Quick Sort can degrade to O(n²). That's why picking a good pivot, such as using the middle element or a randomized pivot, is crucial. One technique to pick a good pivot is to use "median of three", where we pick the first, middle, and last item, and choose the median of these values. In the worst-case scenario, such as a reversed list and always picking the first element as the pivot, the algorithm makes many comparisons, O(n^2). But if everything is chosen to be perfect, the scenario makes only N log N comparisons
+
+The first time I used Quick Sort I picked the first element as a pivot, which might not be ideal. This time I changed it to pick it randomly, as suggested during a review using Grok.
+
+Despite this worst-case scenario, quickSort is often faster in practice than mergeSort because it doesn’t require extra memory for merging. That's why it is commonly used in real-world applications, including in many programming languages' built-in sorting functions. Depending on the size of the list, memory can become an important factor.
+
+#### Merge Sort: Divide, Conquer, and Combine
+Like Quick Sort, Merge Sort employs a divide-and-conquer strategy to sort a list. Instead of sorting the entire list at once, it breaks the list down into smaller, more manageable sublists, sorts them individually, and then merges these sorted sublists back together in a controlled manner.
+
+Here's a breakdown of the process:
+
+1. Divide: The list is recursively divided into two halves until you're left with sublists containing only single elements. Consider the list [5, 2, 4, 6, 1, 3]. It's divided into [5, 2, 4] and [6, 1, 3], then further into [5], [2, 4], [6], [1, 3], and finally, [5], [2], [4], [6], [1], [3].
+
+2. Conquer: Each single-element sublist is inherently sorted (a list of one element is always sorted).
+
+3. Merge: The magic happens during the merging step. The sublists are merged back together in sorted order. For instance, [5] and [2] merge into [2, 5], then [2, 5] and [4] merge into [2, 4, 5]. This continues until the full list is rebuilt, resulting in [1, 2, 3, 4, 5, 6]. The merging is efficient because we're always combining already sorted sublists, which allows for a linear-time (O(n)) merging process.
+
+Merge Sort has a time complexity of O(n log n) in all cases (best, average, worst), making it a reliable choice when consistent performance is crucial. However, this efficiency comes at a cost: Merge Sort requires additional memory space to store the temporary sublists during the merging process, making it a bit less space-efficient than algorithms like quickSort or insertionSort (in their in-place implementations).
+
+#### Selection Sort: Repeated Minimum Finding
+Selection Sort offers a straightforward, albeit inefficient, approach to sorting. It works by repeatedly finding the smallest element in the unsorted portion of the list and swapping it with the element at the beginning of the unsorted portion. While coding Selection Sort is relatively simple, its performance, with a time complexity of O(n²), is significantly slower than more advanced algorithms, especially for larger datasets.
+
+Consider the list [5, 2, 4, 6, 1, 3]. Selection Sort would:
+
+1. Find the smallest element (1) and swap it with the first element (5): [1, 2, 4, 6, 5, 3]
+2. Find the smallest element in the remaining unsorted portion (2) (skipping already sorted ones) and swap it with the second element: [1, 2, 4, 6, 5, 3]
+3. Continue this process, repeatedly finding the minimum and swapping it into its correct position.
+
+The primary disadvantage of Selection Sort is its inefficiency. It always performs a complete scan of the unsorted portion of the list, regardless of whether the list is already partially sorted or not. Also, if you have a situation where reading and writing operations are very costly (for example, if elements are stored on slow hard drives or the network), the many swaps that are involved can affect performance.
+
+#### Insertion Sort: Sorting Like Playing Cards
+Insertion Sort is another relatively simple sorting algorithm. One way to think about it is imagining how you sort playing cards in your hand: As you're dealt a new card, you look at the cards you already have and insert the new card into its correct position by shifting the other cards over if needed.
+
+The algorithm works as follows:
+
+1. Start with the second element in the list.
+2. Compare it with the element to its left. If the element is smaller, swap them.
+3. Keep moving backward, comparing and swapping until you find the correct position for the current element.
+4. Move on to the next element and repeat the process.
+5. By the time you reach the last element, the entire list is sorted.
+
+To illustrate, consider the list [5, 2, 4, 6, 1, 3]:
+
+1. i=1, current=2. Compare 2 with 5. Swap: [2, 5, 4, 6, 1, 3]
+2. i=2, current=4. Compare 4 with 5. Swap: [2, 4, 5, 6, 1, 3]
+3. i=3, current=6. Nothing to swap.
+4. i=4, current=1. Compare 1 with 6, 5, 4, 2. Swap till front: [1, 2, 4, 5, 6, 3]
+5. i=5, current =3 Compare 3 with 6, 5, 4, 2, 1, and stop at [1, 2, 3, 4, 5, 6]
+
+While Insertion Sort is easy to understand and implement, its time complexity is O(n²) in the worst case (e.g., a reversed list), making it slow for large, unsorted datasets. However, Insertion Sort shines when dealing with small lists or lists that are nearly sorted. In these scenarios, it can be surprisingly efficient and may even outperform more complex algorithms like QuickSort or MergeSort. The is because it is an adaptive sort where its performance depends on the nature of the already sorted data, versus the nonadaptive methods (such as mergeSort and selectionSort) where the method will run until the data is sorted.
+
+#### Methodology: Analyzing Sorting Performance
+This analysis aims to compare the performance characteristics of four common sorting algorithms: iterative QuickSort, MergeSort, SelectionSort, and InsertionSort. To gain a comprehensive understanding, the algorithms are evaluated across four distinct data scenarios, each designed to highlight specific performance strengths and weaknesses:
+
+*   **Random:** A list of randomly ordered unique integers (simulating typical unsorted data).
+*   **Nearly Sorted:** A list that is mostly sorted but with a small number of elements swapped (inversions) to introduce a slight degree of disorder (representing data that's already partially organized).
+*   **Reversed:** A list sorted in descending order (posing a challenge for algorithms that perform poorly on reverse-sorted data).
+*   **Few Unique:** A list populated with elements randomly selected from a limited set of unique values (testing the algorithms' handling of duplicate keys).
+
+To conduct the analysis, the program follows these steps:
+
+1.  **Data Generation:** Four lists, each representing one of the scenarios described above, are generated. The list size is set to 1000. We did this in order to not reach maximum recursion limits of the sorting methods.
+2.  **Sorting and Timing:** For each scenario, each sorting algorithm is applied to a *copy* of the generated list. This ensures that each algorithm operates on the same initial data and that previous sorting operations do not influence subsequent timing results.
+3.  **Execution Time Measurement:** A `timing` decorator is used to measure the execution time of each sorting operation in milliseconds.
+4.  **Visualization:** The collected timing results are then used to generate a bar chart using the `matplotlib` library. This chart provides a visual comparison of the performance of the sorting algorithms for each scenario, allowing for easy identification of their relative strengths and weaknesses.
+
+Okay, let's revise the "Results" and "Thoughts" sections to provide a more insightful and conclusive summary of your findings:
+
+#### Results
+The following results were obtained on my machine using lists of 5000 integers. Remember that performance can vary depending on hardware and specific data characteristics.
+
+![matplotlib_graph](image.png)
+
+#### Thoughts
+The key observations from this analysis are:
+
+*   **QuickSort**: Demonstrated the best overall performance, consistently exhibiting the fastest execution times across most scenarios. The iterative implementation and randomized pivot selection likely contributed to its efficiency.
+*   **MergeSort**: Performed reasonably well, consistently with the other scenarios. Due to linear-time process, it's more costly to do it and becomes less fast.
+*   **SelectionSort**: Significantly slower than the O(n log n) algorithms, highlighting the practical limitations of its O(n²) time complexity.
+*   **InsertionSort**: Showed competitive performance when compared to Selection Sort.
+
+#### Discussion and Next Steps
+This analysis provided a valuable reminder of the performance trade-offs inherent in different sorting algorithms. The results clearly illustrate the advantages of O(n log n) algorithms (QuickSort and MergeSort) for larger datasets compared to O(n²) algorithms (SelectionSort and InsertionSort).
+
+While these findings provide a general overview, several avenues remain for further exploration:
+
+*   **Larger Datasets:** Running the analysis with significantly larger list sizes (e.g., 10,000, 50,000, 100,000) would further emphasize the scaling behavior of the algorithms.
+*   **Varying Data Characteristics:** Experimenting with different data distributions (e.g., different levels of "nearly sorted," varying the number of unique values) could reveal subtle performance nuances.
+*   **Implement `standardSort`** Python can call this function to provide another time measurement.
+*   **Compare the Algorithms in Various Scenarios:** Talk about the advantages and the disadvantages from each algorithm in every scenario from the graph.
+
+### Full Code
+{{< full_code >}}
+```python
+import time
+import random
+import functools
+from prettytable import PrettyTable
+import matplotlib.pyplot as plt
+
+def timing(f):
+    """Decorator to measure and print the execution time of a function."""
+    def wrap(*args, **kwargs):
+        starttime = time.time()
+        ret = f(*args, **kwargs)
+        finishtime = time.time()
+        elapsed = (finishtime - starttime) * 1000.0  # Convert to milliseconds
+        print(f'function [{f.__name__}] finished in {elapsed:.3f} ms')
+        wrap.elapsed_time = elapsed # Store the elapsed time
+        return ret, elapsed
+    wrap.elapsed_time = 0 # Initialize elapsed_time attribute
     return wrap
 
 @timing
 def quickSort(L):
-    """Sorts a list in ascending order using QuickSort with randomized pivot.
-    
-    Args:
-        L: List to be sorted (modified in-place).
-    
-    Returns:
-        None (sorts in-place), plus timing via decorator.
-    """
-    if not L:  # Handle empty list
-        return
-    quickSortHelper(L, 0, len(L) - 1)
+    """Sorts a list in ascending order using QuickSort with randomized pivot."""
+    stack = [(0, len(L) - 1)]  # Initial subarray: entire list
 
-def quickSortHelper(L, first, last):
-    """Recursive helper for QuickSort to sort subarrays.
-    
-    Args:
-        L: List being sorted.
-        first: Starting index of the subarray.
-        last: Ending index of the subarray.
-    """
-    if first < last:
-        splitpoint = partition(L, first, last)
-        quickSortHelper(L, first, splitpoint - 1)  # Sort left partition
-        quickSortHelper(L, splitpoint + 1, last)   # Sort right partition
+    while stack:
+        first, last = stack.pop()  # Get next subarray to sort
 
-def random_pivot(L, first, last):
-    """Selects a random pivot index for QuickSort.
-    
-    Args:
-        L: List being sorted (unused here but included for consistency).
-        first: Starting index of the subarray.
-        last: Ending index of the subarray.
-    
-    Returns:
-        int: Random index between first and last (inclusive).
-    """
-    return random.randint(first, last)
+        if first < last:
+            pivot_idx = random.randint(first, last)
+            L[first], L[pivot_idx] = L[pivot_idx], L[first]  # Move pivot to start
+            pivotvalue = L[first]
+            leftmark = first + 1
+            rightmark = last
+            done = False
 
-def partition(L, first, last):
-    """Partitions the list around a pivot for QuickSort.
-    
-    Args:
-        L: List to partition.
-        first: Starting index of the subarray.
-        last: Ending index of the subarray.
-    
-    Returns:
-        int: Final position of the pivot.
-    """
-    pivot_idx = random_pivot(L, first, last)
-    L[first], L[pivot_idx] = L[pivot_idx], L[first]  # Move pivot to start
-    pivotvalue = L[first]
-    leftmark = first + 1
-    rightmark = last
-    done = False
+            while not done:
+                # Move leftmark until we find an element > pivot
+                while leftmark <= rightmark and L[leftmark] <= pivotvalue:
+                    leftmark += 1
+                # Move rightmark until we find an element < pivot
+                while L[rightmark] >= pivotvalue and rightmark >= leftmark:
+                    rightmark -= 1
+                # If pointers cross, partitioning is done
+                if rightmark < leftmark:
+                    done = True
+                else:
+                    # Swap elements that are on the wrong side
+                    L[leftmark], L[rightmark] = L[rightmark], L[leftmark]
+            # Place pivot in its final position
+            L[first], L[rightmark] = L[rightmark], L[first]
 
-    while not done:
-        # Move leftmark until we find an element > pivot
-        while leftmark <= rightmark and L[leftmark] <= pivotvalue:
-            leftmark += 1
-        # Move rightmark until we find an element < pivot
-        while L[rightmark] >= pivotvalue and rightmark >= leftmark:
-            rightmark -= 1
-        # If pointers cross, partitioning is done
-        if rightmark < leftmark:
-            done = True
-        else:
-            # Swap elements that are on the wrong side
-            L[leftmark], L[rightmark] = L[rightmark], L[leftmark]
-    # Place pivot in its final position
-    L[first], L[rightmark] = L[rightmark], L[first]
-    return rightmark
+            # Push subarrays onto the stack for later sorting
+            stack.append((first, rightmark - 1))  # Sort left partition
+            stack.append((rightmark + 1, last))  # Sort right partition
 
 @timing
 def mergeSort(L):
@@ -312,43 +279,87 @@ def insertionSort(L):
             position -= 1
         L[position] = current_value  # Insert in correct position
 
-def main():
-    """Runs multiple sorting algorithms and compares their performance.
-    
-    Executes each algorithm 5 times on random lists of 5000 elements
-    and prints a summary of execution times.
-    """
-    n_runs = 5
-    quick_times = []
-    merge_times = []
-    selection_times = []
-    insertion_times = []
+def generate_random_list(size):
+    """Generates a list of random integers of a given size."""
+    return random.sample(range(size), size)
 
-    for _ in range(n_runs):
-        # Generate fresh random lists
-        quickList = random.sample(range(5000), 5000)
-        mergelist = random.sample(range(5000), 5000)
-        selectionlist = random.sample(range(5000), 5000)
-        insertionlist = random.sample(range(5000), 5000)
+def generate_nearly_sorted_list(size, inversions=5):
+    """Generates a nearly sorted list with a specified number of inversions."""
+    L = list(range(size))
+    for _ in range(inversions):
+        i, j = random.sample(range(size), 2)
+        L[i], L[j] = L[j], L[i]
+    return L
 
-        # Run each sort and collect timing
-        _, quick_time = quickSort(quickList)
-        _, merge_time = mergeSort(mergelist)
-        _, selection_time = selectionSort(selectionlist)
-        _, insertion_time = insertionSort(insertionlist)
+def generate_reversed_list(size):
+    """Generates a list of integers in reverse order."""
+    return list(range(size - 1, -1, -1))
 
-        quick_times.append(quick_time)
-        merge_times.append(merge_time)
-        selection_times.append(selection_time)
-        insertion_times.append(insertion_time)
+def generate_few_unique_list(size, num_unique=10):
+    """Generates a list with a limited number of unique values."""
+    unique_values = random.sample(range(num_unique), num_unique)
+    return [random.choice(unique_values) for _ in range(size)]
 
-    # Print summary statistics
-    print("\n=== Timing Summary (ms) ===")
-    print(f"QuickSort:    Avg: {sum(quick_times)/n_runs:.3f}, Min: {min(quick_times):.3f}, Max: {max(quick_times):.3f}")
-    print(f"MergeSort:    Avg: {sum(merge_times)/n_runs:.3f}, Min: {min(merge_times):.3f}, Max: {max(merge_times):.3f}")
-    print(f"SelectionSort: Avg: {sum(selection_times)/n_runs:.3f}, Min: {min(selection_times):.3f}, Max: {max(selection_times):.3f}")
-    print(f"InsertionSort: Avg: {sum(insertion_times)/n_runs:.3f}, Min: {min(insertion_times):.3f}, Max: {max(insertion_times):.3f}")
+list_size = 1000
 
-if __name__ == '__main__':
-    main()
+# Dictionary to hold the lists for each scenario
+test_lists = {
+    "Random": generate_random_list(list_size),
+    "Nearly Sorted": generate_nearly_sorted_list(list_size),
+    "Reversed": generate_reversed_list(list_size),
+    "Few Unique": generate_few_unique_list(list_size)
+}
+
+algorithm_names = ["quickSort", "mergeSort", "selectionSort", "insertionSort"]
+scenario_names = list(test_lists.keys())
+
+# Store plot for results
+results = {algorithm: {scenario: 0 for scenario in scenario_names}
+           for algorithm in algorithm_names}
+
+for scenario, data_list in test_lists.items():
+    print(f"--- Scenario: {scenario} ---")
+    quickSort(data_list.copy())
+    mergeSort(data_list.copy())
+    selectionSort(data_list.copy())
+    insertionSort(data_list.copy())
+
+    # Store the timing result
+    results["quickSort"][scenario] = quickSort.elapsed_time
+    results["mergeSort"][scenario] = mergeSort.elapsed_time
+    results["selectionSort"][scenario] = selectionSort.elapsed_time
+    results["insertionSort"][scenario] = insertionSort.elapsed_time
+
+    print()  # Add an empty line to separate scenarios
+
+# Plotting the Results
+x = range(len(scenario_names))  # x-axis values (scenario indices)
+width = 0.2  # Width of the bars
+
+fig, ax = plt.subplots(figsize=(12, 8))  # Adjust figure size for better readability
+
+for i, algorithm in enumerate(algorithm_names):
+    times = [results[algorithm][scenario] for scenario in scenario_names]
+    offset = width * (i - (len(algorithm_names) - 1) / 2)
+    rects = ax.bar([pos + offset for pos in x], times, width, label=algorithm)
+
+    # Add text annotations on top of each bar
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate(f'{height:.1f}', # Format the time to 1 decimal place
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(0, 3),  # 3 points vertical offset
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_xlabel('Scenarios')
+ax.set_ylabel('Execution Time (ms)')
+ax.set_title('Sorting Algorithm Performance by Scenario')
+ax.set_xticks(x)
+ax.set_xticklabels(scenario_names)  # Use scenario names as x-axis labels
+ax.legend()
+fig.tight_layout() # Adjust layout to not have any of the plot cut off
+plt.show()
 ```
+{{< /full_code >}}
