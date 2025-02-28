@@ -137,10 +137,9 @@ While these findings provide a general overview, several avenues remain for furt
 *   **Implement `standardSort`** Python can call this function to provide another time measurement.
 *   **Compare the Algorithms in Various Scenarios:** Talk about the advantages and the disadvantages from each algorithm in every scenario from the graph.
 
-### Full Code
 <details>
-<summary>Full Code (Click to Show/Hide)</summary>
-<pre><code class="language-python">{{ .Inner | safeHTML }}</code></pre>
+<summary><b>Full Code</b> (Click to Show/Hide)</summary>
+
 ```python
 import time
 import random
