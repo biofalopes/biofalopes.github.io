@@ -138,7 +138,9 @@ While these findings provide a general overview, several avenues remain for furt
 *   **Compare the Algorithms in Various Scenarios:** Talk about the advantages and the disadvantages from each algorithm in every scenario from the graph.
 
 ### Full Code
-{{< full_code >}}
+<details>
+<summary>Full Code (Click to Show/Hide)</summary>
+<pre><code class="language-python">{{ .Inner | safeHTML }}</code></pre>
 ```python
 import time
 import random
@@ -362,4 +364,4 @@ ax.legend()
 fig.tight_layout() # Adjust layout to not have any of the plot cut off
 plt.show()
 ```
-{{< /full_code >}}
+</details>
