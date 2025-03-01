@@ -98,21 +98,12 @@ To illustrate, consider the list [5, 2, 4, 6, 1, 3]:
 While Insertion Sort is easy to understand and implement, its time complexity is O(n²) in the worst case (e.g., a reversed list), making it slow for large, unsorted datasets. However, Insertion Sort shines when dealing with small lists or lists that are nearly sorted. In these scenarios, it can be surprisingly efficient and may even outperform more complex algorithms like QuickSort or MergeSort. The is because it is an adaptive sort where its performance depends on the nature of the already sorted data, versus the nonadaptive methods (such as mergeSort and selectionSort) where the method will run until the data is sorted.
 
 #### Methodology: Analyzing Sorting Performance
-This analysis aims to compare the performance characteristics of four common sorting algorithms: iterative QuickSort, MergeSort, SelectionSort, and InsertionSort. To gain a comprehensive understanding, the algorithms are evaluated across four distinct data scenarios, each designed to highlight specific performance strengths and weaknesses:
-
-*   **Random:** A list of randomly ordered unique integers (simulating typical unsorted data).
-*   **Nearly Sorted:** A list that is mostly sorted but with a small number of elements swapped (inversions) to introduce a slight degree of disorder (representing data that's already partially organized).
-*   **Reversed:** A list sorted in descending order (posing a challenge for algorithms that perform poorly on reverse-sorted data).
-*   **Few Unique:** A list populated with elements randomly selected from a limited set of unique values (testing the algorithms' handling of duplicate keys).
-
 To conduct the analysis, the program follows these steps:
 
 1.  **Data Generation:** Four lists, each representing one of the scenarios described above, are generated. The list size is set to 1000. We did this in order to not reach maximum recursion limits of the sorting methods.
 2.  **Sorting and Timing:** For each scenario, each sorting algorithm is applied to a *copy* of the generated list. This ensures that each algorithm operates on the same initial data and that previous sorting operations do not influence subsequent timing results.
 3.  **Execution Time Measurement:** A `timing` decorator is used to measure the execution time of each sorting operation in milliseconds.
 4.  **Visualization:** The collected timing results are then used to generate a bar chart using the `matplotlib` library. This chart provides a visual comparison of the performance of the sorting algorithms for each scenario, allowing for easy identification of their relative strengths and weaknesses.
-
-Okay, let's revise the "Results" and "Thoughts" sections to provide a more insightful and conclusive summary of your findings:
 
 #### Results
 The following results were obtained on my machine using lists of 5000 integers. Remember that performance can vary depending on hardware and specific data characteristics.
