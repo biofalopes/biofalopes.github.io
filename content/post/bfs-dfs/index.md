@@ -1,7 +1,7 @@
 +++
 title = "Breadth-First Search (BFS) and Depth-First Search (DFS): A Deep Dive"
 description = "Studying Search Algorithms using Python, Part 1"
-date = "2025-03-06"
+date = "2025-03-05"
 draft = false
 toc = false
 tags = ["python"]
