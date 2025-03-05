@@ -6,7 +6,7 @@ draft = false
 toc = false
 tags = ["python"]
 categories = ["python"]
-image = "banner.jpg"
+image = "banner.png"
 author = "Fabio M. Lopes"
 +++
 
