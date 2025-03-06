@@ -5,7 +5,7 @@ date = "2021-02-07"
 draft = false
 toc = false
 tags = ["ansible"]
-categories = ["anslbie"]
+categories = ["ansible"]
 image = "ansible.png"
 author = "Fabio M. Lopes"
 +++
