@@ -333,7 +333,7 @@ O estágio **Build** executa `mvn package`, que cria os arquivos jar;
 
 O estágio **Test** executa os testes unitários. O Spring Pet Clinic tem um total de 40 testes configurados, e isso dependeria de como a equipe de desenvolvimento criou seus testes;
 
-O estágio **Build Image** cria uma imagem Docker e a publica no Dockerhub;
+O estágio **Build Image** cria uma imagem Docker;
 
 O estágio **Publish Image** publica a imagem no Dockerhub;
 
