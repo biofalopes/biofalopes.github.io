@@ -1,5 +1,3 @@
-Aqui está a tradução do artigo para português do Brasil:
-
 +++
 title = "Busca em Largura (BFS) e Busca em Profundidade (DFS): Um Estudo"
 description = "Estudando Algoritmos de Busca usando Python, Parte 1"
