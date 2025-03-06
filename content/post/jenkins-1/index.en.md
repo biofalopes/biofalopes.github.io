@@ -337,7 +337,7 @@ The **Build** stage runs `mvn package`, which creates the jar files;
 
 The **Test** stage run the Unit tests. Spring Pet Clinic has a total of 40 tests configured, and that would depend on how the dev team created their tests;
 
-The **Build Image** stage creates a Docker image and publishes it to the Dockerhub;
+The **Build Image** stage creates a Docker image;
 
 The **Publish Image** stage publishes the image to Dockerhub;
 
