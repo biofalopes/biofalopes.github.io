@@ -121,7 +121,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def breadth_first_search(graph, start_node, target_node=None):
-    from collections import deque
     visited,queue,parent=[start_node],deque([start_node]),{}
     if start_node not in graph: return visited,None
     while queue:
@@ -161,6 +160,11 @@ if __name__ == '__main__':
     start_node = 'A'
     target_node = 'F'
 
+    plt.ion()
+    plot_graph(graph)
+    plt.draw()
+    plt.pause(0.1)
+
     visited, path = breadth_first_search(graph, start_node, target_node)
 
     print(f"Sequence of visited nodes: {visited}")
@@ -171,7 +175,8 @@ if __name__ == '__main__':
     else:
         print(f"No path found from {start_node} to {target_node}.")
 
-    plot_graph(graph)
+    plt.ioff()
+    plt.show()
 ```
 </details>
 
@@ -179,28 +184,32 @@ if __name__ == '__main__':
 <summary><b>DFS Example</b> (Click to Show/Hide)</summary>
 
 ```python
-from collections import deque
 import networkx as nx
 import matplotlib.pyplot as plt
 
 def depth_first_search(graph, start_node, target_node=None):
-    from collections import deque
-    visited,stack,parent=[start_node],[start_node],{}
-    if start_node not in graph: return visited,None
+    visited, stack, parent = [], [start_node], {}
+    if start_node not in graph: return visited, None
     while stack:
-        node=stack.pop()
+        node = stack.pop()
         if node not in visited:
-            visited+=[node]
-            if target_node==node:
-                path=[node]
-                while node!=start_node: node=parent[node];path+=[node]
-                return visited,path[::-1]
-            for neighbor in graph.get(node,[]):
-                if neighbor not in visited: stack+=[neighbor];parent[neighbor]=node
-    return visited,None
+            visited += [node]
+            if target_node == node:
+                path = []
+                current = node
+                while current in parent or current == start_node:
+                    path += [current]
+                    if current == start_node: break
+                    current = parent[current]
+                return visited, path[::-1]
+            for neighbor in graph.get(node, []):
+                if neighbor not in visited:
+                    stack += [neighbor]
+                    parent[neighbor] = node
+    return visited, None
 
 def plot_graph(graph, node_color='skyblue', edge_color='gray', node_size=500, font_size=12, title="Graph Visualization"):
-    G,pos = nx.Graph(graph),nx.spring_layout(graph)
+    G, pos = nx.Graph(graph), nx.spring_layout(graph)
     plt.figure(figsize=(8, 6))
     nx.draw_networkx_nodes(G, pos, node_color=node_color, node_size=node_size)
     nx.draw_networkx_edges(G, pos, edge_color=edge_color)
@@ -226,6 +235,11 @@ if __name__ == '__main__':
     start_node = 'A'
     target_node = 'F'
 
+    plt.ion()
+    plot_graph(graph)
+    plt.draw()
+    plt.pause(0.1)
+
     visited, path = depth_first_search(graph, start_node, target_node)
 
     print(f"Sequence of visited nodes: {visited}")
@@ -236,6 +250,7 @@ if __name__ == '__main__':
     else:
         print(f"No path found from {start_node} to {target_node}.")
 
-    plot_graph(graph)
+    plt.ioff()
+    plt.show()
 ```
 </details>
