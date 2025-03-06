@@ -110,38 +110,43 @@ Depth-First Search (DFS) is another fundamental graph traversal and search algor
 *   **Backtracking Algorithms:** Solving problems where you need to explore different possibilities and backtrack when a dead end is reached (e.g., solving constraint satisfaction problems).
 *   **Game AI:** Implementing AI for games where the AI needs to explore possible moves and evaluate their consequences.
 
-I added below two examples, one for BFS and another for DFS:
+I added below two examples, one for BFS and another for DFS. The graph used was the one on the image below:
+
+![graph](graph.png)
+
+This is the output of both, where we can notice the difference:
+
+```bash
+bfs.py
+Sequence of visited nodes: ['D', 'F', 'C', 'B', 'H', 'I', 'J', 'E', 'G', 'A']
+Visited a total of 10 nodes.
+Found path from A to F: ['A', 'B', 'E', 'F']
+```
+
+```bash
+dfs.py
+Sequence of visited nodes: ['A', 'G', 'J', 'H', 'I', 'B', 'E', 'F']
+Visited a total of 8 nodes.
+Found Path from A to F: ['A', 'B', 'E', 'F']
+```
 
 <details>
 <summary><b>BFS Example</b> (Click to Show/Hide)</summary>
 
 ```python
 from collections import deque
-import networkx as nx
-import matplotlib.pyplot as plt
 
 def breadth_first_search(graph, start_node, target_node=None):
-    visited,queue,parent=[start_node],deque([start_node]),{}
-    if start_node not in graph: return visited,None
+    visited, queue, parent = {start_node}, deque([start_node]), {}
     while queue:
-        node=queue.popleft()
-        if target_node==node:
-            path=[node]
-            while node!=start_node: node=parent[node];path+=[node]
-            return visited,path[::-1]
-        for neighbor in graph.get(node,[]):
-            if neighbor not in visited: visited+=[neighbor];queue+=[neighbor];parent[neighbor]=node
-    return visited,None
-
-def plot_graph(graph, node_color='skyblue', edge_color='gray', node_size=500, font_size=12, title="Graph Visualization"):
-    G,pos = nx.Graph(graph),nx.spring_layout(graph)
-    plt.figure(figsize=(8, 6))
-    nx.draw_networkx_nodes(G, pos, node_color=node_color, node_size=node_size)
-    nx.draw_networkx_edges(G, pos, edge_color=edge_color)
-    nx.draw_networkx_labels(G, pos, font_size=font_size, font_family="sans-serif")
-    plt.title(title)
-    plt.axis("off")
-    plt.show()
+        node = queue.popleft()
+        if target_node == node:
+            path = [node]
+            while node != start_node: node = parent[node]; path += [node]
+            return list(visited), path[::-1]
+        for neighbor in graph.get(node, []):
+            if neighbor not in visited: visited.add(neighbor); queue += [neighbor]; parent[neighbor] = node
+    return list(visited), None
 
 if __name__ == '__main__':
     graph = {
@@ -159,24 +164,16 @@ if __name__ == '__main__':
 
     start_node = 'A'
     target_node = 'F'
-
-    plt.ion()
-    plot_graph(graph)
-    plt.draw()
-    plt.pause(0.1)
-
     visited, path = breadth_first_search(graph, start_node, target_node)
 
     print(f"Sequence of visited nodes: {visited}")
+    print(f"Visited a total of {len(visited)} nodes.")
     if path:
-        print(f"Shortest path from {start_node} to {target_node}: {path}")
+        print(f"Found path from {start_node} to {target_node}: {path}")
     elif not target_node:
         print(f"Target was not specified.")
     else:
         print(f"No path found from {start_node} to {target_node}.")
-
-    plt.ioff()
-    plt.show()
 ```
 </details>
 
@@ -184,9 +181,6 @@ if __name__ == '__main__':
 <summary><b>DFS Example</b> (Click to Show/Hide)</summary>
 
 ```python
-import networkx as nx
-import matplotlib.pyplot as plt
-
 def depth_first_search(graph, start_node, target_node=None):
     visited, stack, parent = [], [start_node], {}
     if start_node not in graph: return visited, None
@@ -208,16 +202,6 @@ def depth_first_search(graph, start_node, target_node=None):
                     parent[neighbor] = node
     return visited, None
 
-def plot_graph(graph, node_color='skyblue', edge_color='gray', node_size=500, font_size=12, title="Graph Visualization"):
-    G, pos = nx.Graph(graph), nx.spring_layout(graph)
-    plt.figure(figsize=(8, 6))
-    nx.draw_networkx_nodes(G, pos, node_color=node_color, node_size=node_size)
-    nx.draw_networkx_edges(G, pos, edge_color=edge_color)
-    nx.draw_networkx_labels(G, pos, font_size=font_size, font_family="sans-serif")
-    plt.title(title)
-    plt.axis("off")
-    plt.show()
-
 if __name__ == '__main__':
     graph = {
         'A': ['B', 'G'],
@@ -234,23 +218,15 @@ if __name__ == '__main__':
 
     start_node = 'A'
     target_node = 'F'
-
-    plt.ion()
-    plot_graph(graph)
-    plt.draw()
-    plt.pause(0.1)
-
     visited, path = depth_first_search(graph, start_node, target_node)
 
     print(f"Sequence of visited nodes: {visited}")
+    print(f"Visited a total of {len(visited)} nodes.")
     if path:
-        print(f"Shortest path from {start_node} to {target_node}: {path}")
+        print(f"Found Path from {start_node} to {target_node}: {path}")
     elif not target_node:
         print(f"Target was not specified.")
     else:
         print(f"No path found from {start_node} to {target_node}.")
-
-    plt.ioff()
-    plt.show()
 ```
 </details>
