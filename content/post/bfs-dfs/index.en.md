@@ -121,52 +121,25 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def breadth_first_search(graph, start_node, target_node=None):
-    visited_nodes = []
-    queue = deque([start_node])
-    visited_nodes.append(start_node)
-    parent = {}
-
-    if start_node not in graph:
-        return visited_nodes, None
-
-    if target_node:
-      found = False
-
+    from collections import deque
+    visited,queue,parent=[start_node],deque([start_node]),{}
+    if start_node not in graph: return visited,None
     while queue:
-        node = queue.popleft()
-
-        if target_node and node == target_node:
-            found = True
-            break
-
-        neighbors = graph.get(node, [])
-        for neighbor in neighbors:
-            if neighbor not in visited_nodes:
-                visited_nodes.append(neighbor)
-                queue.append(neighbor)
-                parent[neighbor] = node 
-
-    path = None
-    if target_node:
-        if found:
-            path = []
-            current = target_node
-            while current != start_node:
-                path.append(current)
-                current = parent[current]
-            path.append(start_node)
-            path = path[::-1]
-    return visited_nodes, path
+        node=queue.popleft()
+        if target_node==node:
+            path=[node]
+            while node!=start_node: node=parent[node];path+=[node]
+            return visited,path[::-1]
+        for neighbor in graph.get(node,[]):
+            if neighbor not in visited: visited+=[neighbor];queue+=[neighbor];parent[neighbor]=node
+    return visited,None
 
 def plot_graph(graph, node_color='skyblue', edge_color='gray', node_size=500, font_size=12, title="Graph Visualization"):
-    G = nx.Graph(graph)
-    pos = nx.spring_layout(G)
-
+    G,pos = nx.Graph(graph),nx.spring_layout(graph)
     plt.figure(figsize=(8, 6))
     nx.draw_networkx_nodes(G, pos, node_color=node_color, node_size=node_size)
     nx.draw_networkx_edges(G, pos, edge_color=edge_color)
     nx.draw_networkx_labels(G, pos, font_size=font_size, font_family="sans-serif")
-
     plt.title(title)
     plt.axis("off")
     plt.show()
@@ -211,53 +184,27 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def depth_first_search(graph, start_node, target_node=None):
-    visited_nodes = []
-    stack = [start_node]
-    parent = {}
-
-    if start_node not in graph:
-        return visited_nodes, None
-
-    if target_node:
-      found = False
-
+    from collections import deque
+    visited,stack,parent=[start_node],[start_node],{}
+    if start_node not in graph: return visited,None
     while stack:
-        node = stack.pop()
-
-        if node not in visited_nodes:
-            visited_nodes.append(node)
-
-            if target_node and node == target_node:
-                found = True
-                break
-
-            neighbors = graph.get(node, [])
-            for neighbor in neighbors:
-                if neighbor not in visited_nodes:
-                    stack.append(neighbor)
-                    parent[neighbor] = node
-
-    path = None
-    if target_node:
-        if found:
-            path = []
-            current = target_node
-            while current != start_node:
-                path.append(current)
-                current = parent[current]
-            path.append(start_node)
-            path = path[::-1]
-    return visited_nodes, path
+        node=stack.pop()
+        if node not in visited:
+            visited+=[node]
+            if target_node==node:
+                path=[node]
+                while node!=start_node: node=parent[node];path+=[node]
+                return visited,path[::-1]
+            for neighbor in graph.get(node,[]):
+                if neighbor not in visited: stack+=[neighbor];parent[neighbor]=node
+    return visited,None
 
 def plot_graph(graph, node_color='skyblue', edge_color='gray', node_size=500, font_size=12, title="Graph Visualization"):
-    G = nx.Graph(graph)
-    pos = nx.spring_layout(G)
-
+    G,pos = nx.Graph(graph),nx.spring_layout(graph)
     plt.figure(figsize=(8, 6))
     nx.draw_networkx_nodes(G, pos, node_color=node_color, node_size=node_size)
     nx.draw_networkx_edges(G, pos, edge_color=edge_color)
     nx.draw_networkx_labels(G, pos, font_size=font_size, font_family="sans-serif")
-
     plt.title(title)
     plt.axis("off")
     plt.show()
