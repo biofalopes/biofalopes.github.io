@@ -116,19 +116,38 @@ I added below two examples, one for BFS and another for DFS. The graph used was 
 
 This is the output of both, where we can notice the difference:
 
+**bfs.py:**
 ```bash
-bfs.py
-Sequence of visited nodes: ['D', 'F', 'C', 'B', 'H', 'I', 'J', 'E', 'G', 'A']
+Sequence of visited nodes: ['A', 'B', 'G', 'C', 'D', 'E', 'H', 'J', 'F', 'I']
 Visited a total of 10 nodes.
 Found path from A to F: ['A', 'B', 'E', 'F']
 ```
+**Visitation Order:**
+- Level 0: ['A']
+- Level 1: ['B', 'G']
+- Level 2: ['C', 'D', 'E', 'H', 'J']
+- Level 3: ['F', 'I']
 
+It visits all nodes on the current level before going to the next level.
+
+**dfs.py:**
 ```bash
-dfs.py
 Sequence of visited nodes: ['A', 'G', 'J', 'H', 'I', 'B', 'E', 'F']
 Visited a total of 8 nodes.
 Found Path from A to F: ['A', 'B', 'E', 'F']
 ```
+**Visitation Order:**
+- 'A': Start node, popped first.
+- 'G': From 'A', neighbors are ['B', 'G']. Added to stack as ['B', 'G'], so 'G' is popped next (LIFO).
+- 'J': From 'G', neighbors are ['H', 'J']. Added as ['B', 'H', 'J'], 'J' popped.
+- 'H': From 'J', no new neighbors. Stack now ['B', 'H'], 'H' popped.
+- 'I': From 'H', neighbor 'I' added, popped next.
+- 'B': Stack now ['B'], popped after 'G'’s subtree is exhausted.
+- 'E': From 'B', neighbors ['C', 'D', 'E']. Added as ['C', 'D', 'E'], 'E' popped.
+- 'F': From 'E', neighbors ['F', 'I']. 'I' already visited, so 'F' added and popped. Target found, stops.
+
+It goes deep into 'G'’s branch ('G' → 'J' → 'H' → 'I') before backtracking to 'B' and then 'E' → 'F'.
+
 
 <details>
 <summary><b>BFS Example</b> (Click to Show/Hide)</summary>
@@ -137,16 +156,20 @@ Found Path from A to F: ['A', 'B', 'E', 'F']
 from collections import deque
 
 def breadth_first_search(graph, start_node, target_node=None):
-    visited, queue, parent = {start_node}, deque([start_node]), {}
+    visited_set, visited_order, queue, parent = {start_node}, [start_node], deque([start_node]), {}
     while queue:
         node = queue.popleft()
         if target_node == node:
             path = [node]
             while node != start_node: node = parent[node]; path += [node]
-            return list(visited), path[::-1]
+            return visited_order, path[::-1]
         for neighbor in graph.get(node, []):
-            if neighbor not in visited: visited.add(neighbor); queue += [neighbor]; parent[neighbor] = node
-    return list(visited), None
+            if neighbor not in visited_set:
+                visited_set.add(neighbor)
+                visited_order += [neighbor]
+                queue += [neighbor]
+                parent[neighbor] = node
+    return visited_order, None
 
 if __name__ == '__main__':
     graph = {
