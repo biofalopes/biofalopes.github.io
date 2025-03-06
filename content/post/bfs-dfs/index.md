@@ -114,6 +114,8 @@ I added below two examples, one for BFS and another for DFS:
 
 <details>
 <summary><b>BFS Example</b> (Click to Show/Hide)</summary>
+
+```python
 from collections import deque
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -197,10 +199,13 @@ if __name__ == '__main__':
         print(f"No path found from {start_node} to {target_node}.")
 
     plot_graph(graph)
+```
 </details>
 
 <details>
 <summary><b>DFS Example</b> (Click to Show/Hide)</summary>
+
+```python
 from collections import deque
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -285,4 +290,5 @@ if __name__ == '__main__':
         print(f"No path found from {start_node} to {target_node}.")
 
     plot_graph(graph)
+```
 </details>
