@@ -5,7 +5,7 @@ draft = false
 toc = false 
 tags = ["python", "csharp"] 
 categories = ["python", "csharp"] 
-image = "banner.png" 
+image = "IMG_9431.jpeg" 
 author = "Fabio M. Lopes" 
 +++
 
