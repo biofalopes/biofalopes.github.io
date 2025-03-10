@@ -10,7 +10,7 @@ image = "banner.jpg"
 author = "Fabio M. Lopes" 
 +++
 
-Nesta postagem, vou analisar a implementação da sequência de Fibonacci em Python e C#, destacando as principais diferenças de sintaxe e conceitos de programação. Também vou explorar alguns princípios essenciais do C# para facilitar a transição para desenvolvedores Python. Tenho uma amiga que é apaixonada pelo .NET. Sempre que mostro a ela um trecho de código em Python, ela torce o nariz e diz: “Por que usar Python? O .NET é muito melhor!” Então, em homenagem a ela, resolvi converter esse código Python para C# e explicar o processo passo a passo. Utilizei IA para gerar o código em C# e explicar as diferenças. Achei esta abordagem fantástica para aprendizado, e pretendo me aprofundar em C# paralelamente utilizando esta forma de estudo.
+Nesta postagem, vou analisar a implementação da sequência de Fibonacci em Python e C#, destacando as principais diferenças de sintaxe e conceitos de programação. Também vou explorar alguns princípios essenciais do C# para facilitar a transição para desenvolvedores Python. Tenho uma amiga que é apaixonada pelo .NET. Sempre que mostro a ela um trecho de código em Python, ela torce o nariz e diz: “Por que usar Python? O .NET é muito melhor!” Então, em homenagem a ela, resolvi converter esse código Python para C# e estudar as diferenças. Utilizei IA para gerar o código em C# e comentar o código, para me ajudar a entender. Achei esta abordagem fantástica para aprendizado, e pretendo me aprofundar em C# paralelamente utilizando esta forma de estudo.
 
 ![dotineti](dotineti.gif)
 
