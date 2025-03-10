@@ -46,7 +46,7 @@ if __name__ == '__main__':
     print(f"Tempo decorrido: {elapsed_time_ms:.4f} ms")
 ```
 
-### Tradução para C# (com Explicações):
+### Tradução para C#:
 
 Abaixo o equivalente em C#:
 
