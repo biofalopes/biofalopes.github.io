@@ -1,6 +1,6 @@
 +++ 
-title = "Estudando C Sharp a partir do Python" 
-description = "Estudando C Sharp a partir do Python com a ajuda da IA" 
+title = "Studying C Sharp from Python" 
+description = "Studying C Sharp from Python with the assistance of AI" 
 date = "2025-03-08" 
 draft = false 
 toc = false 
