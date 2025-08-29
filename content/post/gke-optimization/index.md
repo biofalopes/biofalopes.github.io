@@ -1,8 +1,8 @@
 +++
-title = "GKE Workload Optimization"
+title = "Pod Disruption budget on GKE"
 description = "Increase the resource efficiency and availability of workloads running on Google Kubernetes Engine"
 date =  "2024-12-09"
-draft = false
+draft = true
 toc = false
 categories = ["gcp", "kubernetes" ]
 tags = ["gcp", "kubernetes" ]

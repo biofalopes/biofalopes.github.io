@@ -2,7 +2,7 @@
 title = "KEDA: Kubernetes Event-driven Autoscaling - Multiple Strategies on EKS"
 description = "A comprehensive tutorial demonstrating KEDA's versatility with EKS: setting up a cluster, scaling with CPU, CloudWatch, and SQS."
 date = "2024-12-10"
-draft = false
+draft = true
 toc = false
 categories = ["kubernetes", "keda", "aws"]
 tags = ["kubernetes", "keda", "aws"]
