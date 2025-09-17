@@ -2,7 +2,7 @@
 title = "Automating Ceph Storage Forecasting with Grafana Mimir"
 description = "End-to-end data pipeline that retrieves Ceph storage metrics from Grafana Mimir, processes forecasts using pandas and seaborn, generates actionable forecast charts with outlier correction, and delivers automated usage summaries and visualizations straight to Microsoft Teams."
 date =  "2025-09-17"
-draft = true
+draft = false
 toc = false
 categories = ["python", "grafana" ]
 tags = ["python", "grafana" ]
