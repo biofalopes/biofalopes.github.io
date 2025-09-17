@@ -15,8 +15,8 @@ This document details the deployment of Mimir, a horizontally scalable, highly a
 **1. Helm Repository Addition and Update:**
 
 ```bash
-helm repo add grafana https://grafana.github.io/helm-charts  # Adds the Grafana Helm chart repository.
-helm repo update                                          # Updates the local Helm repository cache.
+helm repo add grafana https://grafana.github.io/helm-charts 
+helm repo update
 ```
 
 **2. Custom `values.yaml` Configuration:**
@@ -26,38 +26,36 @@ This `values.yaml` file customizes the Mimir deployment. Key customizations are 
 ```yaml
 metaMonitoring:
   serviceMonitor:
-    enabled: true  # Enables ServiceMonitor for monitoring Mimir itself.
+    enabled: true
   grafanaAgent:
-    enabled: true  # Enables Grafana Agent for metrics collection.
-    installOperator: false # Does not install the Grafana Agent operator.
+    enabled: true
+    installOperator: false
     logs:
       remote:
-        url: "http://loki-gateway.loki.svc/loki/api/v1/push" # Sends logs to a Loki instance.
+        url: "http://loki-gateway.loki.svc/loki/api/v1/push"
     metrics:
       remote:
-        url: "https://kube-prometheus-stack-prometheus.monitoring.svc:9090/api/v1/push" # Sends metrics to a Prometheus instance.
+        url: "https://kube-prometheus-stack-prometheus.monitoring.svc:9090/api/v1/push" 
         headers:
-          X-Scope-OrgID: metamonitoring # Adds a custom header for organization ID.
+          X-Scope-OrgID: metamonitoring
 
 global:
-  dnsService: coredns       # Specifies CoreDNS as the DNS service.
-  dnsNamespace: kube-system # Specifies the namespace for CoreDNS.
-  clusterDomain: sp-logs.   # Sets the cluster domain.
+  dnsService: coredns
+  dnsNamespace: kube-system
+  clusterDomain: sp-logs.
 
 mimir:
   structuredConfig:
     limits:
-      max_global_series_per_user: 1000000 # Significantly increases the limit on the number of time series per user.  This is a crucial customization to avoid throttling issues.
+      max_global_series_per_user: 1000000
     common:
       storage:
-        backend: s3             # Configures S3 as the storage backend.
+        backend: s3 
         s3:
-          endpoint: rook-ceph-rgw-object-store.rook-ceph.svc.sp-logs # Uses Rook Ceph as the S3 compatible storage.
-          region: us-east-1     # Required even though we are using Ceph
-          secret_access_key: <secret_key> #  **IMPORTANT:** Replace with your actual secret key.  This is a security risk if committed to version control.  Use secrets management.
-          access_key_id: <access_key>    # **IMPORTANT:** Replace with your actual access key. Same security risk as above.
-          insecure: true         # **WARNING:** Disables TLS verification for the S3 connection. This is a significant security risk and should only be used in controlled environments.
-
+          endpoint: rook-ceph-rgw-object-store.rook-ceph.svc.sp-logs
+          region: us-east-1
+          secret_access_key: <secret_key> 
+          access_key_id: <access_key> 
     blocks_storage:
       s3:
         bucket_name: mimir-blocks
@@ -105,10 +103,10 @@ distributor:
 ingester:
   persistentVolume:
     size: 50Gi
-  replicas: 7 # 7 replicas, matching the number of nodes in the cluster.
+  replicas: 7
   resources:
     limits:
-      memory: 12Gi  # High memory limit for ingester.
+      memory: 12Gi 
     requests:
       cpu: 3.5
       memory: 8Gi
@@ -118,7 +116,7 @@ ingester:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-              - key: target # support for enterprise.legacyLabels
+              - key: target
                 operator: In
                 values:
                   - ingester
@@ -146,7 +144,7 @@ chunks-cache:
 
 index-cache:
   enabled: true
-  replicas: 7 # maximized to use all available nodes
+  replicas: 7
 
 metadata-cache:
   enabled: true
@@ -210,7 +208,7 @@ store_gateway:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-              - key: target # support for enterprise.legacyLabels
+              - key: target
                 operator: In
                 values:
                   - store-gateway
@@ -298,5 +296,4 @@ helm install --namespace mimir grafana/mimir mimir -f values.yaml
 **Security Considerations:**
 
 * **Hardcoded Credentials:**  The `values.yaml` file contains hardcoded AWS access keys. This is a major security vulnerability.  Use Kubernetes Secrets to manage these credentials securely.
-* **`insecure: true`:** Disabling TLS verification for the S3 connection is highly discouraged in production.  This opens your system to man-in-the-middle attacks.
-* **Authentication:** The document mentions that authentication is initially disabled.  Enabling authentication is crucial for security and multi-tenancy.
+* **Authentication:** Authentication is initially disabled.  Enabling authentication is crucial for security and multi-tenancy, ans you should enable it as soon as everything is working smoothly. By the time i wrote this, i wasn´t there yet.
