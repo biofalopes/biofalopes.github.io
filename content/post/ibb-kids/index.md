@@ -7,7 +7,7 @@ toc: false
 categories = ["SRE", "DevOps", "Production Engineering"]
 tags = ["SRE", "SQLite", "Node.js", "ARM64", "CI/CD", "OCI", "Linux", "TypeScript"]
 author = "Fabio M. Lopes"
-image = "ibbkids.png"
+image = "ibbkids.jpg"
 +++
 
 
@@ -18,6 +18,8 @@ While the functional requirement was straightforward, the operational constraint
 Ten months after its initial launch, the core challenge shifted from feature development to **production engineering**: ensuring stateless JWT security, cross-compiling native C++ modules across heterogeneous architectures, executing atomic zero-downtime deployments, and achieving point-in-time database backup integrity without data corruption.
 
 This post documents the architectural decisions, resilience patterns, and operational lessons learned while running a single-node SQLite workload in production up to October 2026.
+
+![admin_screen](image.png)
 
 ## Architectural Steering & AI-Augmented Engineering
 
