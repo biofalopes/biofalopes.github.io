@@ -2,8 +2,8 @@
 title = "Production Engineering for Single-Node Edge Workloads: Zero-Downtime Releases, WAL Backups, and Native ARM Compilation"
 description = "A 10-month operational post-mortem on running a single-instance Node/SQLite workload on Oracle Linux ARM: zero-downtime releases, SQLite WAL backup verification, OCI Instance Principal integration, and native C++ cross-compilation."
 date = "2026-10-23"
-draft: false
-toc: false
+draft = false
+toc = false
 categories = ["SRE", "DevOps", "Production Engineering"]
 tags = ["SRE", "SQLite", "Node.js", "ARM64", "CI/CD", "OCI", "Linux", "TypeScript"]
 author = "Fabio M. Lopes"
