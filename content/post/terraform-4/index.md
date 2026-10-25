@@ -2,7 +2,7 @@
 title: "Raising the Bar in Platform Operations: Moving Beyond Day-1 Terraform Provisioning"
 description: "A first-person case study on overcoming Day-2 Terraform fears, decoupling IaC from application deployments on AWS Outposts, and the engineering trade-offs we accepted along the way."
 date: "2026-10-25"
-draft: false
+draft: true
 toc: true
 categories: ["Platform Engineering", "SRE", "Terraform", "AWS"]
 tags: ["Terraform", "AWS Outposts", "ECS", "GitLab CI", "SRE", "IaC", "Trade-Offs"]
