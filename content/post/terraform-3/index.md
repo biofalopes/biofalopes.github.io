@@ -1,6 +1,6 @@
 +++
-title = "Raising the Bar in Platform Operations: Moving Beyond Day-1 Terraform Provisioning"
-description = "Overcoming the anti-pattern of using Terraform for initial Day-1 infrastructure provisioning and abandoning it on Day 2."
+title = "Beyond Day-1 Terraform: Rethinking Platform Operations in My Environment"
+description = "Reflections on infrastructure ownership, ECS deployments, and Terraform lifecycle management in a multi-account AWS environment."
 date =  "2026-10-25"
 draft = false
 toc = false
@@ -10,133 +10,106 @@ image = "terraform.jpg"
 author = "Fabio M. Lopes"
 +++
 
-In enterprise environments operating on sovereign clouds, AWS Outposts, or air-gapped infrastructure, a frustrating anti-pattern frequently takes root: **using Terraform for initial Day-1 infrastructure provisioning and abandoning it on Day 2**.
 
-Day 1 goes smoothly. The platform team writes HCL modules, provisions the VPCs, databases, load balancers, and ECS clusters, and delivers the environment. But once workloads go live, fear sets in. Management worries that running `terraform apply` on Day 2 might accidentally destroy a production database, overwrite container image tags updated by application teams, or conflict with network settings managed by other departments. As a result, Day-2 operations degrade into manual console tweaks, undocumented fixes, and severe state drift.
+## Introduction: The Day-2 Challenge
 
-Overcoming this fear requires elevating platform operations beyond basic resource creation. By establishing strict team boundaries, isolating state files, and decoupling infrastructure code from application delivery pipelines, teams can safely operate Terraform in production with complete confidence.
+I've been thinking about a challenge in the infrastructure environment I work with: how to keep Terraform relevant after the initial provisioning phase, without interfering with ongoing application deployments or resources managed by other teams.
 
----
+Provisioning infrastructure with Terraform is relatively straightforward when the boundaries are clear and the environment is being built from scratch. The situation becomes more complicated once applications are running, multiple teams share responsibilities, and operational changes start happening through different workflows.
 
-## The Operational Context: Multi-Account & Team Topology
+In our context, we operate across multiple AWS accounts, with workloads involving AWS Outposts, ECS, and supporting infrastructure. Networking, security, platform operations, and application delivery have different ownership boundaries.
 
-To understand how to solve the Day-2 dilemma, we must first look at a common enterprise deployment model operating on AWS Outposts across three isolated accounts:
+This introduces a practical question:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────────┐
-│                             AWS Outposts Environment                             │
-│                                                                                  │
-│   ┌───────────────────────┐  ┌───────────────────────┐  ┌────────────────────┐   │
-│   │   Development Acct    │  │  Pre-Production Acct  │  │  Production Acct   │   │
-│   │   (Test & Dev)        │  │  (Staging / Pre)      │  │  (Zero Partner     │   │
-│   │                       │  │                       │  │   Direct Access)   │   │
-│   └───────────────────────┘  └───────────┬───────────┘  └─────────▲──────────┘   │
-└──────────────────────────────────────────┼────────────────────────┼──────────────┘
-                                           │ ECR Image              │ Controlled
-                                           │ Sync                   │ Deployment
-                                           ▼                        │ Pipeline
-                                ┌───────────────────────────────────┴──────────┐
-                                │          Internal GitLab CI/CD               │
-                                │  • Partner pushes application code           │
-                                │  • Automated build & ECR image sync          │
-                                │  • Task Definition Revision & Deploy Gate    │
-                                └──────────────────────────────────────────────┘
+**How can we continue managing infrastructure through Terraform while respecting the operational autonomy of the teams responsible for other parts of the environment?**
 
-```
+I don't think there's a single answer that applies to every organization. What follows are some of the challenges I've encountered, the architectural decisions I'm exploring, and the trade-offs I consider relevant to our environment.
 
-### Team Boundaries & Responsibilities
+## 1. Understanding the Environment and Its Boundaries
 
-In this model, four distinct groups interact with the platform:
+Our environment follows a multi-account model, with separate AWS accounts for development, pre-production, and production.
 
-1. **Network Team:** Owns the core VPCs, Subnets, Direct Connect, and primary CIDR blocks.
-2. **Security Team:** Manages edge security, central IAM boundary policies, and institutional F5 WAF rules.
-3. **Platform / Infrastructure Team (SRE):** Owns ECS Clusters, Capacity Providers, Databases (RDS/ElastiCache), Storage (NFS/EFS/S3), ALBs, and Terraform IaC.
-4. **External Application Partners:** Develop Node.js and PHP microservices. They version code in an internal, self-hosted GitLab instance and have **zero direct IAM access to the AWS Production Account**.
+Several teams participate in operating the platform:
 
----
+- **Network team:** Responsible for core networking components such as VPCs, subnets, and connectivity.
+- **Security team:** Responsible for centralized security policies, edge protection, and components such as the F5 WAF.
+- **Platform team:** Responsible for infrastructure components supporting application workloads, including ECS, load balancers, databases, and infrastructure automation.
+- **Application teams and external partners:** Responsible for developing and delivering applications, with production access mediated through internal processes.
 
-## Pattern 1: Respecting Team Boundaries via Data Sources
+These responsibilities introduce an important distinction: not everything an application depends on should necessarily be managed by the same Terraform configuration.
 
-A common cause of Day-2 incidents is Terraform attempting to modify resources owned by other departments. If your HCL code defines a VPC as a `resource "aws_vpc"`, Terraform expects full ownership of that VPC. If the Network Team alters a tag or CIDR block outside your code, your next `terraform apply` will attempt to revert or recreate it.
+The challenge is not simply technical. It is also about respecting ownership boundaries.
 
-### The Solution: Only Consume External Assets as Data Sources
+### Decision 1: Reference Infrastructure Owned by Other Teams
 
-Never declare network infrastructure or edge security appliances as `resource` blocks if your team does not own their lifecycle. Query them dynamically via `data` sources using explicit filters or tags:
+In our case, some infrastructure components already exist and are managed independently of the application platform.
+
+For example, the networking team may own the VPC and subnets used by our workloads. Having our Terraform configuration manage those resources directly would introduce overlapping responsibilities.
+
+For this reason, I prefer referencing externally managed resources through Terraform data sources when the corresponding AWS provider supports them.
 
 ```hcl
-# data_sources.tf
-
-# 1. Query VPC owned and managed by the Network Team
-data "aws_vpc" "network_team_vpc" {
+data "aws_vpc" "platform_vpc" {
   filter {
     name   = "tag:Name"
     values = ["PROD-NETWORK-VPC"]
   }
 }
 
-# 2. Query App Subnets managed by Network Team
-data "aws_subnets" "app_subnets" {
+data "aws_subnets" "application" {
   filter {
     name   = "vpc-id"
-    values = [data.aws_vpc.network_team_vpc.id]
+    values = [data.aws_vpc.platform_vpc.id]
   }
+
   tags = {
     Tier = "Private-App"
   }
 }
-
-# 3. Reference Security Groups owned by Security Team (e.g., F5 WAF)
-data "aws_security_group" "f5_waf_sg" {
-  filter {
-    name   = "group-name"
-    values = ["f5-waf-edge-allowed-sg"]
-  }
-}
-
 ```
 
-By using `data` blocks, Terraform treats these assets as read-only references. Your platform code can attach ALBs to the subnets or link security rules to the F5 WAF without any risk of altering or deleting the underlying network resources.
+This allows our Terraform configuration to consume existing infrastructure without assuming responsibility for its lifecycle.
 
----
+Of course, using data sources doesn't eliminate dependencies. If another team changes or removes a referenced resource, our deployments may still be affected.
 
-## Pattern 2: Decoupling IaC from Application Deployments
+But in our organizational structure, this separation better reflects how responsibilities are actually distributed.
 
-The single biggest friction point between Platform and Application teams on ECS is **Task Definition image tag drift**.
+## 2. Separating Infrastructure Management from Application Delivery
 
-When an external partner publishes a new release (e.g., updating a Node.js image tag from `v1.2.0` to `v1.2.1`), an automated pipeline updates the ECS Service to point to the new task revision. However, your Terraform state file still references `v1.2.0`. If a platform engineer runs `terraform apply` two weeks later to resize an ALB, Terraform will detect the image mismatch and downgrade the production application to `v1.2.0`.
+Another challenge comes from how Terraform interacts with ECS application deployments.
 
-### The Solution: `lifecycle { ignore_changes }`
+In our environment, application teams deliver new container images through internal GitLab CI/CD pipelines. These pipelines can register new ECS task definition revisions and update running services.
 
-To solve this, use Terraform to provision the foundational ECS Cluster, Capacity Providers, Load Balancers, Security Groups, and initial ECS Service structure, but yield ongoing control of the container image and desired task count to the application deployment pipeline:
+Terraform, however, may still contain references to the task definitions used during initial provisioning.
+
+This creates a potential conflict.
+
+Consider the following scenario:
+
+1. Terraform provisions an ECS service using an initial task definition.
+2. An application pipeline deploys a new version and updates the ECS service.
+3. A platform engineer later runs Terraform to modify an unrelated infrastructure component.
+4. Terraform detects that the ECS service differs from its configuration and may attempt to restore the previously declared task definition.
+
+This is not necessarily a Terraform problem. It is a consequence of having two different workflows attempting to control the same resource attribute.
+
+### Decision 2: Define Which Workflow Owns Each Attribute
+
+For our environment, I'm considering a clearer separation between the infrastructure lifecycle and the application release lifecycle.
+
+Terraform remains responsible for provisioning and managing infrastructure components such as ECS clusters, capacity providers, networking configuration, load balancers, and the initial service structure.
+
+Application delivery pipelines manage new task definition revisions and ECS service deployments.
+
+One way to support this arrangement is to use Terraform's `ignore_changes` lifecycle argument:
 
 ```hcl
-# ecs_service.tf
-
-resource "aws_ecs_service" "app_service" {
+resource "aws_ecs_service" "application" {
   name            = "app-core-service"
-  cluster         = aws_ecs_cluster.outposts_cluster.id
-  task_definition = aws_ecs_task_definition.initial_template.arn
+  cluster         = aws_ecs_cluster.platform.id
+  task_definition = aws_ecs_task_definition.initial.arn
   desired_count   = 2
 
-  capacity_provider_strategy {
-    capacity_provider = aws_ecs_capacity_provider.asg_provider.name
-    weight            = 100
-  }
-
-  network_configuration {
-    subnets         = data.aws_subnets.app_subnets.ids
-    security_groups = [aws_security_group.allow_app_sg.id]
-  }
-
-  load_balancer {
-    target_group_arn = aws_lb_target_group.app_tg.arn
-    container_name   = "app"
-    container_port   = 8080
-  }
-
-  # CRITICAL DAY-2 GUARDRAIL:
-  # Prevents Terraform from reverting image revisions or replica counts 
-  # updated dynamically by application CI/CD pipelines.
   lifecycle {
     ignore_changes = [
       task_definition,
@@ -144,216 +117,232 @@ resource "aws_ecs_service" "app_service" {
     ]
   }
 }
-
 ```
 
-With `ignore_changes` configured, your platform team can modify infrastructure parameters (scaling thresholds, target group health checks, security group ingress rules) at any time without interfering with application deployments.
+In this configuration, Terraform does not attempt to reconcile changes to these attributes for an existing service during normal planning.
 
----
+There is an important trade-off here.
 
-## Pattern 3: Least-Privilege Security Group Chaining
+By ignoring changes to `task_definition`, we are intentionally giving up Terraform's ability to detect and correct differences in that attribute. The deployment pipeline becomes responsible for managing it.
 
-Building a robust Day-2 architecture requires strict traffic segregation. Rather than opening broad IP ranges across subnets, construct a chained security group architecture following the exact physical flow of data:
+The same applies to `desired_count`, which should only be ignored if another mechanism, such as Application Auto Scaling or an operational workflow, is expected to manage the running task count.
 
-`Internet ──> F5 WAF ──> Application Load Balancer ──> ECS Application ──> Database / NFS`
+**I see `ignore_changes` less as a workaround and more as an explicit ownership decision.**
 
-```hcl
-# security_groups.tf
+It can be useful when responsibilities are well-defined, but it can also hide configuration drift if applied too broadly.
 
-# 1. ALB Security Group (Accepts HTTPS only from F5 WAF IPs)
-resource "aws_security_group" "allow_waf_sg" {
-  name        = "allow-waf-sg"
-  description = "Allow F5 WAF access to ALB"
-  vpc_id      = data.aws_vpc.network_team_vpc.id
+## 3. Security Groups That Reflect the Actual Traffic Flow
 
-  ingress {
-    description = "HTTPS from F5 WAF endpoints"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = var.f5_waf_allowed_ips
-  }
+Security group management is another area where ownership and infrastructure design intersect.
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+Our application traffic follows a path that includes an institutional F5 WAF before reaching the AWS Application Load Balancer and ECS workloads.
 
-# 2. Application Security Group (Accepts traffic ONLY from ALB SG)
-resource "aws_security_group" "allow_app_sg" {
-  name        = "allow-app-sg"
-  description = "Allow traffic from ALB to application tasks"
-  vpc_id      = data.aws_vpc.network_team_vpc.id
-
-  ingress {
-    description     = "HTTP from ALB Security Group"
-    from_port       = 8080
-    to_port         = 8080
-    protocol        = "tcp"
-    security_groups = [aws_security_group.allow_waf_sg.id]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# 3. Database Security Group (Accepts traffic ONLY from App SG)
-resource "aws_security_group" "allow_db_sg" {
-  name        = "allow-db-sg"
-  description = "Allow database access from application tasks"
-  vpc_id      = data.aws_vpc.network_team_vpc.id
-
-  ingress {
-    description     = "PostgreSQL port from App SG"
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.allow_app_sg.id]
-  }
-}
-
-# 4. Storage Security Group (Accepts NFS traffic ONLY from App SG)
-resource "aws_security_group" "allow_nfs_sg" {
-  name        = "allow-nfs-sg"
-  description = "Allow NFS access from application tasks"
-  vpc_id      = data.aws_vpc.network_team_vpc.id
-
-  ingress {
-    description     = "NFS 2049 from App SG"
-    from_port       = 2049
-    to_port         = 2049
-    protocol        = "tcp"
-    security_groups = [aws_security_group.allow_app_sg.id]
-  }
-}
+A simplified representation is:
 
 ```
-
----
-
-## Pattern 4: Eliminating Deployment Toil with Self-Service Pipelines
-
-In many legacy setups, external application partners push container images to a Pre-Production ECR, an automated job synchronizes the image to Production ECR, and then **a manual support ticket is opened asking the platform team to update the ECS task definition revision in Production**.
-
-This manual step introduces operational friction, human error, and unnecessary delay.
-
-To eliminate this toil without giving external partners direct AWS credentials, delegate application updates to an automated **internal GitLab CI pipeline** using scoped IAM Roles via OIDC.
-
-```
-[Partner Pushes Code] ──> [GitLab CI: Build & Test] ──> [Sync to Prod ECR]
-                                                               │
-                                                               ▼
-                                                  [Approval Gate in GitLab]
-                                                               │ (Lead Approves)
-                                                               ▼
-                                                  [AWS ECS Update-Service]
-
+Client
+  |
+  v
+F5 WAF
+  |
+  v
+Application Load Balancer
+  |
+  v
+ECS Services
+  |
+  +----> Database
+  |
+  +----> Shared Storage
 ```
 
-### Self-Service Pipeline Definition (`.gitlab-ci.yml`)
+Given this topology, my preference is to make security group rules reflect the actual communication requirements between components.
 
-```yaml
-stages:
-  - build
-  - sync-ecr
-  - deploy-approval
-  - deploy-prod
+For example, where the network architecture supports it:
 
-variables:
-  AWS_REGION: "sa-east-1"
-  PROD_ECR_REPO: "123456789012.dkr.ecr.sa-east-1.amazonaws.com/app-prod"
-  ECS_CLUSTER: "ecs-outposts-prod"
-  ECS_SERVICE: "app-core-service"
+- The ALB accepts application traffic from the expected WAF endpoints.
+- ECS tasks accept application traffic from the ALB security group.
+- Database services accept connections only from the application components that require access.
+- Shared storage access is limited to the appropriate workloads and protocols.
 
-build_preprod:
-  stage: build
-  script:
-    - docker build -t $PROD_ECR_REPO:$CI_COMMIT_SHA .
-    - docker push $PROD_ECR_REPO:$CI_COMMIT_SHA
+This approach helps reduce unnecessarily broad ingress permissions.
 
-sync_to_prod_ecr:
-  stage: sync-ecr
-  script:
-    - echo "Synchronizing container image $CI_COMMIT_SHA to Production ECR..."
-    # Automated ECR image replication logic
+However, it also requires understanding the infrastructure outside AWS, particularly how traffic reaches the ALB through the F5 appliances.
 
-approve_prod_deployment:
-  stage: deploy-approval
-  script:
-    - echo "Deployment approved for commit $CI_COMMIT_SHA"
-  when: manual # Requires explicit UI approval from Tech Lead / SRE
-  only:
-    - main
+Depending on the network architecture, preserving source addresses, NAT behavior, routing, and the availability of security group references can influence the implementation.
 
-deploy_production_ecs:
-  stage: deploy-prod
-  script:
-    - echo "Registering new Task Definition revision for release $CI_COMMIT_SHA..."
-    - TASK_DEF=$(aws ecs describe-task-definition --task-definition app-core-task)
-    - NEW_TASK_DEF=$(echo $TASK_DEF | jq --arg IMAGE "$PROD_ECR_REPO:$CI_COMMIT_SHA" '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
-    - NEW_TASK_INFO=$(aws ecs register-task-definition --cli-input-json "$NEW_TASK_DEF")
-    - NEW_REVISION=$(echo $NEW_TASK_INFO | jq -r '.taskDefinition.taskDefinitionArn')
-    
-    # Update ECS Service without invoking Terraform
-    - aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --task-definition $NEW_REVISION
-  dependencies:
-    - approve_prod_deployment
-  only:
-    - main
+For this reason, I don't consider a generic security group template sufficient.
+
+The rules need to represent the actual traffic flow of our environment, not just an idealized architecture diagram.
+
+## 4. Reducing Manual Work in Application Deployments
+
+One operational concern in our setup is the separation between application delivery and production infrastructure access.
+
+External application partners should not require broad AWS production permissions just to release a new version of their applications.
+
+At the same time, making every release dependent on a manual intervention from the infrastructure team introduces unnecessary operational work.
+
+The challenge is finding a balance between controlled access and deployment autonomy.
+
+### Decision 3: Use Internal CI/CD as the Deployment Boundary
+
+An approach that makes sense for our environment is to use internal GitLab pipelines as the controlled interface for production deployments.
+
+The intended workflow is:
 
 ```
-
----
-
-## Day-2 Infrastructure Guardrails
-
-To give management complete confidence in running Terraform continuously, implement three non-negotiable safety rules in your platform repository:
-
-### 1. Prevent Destruction of Stateful Assets
-
-Enforce the `prevent_destroy` lifecycle rule on all databases, storage volumes, and stateful buckets. If a code change or accidental CLI command attempts to drop a resource, Terraform aborts execution immediately before contacting the AWS API:
-
-```hcl
-resource "aws_db_instance" "production_db" {
-  identifier        = "prod-db-postgres"
-  allocated_storage = 200
-  engine            = "postgres"
-  instance_class    = "db.m6i.xlarge"
-
-  lifecycle {
-    prevent_destroy = true # Physically blocks 'terraform destroy' or destructive replaces
-  }
-}
-
+Application Change
+       |
+       v
+GitLab CI - Build & Test
+       |
+       v
+Container Image Publication
+       |
+       v
+Image Promotion / Synchronization
+       |
+       v
+Production Approval Gate
+       |
+       v
+Register ECS Task Revision
+       |
+       v
+Update ECS Service
 ```
 
-### 2. Isolate State Files into Micro-Stacks
+Under this model, application teams interact with the deployment process rather than directly managing AWS production resources.
 
-Never maintain a single monolitic `.tfstate` file containing networking, databases, and application compute resources together. Split your HCL repositories into independent layers:
+The pipeline can use scoped IAM permissions, with short-lived credentials through OIDC where supported and configured.
 
-```text
+An approval gate can be applied according to our production change-control requirements.
+
+Terraform remains responsible for the infrastructure configuration, while the deployment pipeline handles application revisions.
+
+This separation does not eliminate the need for monitoring, rollback procedures, or permission management.
+
+But it potentially reduces repetitive operational tasks while maintaining the access boundaries required by our organization.
+
+## 5. Making Terraform Changes More Predictable
+
+The main reason I want to revisit our Terraform practices is not simply to automate more resources.
+
+It is to make subsequent infrastructure changes easier to understand, review, and execute.
+
+In a production environment, a Terraform plan that contains unexpected changes to databases, application revisions, and networking resources is difficult to approve with confidence.
+
+A few practices appear particularly relevant to our situation.
+
+### Separating Terraform State by Operational Responsibility
+
+I prefer separating Terraform state according to meaningful infrastructure boundaries.
+
+For example:
+
+```
 terraform-platform/
 └── environments/
     └── prod/
-        ├── 01-base-iam/          # Execution Roles, KMS Keys
-        ├── 02-datastores/        # RDS Postgres, ElastiCache Redis, S3
-        └── 03-compute-ecs/       # ECS Cluster, ALBs, Target Groups, Services
-
+        ├── 01-base-iam/
+        ├── 02-datastores/
+        └── 03-compute-ecs/
 ```
 
-An execution inside `03-compute-ecs` has no physical connection to the state file of `02-datastores`. Even in a worst-case scenario where an engineer executes an invalid plan in the compute layer, the database layer remains untouched.
+This structure is only illustrative. The appropriate boundaries depend on resource dependencies, ownership, and how changes are approved.
 
-### 3. Automated Drift Detection
+Separating state can reduce the scope of an individual plan and make changes easier to review.
 
-Run a daily, read-only `terraform plan -detailed-exitcode` job inside your CI/CD pipeline. If an engineer makes a manual change in the AWS Console, the pipeline detects the drift and alerts the platform team instantly, allowing you to reconcile code and state before it causes a production incident.
+It does not guarantee complete isolation, however. Resources managed in different states may still depend on one another through IDs, outputs, networking, or application behavior.
 
----
+The goal is to reduce unnecessary coupling, not to assume that independent state files imply independent systems.
 
-Moving beyond Day-1 Terraform provisioning is not about giving application developers free rein over your cloud accounts, nor is it about running dangerous manual applies from developer laptops. It is about **establishing clear architectural boundaries and automation guardrails**. By isolating state files, protecting stateful resources, leveraging data sources for external boundaries, and using `ignore_changes` to decouple application releases from infrastructure state, platform teams can eliminate deployment toil, maintain strict compliance, and operate Terraform in production on Day 2 with absolute confidence.
+### Protecting Stateful Resources
+
+For infrastructure such as production databases, accidental resource replacement is a concern.
+
+Terraform's `prevent_destroy` lifecycle argument is one safeguard worth considering.
+
+```hcl
+resource "aws_db_instance" "production" {
+  identifier = "prod-db-postgres"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+```
+
+This prevents Terraform from planning the destruction of that resource while the lifecycle rule remains in the configuration.
+
+However, it is not a substitute for AWS deletion protection, backups, access controls, or change reviews.
+
+In particular, removing the resource configuration may also remove the lifecycle protection, so it should not be treated as an absolute safeguard.
+
+For our environment, I see it as one layer in a broader production protection strategy.
+
+### Detecting Unexpected Changes
+
+Another practice I'm evaluating is running automated Terraform plans to identify differences between the declared configuration and the current infrastructure.
+
+For instance:
+
+```bash
+terraform plan -detailed-exitcode
+```
+
+The exit codes can distinguish between an unchanged configuration, a plan containing proposed changes, and an execution error.
+
+One limitation is that not every difference represents unintended drift. Some changes may be expected, while others result from configuration updates rather than manual infrastructure modifications.
+
+A dedicated refresh-only plan can help identify changes in remote infrastructure:
+
+```bash
+terraform plan -refresh-only -detailed-exitcode
+```
+
+In either case, the results still require interpretation.
+
+The objective is to make unexpected changes visible before they become part of a production deployment.
+
+## 6. The Trade-Offs I'm Willing to Make
+
+Looking at these decisions together, the underlying theme is ownership.
+
+In our environment, there are several competing objectives:
+
+- Infrastructure should remain reproducible and manageable through code.
+- Application teams need a practical way to release software.
+- Network and security teams must retain control over their respective components.
+- Production changes need to remain auditable and predictable.
+
+These objectives do not always align automatically.
+
+Using `ignore_changes` means accepting that some resource attributes will no longer be reconciled by Terraform.
+
+Separating state means introducing explicit dependencies between independently managed infrastructure layers.
+
+Using CI/CD for production deployment means investing in secure pipeline identities, approval mechanisms, and recovery procedures.
+
+None of these choices comes without operational cost.
+
+But for the environment I'm working with, I believe these trade-offs are worth examining because they address the actual boundaries between our teams and systems.
+
+## Final Thoughts
+
+My intention is not to argue that every organization should structure Terraform this way.
+
+An environment where a single platform team owns networking, infrastructure, and application delivery may benefit from a completely different approach.
+
+The same applies to organizations using Kubernetes, GitOps-based workflows, or other deployment mechanisms.
+
+What I'm trying to improve in our context is the relationship between infrastructure provisioning and ongoing platform operations.
+
+Terraform should not necessarily stop being useful once the environment is created. At the same time, keeping Terraform involved in Day-2 operations requires deciding which parts of the infrastructure it should continue to control.
+
+For me, the most important takeaway is that **Day-2 infrastructure management is as much about defining ownership boundaries as it is about writing Terraform code.**
+
+The next step is to validate these boundaries through actual operational changes, review the resulting Terraform plans, and adjust the approach based on what works in our environment.
+
+That is the direction I'm pursuing: not a universal Terraform architecture, but a more deliberate and predictable way of operating the platform I work with.
