@@ -1,7 +1,7 @@
 baseurl: https://fabiolopes.page/
 languageCode: en-us
 theme: hugo-theme-stack
-title: Fabio Lopes | Cloud Architect & DevOps | AWS, Azure, GCP Expert
+title: Fabio Lopes | Senior Cloud Platform & SRE Lead
 copyright: Fabio M. Lopes
 enableEmoji: true
 
@@ -19,18 +19,18 @@ sitemap:
 languages:
     en:
         languageName: English
-        title: Fabio Lopes | Cloud Architect & DevOps | AWS, Azure, GCP Expert
+        title: Fabio Lopes | Senior Cloud Platform & SRE Lead
         weight: 1
         params:
             sidebar:
-                subtitle: Cloud Architect & DevOps specialist with expertise in Kubernetes, Ceph, Terraform & multi-cloud (AWS, Azure, GCP). Building scalable, data-driven solutions.
+                subtitle: Senior Cloud Platform Engineer with 20+ years of experience in Kubernetes, Bare-Metal, AWS Outposts, and Multi-Cloud. Building resilient, high-availability infrastructure (99.99% SLA) and automated platform workflows.
     pt-br:
         languageName: Português
-        title: Fabio Lopes | Cloud Architect & DevOps | AWS, Azure, GCP Expert
+        title: Fabio Lopes | Senior Cloud Platform & SRE Lead
         weight: 2
         params:
             sidebar:
-                subtitle: Arquiteto de Nuvem & especialista em DevOps com expertise em Kubernetes, Ceph, Terraform & multi-cloud (AWS, Azure, GCP). Construindo soluções escaláveis e orientadas a dados.
+                subtitle: Engenheiro Sênior de Plataforma em Nuvem com mais de 20 anos de experiência em Kubernetes, Bare-Metal, AWS Outposts e Multi-Cloud. Foco na criação de infraestruturas resilientes e de alta disponibilidade (SLA de 99,99%) e automação de fluxos de trabalho de plataforma.
 
 services:
     # Change it to your Disqus shortname before using
