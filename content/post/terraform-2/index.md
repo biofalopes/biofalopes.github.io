@@ -1,341 +1,82 @@
 +++
+slug = "managing-aws-autoscaling-groups-and-load-balancers-using-terraform"
+lastmod = "2026-10-26"
 title = "Managing AWS Autoscaling Groups and Load Balancers using Terraform"
 description = "Using Terraform to manage AWS Autoscaling Groups and Load Balancers"
 date = "2022-08-01"
 draft = false
-toc = false
+toc = true
 categories = ["terraform", "aws"]
 tags = ["terraform", "aws"]
 image = "aws-diagram.jpg"
 +++
 
-This time I'll be using an environment with a Load Balancer and an Autoscaling Group, which is a more complex architecture than the previous one. 
-<!--more--->  
+This lab builds on my first AWS/Terraform example: two subnets, an Application Load Balancer (ALB), and an Auto Scaling Group (ASG) that launches web servers in two Availability Zones.
 
-We'll have the following resources deployed with this procedure:
+**October 2026 revision:** the original subnets were outside the declared VPC CIDR. This version derives them from the VPC, uses a Launch Template instead of a Launch Configuration, and restricts instance HTTP ingress to the ALB security group. AWS recommends [migrating to Launch Templates](https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-configurations.html); new accounts cannot create launch configurations.
 
-- 1 VPC
-- 2 Subnets
-- 1 Internet Gateway
-- 1 Route Table (with a default route and an association)
-- 2 Security groups
-- 1 Key Pair
-- 1 EC2 Instance
-- 1 Launch Configuration
-- 1 ELB
-- 1 ASG
-- 2 Autoscaling Policies
-- 2 Cloudwatch Metric Alarms
+## Scope and prerequisites
 
-It's a very simple and you can build on top of it according to your needs, like the previous infrastructure. The code will be organized in the following structure:
+This is an HTTP laboratory serving a static, non-sensitive page. It creates billable EC2, ALB and public IPv4 resources. The instances use public subnets for outbound package installation without a NAT gateway, but accept HTTP only from the ALB. There is no SSH ingress or embedded key pair.
 
-- __main.tf__: resource declaration
-- __providers.tf__: aws provider configuration
-- __outputs.tf__: output declaration
-- __datasources.tf__: we'll get the AMI information here
-- __userdata.tpl__: script to be executed on first boot
+For production, design private application subnets, outbound connectivity, HTTPS with an ACM certificate, logging, access management and an application-specific scaling signal. Two Availability Zones provide placement options; actual availability still depends on healthy capacity, application behavior and dependencies.
 
-I'll put the code first and then explain the most important parts. Let's start with `providers.tf`:
+Use Terraform 1.9 or newer and the AWS provider 6.70.0. Supply an **Amazon Linux 2023 x86_64 AMI ID for your selected region**. The region must expose at least two usable Availability Zones. Do not substitute an Ubuntu AMI: the bootstrap uses `dnf` and `httpd`.
 
-```
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
-    }
-  }
-}
+Authenticate using the AWS provider's normal credential chain, such as an AWS SSO profile. Keep credentials outside the configuration:
 
-provider "aws" {
-  shared_credentials_file = "/home/mando/.aws/credentials"
-  profile                 = "mando"
-  region                  = "us-east-1"
-}
+```bash
+aws sso login --profile sandbox
+export AWS_PROFILE=sandbox
 ```
 
-Terraform requires credentials to access your account on AWS. You can choose different approaches for that, like putting the keys directly instad of pointing to a credentials file. Although that works and might even be easier, you'll probably have your code pushed into a git repository which would then expose the keys. More information on how to configure the provider can be found here -> [Docs overview | hashicorp/aws](https://registry.terraform.io/providers/hashicorp/aws/latest/).
+The environment-variable syntax above is for Bash. In PowerShell, use `$env:AWS_PROFILE = "sandbox"`.
 
-Now for the `main.tf`:
+## Complete configuration
+
+Download [main.tf](main.tf) into an empty lab directory. `terraform init` installs the pinned provider and writes `.terraform.lock.hcl`; commit that lockfile in your lab repository to retain provider checksums.
+
+{{< code-file file="main.tf" lang="hcl" >}}
+
+## How the pieces fit
+
+The VPC is `10.10.0.0/16`. `cidrsubnet` derives `10.10.1.0/24` and `10.10.2.0/24`, keeping both subnets inside it. A default route through the internet gateway supplies the lab's outbound connectivity.
+
+The ALB accepts HTTP and forwards to its target group. The ASG registers its instances with that target group; the instance security group accepts port 80 only from the ALB security group. User data installs Apache and writes the hostname into the page. IMDSv2 is required, although this bootstrap does not need to query instance metadata.
+
+The ASG starts with two instances and a range of two to four. Target tracking adjusts capacity toward 50% average CPU utilization and manages its own alarms. `ignore_changes = [desired_capacity]` assigns running capacity to autoscaling after initial creation; Terraform still manages the minimum and maximum bounds.
+
+The ASG references a **numeric Launch Template version**, so changing the template is visible to Terraform and can trigger an instance refresh. Refresh preferences retain healthy capacity while replacements start. This requires spare capacity and sufficient quotas; it is not a guarantee of uninterrupted application service. Check refresh status and application traffic during any rollout.
+
+## Validate, plan and verify
+
+```bash
+terraform init
+terraform fmt -check
+terraform validate
+terraform plan -var="ami_id=ami-REPLACE_WITH_YOUR_AL2023_AMI" -out=lab.tfplan
 ```
-resource "aws_vpc" "mando_vpc" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_hostnames = true
 
-  tags = {
-    Name = "Mando VPC"
-  }
-}
+Replace the illustrative AMI ID before planning. Review account, region, subnet placement, instance counts and costs in the saved plan. To provision this lab after that review:
 
-resource "aws_subnet" "mando_public_subnet_us_east_1a" {
-  vpc_id            = aws_vpc.mando_vpc.id
-  cidr_block        = "10.10.1.0/24"
-  availability_zone = "us-east-1a"
-
-  tags = {
-    Name = "Mando Public Subnet US-East 1a"
-  }
-}
-
-resource "aws_subnet" "mando_public_subnet_us_east_1b" {
-  vpc_id            = aws_vpc.mando_vpc.id
-  cidr_block        = "10.10.2.0/24"
-  availability_zone = "us-east-1b"
-
-  tags = {
-    Name = "Mando Public Subnet US-East 1b"
-  }
-}
-
-resource "aws_internet_gateway" "mando_vpc_igw" {
-  vpc_id = aws_vpc.mando_vpc.id
-
-  tags = {
-    Name = "Mando VPC - Internet Gateway"
-  }
-}
-
-resource "aws_route_table" "mando_vpc_public" {
-  vpc_id = aws_vpc.mando_vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.mando_vpc_igw.id
-  }
-
-  tags = {
-    Name = "Public Subnets Route Table for Mando VPC"
-  }
-}
-
-resource "aws_route_table_association" "mando_vpc_us_east_1a_public" {
-  subnet_id      = aws_subnet.mando_public_subnet_us_east_1a.id
-  route_table_id = aws_route_table.mando_vpc_public.id
-}
-
-resource "aws_route_table_association" "mando_vpc_us_east_1b_public" {
-  subnet_id      = aws_subnet.mando_public_subnet_us_east_1b.id
-  route_table_id = aws_route_table.mando_vpc_public.id
-}
-
-resource "aws_security_group" "allow_http" {
-  name        = "allow_http"
-  description = "Allow HTTP inbound connections"
-  vpc_id      = aws_vpc.mando_vpc.id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "Allow HTTP Security Group"
-  }
-}
-
-resource "aws_key_pair" "mando_key" {
-  key_name   = "mando-key"
-  public_key = "ssh-rsa AAAABACH3L0Lc2EAAAADAQAPNCDAgQDELie/jIMM8uno12enId2YTmTjK1OGZJtTJFoSPdXIwn79qpZYQ3WXL8PlI/8dqFyGXvQj5bGJbgEydjSYVHFXFhPr4sdKcjguWbu895EjK2DgalcYuC1+6jBbFxiodoObsc+84m81+BACH3L0LQU3cm/rNKufrh6d21jIe4sQVul+WzJ9E8aPk34rPmRPgjYvh1T/P2hdgiUyJmKqOtDYwpokDRad+3W+iwGfoBACH3L0LoCWJ2rYzz6j80FKoiHm9cnSXvErezT7aAdenVzY3nEE4ylnHWVUdmzXN7IbCSLsDV3sdn0+c5E6oDX2/k1VwtSQ8TrUblM7AdpuB4ADniUSYvLqjd/NBIiHODzV6qZxXqoltVTsrTpbCWf1A063PBACH3L0L/F3mxBihWRAKfD1iqqfMXmYvAPosOkJ3u1yuwy/eCi6Q3SmA5n0vBSVKmYdUB9yQdAimWcUqabRzXLz+g8BrUxCBHwOf4+IZAp2AseJeoDQs0aqMwybr/k= mando" # replace with your key
-}
-
-resource "aws_launch_configuration" "web" {
-  name_prefix = "web-"
-
-  image_id      = data.aws_ami.server_ami.id
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.mando_key.id
-
-  security_groups             = [aws_security_group.allow_http.id]
-  associate_public_ip_address = true
-
-  user_data = file("userdata.tpl")
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_security_group" "elb_http" {
-  name        = "elb_http"
-  description = "Allow HTTP traffic to instances through Elastic Load Balancer"
-  vpc_id      = aws_vpc.mando_vpc.id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "Allow HTTP through ELB Security Group"
-  }
-}
-
-resource "aws_elb" "web_elb" {
-  name = "web-elb"
-  security_groups = [
-    aws_security_group.elb_http.id
-  ]
-  subnets = [
-    aws_subnet.mando_public_subnet_us_east_1a.id,
-    aws_subnet.mando_public_subnet_us_east_1b.id
-  ]
-
-  cross_zone_load_balancing = true
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    interval            = 30
-    target              = "HTTP:80/"
-  }
-
-  listener {
-    lb_port           = 80
-    lb_protocol       = "http"
-    instance_port     = "80"
-    instance_protocol = "http"
-  }
-
-}
-
-resource "aws_autoscaling_group" "web" {
-  name = "${aws_launch_configuration.web.name}-asg"
-
-  min_size         = 1
-  desired_capacity = 2
-  max_size         = 4
-
-  health_check_type = "ELB"
-  load_balancers = [
-    aws_elb.web_elb.id
-  ]
-
-  launch_configuration = aws_launch_configuration.web.name
-
-  enabled_metrics = [
-    "GroupMinSize",
-    "GroupMaxSize",
-    "GroupDesiredCapacity",
-    "GroupInServiceInstances",
-    "GroupTotalInstances"
-  ]
-
-  metrics_granularity = "1Minute"
-
-  vpc_zone_identifier = [
-    aws_subnet.mando_public_subnet_us_east_1a.id,
-    aws_subnet.mando_public_subnet_us_east_1b.id
-  ]
-
-  # Required to redeploy without an outage.
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  tag {
-    key                 = "Name"
-    value               = "web"
-    propagate_at_launch = true
-  }
-
-}
-
-resource "aws_autoscaling_policy" "web_policy_up" {
-  name                   = "web_policy_up"
-  scaling_adjustment     = 1
-  adjustment_type        = "ChangeInCapacity"
-  cooldown               = 300
-  autoscaling_group_name = aws_autoscaling_group.web.name
-}
-
-resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_up" {
-  alarm_name          = "web_cpu_alarm_up"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "120"
-  statistic           = "Average"
-  threshold           = "60"
-
-  dimensions = {
-    AutoScalingGroupName = aws_autoscaling_group.web.name
-  }
-
-  alarm_description = "This metric monitor EC2 instance CPU utilization"
-  alarm_actions     = [aws_autoscaling_policy.web_policy_up.arn]
-}
-
-resource "aws_autoscaling_policy" "web_policy_down" {
-  name                   = "web_policy_down"
-  scaling_adjustment     = -1
-  adjustment_type        = "ChangeInCapacity"
-  cooldown               = 300
-  autoscaling_group_name = aws_autoscaling_group.web.name
-}
-
-resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_down" {
-  alarm_name          = "web_cpu_alarm_down"
-  comparison_operator = "LessThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = "120"
-  statistic           = "Average"
-  threshold           = "10"
-
-  dimensions = {
-    AutoScalingGroupName = aws_autoscaling_group.web.name
-  }
-
-  alarm_description = "This metric monitor EC2 instance CPU utilization"
-  alarm_actions     = [aws_autoscaling_policy.web_policy_down.arn]
-}
+```bash
+terraform apply lab.tfplan
+terraform output -raw lab_url
 ```
-Since it is a big file, let's divide it in parts:
 
-- VPC, subnets, route tables and routes, internet gateway, security group and key pair: the foundation or basic part of the infrastructure;
-- Launch Configuration: this is where we define the parameters for the EC2 instances that the Autoscaling Group will launch. It's very similar to when we deploy a single EC2 instance;
-- Elastic Load Balancer: we deploy a security group specifically for the ELB first, and then the ELB itself. We have to specify which subnets, the listener and the health checks we'll use;
-- Autoscaling Group: this is the most important part regarding on how the infrastructure will "behave", let's say. We define a minimum, desired and maximum number of instances; specify what is going to be the health check, in this case is ELB so instance availability will be provided by it; then we set some Cloudwatch metrics to provide observability and add tags to identify the instances.
+Check target-group health, fetch the page through the ALB, and observe ASG activity and CloudWatch metrics before assessing scaling. A format/schema check cannot prove that an AMI boots or that your account has sufficient quota. The configuration passed `terraform validate` with Terraform 1.9.8 and AWS provider 6.70.0. It was not deployed into an AWS account.
 
-`outputs.tf`:
+Clean up when finished:
+
+```bash
+terraform plan -destroy -var="ami_id=ami-REPLACE_WITH_YOUR_AL2023_AMI" -out=destroy.tfplan
+terraform apply destroy.tfplan
 ```
-output "elb_dns_name" {
-  value = aws_elb.web_elb.dns_name
-}
-```
-The only output we have is the DNS name of the ELB, which we'll need to access it.
 
-`userdata.tpl`:
-```
-#!/bin/bash
+Keep state and plan files private: they may contain sensitive infrastructure information. Review the destroy plan just as carefully as the creation plan.
 
-sudo apt -y update &&
-sudo apt -y install \
-    nginx &&
+## References
 
-echo "$(curl http://169.254.169.254/latest/meta-data/local-ipv4)" > /usr/share/nginx/html/index.html
-sudo systemctl enable nginx
-sudo systemctl start nginx
-```
-This userdata will install nginx on the EC2 instance at the first boot.
+- [AWS Launch Templates](https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-templates.html)
+- [Terraform AWS Launch Template resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template)
+- [Terraform AWS Auto Scaling Group resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group)

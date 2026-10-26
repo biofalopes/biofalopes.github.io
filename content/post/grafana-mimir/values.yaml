@@ -1,0 +1,71 @@
+# Historical classic architecture: chart 5.6.0 (Mimir 2.15.0).
+# Rendered locally; this is not a current Mimir 3.x production configuration.
+global:
+  dnsService: kube-dns
+  dnsNamespace: kube-system
+  clusterDomain: cluster.local.
+  extraEnvFrom:
+    - secretRef:
+        name: mimir-s3
+mimir:
+  structuredConfig:
+    multitenancy_enabled: true
+    common:
+      storage:
+        backend: s3
+        s3:
+          endpoint: s3.example.com:443
+          region: us-east-1
+          access_key_id: ${AWS_ACCESS_KEY_ID}
+          secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+          insecure: false
+    blocks_storage:
+      s3:
+        bucket_name: mimir-blocks
+    alertmanager_storage:
+      s3:
+        bucket_name: mimir-alertmanager
+    ruler_storage:
+      s3:
+        bucket_name: mimir-ruler
+ingester:
+  replicas: 3
+  zoneAwareReplication:
+    enabled: false
+  persistentVolume:
+    storageClass: rook-ceph-block
+    size: 20Gi
+distributor:
+  replicas: 2
+querier:
+  replicas: 2
+query_frontend:
+  replicas: 2
+query_scheduler:
+  replicas: 2
+compactor:
+  replicas: 1
+  persistentVolume:
+    storageClass: rook-ceph-block
+    size: 20Gi
+store_gateway:
+  replicas: 3
+  zoneAwareReplication:
+    enabled: false
+  persistentVolume:
+    storageClass: rook-ceph-block
+    size: 10Gi
+alertmanager:
+  replicas: 2
+  persistentVolume:
+    storageClass: rook-ceph-block
+nginx:
+  replicas: 2
+minio:
+  enabled: false
+metaMonitoring:
+  serviceMonitor:
+    enabled: false
+  grafanaAgent:
+    enabled: false
+    installOperator: false

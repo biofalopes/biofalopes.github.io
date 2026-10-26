@@ -1,9 +1,11 @@
 +++
+slug = "dynamic-programmingdp"
+lastmod = "2026-10-26"
 title = "Dynamic Programming(DP)"
 description = "Studying DP in Python with Fibonacci"
 date = "2025-03-07"
 draft = false
-toc = false
+toc = true
 tags = ["python"]
 categories = ["python"]
 image = "fib.png"
@@ -22,12 +24,16 @@ Let's consider a well-known example: the Fibonacci sequence. The nth Fibonacci n
 
 ```python
 def fibonacci(n):
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0:
+        raise ValueError("n must be a non-negative integer")
     if n <= 1:
         return n
     return fibonacci(n-1) + fibonacci(n-2)
 ```
 
 As *n* grows, the number of redundant calculations explodes.
+
+The examples accept non-negative integers, including `0` and `1`. Invalid inputs raise `ValueError`.
 
 Now, let's look at how Dynamic Programming can solve the same problem using two common approaches:
 
@@ -36,7 +42,11 @@ Now, let's look at how Dynamic Programming can solve the same problem using two 
 Memoization is essentially caching the results of expensive function calls and reusing them when the same inputs occur again. We start from the top (the original problem) and recursively break it down, storing the results in a dictionary (or similar data structure) to avoid redundant calculations.
 
 ```python
-def fibonacci_memoization(n, memo={}):
+def fibonacci_memoization(n, memo=None):
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0:
+        raise ValueError("n must be a non-negative integer")
+    if memo is None:
+        memo = {}
     if n in memo:
         return memo[n]
     if n <= 1:
@@ -53,13 +63,19 @@ Tabulation involves building a table (usually an array or matrix) from the botto
 
 ```python
 def fibonacci_tabulation(n):
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0:
+        raise ValueError("n must be a non-negative integer")
+    if n <= 1:
+        return n
     table = [0] * (n + 1)
     table[1] = 1
     for i in range(2, n + 1):
         table[i] = table[i-1] + table[i-2]
     return table[n]
 
-print(fibonacci_tabulation(6))
+print(fibonacci_tabulation(0))  # 0
+print(fibonacci_tabulation(1))  # 1
+print(fibonacci_tabulation(6))  # 8
 ```
 
 **Key differences between Memoization and Tabulation:**
@@ -77,7 +93,7 @@ print(fibonacci_tabulation(6))
 *   ***Edit Distance***: Calculating the minimum number of operations (insertions, deletions, substitutions) required to transform one string into another.
 *   ***Shortest Path Algorithms*** (e.g., Floyd-Warshall): Finding the shortest paths between all pairs of vertices in a graph.
 
-I wrote two python programs, one using top-down and another using bottom-up. They calculate fib(500) and print the number of iterations, cache hits, function calls and the elapsed time. It is a good way to compare how the different approaches can influence the performance. When i tried to run the top-down program for fib(1000), i reached the recursion limit. It is possible to adapt it to use functools.lru_cache instead of a dictionary, but I wanted to keep things simple.
+I wrote two python programs, one using top-down and another using bottom-up. They calculate fib(500) and print the number of iterations, cache hits, function calls and the elapsed time. It is a good way to compare how the different approaches can influence the performance. When i tried to run the top-down program for fib(1000), i reached the recursion limit. Using `functools.lru_cache` can replace the dictionary, but it does not remove recursive call depth. The iterative version avoids that recursion limit. The global counters in the instrumentation examples below describe a fresh process run; reset them and the cache before comparing repeated runs.
 
 <details>
 <summary><b>Fibonacci Top-Down Example</b> (Click to Show/Hide)</summary>
@@ -90,6 +106,8 @@ calls = 0
 cache_hits = 0
 
 def fib(n: int) -> int:
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0:
+        raise ValueError("n must be a non-negative integer")
     global calls, cache_hits
     if n in cache:
         cache_hits += 1
@@ -123,6 +141,8 @@ import time
 iterations = 0
 
 def fib(n: int) -> int:
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0:
+        raise ValueError("n must be a non-negative integer")
     global iterations
 
     if n == 0:
@@ -152,3 +172,7 @@ if __name__ == '__main__':
     print(f"Elapsed time: {elapsed_time_ms:.4f} ms")
 ```
 </details>
+
+## Revision note
+
+October 2026: fixed the tabulation base case for zero, removed the shared mutable default argument from memoization, and added input validation. Memoization still consumes call-stack space; it does not make recursion depth unlimited.

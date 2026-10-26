@@ -1,121 +1,50 @@
 +++
+slug = "comparison-of-sorting-algorithms-using-python-decorators"
+lastmod = "2026-10-26"
 title = "Comparison of Sorting Algorithms using Python Decorators"
 description = "Measuring runtime of sorting algorithms using Python decorators"
 date = "2020-11-17"
 draft = false
-toc = false
+toc = true
 categories = ["python"]
 tags = ["python"]
 image = "decorators.jpg"
 +++
 
-So I needed to learn how to use decorators in Python.
-<!--more--->  I tried to come up with something within my current knowledge and since I was studying sorting algorithms, I decided to use decorators to measure how long each algorithm would take to complete and compare them. I know that it is kind of obvious which one is better in the proposed scenario for anyone with a Bachelor in Computer Science or any experienced developer, but the purpose here was to learn and develop my python skills.
+I wrote this exercise while learning Python decorators and sorting algorithms. The goal was to time an operation without putting timing code inside every algorithm.
 
-Decorators can be very useful when you need to add functionalities to an existing function/method/class, without having to change its code. Let's say you need to add an additional check, time the function or log but you are using a module instead of writing your own function, or you want to reuse the code more efficiently, then using decorators might be the way to go. 
+**Technical revision — October 2026:** the original decorator skipped recursive calls in MergeSort, and SelectionSort swapped elements outside its outer loop. Those implementations did not reliably sort the input, so their published timings were not a valid comparison. The corrected example below checks every result against Python's `sorted` before reporting a measurement.
 
-There are many other ways to use decorators that i still have to explore, like chained decorators for instance.
+## Time the outer operation
 
-I found a good post at https://kleiber.me/blog/2017/08/09/tutorial-decorator-primer/, where the author uses the same example I used (comparing sorting algorithms), but he used the `pygorithm.sorting` module, while I used my own functions.
+A decorator wraps a function and can add behavior around its execution. Here, `timed` returns the function's result and its elapsed time in seconds, measured with `perf_counter`. This intentionally changes the return contract to a pair; a timing decorator is not automatically transparent to its caller.
 
-![decorator](decorator_tutorial_code.png)
+MergeSort uses an undecorated recursive helper. Every recursive call executes normally, while the decorator times the complete outer operation once. SelectionSort swaps inside the outer loop, after finding the minimum of the remaining suffix. All three implementations modify the supplied list in place.
 
-There are many different ways to approach this, and we can always improve our older codes as we get better at a programming language. With that in mind, here's the code i came up with, using Python 3:
-```
-import random
-import functools
-import time
+## Corrected example
 
-# define the function to measure time
-def timeIt(func):
-    # wraps the function using functools
-    @functools.wraps(func)
-    def newfunc(*args, **kwargs):
-        # check to enter the function only once
-        if not hasattr(newfunc, '_entered'):
-            newfunc._entered = True
-            # starts the measurement
-            startTime = time.time()
-            func(*args, **kwargs)
-            # finishes the measurement
-            elapsedTime = time.time() - startTime
-            # prints the result
-            print('function [{}] finished in {} ms'.format(
-                func.__name__, int(elapsedTime * 1000)))
-            del newfunc._entered
-    return newfunc
+Download [sorting.py](sorting.py). It uses only the Python standard library.
 
-# the @ inserts decorator
-@timeIt
-def mergeSort(L):
-    if len(L) > 1:
-        mid = len(L) // 2
-        left = L[:mid]
-        right = L[mid:]
-        mergeSort(left)
-        mergeSort(right)
-        i = j = k = 0
-        while i < len(left) and j < len(right):
-            if left[i] < right[j]:
-                L[k] = left[i]
-                i += 1
-            else:
-                L[k] = right[j]
-                j += 1
-            k += 1
-        while i < len(left):
-            L[k] = left[i]
-            i += 1
-            k += 1
+{{< code-file file="sorting.py" lang="python" >}}
 
-        while j < len(right):
-            L[k] = right[j]
-            j += 1
-            k += 1
+Run it with:
 
-
-@timeIt
-def selectionSort(L):
-    for i in range(0, len(L)):
-        min_i = i
-        for right in range(i + 1, len(L)):
-            if L[right] < L[min_i]:
-                min_i = right
-    L[i], L[min_i] = L[min_i], L[i]
-
-
-@timeIt
-def bubbleSort(L):
-    elem = len(L) - 1
-    issorted = False
-    while not issorted:
-        issorted = True
-        for i in range(elem):
-            if L[i] > L[i + 1]:
-                L[i], L[i + 1] = L[i + 1], L[i]
-                issorted = False
-
-
-randomList = random.sample(range(5000), 5000)
-
-mergeSort(randomList.copy())
-selectionSort(randomList.copy())
-bubbleSort(randomList.copy())
+```bash
+python sorting.py
 ```
 
-And the results:
+## Reading the measurements
 
-```
-function [mergeSort] finished in 2 ms
-function [selectionSort] finished in 930 ms
-function [bubbleSort] finished in 2828 ms
-```
+The benchmark uses 1,000 distinct integers generated with seed 42, five repetitions per algorithm, and reports the median elapsed time. Each run starts with a fresh copy of the same list. Copying the input and verifying the result happen outside the timed section. The output records the Python version and operating-system architecture.
 
-ecco!
+These timings describe this implementation and this input on the machine running it. They are not a universal ranking: already sorted inputs, duplicates, interpreter versions and machine load affect measurements. Before drawing performance conclusions, repeat the comparison across those cases and include Python's built-in sort as a practical baseline.
 
-**References:**
+For these implementations, MergeSort takes O(n log n) time and O(n) auxiliary storage; SelectionSort takes O(n²) time. BubbleSort takes O(n²) in the worst case and stops early when a pass makes no swaps.
 
-https://docs.python.org/3/library/timeit.html
+The original invalid benchmark results have been removed. The executable example generates new measurements and refuses to report a timing for an incorrect result.
 
-https://stackoverflow.com/questions/5478351/python-time-measure-function
+## References
 
+- [Python: perf_counter](https://docs.python.org/3/library/time.html#time.perf_counter)
+- [Python: functools.wraps](https://docs.python.org/3/library/functools.html#functools.wraps)
+- [Python: timeit](https://docs.python.org/3/library/timeit.html)

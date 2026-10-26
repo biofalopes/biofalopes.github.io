@@ -1,4 +1,6 @@
 +++
+slug = "deploying-grafana-loki-on-kubernetes"
+lastmod = "2026-10-26"
 title = "Deploying Grafana Loki on Kubernetes"
 description = "Deploying Loki, a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus, on a seven-node on-premises Kubernetes cluster.  Includes detailed explanations and integration with Mimir and Grafana."
 date =  "2024-10-22"

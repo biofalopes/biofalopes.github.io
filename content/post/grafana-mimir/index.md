@@ -1,9 +1,11 @@
 +++
+slug = "deploying-grafana-mimir-on-kubernetes"
+lastmod = "2026-10-26"
 title = "Deploying Grafana Mimir on Kubernetes"
 description = "Deploying of Mimir, a horizontally scalable, highly available time series database, on a seven-node on-premises Kubernetes cluster."
 date =  "2024-11-19"
 draft = false
-toc = false
+toc = true
 categories = ["mimir", "kubernetes" ]
 tags = ["mimir", "kubernetes" ]
 image = "mimir.svg"

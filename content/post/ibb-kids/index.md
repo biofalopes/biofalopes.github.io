@@ -1,9 +1,11 @@
 +++
-title = "Production Engineering for Single-Node Edge Workloads: Zero-Downtime Releases, WAL Backups, and Native ARM Compilation"
-description = "A 10-month operational post-mortem on running a single-instance Node/SQLite workload on Oracle Linux ARM: zero-downtime releases, SQLite WAL backup verification, OCI Instance Principal integration, and native C++ cross-compilation."
+slug = "production-engineering-for-single-node-edge-workloads-zero-downtime-releases-wal-backups-and-native-arm-compilation"
+lastmod = "2026-10-26"
+title = "Production Engineering for Single-Node Workloads: Controlled Releases, SQLite Backups, and Native ARM Builds"
+description = "Lessons from operating a Node/SQLite workload on Oracle Linux ARM: versioned releases, consistent backups, OCI Instance Principals, and the limits of a single-host design."
 date = "2026-10-23"
 draft = false
-toc = false
+toc = true
 categories = ["SRE", "DevOps", "Production Engineering"]
 tags = ["SRE", "SQLite", "Node.js", "ARM64", "CI/CD", "OCI", "Linux", "TypeScript"]
 author = "Fabio M. Lopes"
@@ -15,7 +17,7 @@ I originally built IBB Kids as a volunteer project to streamline weekly classroo
 
 While the functional requirement was straightforward, the operational constraint was non-negotiable: **the system had to run at zero cost on an ARM-based cloud instance with near-zero maintenance overhead, while remaining reliable enough to be operated by non-technical volunteers.**
 
-Ten months after its initial launch, the core challenge shifted from feature development to **production engineering**: ensuring stateless JWT security, cross-compiling native C++ modules across heterogeneous architectures, executing atomic zero-downtime deployments, and achieving point-in-time database backup integrity without data corruption.
+Ten months after its initial launch, the core challenge shifted from feature development to **production engineering**: managing JWT session revocation, building native C++ modules for the target architecture, controlling releases, and verifying consistent database backups.
 
 This post documents the architectural decisions, resilience patterns, and operational lessons learned while running a single-node SQLite workload in production up to October 2026.
 
@@ -25,11 +27,11 @@ This post documents the architectural decisions, resilience patterns, and operat
 
 To maintain high delivery velocity while keeping my primary focus on system reliability, state consistency, and platform security, I adopted an **AI-augmented software engineering workflow**:
 
-* **Architectural Steering & Systems Design (Human):** I designed the system topology, multi-environment isolation model, database state transition rules, JWT session versioning schemes, SQLite WAL backup strategies, native C++ binding validation scripts, and automated CI/CD rollback pipelines.
+* **Architectural Steering & Systems Design (Human):** I designed the system topology, multi-environment isolation model, database state transition rules, JWT session versioning schemes, SQLite WAL backup strategies, native C++ binding validation scripts, and CI/CD rollback procedures.
 
 * **Code Implementation (Codex):** I leveraged OpenAI Codex as an execution engine to translate my technical specifications, API schemas, and architectural constraints into full-stack TypeScript (`React` + `Express` + `SQLite`) code.
 
-* **Validation & Production Hardening (Human):** I established the operational quality gates—including unit/integration testing with isolated in-memory SQLite instances, static security analysis via Semgrep SAST, build-id health checks, and cross-compilation checks for ARM64 Linux runtimes.
+* **Validation & Production Hardening (Human):** I established the operational quality gates—including unit/integration testing with isolated in-memory SQLite instances, static security analysis via Semgrep SAST, build-id health checks, and native binding checks for ARM64 Linux runtimes.
 
 This division of responsibilities allowed me to act as a **Tech Lead / Systems Architect**, focusing strictly on system resilience and operability without spending hundreds of hours writing boilerplate application code.
 
@@ -59,11 +61,11 @@ SQLite Database (WAL Mode: Schedule, Materials, Credentials)
 
 In development, Vite proxies `/api` calls to Express. In production, Vite is not running; Express directly serves optimized static assets alongside the API endpoints.
 
-To guarantee environment isolation, **Development** and **Production** co-exist on the same VM but operate with dedicated directories, internal ports, SQLite files, environment secrets, and PM2 instance names.
+**Development** and **Production** share the VM but use dedicated directories, internal ports, SQLite files, environment secrets, and PM2 process names. This separates application configuration and data; it does not isolate host failure, resource exhaustion or privileged access.
 
-## Native C++ Bindings & Cross-Compilation Across Environments
+## Native C++ Bindings Across Environments
 
-Developing on Windows via WSL2 (x86_64) and deploying to Oracle Linux ARM (ARM64) introduced cross-compilation friction—specifically when loading native C++ modules like `better-sqlite3` and `bcrypt`.
+Developing on Windows via WSL2 (x86_64) and deploying to Oracle Linux ARM (ARM64) introduced native-module compatibility problems—specifically when loading native C++ modules like `better-sqlite3` and `bcrypt`.
 
 A common failure mode in multi-platform deployments is the dreaded `invalid ELF header` error, caused by attempting to execute C++ binaries compiled for x86_64 inside an ARM64 Linux runtime (or sharing `node_modules` across WSL2 and host Windows filesystems).
 
@@ -84,20 +86,22 @@ npm test
 npm run build
 ```
 
+Rebuilding on the ARM server is native compilation for that server. Cross-compilation would mean building for ARM on a different target architecture with a suitable toolchain.
+
 The `prepare-native` script attempts to initialize an in-memory SQLite instance and test `bcrypt` hash routines. If native bindings fail to load due to an architecture mismatch, the script automatically invokes `node-gyp` to recompile C++ bindings against local system tools (using `GCC Toolset` and `Python 3.12`) before validating the result.
 
 ## SQLite in Production: WAL Mode, Backup Integrity, and OCI Sync
 
-SQLite is a fantastic engine for single-instance workloads, but copying a live `.sqlite` file directly while the process is running is a recipe for database corruption when Write-Ahead Logging (WAL) is enabled. Uncommitted WAL frames will be missed, leading to inconsistent state upon recovery.
+With WAL enabled, committed changes may still be in the WAL rather than the main database file. Copying only a live `.sqlite` file can miss those changes or capture an inconsistent copy. A backup must preserve a consistent committed state across SQLite's storage files.
 
 ```
 [ Live Application Writes ]
           ↓
    SQLite DB File + WAL Journal
           ↓
-[ SQLite Online Backup API ]  ---> Freezes Consistent Snapshot
+[ SQLite Online Backup API ]  ---> Copies Consistent Committed State
           ↓
-[ PRAGMA Integrity Checks ]   ---> Validates Headers & Foreign Keys
+[ PRAGMA Integrity Checks ]   ---> Checks Structure & Foreign Keys
           ↓
 [ Compressed Local Snapshot ]
           ↓
@@ -106,7 +110,7 @@ SQLite is a fantastic engine for single-instance workloads, but copying a live `
 
 ### 1. Online Backup API Execution
 
-Instead of raw file copies, backups utilize the **SQLite Online Backup API** (exposed via `better-sqlite3`). This locks the database safely in read-mode, flushes uncommitted WAL frames, and writes a point-in-time snapshot to a temporary file.
+Backups use the **SQLite Online Backup API**, exposed via `better-sqlite3`, to create a consistent database copy. It reads through SQLite, including committed data held in the WAL. It does not commit pending transactions or require a manual flush of uncommitted frames. Incremental backup steps acquire the locks needed for those steps. See the [SQLite backup documentation](https://sqlite.org/backup.html).
 
 ### 2. Automated Integrity Validation
 
@@ -125,7 +129,7 @@ Once validated locally, daily backup archives are streamed directly to a private
 
 To prevent security credential leaks, the VM relies on **OCI Instance Principals** (IAM dynamic group policies attached to the VM instance). No static private keys, AWS-style secret pairs, or cloud tokens exist in `.env` files or application code.
 
-### 4. Zero-Downtime Restores & State Purging
+### 4. Controlled Restore and Session Invalidation
 
 Restoring a backup automatically triggers:
 
@@ -133,27 +137,27 @@ Restoring a backup automatically triggers:
 
 2. A compulsory safety backup of the current live database.
 
-3. Graceful application process suspension via PM2 lock files.
+3. Entering a maintenance window, stopping the application and other database writers, and closing their database connections.
 
-4. Database file replacement and global JWT session version invalidation.
+4. Replacing the database using the restore procedure, handling WAL/SHM files as part of that offline replacement, and invalidating sessions.
 
 5. Application restart and automated `/health` check validation.
 
-## Process Management & Zero-Downtime Releases
+## Process Management and Controlled Releases
 
 Relying on `git pull` and in-place `npm restart` on a production server creates a window of downtime and risks leaving the application broken if native compilation or build steps fail halfway through.
 
-### Why PM2 Fork Mode Trumped Cluster Mode
+### Why I Chose PM2 Fork Mode
 
-While PM2 `cluster` mode is popular for horizontal scaling, our workload required single-process `fork` mode for three critical architectural reasons:
+I chose one application process to simplify this deployment. That was an operational choice, not a SQLite requirement:
 
-1. **SQLite Concurrency & Locking Constraints:** SQLite (`better-sqlite3`) operates as an embedded single-file database. Running multiple worker processes under PM2 `cluster` mode causes multi-process write contention, `SQLITE_BUSY` errors, and potential WAL index corruption.
-2. **TypeScript Loader (`tsx`) Hook Resolution:** Executing TypeScript directly via `tsx` requires custom Node.js loader hooks. PM2 cluster mode bypasses standard CLI loaders during `cluster.fork()`, causing socket binding failures.
-3. **Deterministic Node.js Runtime Isolation:** Clustered PM2 workers inherit the Node.js version of the running background PM2 daemon. Single-process `fork` mode allows specifying the explicit Node 22 binary path, decoupling application execution from ambient daemon state during runtime upgrades.
+1. **Write Contention:** SQLite supports multiple processes on the same host, with one writer at a time. Keeping one application process simplified transaction management for this workload. Multiple workers can be valid, but need short transactions, busy handling and workload testing. Contention alone is not evidence of database corruption. See [SQLite WAL concurrency](https://sqlite.org/wal.html).
+2. **Runtime and Loader Configuration:** Using `tsx` and PM2 together requires a tested interpreter and loader configuration. Fork mode reduced the number of moving parts in this setup; loader failures should not be generalized to every cluster-mode deployment.
+3. **Explicit Runtime Selection:** Recording the Node version and checking the interpreter used by PM2 makes runtime upgrades easier to diagnose. The daemon and application configuration still need to be checked together.
 
 ### Versioned Release Directories
 
-To achieve zero-downtime releases, deployments use **isolated release directories**:
+Deployments use **versioned release directories** to prepare a candidate without overwriting the currently deployed files:
 
 ```
 /opt/ibbkids/
@@ -172,7 +176,7 @@ To achieve zero-downtime releases, deployments use **isolated release directorie
 
 2. **Build & Prepare:** Dependencies are installed (`npm ci`), C++ native bindings are compiled (`npm run prepare-native`), unit tests run against an isolated SQLite instance, and Vite builds static assets.
 
-3. **PM2 Process Spawn:** The application is booted in PM2 `fork` mode using `tsx` and the explicitly configured Node 22 runtime.
+3. **Controlled Process Replacement:** The single application process is restarted against the candidate release using the configured Node runtime. This creates an interruption; its duration needs measurement.
 
 4. **Healthcheck Probe Verification:** The deployment script polls the `/health` endpoint. The endpoint returns a unique JSON payload containing the release commit SHA:
 
@@ -185,9 +189,11 @@ To achieve zero-downtime releases, deployments use **isolated release directorie
 }
 ```
 
-5. **Atomic Symlink Switch:** The script accepts the deployment *only* if the `deployId` matches the newly published SHA. Nginx requests are instantly routed to the new code path.
+5. **Release Acceptance:** Accept the candidate only if its health response contains the expected `deployId`. An atomic update of `current` selects a release directory, but does not by itself replace a running process or change Nginx's HTTP upstream.
 
-6. **Automated Rollback:** If the health check fails or times out, the deployment script aborts, re-points the symlink to the previous working release folder, restarts the old PM2 process, and preserves the database state.
+6. **Rollback:** If validation fails, return to the previous code release and restart it. This only works if the database schema remains compatible. A code rollback does not undo migrations or writes made by the candidate.
+
+A zero-interruption design would additionally require separate candidate and active endpoints, a health-gated proxy switch, connection draining and compatible database changes. None of those properties follows from a symlink switch alone. PM2 documents zero-downtime reload for [cluster-mode applications](https://pm2.keymetrics.io/docs/usage/cluster-mode/); this single-process procedure should be evaluated as a controlled restart.
 
 ## Stateful Security & Deterministic Session Invalidation
 
@@ -207,9 +213,9 @@ CREATE TABLE auth_state (
 
 1. Every issued JWT payload includes the current `sessionVersion` for that profile.
 
-2. Incoming API requests decode the token and cross-check its `sessionVersion` against the `auth_state` table in SQLite.
+2. Incoming requests verify the JWT signature, allowed algorithm, expiry and configured issuer/audience before checking `sessionVersion` against `auth_state`. Decoding alone is not authentication.
 
-3. When a user updates their password (or when a database restoration occurs), a single SQLite transaction updates the `bcrypt` password hash and increments `session_version`:
+3. When a user updates their password, a SQLite transaction updates the `bcrypt` password hash and increments `session_version`:
 
 ```sql
 BEGIN TRANSACTION;
@@ -218,7 +224,9 @@ UPDATE auth_state SET session_version = session_version + 1 WHERE profile = ?;
 COMMIT;
 ```
 
-This instantly invalidates **all active JWT tokens** across all devices for that specific profile in a single atomic database write.
+Tokens carrying the previous version are rejected on their next validation. Every protected request must perform that check; caches and long-lived connections require their own invalidation policy.
+
+A database restore can roll the version counter back and accidentally make an old token valid again. A restore procedure must also rotate the signing key or replace a session epoch held outside the restored database. Incrementing a restored counter alone is insufficient.
 
 ### CI/CD Security Analysis (Semgrep SAST)
 
@@ -239,19 +247,23 @@ Returning to the system after 10 months of real-world use provided concrete feed
 | **Material Management** | Teacher and Parent material links | Added **Visual Aids** tracking across database, APIs, and UI layers |
 | **Data Granularity** | Single count of incomplete lessons | **Split tracking** for missing Teacher, Parent, and Visual materials |
 | **Runtime & PM2 Isolation** | Hybrid Node 20 / Node 22 PM2 daemons | Unified across environments on **Node 22 LTS (ARM64)** using PM2 `fork` mode |
-| **Database Purging** | Manual SQL execution | Secure double-confirmation workflow with BCrypt authorization salt and mandatory local WAL snapshot |
+| **Database Purging** | Manual SQL execution | Password verification, explicit confirmation and a consistent safety backup before destructive changes |
 | **Backup Redundancy** | Local disk snapshots only | Local integrity-verified snapshots + **OCI Object Storage sync via IAM Instance Principals** |
-| **Test & Security Coverage** | Basic build checks | **48 automated unit tests** + **74 Semgrep SAST rules** across 37 JS/TS files |
+| **Test & Security Coverage** | Basic build checks | Unit tests and Semgrep checks; counts vary with the revision and should be read from the matching CI run |
 
 ## Key Takeaways for SREs and Platform Engineers
 
-1. **Single-Node Architectures Can Be Resilient:** You don't always need a multi-node Kubernetes cluster to achieve high availability. When engineered with WAL-aware backups, atomic directory-based releases, and process isolation, single-node systems offer incredible stability at zero cloud cost.
+1. **Recovery and Availability Are Different:** Backups and versioned releases improve recovery, but one host remains a single failure domain. Host maintenance or failure can take the application offline. Record recovery tests and measured downtime before claiming an availability target.
 
 2. **Treat AI as a Force Multiplier, Not a Black Box:** Delegating code generation to tools like Codex works best when the engineer owns the system architecture, boundary constraints, test design, and failure modes.
 
-3. **Align Process Management with Data Constraints:** Single-writer databases like SQLite require single-process (`fork` mode) execution to avoid multi-process file contention (`SQLITE_BUSY`), while ensuring clean TypeScript loader resolution and Node runtime isolation.
+3. **Choose Process Management Deliberately:** One process simplified this workload. SQLite can also serve multiple local processes; concurrency settings, transaction length and observed contention should guide that choice.
 
-4. **Never Trust Raw File Copies on Active Databases:** Always leverage native backup APIs (like SQLite's Online Backup API) to ensure uncommitted WAL frames are safely flushed before snapshotting or shipping data off-site.
+4. **Test Restores, Not Just Backup Creation:** Create a consistent backup through SQLite, check its integrity, and periodically restore it into an isolated environment. Integrity checks alone do not demonstrate that the application can recover within the required time.
+
+## Revision note
+
+October 2026: corrected the explanations of WAL backups, concurrency and native compilation. This article describes a single-host operational design, not a demonstrated zero-downtime or highly available deployment. Availability, restore duration and CI counts need evidence from the corresponding release.
 
 ## References
 

@@ -1,0 +1,7 @@
+{{- $file := .Get "file" -}}
+{{- $language := .Get "lang" | default "text" -}}
+{{- with .Page.Resources.GetMatch $file -}}
+    {{- highlight .Content $language "" -}}
+{{- else -}}
+    {{- errorf "Missing code resource %q in %s" $file .Page.File.Path -}}
+{{- end -}}
