@@ -1,0 +1,7 @@
+{{ $labels := index hugo.Data.interface .Language.Name }}
+{{ $current := . }}
+{{ range $item := slice (dict "path" "/" "label" $labels.home) (dict "path" "page/projects" "label" $labels.work) (dict "path" "post" "label" $labels.articles) (dict "path" "page/about" "label" $labels.about) (dict "path" "page/search" "label" $labels.search) }}
+    {{ with $current.Site.GetPage $item.path }}
+        <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $current.RelPermalink }}aria-current="page"{{ end }}>{{ $item.label }}</a>
+    {{ end }}
+{{ end }}

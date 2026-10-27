@@ -1,0 +1,51 @@
+{{ define "body-class" }}portfolio-home{{ end }}
+{{ define "main" }}
+    {{ $labels := index hugo.Data.interface .Language.Name }}
+    {{ $pages := where .Site.RegularPages "Section" "in" .Site.Params.mainSections }}
+    {{ $paginator := .Paginate $pages }}
+    {{ if eq $paginator.PageNumber 1 }}
+        <section class="portfolio-hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>{{ $labels.eyebrow }}</p>
+                <h1 id="hero-title">{{ $labels.headline }}</h1>
+                <p class="hero-intro">{{ $labels.intro }}</p>
+                <div class="hero-actions">
+                    {{ with .Site.GetPage "page/projects" }}<a class="button-primary" href="{{ .RelPermalink }}">{{ $labels.explore }} <span aria-hidden="true">↗</span></a>{{ end }}
+                    <a class="text-link" href="https://linkedin.com/in/fabiomlopes">{{ $labels.contact }} <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="hero-byline">
+                    {{ $avatar := resources.Get "img/avatar.png" }}
+                    {{ $avatar = $avatar.Fill "96x96 webp" }}
+                    <img src="{{ $avatar.RelPermalink }}" width="48" height="48" alt="Fabio Lopes">
+                    <p><strong>{{ $labels.experience }}</strong><span>{{ $labels.location }}</span></p>
+                </div>
+            </div>
+            <div class="engineering-board" aria-label="{{ $labels.approach }}">
+                <div class="board-heading"><span class="status-dot" aria-hidden="true"></span><span>{{ $labels.approach }}</span><span aria-hidden="true">↗</span></div>
+                {{ range $index, $row := slice (dict "title" $labels.design "body" $labels.designBody) (dict "title" $labels.build "body" $labels.buildBody) (dict "title" $labels.operate "body" $labels.operateBody) }}
+                    <div class="engineering-layer"><span class="layer-number">0{{ add $index 1 }}</span><div><strong>{{ .title }}</strong><p>{{ .body }}</p></div><span class="layer-node" aria-hidden="true"></span></div>
+                {{ end }}
+                <div class="board-footer"><span>Kubernetes · Terraform · Linux</span><span aria-hidden="true">[ / ]</span></div>
+            </div>
+        </section>
+        <section class="selected-work" aria-labelledby="work-title">
+            <div class="section-heading"><div><p class="eyebrow">{{ $labels.work }}</p><h2 id="work-title">{{ $labels.workIntro }}</h2></div></div>
+            {{ partial "portfolio/work.html" . }}
+        </section>
+    {{ end }}
+    <section class="field-notes" aria-labelledby="notes-title">
+        <div class="section-heading"><div><p class="eyebrow">{{ if eq $paginator.PageNumber 1 }}{{ $labels.latest }}{{ else }}{{ $labels.moreNotes }}{{ end }}</p><h2 id="notes-title">{{ $labels.latestIntro }}</h2></div>{{ with .Site.GetPage "page/archives" }}<a class="text-link" href="{{ .RelPermalink }}">{{ $labels.allArticles }} <span aria-hidden="true">↗</span></a>{{ end }}</div>
+        <div class="note-list">
+            {{ range $paginator.Pages }}
+                <article class="note-row">
+                    <div class="note-date"><time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date | time.Format ":date_medium" }}</time><span>{{ .ReadingTime }} {{ $labels.minutes }}</span></div>
+                    <div class="note-copy"><p class="note-category">{{ delimit (first 2 .Params.categories) " / " }}</p><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ .Description | truncate 180 }}</p></div>
+                    <a class="note-arrow" href="{{ .RelPermalink }}" aria-label="{{ $labels.read }}: {{ .Title }}">↗</a>
+                </article>
+            {{ end }}
+        </div>
+    </section>
+    {{ partial "pagination.html" . }}
+    {{ partial "footer/footer.html" . }}
+{{ end }}
+{{ define "right-sidebar" }}{{ end }}

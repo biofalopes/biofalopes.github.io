@@ -1,0 +1,7 @@
+{{ define "body-class" }}portfolio-projects{{ end }}
+{{ define "main" }}
+    {{ $labels := index hugo.Data.interface .Language.Name }}
+    <header class="page-intro"><p class="eyebrow">{{ $labels.work }}</p><h1>{{ $labels.workTitle }}</h1><p>{{ $labels.workDescription }}</p></header>
+    {{ partial "portfolio/work.html" . }}
+    {{ partial "footer/footer.html" . }}
+{{ end }}

@@ -1,6 +1,7 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Fabio Lopes — Cloud, Platforms & SRE",
+    "short_name": "Fabio Lopes",
+    "start_url": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +14,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#142f3f",
+    "background_color": "#f6f8f7",
     "display": "standalone"
 }

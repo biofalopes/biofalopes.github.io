@@ -5,6 +5,7 @@
 /hugo_stats.json
 /.cache/
 /assets/jsconfig.json
+/.tools/
 
 # Local Hugo executable
 /hugo.exe

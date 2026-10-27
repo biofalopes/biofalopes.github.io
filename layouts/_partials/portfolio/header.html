@@ -1,0 +1,29 @@
+{{ $labels := index hugo.Data.interface .Language.Name }}
+<header class="site-header">
+    <div class="header-inner">
+        <a class="wordmark" href="{{ .Site.Home.RelPermalink }}" aria-label="Fabio Lopes — {{ $labels.home }}">
+            <span class="brand-mark" aria-hidden="true">fl<span>.</span></span>
+            <span>Fabio Lopes<small>Cloud · Platforms · SRE</small></span>
+        </a>
+        <nav class="desktop-nav" aria-label="{{ $labels.menu }}">
+            {{ partial "portfolio/nav.html" . }}
+        </nav>
+        <div class="header-tools">
+            <div class="language-links" aria-label="Language">
+                {{ range .Site.Home.AllTranslations }}
+                    {{ $target := . }}
+                    {{ range $.AllTranslations }}{{ if eq .Language.Name $target.Language.Name }}{{ $target = . }}{{ end }}{{ end }}
+                    <a href="{{ $target.RelPermalink }}" lang="{{ .Language.Locale }}" hreflang="{{ .Language.Locale }}" {{ if eq .Language.Name $.Language.Name }}aria-current="true"{{ end }}>{{ if eq .Language.Name "en" }}EN{{ else }}PT{{ end }}</a>
+                {{ end }}
+            </div>
+            <button id="dark-mode-toggle" class="theme-button" type="button" aria-label="{{ $labels.theme }}" title="{{ $labels.theme }}">
+                <span class="theme-sun" aria-hidden="true">{{ partial "helper/icon" "sun" }}</span>
+                <span class="theme-moon" aria-hidden="true">{{ partial "helper/icon" "moon" }}</span>
+            </button>
+            <details class="mobile-navigation">
+                <summary aria-label="{{ $labels.menu }}">{{ partial "helper/icon" "menu-2" }}</summary>
+                <nav aria-label="{{ $labels.menu }}">{{ partial "portfolio/nav.html" . }}</nav>
+            </details>
+        </div>
+    </div>
+</header>

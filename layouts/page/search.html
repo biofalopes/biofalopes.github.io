@@ -1,0 +1,18 @@
+{{ define "body-class" }}template-search{{ end }}
+{{ define "head" }}
+    {{ with .OutputFormats.Get "json" }}<link rel="preload" href="{{ .RelPermalink }}" as="fetch" crossorigin="anonymous">{{ end }}
+{{ end }}
+{{ define "main" }}
+    {{ $labels := index hugo.Data.interface .Language.Name }}
+    <header class="page-intro"><p class="eyebrow">{{ $labels.articles }}</p><h1>{{ $labels.search }}</h1><p>{{ $labels.searchIntro }}</p></header>
+    <form action="{{ .RelPermalink }}" class="search-form" {{ with .OutputFormats.Get "json" }}data-json="{{ .RelPermalink }}"{{ end }}>
+        <p><label for="article-search">{{ $labels.search }}</label><input id="article-search" type="search" name="keyword" placeholder="{{ T `search.placeholder` }}" autocomplete="off"></p>
+        <button type="submit" title="{{ $labels.search }}" aria-label="{{ $labels.search }}">{{ partial "helper/icon" "search" }}</button>
+    </form>
+    <div class="search-result hidden" aria-live="polite"><h2 class="search-result--title section-title"></h2><div class="search-result--list article-list--compact"></div></div>
+    <script>window.searchResultTitleTemplate = "{{ T `search.resultTitle` }}";</script>
+    {{ $options := dict "minify" hugo.IsProduction "JSXFactory" "createElement" }}
+    {{ $script := resources.Get "ts/search.tsx" | js.Build $options | fingerprint "sha384" }}
+    <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+    {{ partial "footer/footer.html" . }}
+{{ end }}
