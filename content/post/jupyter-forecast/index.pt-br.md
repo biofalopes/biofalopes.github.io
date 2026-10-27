@@ -39,7 +39,7 @@ Projeções decrescentes têm piso em zero. O uso projetado não é limitado à 
 
 ## Executar localmente
 
-Baixe [forecast.py](forecast.py) e [sample.csv](sample.csv) no mesmo diretório. A amostra contém **dados sintéticos** com crescimento de 10 TiB/dia, sem métricas operacionais. Python 3.10+ é suficiente para o fluxo principal.
+Baixe {{< resource-link file="forecast.py" >}} e {{< resource-link file="sample.csv" >}} no mesmo diretório. A amostra contém **dados sintéticos** com crescimento de 10 TiB/dia, sem métricas operacionais. Python 3.10+ é suficiente para o fluxo principal.
 
 ```bash
 python forecast.py --csv sample.csv --horizon 90 --output forecast-output

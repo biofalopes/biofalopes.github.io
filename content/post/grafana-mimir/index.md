@@ -1,8 +1,8 @@
 +++
 slug = "deploying-grafana-mimir-on-kubernetes"
-lastmod = "2026-10-26"
+lastmod = "2026-10-27"
 title = "Deploying Grafana Mimir on Kubernetes"
-description = "Deploying of Mimir, a horizontally scalable, highly available time series database, on a seven-node on-premises Kubernetes cluster."
+description = "Deploying a classic Mimir metrics backend with Rook Ceph: versioned Helm values, S3 credentials, authentication and verification boundaries."
 date =  "2024-11-19"
 draft = false
 toc = true
@@ -12,290 +12,78 @@ image = "mimir.svg"
 author = "Fabio M. Lopes"
 +++
 
-This document details the deployment of Mimir, a horizontally scalable, highly available time series database, on a seven-node on-premises Kubernetes cluster. The cluster, running AlmaLinux on bare-metal servers with a combined storage capacity of approximately 300TB, leverages Rook Ceph for storage management. This deployment will serve as a central repository for metrics gathered from multiple Prometheus servers, providing a robust and scalable solution for long-term metric storage and analysis. The configuration emphasizes high availability and resilience, leveraging the resources of the seven-node cluster to ensure optimal performance and minimize potential single points of failure. Specific configurations and considerations regarding resource allocation, storage management, and security are outlined in the following sections.
+I deployed Mimir alongside Loki and Grafana on a seven-node AlmaLinux Kubernetes cluster, using Rook Ceph as S3-compatible object storage. Mimir provided a central metrics backend for multiple Prometheus servers. Loki handled logs through a separate ingestion and storage path.
 
-**1. Helm Repository Addition and Update:**
+**Technical revision — October 2026:** this revision corrects the Helm chart and argument order, the Ceph Secret name, and bucket commands that omitted the Ceph endpoint. It also separates a historical configuration example from claims that require runtime and failure testing.
+
+## Architecture and versions
+
+Prometheus sends metrics to Mimir using remote write. Grafana queries Mimir using PromQL. In the classic architecture, ingesters receive samples and produce blocks that are stored in object storage; store gateways make those blocks available to the query path. This is not a log-storage backend for Loki.
+
+The downloadable [values.yaml](values.yaml) targets **grafana/mimir-distributed chart 5.6.0, Mimir 2.15.0**, rendered for Kubernetes 1.30 with Helm 3.17.3. These versions define a reproducible historical reference for this revision; they are not asserted to be the exact versions from the original deployment or a current production baseline.
+
+Current Mimir charts use a newer ingest-storage architecture by default. Follow the [current deployment guide](https://grafana.com/docs/mimir/latest/set-up/helm-chart/) for a new installation, and review Kafka and migration requirements before moving from classic architecture.
+
+{{< code-file file="values.yaml" lang="yaml" >}}
+
+The sample enables tenant isolation, uses separate buckets for blocks, ruler and Alertmanager state, and injects credentials through a Kubernetes Secret. It disables the bundled MinIO and the historical Grafana Agent metamonitoring integration.
+
+Zone-aware replication is disabled explicitly. The three ingesters and store gateways, two query components and routing replicas are illustrative topology choices, not evidence of high availability. Verify anti-affinity, replication, available nodes, PVC placement and disruption behavior. Resource requests, limits, caches and disk sizing still need to match measured series cardinality, ingestion rate, retention and query load.
+
+## Ceph identity and buckets
+
+Use a dedicated Ceph user with restricted access to the three Mimir buckets. If Rook manages a `CephObjectStoreUser` named `mimir` for `object-store`, its Secret is:
 
 ```bash
-helm repo add grafana https://grafana.github.io/helm-charts 
+kubectl -n rook-ceph describe secret rook-ceph-object-user-object-store-mimir
+```
+
+The old example incorrectly read the Loki user's Secret. Keep these identities separate. Through your secret-management workflow, provide a `mimir-s3` Secret in namespace `mimir` with `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. The chart injects these values and enables environment expansion. The source values file contains variable references rather than real key material.
+
+Create the buckets against the actual Ceph endpoint. This Bash example assumes an AWS CLI profile `ceph-mimir` with that user's credentials:
+
+```bash
+export AWS_PROFILE=ceph-mimir
+export CEPH_S3_ENDPOINT=https://s3.example.com
+# For an internal CA:
+# export AWS_CA_BUNDLE=/path/to/internal-ca.pem
+for bucket in mimir-blocks mimir-ruler mimir-alertmanager; do
+  aws --endpoint-url "$CEPH_S3_ENDPOINT" --region us-east-1 s3 mb "s3://$bucket"
+done
+```
+
+Unlike the AWS CLI URL, the Mimir S3 `endpoint` field in this example uses `host:port`, without a scheme; `insecure: false` selects TLS. Configure trusted certificates for the Mimir containers as well as the CLI. Do not bypass certificate validation to work around a missing internal CA.
+
+## Render before installing
+
+Download `values.yaml`, adapt the endpoint, DNS and StorageClass, and render the exact chart:
+
+```bash
+helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
+helm template mimir grafana/mimir-distributed --version 5.6.0   --namespace mimir --kube-version 1.30.0 -f values.yaml > rendered.yaml
 ```
 
-**2. Custom `values.yaml` Configuration:**
-
-This `values.yaml` file customizes the Mimir deployment. Key customizations are noted below.
-
-```yaml
-metaMonitoring:
-  serviceMonitor:
-    enabled: true
-  grafanaAgent:
-    enabled: true
-    installOperator: false
-    logs:
-      remote:
-        url: "http://loki-gateway.loki.svc/loki/api/v1/push"
-    metrics:
-      remote:
-        url: "https://kube-prometheus-stack-prometheus.monitoring.svc:9090/api/v1/push" 
-        headers:
-          X-Scope-OrgID: metamonitoring
-
-global:
-  dnsService: coredns
-  dnsNamespace: kube-system
-  clusterDomain: sp-logs.
-
-mimir:
-  structuredConfig:
-    limits:
-      max_global_series_per_user: 1000000
-    common:
-      storage:
-        backend: s3 
-        s3:
-          endpoint: rook-ceph-rgw-object-store.rook-ceph.svc.sp-logs
-          region: us-east-1
-          secret_access_key: <secret_key> 
-          access_key_id: <access_key> 
-    blocks_storage:
-      s3:
-        bucket_name: mimir-blocks
-    alertmanager_storage:
-      s3:
-        bucket_name: mimir-alertmanager
-    ruler_storage:
-      s3:
-        bucket_name: mimir-ruler
-
-# The following sections define resource limits and replicas for different Mimir components.  The replica counts (especially `ingester` and `index-cache` set to 7) are customized to match the 7-node cluster.  Adjust based on your needs.  Also note the generous resource limits, especially for `ingester`.  These should be adjusted based on the expected load.
-
-alertmanager:
-  persistentVolume:
-    enabled: true
-  replicas: 2
-  resources:
-    limits:
-      memory: 1.4Gi
-    requests:
-      cpu: 1
-      memory: 1Gi
-  statefulSet:
-    enabled: true
-
-compactor:
-  persistentVolume:
-    size: 20Gi
-  resources:
-    limits:
-      memory: 2.1Gi
-    requests:
-      cpu: 1
-      memory: 1.5Gi
-
-distributor:
-  replicas: 2
-  resources:
-    limits:
-      memory: 5.7Gi
-    requests:
-      cpu: 2
-      memory: 4Gi
-
-ingester:
-  persistentVolume:
-    size: 50Gi
-  replicas: 7
-  resources:
-    limits:
-      memory: 12Gi 
-    requests:
-      cpu: 3.5
-      memory: 8Gi
-  topologySpreadConstraints: {}
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: target
-                operator: In
-                values:
-                  - ingester
-          topologyKey: 'kubernetes.io/hostname'
-
-        - labelSelector:
-            matchExpressions:
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                  - ingester
-          topologyKey: 'kubernetes.io/hostname'
-
-  zoneAwareReplication:
-    topologyKey: 'kubernetes.io/hostname'
-
-# other Mimir configurations:
-admin-cache:
-  enabled: true
-  replicas: 2
-
-chunks-cache:
-  enabled: true
-  replicas: 2
-
-index-cache:
-  enabled: true
-  replicas: 7
-
-metadata-cache:
-  enabled: true
-
-results-cache:
-  enabled: true
-  replicas: 2
-
-minio:
-  enabled: false
-
-overrides_exporter:
-  replicas: 1
-  resources:
-    limits:
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
-querier:
-  replicas: 1
-  resources:
-    limits:
-      memory: 5.6Gi
-    requests:
-      cpu: 2
-      memory: 4Gi
-
-query_frontend:
-  replicas: 1
-  resources:
-    limits:
-      memory: 2.8Gi
-    requests:
-      cpu: 2
-      memory: 2Gi
-
-ruler:
-  replicas: 1
-  resources:
-    limits:
-      memory: 2.8Gi
-    requests:
-      cpu: 1
-      memory: 2Gi
-
-store_gateway:
-  persistentVolume:
-    size: 10Gi
-  replicas: 2
-  resources:
-    limits:
-      memory: 2.1Gi
-    requests:
-      cpu: 1
-      memory: 1.5Gi
-  topologySpreadConstraints: {}
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: target
-                operator: In
-                values:
-                  - store-gateway
-          topologyKey: 'kubernetes.io/hostname'
-
-        - labelSelector:
-            matchExpressions:
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                  - store-gateway
-          topologyKey: 'kubernetes.io/hostname'
-  zoneAwareReplication:
-    topologyKey: 'kubernetes.io/hostname'
-
-nginx:
-  replicas: 1
-  resources:
-    limits:
-      memory: 731Mi
-    requests:
-      cpu: 1
-      memory: 512Mi
-  ingress:
-    enabled: true
-    annotations: {}
-    hosts:
-      - host: mimir.mydomain
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - hosts:
-          - mimir.mydomain
-```
-
-**3. Ceph Object Store User Creation:**
-
-This section describes creating a user for Mimir in the Rook Ceph object store. Using a Kubernetes manifest is the preferred approach over `radosgw-admin`.
-
-```yaml
-apiVersion: ceph.rook.io/v1
-kind: CephObjectStoreUser
-metadata:
-  name: mimir
-  namespace: rook-ceph
-spec:
-  store: object-store
-  displayName: mimir
-  capabilities:
-    user: "*"
-    bucket: "*"
-```
+After reviewing the manifests and target environment, the historical installation command is:
 
 ```bash
-k apply -f CephObjectStoreUser.yaml
+helm upgrade --install mimir grafana/mimir-distributed --version 5.6.0   --namespace mimir --create-namespace -f values.yaml --wait --timeout 10m
 ```
 
-**4. Retrieving S3 Access Keys:**
+The release is `mimir` and the chart is `grafana/mimir-distributed`. Local lint and rendering passed during this revision. No cluster installation, object-store connection or failure test was performed.
 
-The command below retrieves the S3 access keys from the Kubernetes secret.
+## Secure the write and query paths
 
-```bash
-k -n rook-ceph get secret rook-ceph-object-user-object-store-loki -oyaml
-```
+Mimir uses `X-Scope-OrgID` to identify a tenant. An authenticating reverse proxy must authorize clients and control the tenant header. Enabling multi-tenancy does not by itself authenticate callers. See [Mimir authentication and authorization](https://grafana.com/docs/mimir/latest/manage/secure/authentication-and-authorization/).
 
-**5. Bucket Creation:**
+Configure Prometheus remote write to the authenticated Mimir endpoint at `/api/v1/push`; configure the Grafana Prometheus data source to the authenticated query endpoint with the `/prometheus` prefix. Match credentials and tenant identity at the proxy. The old metamonitoring example pointed to a Prometheus service as if it were Mimir; that configuration has been removed.
 
-The following commands create the necessary S3 buckets.  **Note the use of `--no-verify-ssl`.**
+Before using the service, verify:
 
-```bash
-aws --no-verify-ssl s3 mb s3://mimir-blocks --region us-east-1
-aws --no-verify-ssl s3 mb s3://mimir-ruler --region us-east-1
-aws --no-verify-ssl s3 mb s3://mimir-alertmanager --region us-east-1
-```
+- Pod readiness, ring membership, PVCs and placement across the intended failure domains.
+- A known metric written through Prometheus and queried through Grafana, including the correct tenant.
+- Bucket access, successful block uploads and queries for data older than the ingesters' recent window.
+- Rejection of unauthorized requests and cross-tenant access attempts.
+- Restarts, node failure, recovery, retention and resource usage under representative load.
 
-**6. Mimir Installation:**
-
-This command installs Mimir using the customized `values.yaml` file.
-
-```bash
-helm install --namespace mimir grafana/mimir mimir -f values.yaml
-```
-
-**Security Considerations:**
-
-* **Hardcoded Credentials:**  The `values.yaml` file contains hardcoded AWS access keys. This is a major security vulnerability.  Use Kubernetes Secrets to manage these credentials securely.
-* **Authentication:** Authentication is initially disabled.  Enabling authentication is crucial for security and multi-tenancy, ans you should enable it as soon as everything is working smoothly. By the time i wrote this, i wasn´t there yet.
+The storage cluster's total disk capacity does not determine Mimir's replica count. Ingestion rate, active series, retention and query behavior are the inputs to sizing. A successful Helm render is a useful first check; operational claims require the runtime evidence above.

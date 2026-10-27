@@ -39,7 +39,7 @@ Negative-growth projections are floored at zero. Projections are not capped at c
 
 ## Run the example locally
 
-Download [forecast.py](forecast.py) and [sample.csv](sample.csv) into the same directory. The sample contains **synthetic data** growing by 10 TiB/day; it contains no operational metrics. Python 3.10+ is sufficient for the core workflow.
+Download {{< resource-link file="forecast.py" >}} and {{< resource-link file="sample.csv" >}} into the same directory. The sample contains **synthetic data** growing by 10 TiB/day; it contains no operational metrics. Python 3.10+ is sufficient for the core workflow.
 
 ```bash
 python forecast.py --csv sample.csv --horizon 90 --output forecast-output

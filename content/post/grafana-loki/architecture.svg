@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="480" viewBox="0 0 1100 480" role="img" aria-labelledby="title desc">
+  <title id="title">Separate log and metric paths through Loki and Mimir</title>
+  <desc id="desc">Log collectors send to Loki and its Ceph buckets. Prometheus sends metrics to Mimir and separate Ceph buckets. Grafana queries both services.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#52647b"/></marker>
+  </defs>
+  <rect width="1100" height="480" fill="#f4f7fb"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="550" y="44" font-size="25" font-weight="700" fill="#172d49">Logs and metrics: separate storage paths</text>
+    <g fill="#fff" stroke="#9aacc3" stroke-width="2">
+      <rect x="35" y="115" width="215" height="85" rx="12"/>
+      <rect x="35" y="285" width="215" height="85" rx="12"/>
+      <rect x="440" y="115" width="190" height="85" rx="12"/>
+      <rect x="440" y="285" width="190" height="85" rx="12"/>
+      <rect x="810" y="115" width="245" height="85" rx="12"/>
+      <rect x="810" y="285" width="245" height="85" rx="12"/>
+      <rect x="440" y="215" width="190" height="55" rx="12"/>
+    </g>
+    <g stroke="#52647b" stroke-width="2" fill="none" marker-end="url(#arrow)">
+      <path d="M250 157H440"/><path d="M630 157H810"/>
+      <path d="M250 327H440"/><path d="M630 327H810"/>
+      <path d="M535 215V200"/><path d="M535 270V285"/>
+    </g>
+    <g fill="#172d49" font-size="21" font-weight="600">
+      <text x="142" y="151">Log collector</text><text x="142" y="321">Prometheus</text>
+      <text x="535" y="151">Loki</text><text x="535" y="321">Mimir</text>
+      <text x="932" y="151">Ceph S3</text><text x="932" y="321">Ceph S3</text>
+      <text x="535" y="250">Grafana</text>
+    </g>
+    <g fill="#52647b" font-size="16">
+      <text x="142" y="177">log files / streams</text><text x="142" y="347">metrics / remote write</text>
+      <text x="535" y="177">logs / LogQL</text><text x="535" y="347">metrics / PromQL</text>
+      <text x="932" y="177">Loki buckets</text><text x="932" y="347">Mimir buckets</text>
+      <text x="345" y="135">authenticate</text><text x="345" y="305">authenticate</text>
+      <text x="550" y="430">Gateways authorize clients and control tenant identity on each path.</text>
+    </g>
+  </g>
+</svg>

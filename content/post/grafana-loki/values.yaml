@@ -69,13 +69,19 @@ compactor:
   replicas: 1
   persistence:
     enabled: true
-    size: 10Gi
-    storageClass: rook-ceph-block
+    claims:
+      - name: data
+        size: 10Gi
+        storageClass: rook-ceph-block
   extraArgs: *expandEnv
   extraEnvFrom: *storageEnv
 indexGateway:
   replicas: 2
   maxUnavailable: 1
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClass: rook-ceph-block
   extraArgs: *expandEnv
   extraEnvFrom: *storageEnv
 gateway:

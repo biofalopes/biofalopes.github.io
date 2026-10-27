@@ -1,0 +1,7 @@
+{{- $file := .Get "file" -}}
+{{- $label := .Get "label" | default $file -}}
+{{- with .Page.Resources.GetMatch $file -}}
+    <a href="{{ .RelPermalink }}">{{ $label }}</a>
+{{- else -}}
+    {{- errorf "Missing download resource %q in %s" $file .Page.File.Path -}}
+{{- end -}}

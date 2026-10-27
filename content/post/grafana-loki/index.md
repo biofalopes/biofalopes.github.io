@@ -1,272 +1,100 @@
 +++
 slug = "deploying-grafana-loki-on-kubernetes"
-lastmod = "2026-10-26"
+lastmod = "2026-10-27"
 title = "Deploying Grafana Loki on Kubernetes"
-description = "Deploying Loki, a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus, on a seven-node on-premises Kubernetes cluster.  Includes detailed explanations and integration with Mimir and Grafana."
+description = "Lessons from deploying Loki with Rook Ceph object storage: log architecture, tenant isolation, versioned Helm configuration and operational checks."
 date =  "2024-10-22"
 draft = false
 toc = true
 categories = ["loki", "kubernetes", "grafana"]
 tags = ["loki", "kubernetes", "grafana", "log aggregation", "monitoring"]
-image = "logs-loki-diagram.svg"
+image = "architecture.svg"
 author = "Fabio M. Lopes"
 +++
 
-This document details the deployment of Loki, a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus, on a seven-node on-premises Kubernetes cluster.  We'll explore not only the Loki deployment itself but also its integration with Mimir (for long-term log storage) and Grafana (for visualization and querying). The cluster, running AlmaLinux on bare-metal servers with a combined storage capacity of approximately 300TB, leverages Rook Ceph for storage management.  This deployment will serve as a central repository for logs gathered from multiple Promtail endpoints, primarily for Ceph clusters, providing a robust and scalable solution for long-term log storage and analysis. The configuration emphasizes high availability and resilience, leveraging the resources of the seven-node cluster to ensure optimal performance and minimize potential single points of failure.  Specific configurations and considerations regarding resource allocation, storage management, and security are outlined in the following sections.
+I deployed Loki as part of an observability platform on a seven-node, AlmaLinux bare-metal Kubernetes cluster, using Rook Ceph for object storage. The goal was to centralize logs from infrastructure services, including Ceph and HAProxy, and query them through Grafana.
 
+**Technical revision — October 2026:** the original article incorrectly described Mimir as Loki's log-storage backend and reversed the release/chart arguments in the installation command. The architecture and commands below correct those errors. The versioned example is a historical reference, not a recommendation to start a new production deployment on these releases.
 
-**Understanding Loki's Architecture**
+## Where logs and metrics go
 
-Before diving into the deployment, let's understand Loki's core components:
+Loki ingests and queries **logs**. Mimir ingests and queries **Prometheus metrics**. Each uses its own buckets in the S3-compatible Ceph object store; Grafana queries both as separate data sources. Mimir is not in Loki's log-storage path.
 
-* **Promtail:**  This is Loki's agent. It runs on your application servers and collects logs, sending them to the Loki stack.  It supports various log formats and can be configured to scrape logs from files, systemd journals, and more.
+```text
+Log files → collector → authenticating gateway → Loki → Ceph S3 log buckets
+Prometheus → authenticating gateway → Mimir → Ceph S3 metric buckets
+Grafana → Loki (LogQL) and Mimir (PromQL)
+```
 
-* **Distributor:** This component receives log streams from Promtail and distributes them to the Ingesters.  It acts as a load balancer, ensuring even distribution across the Ingester cluster.
+Loki's distributors accept writes and route them to ingesters. Ingesters maintain recent data and write chunks to object storage. Queriers retrieve log data from ingesters and storage; query frontends and schedulers coordinate query work. The compactor handles index compaction and, when explicitly configured, retention.
 
-* **Ingester:** These components receive and process the log streams. They perform tasks such as label indexing and chunk creation.  The number of Ingesters should scale with the volume of logs ingested.
+Labels identify streams. High-cardinality labels can greatly increase stream count and index overhead; they should not be described as creating one index shard per label. Keep labels bounded and use log content or structured metadata for values such as request IDs.
 
-* **Querier:** This component handles log queries.  It receives queries from clients (like Grafana) and retrieves the relevant log data from the storage backend (in this case, Mimir).
+## Versioned configuration
 
-* **Compactor:**  This component merges and compresses log chunks, optimizing storage space over time.
+The downloadable [values.yaml](values.yaml) targets **grafana/loki chart 6.24.0, Loki 3.3.2**, with a Kubernetes 1.30 rendering target. These are reference versions selected for this revision; the original deployment's exact chart version was not recorded in the article. The example was checked with Helm 3.17.3 using lint and template rendering. It has not been installed into a cluster during this revision.
 
-* **Index:**  Loki uses an index to quickly search and filter logs based on labels.  The `values.yaml` file configures the index's properties (periodicity, storage, etc.).
+For a new deployment, select supported versions and follow the [current Loki installation guide](https://grafana.com/docs/loki/latest/setup/install/helm/install-microservices/). The chart has since moved to the Grafana Community repository; review its migration instructions instead of applying these historical values to a current chart.
 
+{{< code-file file="values.yaml" lang="yaml" >}}
 
-**Loki, Mimir, and Grafana: A Powerful Trio**
+Important choices in this example:
 
-While Loki handles log ingestion and querying, it's often used in conjunction with Mimir and Grafana to create a complete log monitoring solution:
+- Three ingesters and replication factor three require enough schedulable nodes. The chart's anti-affinity and your storage topology must be checked; replicas alone do not prove fault tolerance.
+- Zone-aware replication is explicitly disabled. This is a host-level reference, not a claim of resilience across availability zones.
+- The compactor runs as a singleton. Its responsibilities do not justify one replica per cluster node. Retention is not enabled by this example; define and test a retention policy before relying on automatic deletion. See [Loki retention](https://grafana.com/docs/loki/latest/operations/storage/retention/).
+- PVCs reference `rook-ceph-block`. Confirm that StorageClass, free space, placement and reclaim policy before use.
+- Replica counts, cache defaults, resources and disruption budgets require load testing. They are not a sizing recommendation for a 300 TB storage cluster.
+- Canary and Helm tests are disabled until an authenticated collection/query path is configured. Enable equivalent end-to-end monitoring before production use.
 
-* **Loki:**  Handles the ingestion, indexing, and querying of logs.
+## Object storage and credentials
 
-* **Mimir:**  Acts as the long-term storage backend for Loki.  It provides highly scalable and efficient storage for your logs, crucial for retaining logs for extended periods. Mimir uses a time-series database optimized for storing large volumes of log data, ensuring efficient retrieval.
-
-* **Grafana:** Provides a user-friendly interface for querying, visualizing, and exploring logs stored in Loki.  It allows users to create dashboards, set alerts, and perform complex log analysis.
-
-This combined approach allows for effective log management: Loki handles the real-time ingestion and querying needs, Mimir ensures cost-effective long-term storage, and Grafana empowers users to easily analyze and understand the logs.
-
-
-**1. Helm Repository Addition and Update:**
+Provision a dedicated Ceph user with access limited to Loki's buckets. With a Rook `CephObjectStoreUser` named `loki` in object store `object-store`, inspect the generated Secret's metadata with:
 
 ```bash
-helm repo add grafana https://grafana.github.io/helm-charts  # Adds the Grafana Helm chart repository.
-helm repo update                                             # Updates the local Helm repository cache.
+kubectl -n rook-ceph describe secret rook-ceph-object-user-object-store-loki
 ```
 
-**2. Custom `values.yaml` Configuration:**
+That Secret belongs to the `rook-ceph` namespace. A Secret reference cannot cross namespaces: use your secret-management workflow to supply a separate `loki-s3` Secret in namespace `loki`, containing `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. The chart injects these variables and expands them in the Loki configuration. Do not commit key values or rendered configuration containing real credentials.
 
-This `values.yaml` file customizes the Loki deployment.  Key customizations are explained below.  The commented-out lines represent optional configurations which can be uncommented and adjusted as needed.
+Configure a trusted HTTPS endpoint in the values file. For an internal CA, install or mount the required CA and configure the client trust settings for the chosen version. `insecure: false` assumes a certificate chain the client trusts; it does not install your CA.
 
-```yaml
-global:
-  clusterDomain: "k8s-logs"
-  dnsService: "coredns"
-
-loki:
-  auth_enabled: false
-  schemaConfig:
-    configs:
-      - from: 2024-04-01
-        store: tsdb
-        object_store: s3
-        schema: v13
-        index:
-          prefix: loki_index_
-          period: 24h
-  ingester:
-    chunk_encoding: snappy
-  tracing:
-    enabled: true
-  querier:
-    max_concurrent: 4
-  limits_config:
-    ingestion_rate_strategy: local
-    max_global_streams_per_user: 1000
-    per_stream_rate_limit: 512M
-    per_stream_rate_limit_burst: 1024M
-    ingestion_burst_size_mb: 1000
-    ingestion_rate_mb: 5000
-    max_entries_limit_per_query: 100000
-  storage:
-    type: s3
-    bucketNames:
-      chunks: "chunks"
-      ruler: "ruler"
-      admin: "loki-admin"
-    s3:
-      endpoint: rook-ceph-rgw-object-store.rook-ceph.svc.k8s-logs
-      region: us-east-1
-      secretAccessKey: <secret_key>
-      accessKeyId: <access_key>
-      signatureVersion: v4
-      s3ForcePathStyle: true
-      insecure: true
-
-deploymentMode: Distributed
-
-ingester:
-  replicas: 7
-querier:
-  replicas: 7
-  maxUnavailable: 4
-queryFrontend:
-  replicas: 7
-  maxUnavailable: 4
-queryScheduler:
-  replicas: 7
-distributor:
-  replicas: 7
-  maxUnavailable: 4
-compactor:
-  replicas: 7
-indexGateway:
-  replicas: 7
-  maxUnavailable: 4
-
-bloomCompactor:
-  replicas: 0
-bloomGateway:
-  replicas: 0
-
-backend:
-  replicas: 0
-read:
-  replicas: 0
-write:
-  replicas: 0
-
-singleBinary:
-  replicas: 0
-```
-
-**Explanation of Key `values.yaml` Configurations:**
-
-* `global.clusterDomain`:  Specifies the cluster domain for internal DNS resolution.
-* `loki.auth_enabled`: Disables authentication for simplicity (recommended for initial setup, but should be enabled in production).
-* `loki.schemaConfig`: Defines the schema version and storage settings for Loki's data.  `object_store: s3` indicates that the logs are stored in an S3-compatible object store (provided by Rook Ceph in this case).
-* `loki.ingester.chunk_encoding`: Specifies the compression algorithm for log chunks. `snappy` offers a good balance between compression and speed.
-* `loki.tracing.enabled`: Enables tracing, helpful for debugging and performance monitoring.
-* `loki.limits_config`:  Sets various limits on ingestion rates, query sizes, and other resources to prevent overload and ensure stability.  The values provided here are examples and should be tuned based on your expected load.
-* `loki.storage.type`: Defines the storage type as S3-compatible.
-* `loki.storage.s3`: Configures the connection to the Rook Ceph S3-compatible object store.  Ensure that the `endpoint`, `region`, `secretAccessKey`, and `accessKeyId` are correctly configured. `insecure: true` should **only** be used in development or testing environments; it's crucial to disable this in production.
-* `deploymentMode: Distributed`:  Configures Loki to run in distributed mode, leveraging multiple components for high availability and scalability.
-* `ingester`, `querier`, `queryFrontend`, `distributor`, `compactor`, `indexGateway`:  These sections specify the number of replicas for each Loki component.  The values are set to 7 to match the number of nodes in the cluster, ensuring high availability.  `maxUnavailable` limits the number of pods that can be unavailable during updates.
-
-
-**3. CephObjectStoreUser Creation:**
-
-This creates a user for Loki in the Rook Ceph object store.
-
-```yaml
-apiVersion: ceph.rook.io/v1
-kind: CephObjectStoreUser
-metadata:
-  name: loki
-  namespace: rook-ceph
-spec:
-  store: object-store
-  displayName: loki
-  capabilities:
-    user: "*"
-    bucket: "*"
-```
+Bucket commands must point explicitly to Ceph, not the default AWS S3 endpoint. The following Bash example assumes an AWS CLI profile `ceph-loki` that already contains the restricted Ceph user's credentials:
 
 ```bash
-k apply -f CephObjectStoreUser.yaml
+export AWS_PROFILE=ceph-loki
+export CEPH_S3_ENDPOINT=https://s3.example.com
+# If the endpoint uses an internal CA:
+# export AWS_CA_BUNDLE=/path/to/internal-ca.pem
+for bucket in loki-chunks loki-ruler loki-admin; do
+  aws --endpoint-url "$CEPH_S3_ENDPOINT" --region us-east-1 s3 mb "s3://$bucket"
+done
 ```
 
-**4. Retrieving S3 Access Keys:**
+Use the same endpoint, bucket names and region/signature settings in Loki. Create buckets once, and verify existing buckets rather than assuming a failed creation command means the storage is unusable. TLS verification remains enabled.
+
+## Render and install deliberately
+
+In an empty working directory, download `values.yaml`, adapt its endpoint and DNS settings, and review the manifests:
 
 ```bash
-kubectl -n rook-ceph get secret rook-ceph-object-user-object-store-loki -oyaml
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm template loki grafana/loki --version 6.24.0   --namespace loki --kube-version 1.30.0 -f values.yaml > rendered.yaml
 ```
 
-**5. Bucket Creation:**
-
-These commands create the necessary S3 buckets for storing Loki's data.  The use of `--no-verify-ssl` is strongly discouraged in production.
+The correct command order is **release name, chart name**, followed by flags. After verifying the target cluster, namespace, Secrets, storage, resources and authentication design, the corresponding historical installation command is:
 
 ```bash
-aws --no-verify-ssl s3 mb s3://chunks --region us-east-1
-aws --no-verify-ssl s3 mb s3://ruler --region us-east-1
-aws --no-verify-ssl s3 mb s3://loki-admin --region us-east-1
+helm upgrade --install loki grafana/loki --version 6.24.0   --namespace loki --create-namespace -f values.yaml --wait --timeout 10m
 ```
 
-**6. Loki Installation:**
+`helm template` verifies chart rendering; it does not validate storage connectivity, application configuration at runtime or the cluster's capacity to schedule the pods.
 
-This installs Loki using the customized `values.yaml` file.
+## Authentication, collection and verification
 
-```bash
-helm install --namespace loki grafana/loki loki -f override-values.yaml
-```
+`auth_enabled: true` enables Loki's multi-tenant mode. Clients must supply the appropriate `X-Scope-OrgID`, but that header alone is not proof of identity. Put an authenticating and authorizing proxy in front of the API, and have it set or validate tenant identity. The chart's routing gateway does not automatically establish this security boundary. Keep direct service access restricted. See [Loki authentication](https://grafana.com/docs/loki/latest/operations/authentication/).
 
-**7. Grafana Configuration (Visualization):**
+The original collection example used Promtail. It reached end of life on **March 2, 2026**. Use a supported collector such as Grafana Alloy for a new setup, following the [Promtail migration guidance](https://grafana.com/docs/loki/latest/send-data/promtail/). Give the collector only the filesystem permissions it needs; running as root is not a universal prerequisite.
 
-After Loki is installed, you'll need to configure Grafana to connect to it. This involves adding a Loki data source in Grafana, specifying the Loki endpoint (usually `http://loki-query-frontend.<namespace>.svc.cluster.local`).  Refer to the Grafana documentation for detailed instructions on configuring Loki as a data source, which is very straightforward.
-
-**8. Promtail:**
-
-This is an example of Promtail running on a HAProxy server. In my case, the server was using rsyslog and the log format was not standard, so i needed to create a veryu standard scrape config with just one label, since each label create a new index shard on Loki, thus considerably increasing resource usage.
-
-Installation (RHEL/CentOS):
-```bash
-wget https://github.com/grafana/loki/releases/download/v2.9.9/promtail-2.9.9.x86_64.rpm
-rpm -ivh promtail-2.9.9.x86_64.rpm
-```
-
-`/etc/promtail/config.yml`:
-
-```yaml
-server:
-  http_listen_port: 9080
-  grpc_listen_port: 0
-
-positions:
-  filename: /var/tmp/promtail/positions.yml
-
-clients:
-        - url: https://loki-in-sp-logs.spo.estaleiro.serpro/loki/api/v1/push
-
-scrape_configs:
-  - job_name: haproxy
-    static_configs:
-    - targets:
-        - localhost
-      labels:
-        job: haproxy
-        __path__: /var/log/haproxy.log
-```
-
-Adjust the systemd unit to run as root:
-
-```bash
-[Unit]
-Description=Promtail service
-After=network.target
-
-[Service]
-Type=simple
-User=root
-ExecStart=/usr/bin/promtail -config.file /etc/promtail/config.yml
-# Give a reasonable amount of time for promtail to start up/shut down
-TimeoutSec = 60
-Restart = on-failure
-RestartSec = 2
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Create the positions folder:
-
-```bash
-# mkdir /var/tmp/promtail
-```
-
-Enable and start the service:
-
-```bash
-systemctl daemon-reload
-systemctl enable promtail
-systemctl start promtail
-```
-
-This expanded post provides a more comprehensive guide to deploying Loki on Kubernetes, emphasizing its integration with Grafana for a complete log management solution.
+Add Loki's authenticated query endpoint as a Grafana data source. Validate ingestion and querying for a known log line, tenant separation, pod placement, PVC binding and object-store access. Then test restarts and node failure under representative load. Those checks are necessary before claiming high availability or choosing the final replica counts.

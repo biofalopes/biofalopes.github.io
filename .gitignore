@@ -16,3 +16,7 @@ Thumbs.db
 *.bak
 *.tmp
 *.log
+
+# Python examples and regression checks
+__pycache__/
+*.py[cod]
