@@ -1,5 +1,6 @@
 ---
 title: "Search"
+description: Find articles on cloud infrastructure, platform engineering and reliability.
 slug: "search"
 layout: "search"
 outputs:

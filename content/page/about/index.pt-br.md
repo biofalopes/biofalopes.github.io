@@ -1,5 +1,6 @@
 ---
 title: Sobre
+description: Fabio Lopes, engenheiro de infraestrutura e plataformas cloud com mais de 20 anos de experiência em infraestrutura, automação e confiabilidade.
 date: '2019-02-28'
 comments: false
 menu:

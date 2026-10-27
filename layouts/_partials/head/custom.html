@@ -1,0 +1,14 @@
+<meta name="theme-color" content="#142f3f">
+<link rel="manifest" href="{{ `site.webmanifest` | relURL }}">
+{{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}">{{ end }}
+{{ if not .Params.image }}
+    <meta property="og:image" content="{{ `img/social-card.png` | absURL }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ `img/social-card.png` | absURL }}">
+{{ end }}
+{{ $person := dict "@type" "Person" "name" "Fabio M. Lopes" "url" .Site.Home.Permalink "sameAs" (slice "https://github.com/biofalopes" "https://linkedin.com/in/fabiomlopes") }}
+{{ $schema := dict "@context" "https://schema.org" "@type" "WebSite" "name" .Site.Title "url" .Site.Home.Permalink "author" $person "inLanguage" .Language.Locale }}
+{{ if and .IsPage (eq .Section "post") }}
+    {{ $schema = dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "description" .Description "url" .Permalink "mainEntityOfPage" .Permalink "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00") "author" $person "inLanguage" .Language.Locale }}
+{{ end }}
+<script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>

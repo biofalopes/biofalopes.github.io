@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Locale }}" dir="{{ .Language.Direction | default `ltr` }}">
+<head>
+    {{ partial "head/head.html" . }}
+    {{ block "head" . }}{{ end }}
+</head>
+<body class="site-shell {{ block `body-class` . }}{{ end }}">
+    {{ partial "head/colorScheme.html" . }}
+    {{ $labels := index hugo.Data.interface .Language.Name }}
+    <a class="skip-link" href="#main-content">{{ $labels.skip }}</a>
+    {{ partial "portfolio/header.html" . }}
+    <div class="container main-container portfolio-container flex on-phone--column">
+        <main class="main full-width" id="main-content" tabindex="-1">
+            {{ block "main" . }}{{ end }}
+        </main>
+        {{ block "right-sidebar" . }}{{ end }}
+    </div>
+    {{ partial "footer/include.html" . }}
+</body>
+</html>

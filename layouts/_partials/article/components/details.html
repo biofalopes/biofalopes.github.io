@@ -1,0 +1,18 @@
+{{ $page := .Page }}
+{{ $labels := index hugo.Data.interface $page.Language.Name }}
+<div class="article-details">
+    {{ with $page.GetTerms "categories" }}
+        <div class="article-category">{{ range . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}</div>
+    {{ end }}
+    <div class="article-title-wrapper">
+        {{ if .IsList }}<h2 class="article-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
+        {{ else }}<h1 class="article-title">{{ $page.Title }}</h1>{{ end }}
+        {{ with $page.Description }}<p class="article-subtitle">{{ . }}</p>{{ end }}
+    </div>
+    <div class="article-meta">
+        {{ if not $page.Date.IsZero }}<span class="inline-meta"><time datetime="{{ $page.Date.Format `2006-01-02` }}">{{ $labels.published }} {{ $page.Date | time.Format ":date_medium" }}</time></span>{{ end }}
+        {{ if and (not $page.Lastmod.IsZero) ($page.Lastmod.After $page.Date) }}<span class="inline-meta"><time datetime="{{ $page.Lastmod.Format `2006-01-02` }}">{{ $labels.updated }} {{ $page.Lastmod | time.Format ":date_medium" }}</time></span>{{ end }}
+        {{ if eq $page.Section "post" }}<span>{{ $page.ReadingTime }} {{ $labels.minutes }}</span>{{ end }}
+        {{ if $page.IsTranslated }}<span class="inline-meta">{{ range $page.Translations }}<a href="{{ .RelPermalink }}" hreflang="{{ .Language.Locale }}">{{ .Language.Label }}</a>{{ end }}</span>{{ end }}
+    </div>
+</div>

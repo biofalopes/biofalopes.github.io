@@ -1,0 +1,20 @@
+{
+  "hugo": {
+    "0.168.0": {
+      "windows-amd64": "c4a2e38043b3273ae5eb16c81159cffc346d2ddf3de7819c99826d26775d7da0",
+      "linux-amd64": "787f100057328824f38c6ad7c87ff10d6451ae0a7bc39cedaad0dd2bcde17e53"
+    }
+  },
+  "sass": {
+    "1.106.1": {
+      "windows-x64": "a6e5bf97187af4a175279eabb6316af597d6e4b06ec2099ae961dc553655d8e1",
+      "linux-x64": "ad99cccb90de4ad2926e03e32d819c83baf32c3dbff56da92df0eed10e604d60"
+    }
+  },
+  "go": {
+    "1.27.3": {
+      "releaseTag": "1.27.3-39437817176",
+      "windows-x64": "287de71f736c5b6420474a37caa2dae7eab8f0a66af63a54b674535433445cca"
+    }
+  }
+}

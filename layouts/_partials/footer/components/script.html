@@ -1,0 +1,7 @@
+{{- $language := .Language.Name -}}
+{{- $options := dict "targetPath" (printf "js/stack.%s.js" $language) "minify" hugo.IsProduction "params" (dict "codeblock" (dict "copy" (i18n "article.codeblock.copy") "copied" (i18n "article.codeblock.copied"))) -}}
+{{- $script := resources.Get "ts/main.ts" | js.Build $options | fingerprint "sha384" -}}
+<script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+{{- $customOptions := dict "targetPath" (printf "js/portfolio.%s.js" $language) "minify" hugo.IsProduction -}}
+{{- $custom := resources.Get "ts/custom.ts" | js.Build $customOptions | fingerprint "sha384" -}}
+<script src="{{ $custom.RelPermalink }}" integrity="{{ $custom.Data.Integrity }}" defer></script>

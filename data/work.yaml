@@ -1,0 +1,45 @@
+- page: post/terraform-3
+  number: '01'
+  category:
+    en: PLATFORM OWNERSHIP
+    pt-br: RESPONSABILIDADE PELA PLATAFORMA
+  title:
+    en: Beyond the first Terraform apply
+    pt-br: Além do primeiro terraform apply
+  summary:
+    en: Exploring the boundaries between infrastructure ownership and application delivery in a multi-account AWS environment.
+    pt-br: Uma análise dos limites entre a gestão da infraestrutura e a entrega de aplicações em um ambiente AWS com múltiplas contas.
+  type:
+    en: Architecture notes
+    pt-br: Análise de arquitetura
+  tags: [Terraform, AWS Outposts, ECS]
+- page: post/jupyter-forecast
+  number: '02'
+  category:
+    en: OPERATIONAL AUTOMATION
+    pt-br: AUTOMAÇÃO OPERACIONAL
+  title:
+    en: Making storage growth visible
+    pt-br: Tornando o crescimento do storage visível
+  summary:
+    en: From Ceph metrics to a capacity-planning workflow, with a transparent forecasting baseline and explicit data-quality checks.
+    pt-br: Das métricas do Ceph ao planejamento de capacidade, com uma projeção transparente e verificações explícitas dos dados.
+  type:
+    en: Practical workflow
+    pt-br: Fluxo de trabalho aplicado
+  tags: [Ceph, Python, Grafana Mimir]
+- page: post/ibb-kids
+  number: '03'
+  category:
+    en: PRODUCTION ENGINEERING
+    pt-br: ENGENHARIA DE PRODUÇÃO
+  title:
+    en: Operating within real constraints
+    pt-br: Operando com restrições reais
+  summary:
+    en: 'Running a community application on a single ARM host: consistent SQLite backups, controlled releases and recovery trade-offs.'
+    pt-br: Uma aplicação comunitária em um host ARM, com backups consistentes do SQLite, releases controladas e escolhas de recuperação.
+  type:
+    en: Operational lessons
+    pt-br: Lições de operação
+  tags: [Linux ARM, SQLite, OCI]

@@ -1,5 +1,6 @@
 ---
 title: About
+description: Fabio Lopes, Cloud Infrastructure and Platform Engineer with over 20 years of experience in infrastructure, automation and reliability.
 date: '2026-10-25'
 comments: false
 menu:

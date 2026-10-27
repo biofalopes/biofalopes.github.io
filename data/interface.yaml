@@ -1,0 +1,74 @@
+en:
+  home: Home
+  work: Selected work
+  articles: Articles
+  about: About
+  search: Search
+  searchIntro: Find notes on cloud infrastructure, platforms and reliability.
+  archives: The article archive
+  menu: Menu
+  skip: Skip to content
+  theme: Toggle color theme
+  eyebrow: CLOUD & PLATFORM ENGINEERING
+  headline: Infrastructure, designed for the real world.
+  intro: I'm Fabio Lopes. I work across cloud architecture, platform engineering and SRE, connecting systems design with the realities of running production.
+  experience: 20+ years in infrastructure
+  location: Based in Brazil · Working in English & Portuguese
+  explore: Explore my work
+  contact: Let's connect
+  workIntro: Decisions, constraints and lessons from hands-on engineering.
+  read: Read the story
+  latest: Field notes
+  latestIntro: Practical writing on infrastructure, automation and reliability.
+  allArticles: Browse the archive
+  moreNotes: More field notes
+  profile: About Fabio
+  approach: From architecture to operations
+  design: Design
+  designBody: Architecture, constraints & trade-offs
+  build: Build
+  buildBody: Platforms, infrastructure & automation
+  operate: Operate
+  operateBody: Observability, recovery & reliability
+  published: Published
+  updated: Updated
+  minutes: min read
+  workTitle: Engineering in practice
+  workDescription: A selection of technical work, with the decisions and operational lessons behind it.
+pt-br:
+  home: Início
+  work: Trabalhos selecionados
+  articles: Artigos
+  about: Sobre
+  search: Buscar
+  searchIntro: Encontre notas sobre infraestrutura cloud, plataformas e confiabilidade.
+  archives: Arquivo de artigos
+  menu: Menu
+  skip: Ir para o conteúdo
+  theme: Alternar tema de cores
+  eyebrow: CLOUD & ENGENHARIA DE PLATAFORMAS
+  headline: Infraestrutura pensada para o mundo real.
+  intro: Sou Fabio Lopes. Trabalho com arquitetura cloud, engenharia de plataformas e SRE, conectando o desenho de sistemas à realidade da operação em produção.
+  experience: Mais de 20 anos em infraestrutura
+  location: No Brasil · Trabalhando em português e inglês
+  explore: Conheça meu trabalho
+  contact: Vamos conversar
+  workIntro: Decisões, restrições e aprendizados da prática de engenharia.
+  read: Ler o artigo
+  latest: Notas de engenharia
+  latestIntro: Experiências com infraestrutura, automação e confiabilidade.
+  allArticles: Explorar o arquivo
+  moreNotes: Mais notas de engenharia
+  profile: Sobre Fabio
+  approach: Da arquitetura à operação
+  design: Desenhar
+  designBody: Arquitetura, restrições e escolhas
+  build: Construir
+  buildBody: Plataformas, infraestrutura e automação
+  operate: Operar
+  operateBody: Observabilidade, recuperação e confiabilidade
+  published: Publicado
+  updated: Atualizado
+  minutes: min de leitura
+  workTitle: Engenharia na prática
+  workDescription: Uma seleção de trabalhos técnicos e das decisões e lições operacionais por trás deles.
