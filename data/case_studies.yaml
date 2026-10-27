@@ -1,0 +1,33 @@
+terraform-3:
+  en:
+    problem: Infrastructure changes can conflict with application releases and resources owned by other teams.
+    contribution: I examine the ownership boundaries in our multi-account AWS platform.
+    decision: Separate infrastructure management from application delivery and reference externally owned resources.
+    outcome: An architectural direction to validate through operational changes; implementation results are still pending.
+  pt-br:
+    problem: Mudanças de infraestrutura podem conflitar com entregas de aplicações e recursos de outras equipes.
+    contribution: Analiso os limites de responsabilidade na nossa plataforma AWS com múltiplas contas.
+    decision: Separar a gestão da infraestrutura da entrega de aplicações e referenciar recursos de outras equipes.
+    outcome: Uma direção arquitetural a validar em mudanças operacionais; os resultados de implementação ainda estão pendentes.
+jupyter-forecast:
+  en:
+    problem: Ceph capacity planning needs a clear view of growth and explicit checks on the input data.
+    contribution: I built a metrics-to-report workflow and revised its shared Python example with regression tests.
+    decision: Use median daily growth as a transparent baseline and reject incomplete or inconsistent observations.
+    outcome: A reproducible local example with synthetic data. Production forecast accuracy has not been validated by this revision.
+  pt-br:
+    problem: O planejamento de capacidade Ceph precisa de uma visão clara do crescimento e de verificações dos dados.
+    contribution: Desenvolvi um fluxo de métricas e relatórios e revisei o exemplo Python compartilhado com testes de regressão.
+    decision: Usar a mediana do crescimento diário como referência e rejeitar observações incompletas ou inconsistentes.
+    outcome: Um exemplo local reproduzível com dados sintéticos. A revisão não validou a precisão das previsões em produção.
+ibb-kids:
+  en:
+    problem: A community application must run within the cost and operational constraints of a single ARM host.
+    contribution: I designed the architecture, release controls, backup workflow and production validation gates.
+    decision: Use versioned releases, native ARM builds and SQLite-consistent backups copied to private object storage.
+    outcome: An operating application with documented recovery procedures. Host failure and release interruptions remain explicit limits.
+  pt-br:
+    problem: Uma aplicação comunitária precisa funcionar dentro das restrições de custo e operação de um único host ARM.
+    contribution: Projetei a arquitetura, os controles de entrega, o fluxo de backup e as verificações de produção.
+    decision: Usar releases versionadas, builds nativos ARM e backups consistentes do SQLite em armazenamento privado.
+    outcome: Uma aplicação em operação com procedimentos de recuperação documentados. Falhas do host e interrupções nas entregas continuam sendo limitações.

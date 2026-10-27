@@ -24,7 +24,9 @@ For each site and device class, the input is one observation per UTC day: raw us
 
 The implementation preserves the original measurements. It does not label a sudden change as erroneous or silently replace it with zero. A median reduces the influence of isolated extreme deltas, but cannot determine whether a jump is a collection fault, rebalance, deletion or a real workload change. Review those events and the selected time window before interpreting the result.
 
+{{< callout type="constraint" >}}
 The default live window is 30 complete daily observations. Empty data, non-finite values, missing days, unmatched usage/capacity dimensions, and capacity changes within the window stop report generation. There is no interpolation or extrapolation of missing observations. After expansion, select a stable post-change window rather than silently combining two capacity regimes.
+{{< /callout >}}
 
 The threshold result distinguishes four cases:
 

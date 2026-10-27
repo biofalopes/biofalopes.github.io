@@ -1,0 +1,6 @@
+{{ $case := dict }}
+{{ with .File }}
+    {{ $key := path.Base (strings.TrimSuffix "/" .Dir) }}
+    {{ $case = index hugo.Data.case_studies $key | default dict }}
+{{ end }}
+{{ return $case }}

@@ -1,0 +1,8 @@
+{{- $options := dict -}}
+{{- if not (transform.CanHighlight .Type) -}}{{- $options = dict "type" "text" -}}{{- end -}}
+{{- $result := transform.HighlightCodeBlock . $options -}}
+{{- $labels := index hugo.Data.interface .Page.Language.Name -}}
+<div class="code-example">
+    <div class="code-toolbar"><span>{{ with .Attributes.title }}{{ . }}{{ else }}{{ $labels.sourceCode }}{{ end }}</span><span class="code-language">{{ .Type | default $labels.plainText }}</span></div>
+    {{ $result.Wrapped }}
+</div>

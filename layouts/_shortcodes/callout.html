@@ -1,0 +1,7 @@
+{{ $kind := .Get "type" | default "note" }}
+{{ if not (in (slice "decision" "constraint" "note") $kind) }}{{ errorf "Unknown callout type %q in %s" $kind .Page.File.Path }}{{ end }}
+{{ $labels := index hugo.Data.interface .Page.Language.Name }}
+<aside class="engineering-callout engineering-callout--{{ $kind }}" aria-label="{{ .Get `title` | default (index $labels $kind) }}">
+    <p class="callout-label">{{ .Get "title" | default (index $labels $kind) }}</p>
+    <div>{{ .Inner | .Page.RenderString (dict "display" "block") }}</div>
+</aside>

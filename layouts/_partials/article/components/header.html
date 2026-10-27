@@ -1,0 +1,17 @@
+{{ $page := .Page }}
+<header class="article-header{{ if not .IsList }} article-header--compact{{ end }}">
+    {{ partial "article/components/details" . }}
+    {{ $image := partial "helper/image" (dict "Image" $page.Params.image "Resources" $page.Resources "Context" $page) }}
+    {{ with $image }}
+        <div class="article-image">
+            {{ if $.IsList }}<a href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">{{ end }}
+            {{ partial "helper/responsive-image" (dict
+                "Resource" .Resource
+                "Widths" (cond $page.Site.Params.ImageProcessing.Content.Enabled $page.Site.Params.ImageProcessing.Content.Widths nil)
+                "Attributes" (dict "src" .Permalink "width" .Width "height" .Height "alt" "" "loading" "lazy" "sizes" (cond $.IsList "(max-width: 767px) calc(100vw - 40px), 900px" "(max-width: 767px) 170px, (max-width: 1100px) 240px, 170px"))
+            ) }}
+            {{ if $.IsList }}</a>{{ end }}
+        </div>
+    {{ end }}
+</header>
+{{ if not .IsList }}{{ partial "article/components/glance.html" $page }}{{ end }}

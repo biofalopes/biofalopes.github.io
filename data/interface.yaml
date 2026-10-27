@@ -1,4 +1,35 @@
 en:
+  atGlance: At a glance
+  problem: The problem
+  contribution: My contribution
+  decision: Key decision
+  outcome: Outcome & limits
+  technologies: Technologies
+  infrastructure: Infrastructure
+  releases: Releases
+  report: Report
+  growthBaseline: Median daily growth · illustrative
+  armHost: Single ARM host
+  backup: Backup
+  conceptDiagram: Simplified architecture
+  diagram01: Terraform manages infrastructure; GitLab CI manages application releases on AWS ECS.
+  diagram02: Ceph metrics in Mimir feed Python checks and a capacity report. The trend is illustrative.
+  diagram03: Nginx, Node.js and SQLite run on one ARM host, with database backups in OCI Object Storage.
+  sourceCode: Source code
+  plainText: Plain text
+  expandCode: Expand source
+  collapseCode: Collapse source
+  download: Download
+  lines: lines
+  constraint: Operational constraint
+  note: Engineering note
+  profileEyebrow: ABOUT FABIO
+  expertise: Areas of expertise
+  certifications: Certifications
+  credentialsLink: View credential
+  resume: Résumé
+  aboutContact: Let's talk engineering
+  aboutContactBody: For technical discussions and professional opportunities, connect with me on LinkedIn or explore my work on GitHub.
   home: Home
   work: Selected work
   articles: Articles
@@ -36,6 +67,37 @@ en:
   workTitle: Engineering in practice
   workDescription: A selection of technical work, with the decisions and operational lessons behind it.
 pt-br:
+  atGlance: Visão geral
+  problem: O problema
+  contribution: Minha contribuição
+  decision: Decisão principal
+  outcome: Resultado e limites
+  technologies: Tecnologias
+  infrastructure: Infraestrutura
+  releases: Entregas
+  report: Relatório
+  growthBaseline: Mediana diária · ilustrativa
+  armHost: Um único host ARM
+  backup: Backup
+  conceptDiagram: Arquitetura simplificada
+  diagram01: Terraform gerencia a infraestrutura; GitLab CI gerencia as entregas de aplicações no AWS ECS.
+  diagram02: Métricas Ceph no Mimir alimentam verificações Python e um relatório de capacidade. A tendência é ilustrativa.
+  diagram03: Nginx, Node.js e SQLite funcionam em um host ARM, com backups do banco no OCI Object Storage.
+  sourceCode: Código-fonte
+  plainText: Texto simples
+  expandCode: Expandir código
+  collapseCode: Recolher código
+  download: Baixar
+  lines: linhas
+  constraint: Restrição operacional
+  note: Nota de engenharia
+  profileEyebrow: SOBRE FABIO
+  expertise: Áreas de atuação
+  certifications: Certificações
+  credentialsLink: Ver credencial
+  resume: Currículo
+  aboutContact: Vamos conversar sobre engenharia
+  aboutContactBody: Para conversas técnicas e oportunidades profissionais, entre em contato pelo LinkedIn ou conheça meu trabalho no GitHub.
   home: Início
   work: Trabalhos selecionados
   articles: Artigos

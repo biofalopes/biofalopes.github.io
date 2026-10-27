@@ -1,0 +1,38 @@
+{{ $labels := index hugo.Data.interface .language }}
+{{ $number := .number }}
+<figure class="work-diagram">
+    <svg viewBox="0 0 320 164" role="img" aria-label="{{ index $labels (printf `diagram%s` $number) }}" xmlns="http://www.w3.org/2000/svg">
+        {{ if eq $number "01" }}
+            <path class="diagram-boundary" d="M160 12V92"/>
+            <text class="diagram-caption" x="77" y="22">{{ $labels.infrastructure }}</text>
+            <text class="diagram-caption" x="243" y="22">{{ $labels.releases }}</text>
+            <rect class="diagram-node" x="8" y="36" width="138" height="42" rx="7"/>
+            <rect class="diagram-node" x="174" y="36" width="138" height="42" rx="7"/>
+            <text x="77" y="62">Terraform</text><text x="243" y="62">GitLab CI</text>
+            <path class="diagram-edge" d="M77 78V95H160M243 78V95H160V111m-4-5 4 5 4-5"/>
+            <rect class="diagram-node diagram-node--accent" x="8" y="114" width="304" height="40" rx="7"/>
+            <text x="160" y="139">AWS · ECS</text>
+        {{ else if eq $number "02" }}
+            <rect class="diagram-node" x="2" y="32" width="92" height="46" rx="7"/>
+            <rect class="diagram-node" x="114" y="32" width="92" height="46" rx="7"/>
+            <rect class="diagram-node diagram-node--accent" x="226" y="32" width="92" height="46" rx="7"/>
+            <text x="48" y="59">Ceph / Mimir</text><text x="160" y="59">Python</text><text x="272" y="59">{{ $labels.report }}</text>
+            <path class="diagram-edge" d="M94 55H111m-5-4 5 4-5 4M206 55H223m-5-4 5 4-5 4"/>
+            <path class="diagram-boundary" d="M14 145H306M14 100V145"/>
+            <path class="diagram-edge" d="m26 136 40-4 40-14 40 5 40-11"/>
+            <path class="diagram-edge diagram-projection" d="m186 112 40-8 40-8 28-6"/>
+            <text class="diagram-caption" x="160" y="159">{{ $labels.growthBaseline }}</text>
+        {{ else }}
+            <rect class="diagram-boundary" x="2" y="8" width="316" height="88" rx="9"/>
+            <text class="diagram-caption" x="160" y="27">{{ $labels.armHost }}</text>
+            <rect class="diagram-node" x="12" y="40" width="84" height="40" rx="7"/>
+            <rect class="diagram-node" x="118" y="40" width="84" height="40" rx="7"/>
+            <rect class="diagram-node" x="224" y="40" width="84" height="40" rx="7"/>
+            <text x="54" y="65">Nginx</text><text x="160" y="65">Node.js</text><text x="266" y="65">SQLite</text>
+            <path class="diagram-edge" d="M96 60H115m-5-4 5 4-5 4M202 60H221m-5-4 5 4-5 4M266 80V111m-4-5 4 5 4-5"/>
+            <rect class="diagram-node diagram-node--accent" x="12" y="114" width="296" height="40" rx="7"/>
+            <text x="160" y="139">{{ $labels.backup }} · OCI Object Storage</text>
+        {{ end }}
+    </svg>
+    <figcaption>{{ $labels.conceptDiagram }}</figcaption>
+</figure>

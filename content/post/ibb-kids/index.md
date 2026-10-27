@@ -61,7 +61,9 @@ SQLite Database (WAL Mode: Schedule, Materials, Credentials)
 
 In development, Vite proxies `/api` calls to Express. In production, Vite is not running; Express directly serves optimized static assets alongside the API endpoints.
 
+{{< callout type="constraint" >}}
 **Development** and **Production** share the VM but use dedicated directories, internal ports, SQLite files, environment secrets, and PM2 process names. This separates application configuration and data; it does not isolate host failure, resource exhaustion or privileged access.
+{{< /callout >}}
 
 ## Native C++ Bindings Across Environments
 

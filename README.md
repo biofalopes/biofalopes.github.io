@@ -96,6 +96,47 @@ As URLs dos artigos seguem `/p/:slug/`; português usa `/pt-br/`. O check de
 migração preserva as 44 rotas do inventário original. Uma mudança deliberada
 de rota exige alias e revisão desse contrato, sem perder os links publicados.
 
+## Componentes editoriais e perfil
+
+- `data/work.yaml` controla os três trabalhos selecionados. Os diagramas SVG
+  são gerados por `layouts/_partials/portfolio/diagram.html`, com rótulos
+  localizados em `data/interface.yaml` e cores compartilhadas com o tema.
+- `data/case_studies.yaml` fornece a visão geral opcional dos artigos. A chave
+  é o nome do diretório do bundle; cada idioma contém `problem`, `contribution`,
+  `decision` e `outcome`. Separe resultados observados de propostas ou limitações.
+- `data/profile.json` contém a apresentação e as áreas de atuação EN/PT.
+  Os textos mais longos continuam em `content/page/about/`.
+- `data/credentials.yaml` reúne os nomes já declarados no perfil. Inclua `url`
+  em uma credencial somente quando houver um endereço público de verificação.
+  Para mostrar um currículo, adicione `profile.resume` dentro de `params` em
+  `hugo.yaml`, apontando para o arquivo ou URL público real.
+
+Blocos de código Markdown recebem um cabeçalho com linguagem. Um título
+opcional pode identificar o arquivo:
+
+````markdown
+```python {title="example.py"}
+print("hello")
+```
+````
+
+O shortcode `code-file` mostra nome, linguagem, contagem de linhas e download.
+Arquivos com 60 linhas ou mais ficam recolhidos em um elemento nativo `details`.
+Use `collapse="false"` para mantê-los abertos ou `collapse="true"` para recolher
+um arquivo menor. O código completo permanece no HTML e no download.
+
+Use destaques editoriais para decisões, restrições e notas:
+
+```text
+{{< callout type="constraint" >}}
+Explique a restrição operacional e sua consequência.
+{{< /callout >}}
+```
+
+Os tipos aceitos são `decision`, `constraint` e `note`; `title` é opcional.
+O índice móvel reutiliza o componente nativo do Stack e fecha ao escolher uma
+seção. Ative-o no artigo com `toc: true` (YAML) ou `toc = true` (TOML).
+
 ## CI e publicação
 
 Pull requests executam testes dos exemplos, build de produção e checagens de

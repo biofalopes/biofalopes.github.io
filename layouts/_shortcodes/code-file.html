@@ -1,7 +1,16 @@
 {{- $file := .Get "file" -}}
 {{- $language := .Get "lang" | default "text" -}}
+{{- $labels := index hugo.Data.interface .Page.Language.Name -}}
 {{- with .Page.Resources.GetMatch $file -}}
-    {{- highlight .Content $language "" -}}
+    {{- $lines := len (split (strings.TrimSpace .Content) "\n") -}}
+    {{- $collapse := ge $lines 60 -}}
+    {{- if isset $.Params "collapse" -}}{{- $collapse = eq (printf "%v" ($.Get "collapse")) "true" -}}{{- end -}}
+    <div class="code-example code-file">
+        <div class="code-toolbar"><span>{{ $file }}</span><span class="code-language">{{ $language }} · {{ $lines }} {{ $labels.lines }}</span><a href="{{ .RelPermalink }}" download>{{ $labels.download }}</a></div>
+        {{ if $collapse }}<details class="code-disclosure"><summary><span class="when-closed">{{ $labels.expandCode }}</span><span class="when-open">{{ $labels.collapseCode }}</span></summary>{{ end }}
+        {{ highlight .Content $language "" }}
+        {{ if $collapse }}</details>{{ end }}
+    </div>
 {{- else -}}
     {{- errorf "Missing code resource %q in %s" $file .Page.File.Path -}}
 {{- end -}}

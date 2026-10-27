@@ -24,7 +24,9 @@ Para cada site e classe de dispositivo, a entrada contém uma observação por d
 
 As medições originais são preservadas. O código não classifica saltos como erros nem os substitui silenciosamente por zero. A mediana reduz a influência de deltas extremos isolados, mas não determina se uma mudança representa falha de coleta, rebalanceamento, exclusão ou alteração real de carga. É preciso avaliar esses eventos e a janela escolhida.
 
+{{< callout type="constraint" >}}
 A coleta usa, por padrão, 30 observações diárias completas. Dados vazios, valores não finitos, dias ausentes, dimensões incompatíveis e mudanças de capacidade na janela interrompem o relatório. Não há interpolação nem preenchimento de observações ausentes. Depois de uma expansão, selecione uma janela estável posterior ao evento.
+{{< /callout >}}
 
 O resultado diferencia quatro situações:
 
