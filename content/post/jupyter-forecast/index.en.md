@@ -1,8 +1,8 @@
 +++
 slug = "automating-ceph-storage-forecasting-with-grafana-mimir"
-lastmod = "2026-10-26"
+lastmod = "2026-10-27"
 title = "Automating Ceph Storage Forecasting with Grafana Mimir"
-description = "A Ceph capacity-planning workflow with a tested median-growth baseline, explicit data-quality checks, and optional Mimir and Teams integration."
+description = "End-to-end data pipeline that retrieves Ceph storage metrics from Grafana Mimir, processes forecasts using pandas and seaborn, generates actionable forecast charts with outlier correction, and delivers automated usage summaries and visualizations straight to Microsoft Teams."
 date =  "2025-09-17"
 draft = false
 toc = true
@@ -12,84 +12,64 @@ image = "forecast.png"
 author = "Fabio M. Lopes"
 +++
 
-## Operational context
+## Context and decisions at the time
 
-At SERPRO, I built a Python workflow to collect Ceph capacity metrics from Grafana Mimir and make capacity planning easier for the team. The original work started in a Jupyter Notebook, with forecasting logic discussed with a colleague, and later became a scheduled report with charts and summaries delivered to Microsoft Teams.
+Our team urgently needed this information for the hardware acquisition process, so I built what was essential and put it to work as fast as possible. Since I'm no expert on analytics, my colleague provided the logic and I first built everything as a Jupyter Notebook, and later moved it to a place where it could be scheduled and had direct access to Mimir.
 
-**Technical revision — October 2026:** the earlier implementation compared daily changes to an uncentered standard deviation, which could erase constant positive growth. It also described a rolling calculation that the code did not perform. This revision replaces that filter with an explicit median-delta baseline, preserves observed history, and covers zero growth, declining usage, missing data and thresholds already exceeded. This is a revised example, not evidence that the operational deployment was upgraded or that forecast accuracy improved.
+That need shaped the decisions: integrate collection, processing, forecasting and communication into one workflow; use a simple, understandable projection to support planning; and deliver charts and summaries through Teams without preparing each report manually. More sophisticated models and other improvements could follow after the urgent delivery.
 
-## What the baseline does
+## Intro
+Capacity planning for distributed storage clusters is a constant challenge, especially in environments where rapid data growth can quickly turn into capacity risks or urgent procurement scenarios. At SERPRO, I developed a Python-based solution that automates the collection of Ceph usage metrics from Grafana Mimir, analyzes historical utilization trends, applies outlier correction, and projects forecasted consumption up to a year ahead for multiple sites and device classes. The system not only visualizes capacity usage with dynamic, outlier-robust trends and threshold indicators but also generates concise summary blocks—automatically posted into Microsoft Teams channels in structured Adaptive Cards. By integrating data science with seamless team communication, this workflow provides actionable insights that help our team act proactively on storage forecasting challenges.
 
-For each site and device class, the input is one observation per UTC day: raw used bytes and raw capacity bytes. The median of consecutive daily usage changes estimates growth. Starting at the **last actual observation**, day 1 adds one daily increment and day N adds N increments. This is linear extrapolation using a median slope, not fitted linear regression.
+## What was done
+The core objective of this project is to automate capacity forecasting for Ceph storage clusters by integrating data retrieval, processing, visualization, and reporting into a single Python workflow. The process starts by querying Grafana Mimir via its Prometheus API to fetch historical and recent metrics for raw and used bytes across device classes and sites (in this case, São Paulo and Brasília). The workflow uses structured PromQL queries to collect not only storage usage but also device classification for more granular analysis.
 
-The implementation preserves the original measurements. It does not label a sudden change as erroneous or silently replace it with zero. A median reduces the influence of isolated extreme deltas, but cannot determine whether a jump is a collection fault, rebalance, deletion or a real workload change. Review those events and the selected time window before interpreting the result.
+Once the raw metric data is gathered, it is merged into a unified pandas DataFrame. The method handles gaps and missing values through daily interpolation, ensuring the time series needed for statistical analysis and plotting remain continuous and regularized. Outlier treatment comprises delta computation and the application of a rolling standard deviation filter. Sudden, anomalous jumps in daily usage (likely due to transient glitches or exceptional events) are replaced by the median daily delta, ensuring that longer-term trends are not skewed by momentary artifacts.
 
-{{< callout type="constraint" >}}
-The default live window is 30 complete daily observations. Empty data, non-finite values, missing days, unmatched usage/capacity dimensions, and capacity changes within the window stop report generation. There is no interpolation or extrapolation of missing observations. After expansion, select a stable post-change window rather than silently combining two capacity regimes.
+Forecasting is handled through a simple, robust approach: the system projects usage growth forward using the historical median daily increase, assuming linear growth for the next 365 days. This matches the practical needs for capacity planning where quick, understandable trends trump overfitting or overcomplex modeling.
+
+For each dimension (site and device class), the script generates forecast graphs with matplotlib and seaborn, overlaying current usage, projections, and colored thresholds (75%, 85%, and 100% of available capacity) for visual clarity. Alongside plots, the workflow prepares a text summary containing key metrics such as projected fill dates, growth rates, and estimated time to reach critical thresholds.
+
+Finally, everything is packaged and sent to Microsoft Teams via webhook, using Adaptive Cards for structured, readable inline dashboards. The automation ensures that these insights are always up to date and readily available to stakeholders, without manual intervention or separate reporting pipelines.
+
+## Data Treatment and Forecasting Approach
+The data treatment phase is crucial for ensuring that the usage forecasts are reliable and robust. The raw metrics retrieved from Grafana Mimir often contain noise, missing values, and occasional outliers—irregular spikes or drops that do not represent typical usage patterns but can distort trend analysis if left uncorrected.
+
+To address this, the workflow first aligns the time series data by resampling it to a daily frequency and fills any missing data points via linear interpolation. This guarantees a continuous timeline, which is essential for consistent statistical calculations and regression modeling.
+
+Outlier handling focuses on the daily usage increments (the difference between consecutive days). The script calculates these deltas for usage metrics and computes their rolling standard deviation to statistically identify abnormal jumps. Values exceeding this threshold are considered outliers and replaced with the median delta value calculated from the non-outlier data. This method smooths erratic fluctuations while preserving the underlying growth trend.
+
+By repairing outliers at the delta level rather than raw usage values directly, the model maintains the cumulative consistency of the metric. The corrected deltas are then cumulatively summed to reconstruct a corrected usage time series. This approach effectively mitigates distortion from anomalous data points without discarding real growth signals.
+
+For forecasting, the corrected historical increments are used to project future growth linearly over a defined horizon (365 days). The median daily delta serves as a stable, robust estimate of expected usage increase per day. While more sophisticated models exist, this method balances simplicity and practicality, yielding easily interpretable results and forecasts useful for capacity planning. It avoids overfitting that can occur with complex models on noisy real-world operational data.
+
+Overall, this combination of careful interpolation, statistically informed outlier correction, and straightforward median-based linear forecasting creates a solid foundation for understanding and anticipating Ceph storage consumption trends with minimal computational complexity and high transparency.
+
+## The code
+
+Disclaimer: Some variables will be in portuguese.
+
+{{< code-file file="forecast.py" lang="python" collapse="false" >}}
+
+## Future Improvements
+
+- **Advanced Forecasting Models:** Instead of a linear extrapolation using median deltas, incorporate time series forecasting methods such as ARIMA, Prophet, or machine learning regression models to capture seasonality, trends, and potential non-linear growth patterns more accurately;
+
+- **Real-Time or Near Real-Time Processing:** Adapt the data collection and forecasting pipeline to support streaming or more frequent updates (e.g., hourly), enabling quicker reaction times to sudden usage changes or outages;
+
+- **Anomaly Detection and Alerting:** Integrate automatic anomaly detection techniques beyond simple standard deviation filtering to identify unexpected spikes or degradations. Pair these with proactive alerts in Teams or other channels to notify teams immediately;
+
+- **Capacity Thresholds as Configurable Parameters:** Allow dynamic adjustment of threshold levels (75%, 85%, 100%) via configuration files or environment variables instead of hardcoded values, improving flexibility for different environments or changing policies;
+
+- **Improved Visualization:** Enhance graphs by including confidence intervals on forecasts, interactive dashboards using tools such as Plotly Dash or Grafana panels, and support for multiple longer-term scenarios (e.g., optimistic, pessimistic);
+
+- **Authentication & Security Enhancements:** Secure API calls with proper authentication (OAuth tokens, certificates) and securely manage webhook URLs and proxy credentials;
+
+- **Extensibility for Other Metrics:** Generalize the pipeline to incorporate additional Ceph health and performance indicators (e.g., latency, IOPS, recovery status) for a more comprehensive capacity and cluster health dashboard.
+
+{{< callout type="note" title="About this historical implementation" >}}
+
+The code above documents the implementation published in September 2025 and preserves its original logic. Environment-specific settings, integrations and limitations reflect that historical version. A new deployment would need its own review; the improvements listed above are not presented as already implemented.
+
+The original narrative's “rolling standard deviation” described the intended treatment; the published code calculates standard deviation over the collected series, without a rolling window. Similarly, the code comment “linear regression” names an extrapolation using median increments. These clarifications do not change the original implementation.
 {{< /callout >}}
-
-The threshold result distinguishes four cases:
-
-| Status | Meaning |
-|---|---|
-| `already_reached` | Observed usage is already at or above the threshold; remaining days is zero. |
-| `not_reached_nonpositive_growth` | Below the threshold, with zero or negative estimated growth; no future crossing is projected. |
-| `within_horizon` | The daily projection crosses within the configured horizon. |
-| `beyond_horizon` | Positive growth, but no crossing within the horizon; no distant date is fabricated. |
-
-Negative-growth projections are floored at zero. Projections are not capped at capacity, so exceeding 100% indicates that the assumed trajectory is infeasible without action. The example threshold of 75% is a planning choice, not a universal Ceph full ratio. Raw bytes also differ from usable application capacity because replication, erasure coding and failure-domain headroom matter.
-
-## Run the example locally
-
-Download {{< resource-link file="forecast.py" >}} and {{< resource-link file="sample.csv" >}} into the same directory. The sample contains **synthetic data** growing by 10 TiB/day; it contains no operational metrics. Python 3.10+ is sufficient for the core workflow.
-
-```bash
-python forecast.py --csv sample.csv --horizon 90 --output forecast-output
-```
-
-The command writes JSON, forecast CSV and an Adaptive Card payload. It does not send a message. For PNG charts, install matplotlib in a virtual environment and add `--plot`:
-
-```bash
-python -m venv .venv
-# Activate .venv using the command for your operating system.
-python -m pip install matplotlib
-python forecast.py --csv sample.csv --horizon 90 --plot
-```
-
-The original cover image illustrates the earlier report, not validation of the revised model.
-
-## Collect from Mimir
-
-Set `MIMIR_QUERY_URL` to the full HTTPS query-range endpoint, `MIMIR_TENANT_ID` to the tenant permitted by your authentication proxy, and optionally `MIMIR_BEARER_TOKEN` to its access token. `METRICS_CA_FILE` can point to your trusted internal CA bundle. Otherwise, the system trust store is used. Certificate verification stays enabled; HTTP requests have a timeout and do not follow redirects.
-
-The example PromQL assumes `site` and `ceph_daemon` identify an OSD uniquely and that `ceph_osd_metadata` supplies `device_class`. Adapt the labels and aggregation if your scrape setup includes multiple clusters per site. Tenant identification is not authentication; enforce authorization at the gateway. The [Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/) documents range-query responses.
-
-```bash
-python forecast.py --history-days 30 --horizon 365 --threshold 0.75
-```
-
-Live collection ends at the previous day's UTC midnight sample. It requires complete, matching series and stops on query warnings or collection errors. The scheduler should alert on a failed run and the report's `as_of` date should remain visible.
-
-## Deliver a summary to Teams
-
-The original report used an Office webhook. For a new integration, configure a Teams Workflow that receives an HTTP request and posts an Adaptive Card, and match its authentication and payload contract to your tenant. Microsoft documents the [webhook and Workflow options](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
-
-The example writes `teams-payload.json` for inspection. It supports a webhook URL authorized by possession of that URL; an endpoint requiring OAuth needs a suitable authentication adapter. Only send after configuring the receiver and protecting its URL as a secret:
-
-```bash
-python forecast.py --csv sample.csv --send-teams
-```
-
-Set `TEAMS_WEBHOOK_URL` through a secret store or protected environment variable. The example sends text summaries; PNG files remain local. Publishing charts requires an approved image-hosting/authentication design, not embedding internal data into a public URL. Mimir and Teams calls were not exercised against production services during this revision.
-
-## Shared implementation
-
-Both language versions render the same source file, so the code can be tested and changed in one place.
-
-{{< code-file file="forecast.py" lang="python" >}}
-
-## Validation and limits
-
-Regression tests cover constant growth, a single spike, zero/negative growth, zero-day threshold crossings, the forecast boundary, gaps, invalid metrics and changed capacity. A synthetic chronological holdout checks the calculation without using future observations in the training window. These tests verify behavior, not accuracy on production data.
-
-Before using the projection for procurement, backtest on historical windows, compare against a no-growth baseline, measure errors at the relevant lead times and review structural changes. There is no confidence interval or demonstrated annual forecast accuracy here. Keep uncertainty and procurement lead time visible alongside the projected date.

@@ -1,3 +1,9 @@
+php2shell-aws-incident-response-lessons:
+  en:
+    problem: A critical PHP advisory affected a portfolio of applications with different EC2 and ECS deployment models.
+    contribution: I supported discovery and runtime investigation, working with application owners on containment and remediation.
+    decision: Treat image rebuilds, instance replacement and temporary access restrictions as distinct response paths.
+    outcome: Updated versions were checked on reviewed EC2 instances and container remediation was coordinated. A reproducible AMI and bootstrap redesign remains follow-up work.
 terraform-3:
   en:
     problem: Infrastructure changes can conflict with application releases and resources owned by other teams.
@@ -11,15 +17,15 @@ terraform-3:
     outcome: Uma direção arquitetural a validar em mudanças operacionais; os resultados de implementação ainda estão pendentes.
 jupyter-forecast:
   en:
-    problem: Ceph capacity planning needs a clear view of growth and explicit checks on the input data.
-    contribution: I built a metrics-to-report workflow and revised its shared Python example with regression tests.
-    decision: Use median daily growth as a transparent baseline and reject incomplete or inconsistent observations.
-    outcome: A reproducible local example with synthetic data. Production forecast accuracy has not been validated by this revision.
+    problem: The team urgently needed Ceph growth projections to support hardware acquisition across sites and device classes.
+    contribution: I built the Python integration from a Jupyter Notebook into scheduled Mimir collection, charts and Teams reporting, using forecasting logic provided by a colleague.
+    decision: Deliver a simple, understandable projection and automate the reporting workflow before pursuing more sophisticated models.
+    outcome: Scheduled charts and summaries supported the team's capacity-planning work. The article preserves the implementation delivered at the time, with later improvements identified separately.
   pt-br:
-    problem: O planejamento de capacidade Ceph precisa de uma visão clara do crescimento e de verificações dos dados.
-    contribution: Desenvolvi um fluxo de métricas e relatórios e revisei o exemplo Python compartilhado com testes de regressão.
-    decision: Usar a mediana do crescimento diário como referência e rejeitar observações incompletas ou inconsistentes.
-    outcome: Um exemplo local reproduzível com dados sintéticos. A revisão não validou a precisão das previsões em produção.
+    problem: A equipe precisava com urgência de projeções de crescimento Ceph para apoiar a aquisição de hardware por site e classe de dispositivo.
+    contribution: Desenvolvi a integração Python do Jupyter Notebook à coleta agendada no Mimir, aos gráficos e aos relatórios no Teams, usando a lógica de previsão fornecida por um colega.
+    decision: Entregar uma projeção simples e compreensível e automatizar os relatórios antes de investir em modelos mais sofisticados.
+    outcome: Gráficos e resumos agendados apoiaram o planejamento de capacidade da equipe. O artigo preserva a implementação entregue na época e identifica separadamente as melhorias futuras.
 ibb-kids:
   en:
     problem: A community application must run within the cost and operational constraints of a single ARM host.

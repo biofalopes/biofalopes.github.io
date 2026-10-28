@@ -12,7 +12,12 @@ en:
   armHost: Single ARM host
   backup: Backup
   conceptDiagram: Simplified architecture
-  diagram01: Terraform manages infrastructure; GitLab CI manages application releases on AWS ECS.
+  triage: Discovery & triage
+  rebuildImages: Rebuild images
+  replaceInstances: Replace instances
+  legacy: Legacy
+  ipAllowlist: IP allowlist
+  diagram01: PHP2Shell discovery and triage lead to three response paths; rebuild ECS images, replace EC2 instances with updated packages, or temporarily restrict legacy access with WAF.
   diagram02: Ceph metrics in Mimir feed Python checks and a capacity report. The trend is illustrative.
   diagram03: Nginx, Node.js and SQLite run on one ARM host, with database backups in OCI Object Storage.
   sourceCode: Source code
@@ -80,7 +85,12 @@ pt-br:
   armHost: Um único host ARM
   backup: Backup
   conceptDiagram: Arquitetura simplificada
-  diagram01: Terraform gerencia a infraestrutura; GitLab CI gerencia as entregas de aplicações no AWS ECS.
+  triage: Descoberta e triagem
+  rebuildImages: Novas imagens
+  replaceInstances: Substituir
+  legacy: Legado
+  ipAllowlist: IPs permitidos
+  diagram01: A descoberta e triagem do PHP2Shell orientam três respostas; reconstruir imagens ECS, substituir instâncias EC2 com pacotes atualizados ou restringir temporariamente o acesso ao legado com WAF.
   diagram02: Métricas Ceph no Mimir alimentam verificações Python e um relatório de capacidade. A tendência é ilustrativa.
   diagram03: Nginx, Node.js e SQLite funcionam em um host ARM, com backups do banco no OCI Object Storage.
   sourceCode: Código-fonte

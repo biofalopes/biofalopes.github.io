@@ -98,6 +98,17 @@ de rota exige alias e revisão desse contrato, sem perder os links publicados.
 
 ## Componentes editoriais e perfil
 
+### Preservação de autoria e contexto
+
+Artigos de portfólio documentam o trabalho realizado pelo autor, com as decisões,
+restrições e ferramentas da época. Revisões editoriais devem preservar esse
+contexto e o código original. Uma implementação alternativa ou reescrita não pode
+substituir o trabalho apresentado nem ser atribuída ao autor sem sua concordância
+explícita. Esclarecimentos posteriores ficam identificados e separados do relato;
+melhorias propostas não devem parecer entregas já realizadas.
+
+### Componentes disponíveis
+
 - `data/work.yaml` controla os três trabalhos selecionados. Os diagramas SVG
   são gerados por `layouts/_partials/portfolio/diagram.html`, com rótulos
   localizados em `data/interface.yaml` e cores compartilhadas com o tema.
