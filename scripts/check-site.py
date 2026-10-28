@@ -19,13 +19,18 @@ class Page(HTMLParser):
     def __init__(self, text):
         super().__init__()
         self.links, self.ids, self.hreflang, self.meta = [], set(), [], {}
+        self.duplicate_ids = set()
+        self.classes = set()
         self.h1 = 0
         self.feed(text)
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
         if "id" in attrs:
+            if attrs["id"] in self.ids:
+                self.duplicate_ids.add(attrs["id"])
             self.ids.add(attrs["id"])
+        self.classes.update(attrs.get("class", "").split())
         if tag == "h1":
             self.h1 += 1
         if tag == "meta":
@@ -50,6 +55,8 @@ def main():
     pages = {path.resolve(): Page(path.read_text(encoding="utf-8")) for path in OUTPUT.rglob("*.html")}
     for path, page in pages.items():
         relative = path.relative_to(OUTPUT).as_posix()
+        if page.duplicate_ids:
+            errors.append(f"Duplicate HTML IDs: {relative}: {sorted(page.duplicate_ids)}")
         origin = f"https://{HOST}/" + relative.removesuffix("index.html")
         for tag, href in page.links:
             url = urlparse(urljoin(origin, href))
@@ -61,7 +68,7 @@ def main():
             elif tag == "a" and url.fragment and target.resolve() in pages:
                 if unquote(url.fragment) not in pages[target.resolve()].ids:
                     errors.append(f"Missing anchor: {relative}: {href}")
-    for relative in ("index.html", "pt-br/index.html", "projects/index.html", "pt-br/projetos/index.html", "about/index.html", "search/index.html", "pt-br/pesquisar/index.html", "archives/index.html", "pt-br/arquivo/index.html"):
+    for relative in ("index.html", "pt-br/index.html", "projects/index.html", "pt-br/projetos/index.html", "about/index.html", "pt-br/sobre/index.html", "search/index.html", "pt-br/pesquisar/index.html", "archives/index.html", "pt-br/arquivo/index.html"):
         page = pages.get((OUTPUT / relative).resolve())
         if page is None or page.h1 != 1:
             errors.append(f"Expected one primary heading: {relative}")
@@ -91,6 +98,15 @@ def main():
             errors.append(f"Changed original publication date: {post['source']}")
         if post["draft"] and output_path(post["permalink"]).exists():
             errors.append(f"Draft included in production: {post['source']}")
+        if post["source"].split("/")[2] in ("terraform-3", "jupyter-forecast", "ibb-kids") and not post["draft"]:
+            article = pages.get(output_path(post["permalink"]).resolve())
+            required = {"article-glance", "article-toc", "code-toolbar", "engineering-callout"}
+            if article is None or not required.issubset(article.classes) or article.h1 != 1:
+                errors.append(f"Missing article reading components: {post['source']}")
+    for relative in ("about/index.html", "pt-br/sobre/index.html"):
+        page = pages.get((OUTPUT / relative).resolve())
+        if page is None or not {"profile-hero", "expertise-grid", "credential-list"}.issubset(page.classes):
+            errors.append(f"Missing professional profile: {relative}")
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Site checks passed: {len(pages)} HTML pages, {len(baseline)} preserved article routes, EN/PT navigation and outputs.")

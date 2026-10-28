@@ -1,0 +1,12 @@
+{{ $case := partial "portfolio/case-study.html" . }}
+{{ with index $case .Language.Name }}
+    {{ $labels := index hugo.Data.interface $.Language.Name }}
+    <section class="article-glance" aria-labelledby="glance-title">
+        <h2 id="glance-title">{{ $labels.atGlance }}</h2>
+        <dl>
+            {{ range slice "problem" "contribution" "decision" "outcome" }}
+                <div><dt>{{ index $labels . }}</dt><dd>{{ index $case $.Language.Name . }}</dd></div>
+            {{ end }}
+        </dl>
+    </section>
+{{ end }}

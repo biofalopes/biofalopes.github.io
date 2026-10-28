@@ -1,18 +1,18 @@
-- page: post/terraform-3
+- page: post/php2shell-aws-incident-response-lessons
   number: '01'
   category:
-    en: PLATFORM OWNERSHIP
-    pt-br: RESPONSABILIDADE PELA PLATAFORMA
+    en: INCIDENT RESPONSE
+    pt-br: RESPOSTA A INCIDENTES
   title:
-    en: Beyond the first Terraform apply
-    pt-br: Além do primeiro terraform apply
+    en: Restoring confidence under pressure
+    pt-br: Recuperando a confiança sob pressão
   summary:
-    en: Exploring the boundaries between infrastructure ownership and application delivery in a multi-account AWS environment.
-    pt-br: Uma análise dos limites entre a gestão da infraestrutura e a entrega de aplicações em um ambiente AWS com múltiplas contas.
+    en: 'A PHP2Shell response across multiple applications: runtime discovery, coordinated remediation and the limits of installing packages at boot.'
+    pt-br: 'Uma resposta ao PHP2Shell em múltiplas aplicações: descoberta de runtimes, remediação coordenada e os limites de instalar pacotes na inicialização.'
   type:
-    en: Architecture notes
-    pt-br: Análise de arquitetura
-  tags: [Terraform, AWS Outposts, ECS]
+    en: Incident response across ECS and EC2
+    pt-br: Resposta operacional em ECS e EC2
+  tags: [AWS, ECS, EC2, WAF]
 - page: post/jupyter-forecast
   number: '02'
   category:
@@ -22,12 +22,12 @@
     en: Making storage growth visible
     pt-br: Tornando o crescimento do storage visível
   summary:
-    en: From Ceph metrics to a capacity-planning workflow, with a transparent forecasting baseline and explicit data-quality checks.
-    pt-br: Das métricas do Ceph ao planejamento de capacidade, com uma projeção transparente e verificações explícitas dos dados.
+    en: From an urgent hardware-planning need to scheduled Ceph forecasts, charts and Teams reports, integrating Mimir metrics with Python.
+    pt-br: Da urgência na aquisição de hardware a previsões Ceph, gráficos e relatórios agendados no Teams, integrando métricas do Mimir com Python.
   type:
     en: Practical workflow
     pt-br: Fluxo de trabalho aplicado
-  tags: [Ceph, Python, Grafana Mimir]
+  tags: [Ceph, Python, Grafana Mimir, Teams]
 - page: post/ibb-kids
   number: '03'
   category:

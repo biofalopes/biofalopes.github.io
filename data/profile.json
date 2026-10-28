@@ -1,0 +1,46 @@
+{
+  "en": {
+    "intro": "I'm a Cloud Infrastructure and Platform Engineer with over 20 years of experience designing, deploying, and operating mission-critical, highly available systems, including platforms serving millions of users across Brazil.",
+    "career": "Throughout my career, I've worked across solution architecture, infrastructure, and platform engineering, with a focus on scalability, security, automation, and reliability. My experience includes environments with 99.99% SLAs, hybrid architectures built on AWS Outposts, and multi-cloud solutions spanning AWS, Google Cloud, Microsoft Azure, and Oracle Cloud.",
+    "expertise": [
+      {
+        "title": "Cloud & Infrastructure Architecture",
+        "description": "Designing and operating enterprise environments across AWS, Azure, Google Cloud, and OCI, including hybrid architectures with AWS Outposts, services such as ECS, EKS, and IAM, and high-availability and disaster recovery strategies."
+      },
+      {
+        "title": "Platform Engineering & Kubernetes",
+        "description": "Building and evolving Internal Developer Platforms (IDPs), managing production Kubernetes clusters, and automating infrastructure and application delivery using Terraform, Ansible, GitLab CI, GitHub Actions, and ArgoCD."
+      },
+      {
+        "title": "Infrastructure & Reliability",
+        "description": "Hands-on experience with Linux systems, enterprise networking, BGP, Calico CNI, and distributed storage solutions using Ceph, including multi-petabyte environments and S3-compatible object storage."
+      },
+      {
+        "title": "Automation & AI-Assisted Engineering",
+        "description": "Using AI tools to support software development, accelerate engineering workflows, and improve productivity while maintaining a strong focus on sound architecture, security, code quality, and operational reliability."
+      }
+    ]
+  },
+  "pt-br": {
+    "intro": "Sou engenheiro de infraestrutura e plataformas Cloud, com mais de 20 anos de experiência no desenvolvimento, implantação e operação de ambientes críticos e de alta disponibilidade, incluindo sistemas que atendem milhões de usuários em todo o Brasil.",
+    "career": "Ao longo da minha carreira, venho trabalhando com arquitetura de soluções, infraestrutura e engenharia de plataformas, com foco em escalabilidade, segurança, automação e confiabilidade. Tenho experiência em ambientes com SLA de 99,99%, arquiteturas híbridas com AWS Outposts e soluções multicloud envolvendo AWS, Google Cloud, Azure e Oracle Cloud.",
+    "expertise": [
+      {
+        "title": "Cloud e arquitetura de infraestrutura",
+        "description": "Experiência no desenho e operação de ambientes corporativos em AWS, Azure, Google Cloud e OCI, incluindo arquiteturas híbridas com AWS Outposts, serviços como ECS, EKS e IAM, além de estratégias de alta disponibilidade e recuperação de desastres."
+      },
+      {
+        "title": "Engenharia de plataformas e Kubernetes",
+        "description": "Atuação na construção e evolução de plataformas internas para desenvolvedores (IDPs), administração de clusters Kubernetes em produção e automação de infraestrutura e entregas com Terraform, Ansible, GitLab CI, GitHub Actions e ArgoCD."
+      },
+      {
+        "title": "Infraestrutura e confiabilidade",
+        "description": "Experiência com sistemas Linux, redes corporativas, BGP, Calico CNI e soluções de armazenamento distribuído com Ceph, incluindo ambientes com capacidade de múltiplos petabytes e integração com APIs compatíveis com S3."
+      },
+      {
+        "title": "Automação e Inteligência Artificial",
+        "description": "Uso de ferramentas de IA para apoiar o desenvolvimento de software, acelerar atividades de engenharia e melhorar a produtividade, sem abrir mão das boas práticas de arquitetura, segurança, qualidade de código e confiabilidade."
+      }
+    ]
+  }
+}

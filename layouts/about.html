@@ -1,0 +1,43 @@
+{{ define "body-class" }}portfolio-about{{ end }}
+{{ define "main" }}
+    {{ $labels := index hugo.Data.interface .Language.Name }}
+    {{ $profile := index hugo.Data.profile .Language.Name }}
+    <header class="profile-hero">
+        <div>
+            <p class="eyebrow">{{ $labels.profileEyebrow }}</p>
+            <h1>Fabio Lopes<span>Cloud · Platforms · SRE</span></h1>
+            <p class="profile-intro">{{ $profile.intro }}</p>
+            <p class="profile-location">{{ $labels.location }}</p>
+            <div class="profile-links">
+                <a class="button-primary" href="https://linkedin.com/in/fabiomlopes">LinkedIn <span aria-hidden="true">↗</span></a>
+                <a class="text-link" href="https://github.com/biofalopes">GitHub <span aria-hidden="true">↗</span></a>
+                {{ with .Site.Params.profile.resume }}<a class="text-link" href="{{ . }}">{{ $labels.resume }} <span aria-hidden="true">↗</span></a>{{ end }}
+            </div>
+        </div>
+        <figure class="profile-portrait">
+            {{ $avatar := (resources.Get "img/avatar.png").Fill "480x480 webp" }}
+            <img src="{{ $avatar.RelPermalink }}" width="240" height="240" alt="Fabio Lopes">
+            <figcaption>{{ $labels.experience }}</figcaption>
+        </figure>
+    </header>
+    <section class="profile-expertise" aria-labelledby="expertise-title">
+        <div class="section-heading"><div><p class="eyebrow">{{ $labels.expertise }}</p><h2 id="expertise-title">{{ $labels.approach }}</h2></div></div>
+        <p class="profile-career">{{ $profile.career }}</p>
+        <div class="expertise-grid">
+            {{ range $i, $area := $profile.expertise }}<article class="expertise-card"><span class="eyebrow" aria-hidden="true">0{{ add $i 1 }}</span><h3>{{ .title }}</h3><p>{{ .description }}</p></article>{{ end }}
+        </div>
+    </section>
+    <section class="profile-credentials" aria-labelledby="credentials-title">
+        <h2 id="credentials-title">{{ $labels.certifications }}</h2>
+        <ul class="credential-list">
+            {{ range hugo.Data.credentials }}<li><span class="eyebrow">{{ .issuer }}</span><strong>{{ .name }}</strong>{{ with .url }}<a class="text-link" href="{{ . }}">{{ $labels.credentialsLink }} <span aria-hidden="true">↗</span></a>{{ end }}</li>{{ end }}
+        </ul>
+    </section>
+    <section class="profile-story article-content">{{ .Content }}</section>
+    <section class="profile-contact" aria-labelledby="contact-title">
+        <div><h2 id="contact-title">{{ $labels.aboutContact }}</h2><p>{{ $labels.aboutContactBody }}</p></div>
+        <a class="button-primary" href="https://linkedin.com/in/fabiomlopes">{{ $labels.contact }} <span aria-hidden="true">↗</span></a>
+    </section>
+    {{ partial "footer/footer.html" . }}
+{{ end }}
+{{ define "right-sidebar" }}{{ end }}

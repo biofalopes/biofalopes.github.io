@@ -2,6 +2,12 @@
 
 Concluída em 27/10/2026, a partir dos achados P0 da [auditoria inicial](auditoria-2026-10-26.md).
 
+**Retificação — previsão Ceph:** a substituição de código descrita neste registro
+foi desfeita após revisão do autor. Ela descaracterizava o trabalho apresentado.
+O relato e a implementação originais foram recuperados; o exemplo alternativo e
+seus testes deixaram de representar o artigo. Veja a
+[restauração de autoria e contexto](restauracao-ceph-2026-10-27.md).
+
 ## Alterações aplicadas
 
 | Conteúdo | Correção |

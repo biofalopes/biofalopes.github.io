@@ -3,7 +3,7 @@ title = "Beyond Day-1 Terraform: Rethinking Platform Operations in My Environmen
 description = "Reflections on infrastructure ownership, ECS deployments, and Terraform lifecycle management in a multi-account AWS environment."
 date =  "2026-10-25"
 draft = false
-toc = false
+toc = true
 categories = ["terraform", "SRE", "DevOps", "Production Engineering"]
 tags = ["terraform", "SRE", "DevOps", "Production Engineering"]
 image = "terraform.jpg"
@@ -127,9 +127,11 @@ By ignoring changes to `task_definition`, we are intentionally giving up Terrafo
 
 The same applies to `desired_count`, which should only be ignored if another mechanism, such as Application Auto Scaling or an operational workflow, is expected to manage the running task count.
 
-**I see `ignore_changes` less as a workaround and more as an explicit ownership decision.**
+{{< callout type="decision" >}}
+I see `ignore_changes` less as a workaround and more as an explicit ownership decision.
 
 It can be useful when responsibilities are well-defined, but it can also hide configuration drift if applied too broadly.
+{{< /callout >}}
 
 ## 3. Security Groups That Reflect the Actual Traffic Flow
 
