@@ -45,10 +45,9 @@ Em Linux x64, instale Go e Python nas versões indicadas e execute:
 
 ```bash
 bash scripts/install-tools.sh
-export PATH="$PWD/.tools/hugo:$PWD/.tools/dart-sass:$PATH"
-python3 -m unittest discover -s tests -v
-hugo --environment production --gc --minify --cleanDestinationDir --printPathWarnings --panicOnWarning
-python3 scripts/check-site.py public
+bash scripts/blog.sh serve   # preview local, incluindo rascunhos (padrão)
+bash scripts/blog.sh check   # testes, build de produção, rotas e assets
+bash scripts/blog.sh build   # somente build de produção
 ```
 
 ## Conteúdo e personalização
