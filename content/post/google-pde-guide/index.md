@@ -1,7 +1,9 @@
 +++
 title = "Google Cloud Professional Data Engineer: A Practical Study Guide and Service Reference"
 description = "A companion reference for the Professional Data Engineer exam, covering service selection, BigQuery, pipelines, streaming, security, operations, and exam-style scenarios."
-date = "2026-10-30"
+date = "2025-02-04"
+lastmod = "2026-10-30"
+slug = "preparation-for-google-cloud-professional-data-engineer-pde-exam"
 draft = false
 toc = true
 categories = ["gcp", "data"]
