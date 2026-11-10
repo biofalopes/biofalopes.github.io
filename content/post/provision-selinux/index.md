@@ -6,7 +6,7 @@ draft = false
 toc = false
 tags = ["aws", "ec2", "almalinux", "selinux", "provisioning", "cloud-init", "automation"]
 categories = ["aws", "linux", "sre"]
-image = "banner.jpg"
+image = "banner.png"
 author = "Fabio M. Lopes"
 +++
 
