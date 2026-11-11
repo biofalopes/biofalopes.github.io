@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import re
 from urllib.parse import unquote, urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,6 +53,31 @@ def main():
     if not (OUTPUT / "index.html").exists():
         raise SystemExit(f"Build the site first: {OUTPUT}")
     errors = []
+    for source in (ROOT / "content" / "post").rglob("*.md"):
+        if source.name.startswith("_index") or source.name == "index-old.md":
+            continue
+        text = source.read_text(encoding="utf-8")
+        front_match = re.match(r"^(\+\+\+|---)\s*\r?\n(.*?)^\1\s*$", text, re.MULTILINE | re.DOTALL)
+        front_matter = ["", front_match.group(2), text[front_match.end():]] if front_match else []
+        if len(front_matter) < 3 or not re.search(r"(?m)^toc\s*[:=]\s*true(?:\s+#.*)?$", front_matter[1]):
+            errors.append(f"Post must enable the standard table of contents: {source.relative_to(ROOT)}")
+        in_fence = False
+        fence_marker = None
+        levels = []
+        for line in front_matter[2].splitlines() if len(front_matter) >= 3 else []:
+            fence = re.match(r"^\s*(`{3,}|~{3,})", line)
+            if fence:
+                marker = fence.group(1)[0]
+                if not in_fence:
+                    in_fence, fence_marker = True, marker
+                elif marker == fence_marker:
+                    in_fence, fence_marker = False, None
+                continue
+            heading = re.match(r"^(#{1,6})\s+", line) if not in_fence else None
+            if heading:
+                levels.append(len(heading.group(1)))
+        if levels and min(levels) != 2:
+            errors.append(f"Post body must start its heading hierarchy at H2: {source.relative_to(ROOT)}")
     pages = {path.resolve(): Page(path.read_text(encoding="utf-8")) for path in OUTPUT.rglob("*.html")}
     for path, page in pages.items():
         relative = path.relative_to(OUTPUT).as_posix()

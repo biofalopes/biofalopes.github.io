@@ -3,14 +3,14 @@ title = "Making EC2 Provisioning More Predictable Without Disabling SELinux"
 description = "Revisiting an AlmaLinux provisioning script exposed practical lessons about golden images, package management, boot-time dependencies, and SELinux contexts across application deployments."
 date = "2026-11-09"
 draft = false
-toc = false
+toc = true
 tags = ["aws", "ec2", "almalinux", "selinux", "provisioning", "cloud-init", "automation"]
 categories = ["aws", "linux", "sre"]
 image = "banner.png"
 author = "Fabio M. Lopes"
 +++
 
-# Rethinking EC2 Provisioning: Package Versions, Golden Images, and SELinux
+## Rethinking EC2 Provisioning: Package Versions, Golden Images, and SELinux
 
 I recently spent some time revisiting how we provision EC2 instances for a Laravel application running on AlmaLinux 9, Nginx, and PHP-FPM.
 
@@ -20,7 +20,7 @@ As I worked through the scripts, though, I found a few things that deserved more
 
 Each problem was manageable on its own, but together they raised a broader question: how much work should an EC2 instance really be doing when it starts?
 
-## What Belongs in the Image, and What Belongs at Boot?
+### What Belongs in the Image, and What Belongs at Boot?
 
 The original provisioning script handled almost everything from scratch. It configured repositories, installed packages, created users and directories, set up PHP-FPM and Nginx, installed systemd services, and applied firewall and SELinux settings.
 
@@ -43,7 +43,7 @@ The initialization script would then focus on runtime checks, selected configura
 
 During the transition, I kept the original provisioning commands commented out. That made it easier to review the changes with the team and explain which responsibilities had moved into the image. Once the new process is fully validated, those obsolete blocks can be removed.
 
-### The image and the initialization script need to agree
+#### The image and the initialization script need to agree
 
 One thing became clear while making these changes: moving a command out of the provisioning script doesn't make its responsibility disappear.
 
@@ -53,7 +53,7 @@ This means the machine image and its initialization script effectively become tw
 
 They need to be versioned and tested together, even if they're maintained separately. Otherwise, a perfectly valid change to one could break the other.
 
-## Package Versioning Wasn't as Straightforward as I Expected
+### Package Versioning Wasn't as Straightforward as I Expected
 
 Another improvement I wanted to make was controlling package versions more explicitly.
 
@@ -87,7 +87,7 @@ I also realized that synchronizing individual PHP packages wasn't necessarily th
 
 A single DNF transaction that resolves the related packages together is generally a better approach.
 
-### Version pinning is only part of the solution
+#### Version pinning is only part of the solution
 
 There's another limitation worth mentioning.
 
@@ -107,7 +107,7 @@ A controlled package repository could help. So could building and publishing new
 
 Neither approach is completely free of maintenance, but both provide more control over what actually gets deployed.
 
-## Enabling SELinux Revealed Another Problem
+### Enabling SELinux Revealed Another Problem
 
 The other major part of this work involved running the application with SELinux in Enforcing mode.
 
@@ -130,7 +130,7 @@ From a traditional Linux permissions perspective, that's relatively easy to mana
 
 SELinux adds another layer: every file also has a security context that determines how processes can interact with it.
 
-### The issue was with file labels
+#### The issue was with file labels
 
 During deployment, application files were prepared or extracted under `/tmp` before being moved into the release directory.
 
@@ -154,7 +154,7 @@ During validation, the symbolic link appeared with `var_t`. That's an observatio
 
 What matters is having the appropriate persistent file-context rules and ensuring that deployed files actually receive those labels.
 
-## The Fix Needed to Be Part of Deployment
+### The Fix Needed to Be Part of Deployment
 
 Initially, it might seem sufficient to configure SELinux correctly when building the machine image.
 
@@ -183,7 +183,7 @@ More importantly, if context restoration fails, the deployment shouldn't activat
 
 I'd rather have a deployment fail clearly than report success and leave the application unable to serve requests.
 
-### Why not make the entire application directory writable?
+#### Why not make the entire application directory writable?
 
 One possible shortcut would be to assign `httpd_sys_rw_content_t` to the entire Laravel directory.
 
@@ -193,7 +193,7 @@ Application code should remain read-only from the web process's perspective. Wri
 
 It's a relatively small distinction in configuration, but an important one for maintaining a sensible security boundary.
 
-## Validating the Changes
+### Validating the Changes
 
 After adjusting the deployment process, we checked the application in an AlmaLinux 9.8 environment with SELinux running in Enforcing mode.
 
@@ -226,7 +226,7 @@ Of course, these checks don't cover every possible application behavior. Backgro
 
 But they provided a useful baseline and confirmed that we didn't need to weaken SELinux to get the application running.
 
-## What I'd Still Like to Improve
+### What I'd Still Like to Improve
 
 Although the changes made the provisioning process more manageable, I wouldn't consider the work finished yet.
 
@@ -248,7 +248,7 @@ I'd also include a controlled runtime version change to see how the package-mana
 
 And every deployment should continue restoring SELinux contexts before activating a release, stopping immediately if that operation fails.
 
-## Final Thoughts
+### Final Thoughts
 
 What started as an effort to simplify a provisioning script turned into a useful review of how we build, initialize, and deploy our application servers.
 

@@ -14,6 +14,11 @@ if [[ ! -x "$hugo" ]]; then
   echo 'Run bash scripts/install-tools.sh first.' >&2
   exit 1
 fi
+go="$tools_dir/go/bin/go"
+if [[ ! -x "$go" ]]; then
+  echo 'Project-local Go is missing. Run bash scripts/install-tools.sh again.' >&2
+  exit 1
+fi
 
 export PATH="$tools_dir/go/bin:$tools_dir/dart-sass:$PATH"
 export GOENV=off
@@ -22,6 +27,14 @@ export GOCACHE="$tools_dir/gocache"
 export HUGO_CACHEDIR="$tools_dir/hugocache"
 export PYTHONDONTWRITEBYTECODE=1
 export HUGO_BIN="$hugo"
+
+expected_go_version="$(tr -d '\r\n' < .go-version)"
+actual_go_version="$($go version | awk '{print $3}' | sed 's/^go//')"
+if [[ "$actual_go_version" != "$expected_go_version" ]]; then
+  echo "Expected Go $expected_go_version, found $actual_go_version in $go." >&2
+  echo 'Run bash scripts/install-tools.sh again.' >&2
+  exit 1
+fi
 
 if [[ "$action" == serve ]]; then
   exec "$hugo" server --environment development --buildDrafts --disableFastRender --destination "$tools_dir/preview"

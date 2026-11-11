@@ -41,7 +41,7 @@ ficam desabilitados no ambiente de desenvolvimento. O build de produção limpa
 arquivos antigos de `public/`, evitando publicar saídas de rascunhos anteriores.
 Não mantenha arquivos manuais nesse diretório gerado.
 
-Em Linux x64, instale Go e Python nas versões indicadas e execute:
+Em Linux x64, tenha Python 3 disponível e execute:
 
 ```bash
 bash scripts/install-tools.sh
@@ -49,6 +49,11 @@ bash scripts/blog.sh serve   # preview local, incluindo rascunhos (padrão)
 bash scripts/blog.sh check   # testes, build de produção, rotas e assets
 bash scripts/blog.sh build   # somente build de produção
 ```
+
+O instalador Linux também baixa as versões fixadas de Hugo, Go e Sass para
+`.tools/`, sem alterar o PATH do sistema. Se o projeto já tiver sido configurado
+anteriormente, execute o instalador novamente para substituir uma instalação
+local incompleta.
 
 ## Conteúdo e personalização
 

@@ -3,18 +3,18 @@ title = "Guia Exaustivo para o Exame AWS Certified Solutions Architect – Profe
 description = "Guia completo e detalhado para o exame AWS Certified Solutions Architect – Professional (SAP-C02)"
 date = "2025-07-15"
 draft = false
-toc = false
+toc = true
 categories = ["aws"]
 tags = ["aws"]
 image = "aws.jpeg"
 +++
 
 
-# Guia Exaustivo para o Exame AWS Certified Solutions Architect – Professional (SAP-C02)
+## Guia Exaustivo para o Exame AWS Certified Solutions Architect – Professional (SAP-C02)
 
 Este documento tem como objetivo fornecer um guia completo e detalhado para o exame AWS Certified Solutions Architect – Professional (SAP-C02), cobrindo todos os tópicos e subdomínios conforme o guia oficial da AWS. O conteúdo será estruturado para facilitar o estudo, a consulta rápida e a compreensão aprofundada dos conceitos necessários para a certificação.
 
-## Domínios do Exame e Pesos
+### Domínios do Exame e Pesos
 
 O exame SAP-C02 é dividido em quatro domínios principais, cada um com um peso específico no conteúdo avaliado:
 
@@ -25,13 +25,13 @@ O exame SAP-C02 é dividido em quatro domínios principais, cada um com um peso 
 
 ---
 
-## Domínio 1: Design de Soluções para Complexidade Organizacional
+### Domínio 1: Design de Soluções para Complexidade Organizacional
 
 Este domínio foca na capacidade de projetar soluções que abordem os desafios de ambientes complexos e em larga escala, incluindo estratégias de rede, segurança, governança e gerenciamento de contas.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 1.1. Arquitetar estratégias de conectividade de rede.
+##### 1.1. Arquitetar estratégias de conectividade de rede.
 
 *   Conhecimento de:
     *   Infraestrutura Global da AWS
@@ -40,7 +40,7 @@ Este domínio foca na capacidade de projetar soluções que abordem os desafios 
     *   Segmentação de rede (por exemplo, sub-redes, endereçamento IP, conectividade entre VPCs)
     *   Monitoramento de tráfego de rede
 
-#### 1.2. Arquitetar estratégias de segurança para ambientes complexos.
+##### 1.2. Arquitetar estratégias de segurança para ambientes complexos.
 
 *   Conhecimento de:
     *   AWS Organizations e Unidades Organizacionais (OUs)
@@ -53,7 +53,7 @@ Este domínio foca na capacidade de projetar soluções que abordem os desafios 
     *   Auditoria e log (por exemplo, AWS CloudTrail, Amazon CloudWatch Logs)
     *   Princípio do menor privilégio
 
-#### 1.3. Arquitetar estratégias de governança e conformidade.
+##### 1.3. Arquitetar estratégias de governança e conformidade.
 
 *   Conhecimento de:
     *   AWS Control Tower
@@ -66,7 +66,7 @@ Este domínio foca na capacidade de projetar soluções que abordem os desafios 
     *   AWS Organizations e gerenciamento de contas
     *   Tags e políticas de tagging
 
-#### 1.4. Arquitetar estratégias de gerenciamento de contas e multi-contas.
+##### 1.4. Arquitetar estratégias de gerenciamento de contas e multi-contas.
 
 *   Conhecimento de:
     *   AWS Organizations e OUs
@@ -80,13 +80,13 @@ Este domínio foca na capacidade de projetar soluções que abordem os desafios 
 
 ---
 
-## Domínio 2: Design para Novas Soluções
+### Domínio 2: Design para Novas Soluções
 
 Este domínio aborda a capacidade de projetar novas soluções na AWS, focando na escolha de serviços, padrões de arquitetura, resiliência, escalabilidade e otimização de performance.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 2.1. Arquitetar soluções de computação.
+##### 2.1. Arquitetar soluções de computação.
 
 *   Conhecimento de:
     *   Amazon EC2 (por exemplo, instâncias spot/mixed fleets, Auto Scaling)
@@ -100,7 +100,7 @@ Este domínio aborda a capacidade de projetar novas soluções na AWS, focando n
     *   AWS Serverless Application Model (AWS SAM)
     *   AWS Amplify
 
-#### 2.2. Arquitetar soluções de armazenamento.
+##### 2.2. Arquitetar soluções de armazenamento.
 
 *   Conhecimento de:
     *   Amazon S3 (por exemplo, classes de armazenamento, pontos de acesso, políticas de ciclo de vida)
@@ -112,7 +112,7 @@ Este domínio aborda a capacidade de projetar novas soluções na AWS, focando n
     *   AWS Storage Gateway
     *   AWS Snow Family
 
-#### 2.3. Arquitetar soluções de banco de dados.
+##### 2.3. Arquitetar soluções de banco de dados.
 
 *   Conhecimento de:
     *   Amazon Relational Database Service (Amazon RDS)
@@ -130,7 +130,7 @@ Este domínio aborda a capacidade de projetar novas soluções na AWS, focando n
     *   AWS Database Migration Service (AWS DMS)
     *   AWS Schema Conversion Tool (AWS SCT)
 
-#### 2.4. Arquitetar soluções de rede.
+##### 2.4. Arquitetar soluções de rede.
 
 *   Conhecimento de:
     *   Amazon VPC (por exemplo, sub-redes, tabelas de rotas, gateways de internet, gateways NAT, endpoints de VPC)
@@ -146,7 +146,7 @@ Este domínio aborda a capacidade de projetar novas soluções na AWS, focando n
     *   AWS Cloud Map
     *   VPC Lattice
 
-#### 2.5. Arquitetar soluções de mensageria e integração.
+##### 2.5. Arquitetar soluções de mensageria e integração.
 
 *   Conhecimento de:
     *   Amazon Simple Notification Service (Amazon SNS)
@@ -161,13 +161,13 @@ Este domínio aborda a capacidade de projetar novas soluções na AWS, focando n
 
 ---
 
-## Domínio 3: Melhoria Contínua para Soluções Existentes
+### Domínio 3: Melhoria Contínua para Soluções Existentes
 
 Este domínio concentra-se na otimização e aprimoramento de arquiteturas existentes para melhorar a performance, resiliência, segurança e eficiência operacional.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 3.1. Arquitetar soluções para alta disponibilidade e resiliência.
+##### 3.1. Arquitetar soluções para alta disponibilidade e resiliência.
 
 *   Conhecimento de:
     *   Estratégias de recuperação de desastres (por exemplo, RTO, RPO, padrões de DR: backup e restauração, piloto leve, multi-site ativo-ativo)
@@ -181,7 +181,7 @@ Este domínio concentra-se na otimização e aprimoramento de arquiteturas exist
     *   Circuit Breaker pattern
     *   Sagas pattern
 
-#### 3.2. Arquitetar soluções para otimização de performance.
+##### 3.2. Arquitetar soluções para otimização de performance.
 
 *   Conhecimento de:
     *   AWS Well-Architected Framework (Pilar de Performance Efficiency)
@@ -192,7 +192,7 @@ Este domínio concentra-se na otimização e aprimoramento de arquiteturas exist
     *   Caching (por exemplo, Amazon CloudFront, Amazon ElastiCache, AWS Global Accelerator)
     *   Content Delivery Networks (CDNs)
 
-#### 3.3. Arquitetar soluções para monitoramento e observabilidade.
+##### 3.3. Arquitetar soluções para monitoramento e observabilidade.
 
 *   Conhecimento de:
     *   Amazon CloudWatch (por exemplo, métricas, logs, alarmes, dashboards)
@@ -205,7 +205,7 @@ Este domínio concentra-se na otimização e aprimoramento de arquiteturas exist
     *   AWS Trusted Advisor
     *   Feature flags com CloudWatch Evidently
 
-#### 3.4. Arquitetar soluções para segurança contínua.
+##### 3.4. Arquitetar soluções para segurança contínua.
 
 *   Conhecimento de:
     *   AWS Security Hub, Amazon GuardDuty, Amazon Detective, AWS Inspector
@@ -220,13 +220,13 @@ Este domínio concentra-se na otimização e aprimoramento de arquiteturas exist
 
 ---
 
-## Domínio 4: Acelerar a Migração e Modernização de Workloads
+### Domínio 4: Acelerar a Migração e Modernização de Workloads
 
 Este domínio aborda as estratégias e ferramentas para migrar e modernizar workloads para a AWS, incluindo a avaliação, planejamento e execução de migrações complexas.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 4.1. Arquitetar estratégias de migração.
+##### 4.1. Arquitetar estratégias de migração.
 
 *   Conhecimento de:
     *   Estratégias de migração (por exemplo, 7 Rs: Rehost, Replatform, Refactor/Re-architect, Repurchase, Retain, Retire, Relocate)
@@ -241,7 +241,7 @@ Este domínio aborda as estratégias e ferramentas para migrar e modernizar work
     *   AWS VPN
     *   AWS CloudEndure Migration
 
-#### 4.2. Arquitetar estratégias de modernização.
+##### 4.2. Arquitetar estratégias de modernização.
 
 *   Conhecimento de:
     *   Modernização de aplicações (por exemplo, microsserviços, serverless, containers)
@@ -251,7 +251,7 @@ Este domínio aborda as estratégias e ferramentas para migrar e modernizar work
     *   Padrões de modernização (por exemplo, Strangler Fig, Branch by Abstraction)
     *   Ferramentas de modernização (por exemplo, AWS Migration Hub Refactor Spaces, AWS App2Container)
 
-#### 4.3. Arquitetar estratégias de otimização de custos.
+##### 4.3. Arquitetar estratégias de otimização de custos.
 
 *   Conhecimento de:
     *   AWS Well-Architected Framework (Pilar de Otimização de Custos)
@@ -265,7 +265,7 @@ Este domínio aborda as estratégias e ferramentas para migrar e modernizar work
 
 ---
 
-## Novidades Relevantes (Exemplos)
+### Novidades Relevantes (Exemplos)
 
 *   IAM Roles Anywhere
 *   VPC Lattice
@@ -274,7 +274,7 @@ Este domínio aborda as estratégias e ferramentas para migrar e modernizar work
 
 ---
 
-## Tabelas Comparativas e Cenários Práticos
+### Tabelas Comparativas e Cenários Práticos
 
 Esta seção será preenchida com tabelas comparativas detalhadas, exemplos de cenários práticos que caem na prova, decisões arquiteturais e armadilhas comuns, consolidando o aprendizado e facilitando a consulta rápida.
 
@@ -285,9 +285,9 @@ Este documento será continuamente expandido e detalhado em cada um dos tópicos
 
 
 
-### 1.1. Arquitetar estratégias de conectividade de rede.
+#### 1.1. Arquitetar estratégias de conectividade de rede.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A conectividade de rede em um ambiente AWS complexo é a espinha dorsal de qualquer arquitetura bem-sucedida. Ela abrange desde a conectividade básica dentro de uma VPC até topologias de rede híbridas e globais. O exame SAP-C02 espera que o candidato tenha um profundo conhecimento sobre como projetar, proteger e otimizar essas conexões.
 
@@ -312,7 +312,7 @@ A conectividade de rede em um ambiente AWS complexo é a espinha dorsal de qualq
 *   **AWS CloudTrail:** Registra todas as chamadas de API feitas em sua conta, incluindo as relacionadas a alterações na configuração da rede.
 *   **Amazon CloudWatch:** Coleta e monitora métricas de rede de vários serviços da AWS, permitindo que você crie alarmes e dashboards.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **AWS Transit Gateway vs. VPC Peering:**
 
@@ -324,7 +324,7 @@ A conectividade de rede em um ambiente AWS complexo é a espinha dorsal de qualq
 *   **AWS Site-to-Site VPN:** É uma solução rápida e de baixo custo para estabelecer uma conexão segura entre sua rede on-premises e a AWS. No entanto, como a conexão é feita pela Internet pública, a performance pode ser inconsistente.
 *   **AWS Direct Connect:** Oferece uma conexão privada e dedicada com alta largura de banda e performance consistente. É a escolha ideal para workloads que exigem alta performance, baixa latência e segurança aprimorada. O custo inicial do Direct Connect é maior do que o da VPN.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **AWS Transit Gateway:**
 
@@ -340,7 +340,7 @@ A conectividade de rede em um ambiente AWS complexo é a espinha dorsal de qualq
 *   **Boas Práticas:** Use conexões redundantes do Direct Connect para alta disponibilidade. Use o Link Aggregation Group (LAG) para combinar várias conexões em uma única conexão lógica de maior largura de banda. Monitore a utilização da conexão.
 *   **Casos de Uso:** Migração de grandes volumes de dados, workloads de baixa latência, aplicações que exigem alta largura de banda.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 **Arquitetura de Rede Hub-and-Spoke com Transit Gateway:** Este é o modelo de arquitetura mais comum para redes complexas na AWS. O Transit Gateway atua como o hub, e as VPCs e conexões on-premises são os spokes. Isso simplifica o gerenciamento da rede e melhora a escalabilidade.
 
@@ -350,11 +350,11 @@ A conectividade de rede em um ambiente AWS complexo é a espinha dorsal de qualq
 
 **Governança:** Use o AWS Organizations para gerenciar centralmente suas contas e políticas de rede. Use o AWS Control Tower para provisionar um ambiente de várias contas seguro e bem arquitetado. Use o AWS Resource Access Manager (RAM) para compartilhar recursos de rede, como o Transit Gateway, entre contas.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 Ao migrar para a AWS, comece com uma base de rede sólida. Use o Transit Gateway para conectar suas VPCs e sua rede on-premises. À medida que você moderniza suas aplicações, use serviços como o AWS PrivateLink para expor serviços de forma segura entre VPCs sem expô-los à Internet pública.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma empresa possui 50 VPCs em uma única Região e precisa que todas elas se comuniquem entre si. Qual a solução mais escalável e gerenciável?
 
@@ -366,7 +366,7 @@ Ao migrar para a AWS, comece com uma base de rede sólida. Use o Transit Gateway
 
 
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 **Arquitetura de Rede Hub-and-Spoke com Transit Gateway:** Este é o modelo de arquitetura mais comum para redes complexas na AWS. O Transit Gateway atua como o hub, e as VPCs e conexões on-premises são os spokes. Isso simplifica o gerenciamento da rede e melhora a escalabilidade.
 
@@ -380,7 +380,7 @@ Ao migrar para a AWS, comece com uma base de rede sólida. Use o Transit Gateway
 
 
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 Ao migrar para a AWS, comece com uma base de rede sólida. Use o Transit Gateway para conectar suas VPCs e sua rede on-premises. À medida que você moderniza suas aplicações, use serviços como o AWS PrivateLink para expor serviços de forma segura entre VPCs sem expô-los à Internet pública.
 
@@ -388,7 +388,7 @@ Ao migrar para a AWS, comece com uma base de rede sólida. Use o Transit Gateway
 
 
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma empresa possui 50 VPCs em uma única Região e precisa que todas elas se comuniquem entre si. Qual a solução mais escalável e gerenciável?
 
@@ -400,7 +400,7 @@ Ao migrar para a AWS, comece com uma base de rede sólida. Use o Transit Gateway
 
 
 
-#### Detalhamento sobre políticas de IAM, SCPs, redes multi-VPC e multi-região, landing zones, observabilidade, custos e otimização
+##### Detalhamento sobre políticas de IAM, SCPs, redes multi-VPC e multi-região, landing zones, observabilidade, custos e otimização
 
 **Estratégias Multi-Account e Landing Zones:**
 
@@ -437,15 +437,15 @@ Gerenciar custos em um ambiente multi-account requer visibilidade e controle. O 
 
 ---
 
-## Domínio 2: Design para Novas Soluções
+### Domínio 2: Design para Novas Soluções
 
 Este domínio aborda a capacidade de projetar novas soluções na AWS, focando na escolha de serviços, padrões de arquitetura, resiliência, escalabilidade e otimização de performance. É crucial entender as características de cada serviço para tomar decisões arquiteturais informadas que atendam aos requisitos de negócios e técnicos.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 2.1. Arquitetar soluções de computação.
+##### 2.1. Arquitetar soluções de computação.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A AWS oferece uma vasta gama de serviços de computação, cada um otimizado para diferentes tipos de workloads. A escolha do serviço de computação correto é uma decisão arquitetural crítica que impacta diretamente a escalabilidade, performance, custo e gerenciamento da solução.
 
@@ -462,7 +462,7 @@ A AWS oferece uma vasta gama de serviços de computação, cada um otimizado par
 *   **AWS ParallelCluster:** Uma ferramenta de código aberto que facilita a implantação e o gerenciamento de clusters de computação de alto desempenho (HPC) na AWS.
 *   **AWS Serverless Application Model (AWS SAM) e AWS Amplify:** Ferramentas para simplificar o desenvolvimento e a implantação de aplicações *serverless* e web/mobile, respectivamente.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **EC2 vs. Lambda vs. Fargate:**
 
@@ -479,7 +479,7 @@ A AWS oferece uma vasta gama de serviços de computação, cada um otimizado par
 *   **Use Lambda quando:** Você tem workloads orientadas a eventos, funções de curta duração, precisa de escalabilidade instantânea e não quer gerenciar servidores. Ideal para backends de API, processamento de arquivos, automação.
 *   **Use Fargate quando:** Você quer executar contêineres sem gerenciar a infraestrutura subjacente. Ideal para microsserviços, aplicações web conteinerizadas, onde a portabilidade do contêiner é importante, mas o gerenciamento de VMs não é desejado.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Amazon EC2:**
 *   **Configurações:** Escolha o tipo de instância (família, tamanho), AMI (Amazon Machine Image), armazenamento (EBS), rede (VPC, sub-rede, Security Groups). Configure Auto Scaling Groups com políticas de escalabilidade.
@@ -499,20 +499,20 @@ A AWS oferece uma vasta gama de serviços de computação, cada um otimizado par
 *   **Boas Práticas:** Use imagens de contêiner otimizadas e pequenas. Implemente health checks para garantir a disponibilidade. Monitore com CloudWatch Container Insights.
 *   **Casos de Uso:** Microsserviços, APIs conteinerizadas, aplicações web, processamento de dados em contêineres.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura de Microsserviços:** Frequentemente implementada com contêineres (ECS/EKS/Fargate) e Lambda para componentes *serverless*. Cada serviço é independente, escalável e resiliente.
 *   **Padrões de Segurança:** Use IAM Roles para conceder permissões mínimas aos serviços de computação. Isole recursos em sub-redes privadas. Use Security Groups para controlar o tráfego de rede. Criptografe dados em trânsito e em repouso.
 *   **Resiliência:** Distribua workloads por múltiplas AZs. Use Auto Scaling para lidar com picos de tráfego e falhas de instâncias. Implemente *health checks* e *circuit breakers*.
 *   **Governança:** Use AWS Config para monitorar a conformidade das configurações. Implemente políticas de tagging para rastreamento de custos e recursos.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Rehost (Lift-and-Shift):** Migrar VMs on-premises para EC2. É a estratégia mais rápida, mas não aproveita totalmente os benefícios da nuvem.
 *   **Replatform:** Migrar aplicações para EC2 com algumas otimizações, como o uso de RDS para bancos de dados ou Auto Scaling. Pode envolver a conteinerização de aplicações para ECS/EKS.
 *   **Refactor/Re-architect:** Refatorar aplicações para usar serviços *serverless* (Lambda, Fargate) e microsserviços. Esta é a estratégia que mais aproveita os benefícios da nuvem, mas também a mais complexa e demorada.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação web tem picos de tráfego imprevisíveis e precisa de escalabilidade rápida e custos otimizados. A aplicação é composta por um frontend estático e um backend de API RESTful.
 
@@ -522,9 +522,9 @@ A AWS oferece uma vasta gama de serviços de computação, cada um otimizado par
 
 ---
 
-#### 2.2. Arquitetar soluções de armazenamento.
+##### 2.2. Arquitetar soluções de armazenamento.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A AWS oferece uma ampla gama de serviços de armazenamento, cada um projetado para diferentes casos de uso, requisitos de performance, durabilidade e custo. A escolha do serviço de armazenamento adequado é crucial para a performance e a economia de uma solução.
 
@@ -542,7 +542,7 @@ A AWS oferece uma ampla gama de serviços de armazenamento, cada um projetado pa
 *   **AWS Storage Gateway:** Conecta ambientes on-premises com o armazenamento em nuvem da AWS, oferecendo gateways de arquivo, volume e fita para diferentes casos de uso de armazenamento híbrido.
 *   **AWS Snow Family:** Dispositivos físicos (Snowcone, Snowball, Snowmobile) para transferir grandes volumes de dados para dentro e para fora da AWS, ou para executar computação na borda em ambientes desconectados ou remotos.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 | Característica        | Amazon S3                                  | Amazon EFS                                  | Amazon FSx                                  | Amazon EBS                                  |
 | :-------------------- | :----------------------------------------- | :------------------------------------------ | :------------------------------------------ | :------------------------------------------ |
@@ -557,7 +557,7 @@ A AWS oferece uma ampla gama de serviços de armazenamento, cada um projetado pa
 *   **S3 vs. EFS vs. FSx:** A principal diferença está no modelo de acesso. S3 é para objetos (acesso via API), EFS e FSx são para arquivos (acesso via sistema de arquivos). A escolha entre EFS e FSx depende do tipo de sistema de arquivos e dos recursos específicos necessários (NFS genérico vs. Lustre/SMB/ONTAP).
 *   **S3 vs. Glacier:** Glacier é uma classe de armazenamento de S3, otimizada para arquivamento de longo prazo com custos muito baixos, mas com tempos de recuperação mais longos. S3 Standard é para acesso frequente, enquanto as classes IA são para acesso infrequente.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Amazon S3:**
 *   **Configurações:** Crie buckets, defina políticas de bucket, configure políticas de ciclo de vida para transição entre classes de armazenamento, configure versionamento, criptografia (SSE-S3, SSE-KMS, SSE-C).
@@ -577,7 +577,7 @@ A AWS oferece uma ampla gama de serviços de armazenamento, cada um projetado pa
 *   **Boas Práticas:** Use gp3 para a maioria das workloads. Use io2 Block Express para workloads de alta performance. Crie snapshots regularmente para recuperação de desastres. Criptografe volumes EBS por padrão.
 *   **Casos de Uso:** Volumes de boot de instâncias EC2, bancos de dados, logs de aplicação, volumes de dados para aplicações que exigem armazenamento persistente e de baixa latência.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Data Lake no S3:** Armazene dados brutos e processados no S3, usando diferentes classes de armazenamento para otimização de custos. Integre com serviços como AWS Glue, Amazon Athena e Amazon Redshift Spectrum para análise.
 *   **Armazenamento Compartilhado para Aplicações Web:** Use EFS para compartilhar arquivos de conteúdo entre múltiplos servidores web EC2 em um Auto Scaling Group.
@@ -585,12 +585,12 @@ A AWS oferece uma ampla gama de serviços de armazenamento, cada um projetado pa
 *   **Resiliência:** S3, EFS e FSx for Windows/ONTAP são projetados para alta durabilidade e disponibilidade multi-AZ. Para EBS, use snapshots para backup e replicação entre AZs para recuperação de desastres.
 *   **Governança:** Use AWS Config para monitorar a conformidade das configurações de armazenamento. Implemente políticas de ciclo de vida para gerenciar o ciclo de vida dos dados e otimizar custos.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Migração de Dados:** Use AWS DataSync para transferir grandes volumes de dados de on-premises para S3, EFS ou FSx. Use o AWS Snow Family para migrações offline de petabytes de dados.
 *   **Modernização:** Substitua servidores de arquivos on-premises por EFS ou FSx. Migre bancos de dados para RDS ou DynamoDB, que usam EBS e S3 internamente. Refatore aplicações para usar S3 para armazenamento de objetos em vez de sistemas de arquivos locais.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação de análise de Big Data gera grandes volumes de dados que precisam ser armazenados de forma econômica e acessados ocasionalmente para relatórios históricos.
 
@@ -600,9 +600,9 @@ A AWS oferece uma ampla gama de serviços de armazenamento, cada um projetado pa
 
 ---
 
-#### 2.3. Arquitetar soluções de banco de dados.
+##### 2.3. Arquitetar soluções de banco de dados.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A AWS oferece uma ampla variedade de serviços de banco de dados, cobrindo modelos relacionais, NoSQL, data warehousing, grafos, ledger, séries temporais e blockchain. A escolha do banco de dados certo é fundamental para a performance, escalabilidade, resiliência e custo de uma aplicação.
 
@@ -620,7 +620,7 @@ A AWS oferece uma ampla variedade de serviços de banco de dados, cobrindo model
 *   **AWS Database Migration Service (DMS):** Ajuda a migrar bancos de dados para a AWS de forma rápida e segura. Suporta migrações homogêneas (por exemplo, Oracle para Oracle) e heterogêneas (por exemplo, Oracle para PostgreSQL).
 *   **AWS Schema Conversion Tool (SCT):** Ajuda a converter o esquema do banco de dados e o código da aplicação de um banco de dados de origem para um banco de dados de destino diferente.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **Amazon RDS vs. Amazon Aurora vs. Amazon DynamoDB:**
 
@@ -643,7 +643,7 @@ A AWS oferece uma ampla variedade de serviços de banco de dados, cobrindo model
 *   **Redshift vs. RDS/Aurora:** Redshift é um data warehouse para análise (OLAP), enquanto RDS/Aurora são bancos de dados transacionais (OLTP). Não são substitutos, mas complementares.
 *   **ElastiCache vs. Bancos de Dados:** ElastiCache é um cache na memória para acelerar o acesso a dados frequentemente acessados, reduzindo a carga no banco de dados principal.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Amazon RDS:**
 *   **Configurações:** Escolha o motor, tipo de instância, armazenamento, Multi-AZ, réplicas de leitura, grupos de parâmetros e opções.
@@ -663,19 +663,19 @@ A AWS oferece uma ampla variedade de serviços de banco de dados, cobrindo model
 *   **Boas Práticas:** Projete bem as chaves primárias para distribuir a carga de trabalho. Use o modo sob demanda para workloads imprevisíveis. Use o DynamoDB Accelerator (DAX) para cache na memória. Habilite o DynamoDB Streams para processamento de eventos.
 *   **Casos de Uso:** Perfis de usuário, dados de sessão, carrinhos de compras, jogos, IoT, microsserviços sem estado.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura Orientada a Dados:** Escolha o banco de dados certo para cada workload, combinando diferentes tipos (relacional para transações, NoSQL para dados flexíveis, data warehouse para análise).
 *   **Padrões de Segurança:** Use IAM Roles para acesso a bancos de dados. Criptografe dados em repouso (KMS) e em trânsito (SSL/TLS). Use Security Groups para controlar o acesso à rede. Implemente o princípio do menor privilégio.
 *   **Resiliência:** Use Multi-AZ para RDS e Aurora para alta disponibilidade. DynamoDB é inerentemente distribuído e resiliente. Use backups e snapshots regulares.
 *   **Governança:** Use AWS Config para monitorar a conformidade das configurações de banco de dados. Implemente políticas de tagging para rastreamento de custos e recursos.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Migração de Banco de Dados:** Use AWS DMS para migrar bancos de dados existentes para a AWS, com suporte para migrações homogêneas e heterogêneas. Use AWS SCT para converter esquemas.
 *   **Modernização:** Refatore aplicações para usar bancos de dados *serverless* como DynamoDB ou Aurora Serverless. Migre de bancos de dados auto-gerenciados para serviços gerenciados como RDS ou Aurora para reduzir a sobrecarga operacional.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação de e-commerce precisa de um banco de dados para armazenar informações de produtos e pedidos. A aplicação espera um alto volume de transações e precisa de alta disponibilidade e escalabilidade.
 
@@ -685,9 +685,9 @@ A AWS oferece uma ampla variedade de serviços de banco de dados, cobrindo model
 
 ---
 
-#### 2.4. Arquitetar soluções de rede.
+##### 2.4. Arquitetar soluções de rede.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 As soluções de rede na AWS são a base para a conectividade de todas as aplicações e serviços. O domínio 2 aprofunda os conceitos de rede, incluindo VPCs, conectividade global e serviços de entrega de conteúdo.
 
@@ -708,7 +708,7 @@ As soluções de rede na AWS são a base para a conectividade de todas as aplica
 *   **AWS Cloud Map:** Um serviço de descoberta de recursos que permite que suas aplicações descubram e se conectem a serviços de nuvem dinamicamente. Ele mantém um registro de todos os seus recursos de aplicação e seus locais, e os atualiza automaticamente.
 *   **VPC Lattice:** Um novo serviço que simplifica a conectividade, segurança e observabilidade entre serviços em uma arquitetura de microsserviços. Ele permite que você defina políticas de acesso e roteamento em um nível de serviço, independentemente da infraestrutura de rede subjacente. Facilita a comunicação entre serviços em diferentes VPCs e contas.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **AWS Transit Gateway vs. AWS PrivateLink vs. VPC Peering:**
 
@@ -723,7 +723,7 @@ As soluções de rede na AWS são a base para a conectividade de todas as aplica
 
 *   **CloudFront vs. Global Accelerator:** Ambos melhoram a performance e a disponibilidade, mas em diferentes camadas. CloudFront é um CDN para conteúdo web (camada 7 - HTTP/HTTPS), otimizando a entrega de conteúdo estático e dinâmico. Global Accelerator opera na camada de rede (camada 4 - TCP/UDP), otimizando o roteamento do tráfego para aplicações, independentemente do protocolo. Use CloudFront para conteúdo web e Global Accelerator para aplicações que não são baseadas em HTTP/HTTPS ou que exigem endereços IP estáticos.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Amazon VPC:**
 *   **Configurações:** Defina blocos CIDR, crie sub-redes (públicas/privadas), configure tabelas de rotas, gateways de internet, NAT Gateways, Endpoints de VPC. Use Security Groups e NACLs para controle de tráfego.
@@ -749,19 +749,19 @@ As soluções de rede na AWS são a base para a conectividade de todas as aplica
 *   **Boas Práticas:** Use para aplicações que exigem alta disponibilidade e performance global, especialmente para tráfego não-HTTP/HTTPS. Use com *health checks* para rotear para endpoints saudáveis.
 *   **Casos de Uso:** Jogos online, VoIP, aplicações financeiras, aplicações que exigem endereços IP estáticos globais.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura de Rede em Estrela (Hub-and-Spoke):** Com o Transit Gateway como hub central, conectando VPCs de diferentes ambientes (produção, desenvolvimento, segurança) e redes on-premises.
 *   **Padrões de Segurança:** Implemente o princípio do menor privilégio para acesso à rede. Use Security Groups e NACLs. Use AWS WAF e Shield para proteção de aplicações web. Monitore o tráfego com VPC Flow Logs e CloudWatch.
 *   **Resiliência:** Projete redes multi-AZ e multi-região. Use Load Balancers para distribuir o tráfego. Implemente failover de DNS com Route 53.
 *   **Governança:** Use AWS Organizations para gerenciar contas de rede. Use AWS Config para monitorar a conformidade das configurações de rede. Use AWS Network Manager para gerenciar e monitorar sua rede global.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Migração de Rede:** Migre redes on-premises para VPCs usando Direct Connect ou VPN. Consolide redes complexas com VPC Peering em uma arquitetura Transit Gateway.
 *   **Modernização:** Adote VPC Lattice para simplificar a conectividade e segurança de microsserviços. Use CloudFront e Global Accelerator para otimizar a entrega de aplicações globais. Refatore aplicações para usar Endpoints de VPC para acesso privado a serviços AWS.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma empresa tem uma aplicação web global que precisa entregar conteúdo estático e dinâmico com baixa latência para usuários em todo o mundo, além de uma API backend que precisa de alta performance e disponibilidade.
 
@@ -771,9 +771,9 @@ As soluções de rede na AWS são a base para a conectividade de todas as aplica
 
 ---
 
-#### 2.5. Arquitetar soluções de mensageria e integração.
+##### 2.5. Arquitetar soluções de mensageria e integração.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 Serviços de mensageria e integração são cruciais para construir aplicações distribuídas, desacopladas e escaláveis. Eles permitem que diferentes componentes de uma aplicação se comuniquem de forma assíncrona, aumentando a resiliência e a flexibilidade.
 
@@ -796,7 +796,7 @@ exatamente uma vez).
 front-door para aplicações, permitindo que os clientes acessem dados, lógica de negócios ou funcionalidades de seus serviços de backend.
 *   **AWS IoT Core:** Um serviço gerenciado que permite que dispositivos conectados interajam de forma segura e fácil com aplicações em nuvem e outros dispositivos. Ideal para soluções de Internet das Coisas.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **SNS vs. SQS vs. EventBridge:**
 
@@ -818,7 +818,7 @@ front-door para aplicações, permitindo que os clientes acessem dados, lógica 
 *   **Kinesis Data Streams:** Ideal para processamento de dados em tempo real, onde a ordem dos registros é importante e você precisa de múltiplos consumidores para processar o mesmo fluxo de dados. Ex: clickstreams, dados de IoT.
 *   **SQS:** Ideal para desacoplar componentes e processar mensagens de forma assíncrona, onde cada mensagem é processada por um único consumidor (ou um grupo de consumidores para filas padrão). Ex: filas de tarefas, processamento de pedidos.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Amazon SNS:**
 *   **Configurações:** Crie tópicos, adicione assinantes (Lambda, SQS, HTTP/S, e-mail, SMS), defina políticas de acesso. Configure filas de *dead-letter* (DLQ) para mensagens não entregues.
@@ -838,19 +838,19 @@ front-door para aplicações, permitindo que os clientes acessem dados, lógica 
 *   **Boas Práticas:** Use para construir arquiteturas orientadas a eventos. Use regras para filtrar e rotear eventos para destinos específicos. Use o Schema Registry para garantir a compatibilidade de eventos.
 *   **Casos de Uso:** Integração entre serviços AWS, integração com SaaS, auditoria de eventos, automação de fluxos de trabalho.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura Orientada a Eventos:** Use EventBridge como o hub central para eventos, com produtores publicando eventos e consumidores reagindo a eles. Isso promove o desacoplamento e a escalabilidade.
 *   **Padrões de Segurança:** Use IAM Roles para conceder permissões mínimas aos produtores e consumidores de mensagens. Criptografe mensagens em trânsito e em repouso. Use políticas de acesso para controlar quem pode publicar ou consumir mensagens.
 *   **Resiliência:** Use filas de mensagens (SQS) para absorver picos de tráfego e garantir a entrega de mensagens. Use DLQs para lidar com mensagens que não podem ser processadas. Implemente retries e backoff exponenciais.
 *   **Governança:** Use AWS CloudTrail para auditar as operações de API em serviços de mensageria. Use AWS Config para monitorar a conformidade das configurações.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Migração:** Substitua sistemas de mensageria on-premises por SQS e SNS. Migre sistemas de integração legados para EventBridge para uma abordagem orientada a eventos.
 *   **Modernização:** Refatore aplicações monolíticas em microsserviços que se comunicam via eventos e filas. Adote Step Functions para orquestrar fluxos de trabalho complexos e de longa duração.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação de e-commerce precisa processar pedidos de forma assíncrona. Após um pedido ser feito, várias ações precisam ser executadas: atualizar o estoque, enviar e-mail de confirmação, notificar o sistema de logística e atualizar o CRM.
 
@@ -864,15 +864,15 @@ front-door para aplicações, permitindo que os clientes acessem dados, lógica 
 
 ---
 
-## Domínio 3: Melhoria Contínua para Soluções Existentes
+### Domínio 3: Melhoria Contínua para Soluções Existentes
 
 Este domínio concentra-se na otimização e aprimoramento de arquiteturas existentes para melhorar a performance, resiliência, segurança e eficiência operacional. O foco é garantir que as soluções AWS continuem a atender aos requisitos de negócios em evolução e às melhores práticas da indústria.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 3.1. Arquitetar soluções para alta disponibilidade e resiliência.
+##### 3.1. Arquitetar soluções para alta disponibilidade e resiliência.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 Alta disponibilidade e resiliência são pilares críticos de qualquer arquitetura de nuvem robusta. A AWS oferece uma série de serviços e padrões para garantir que as aplicações permaneçam operacionais mesmo diante de falhas.
 
@@ -897,11 +897,11 @@ Alta disponibilidade e resiliência são pilares críticos de qualquer arquitetu
     *   **Circuit Breaker:** Impede que uma aplicação tente repetidamente uma operação que provavelmente falhará, protegendo o sistema de sobrecarga e permitindo que ele se recupere.
     *   **Sagas:** Um padrão para gerenciar transações distribuídas, garantindo a consistência dos dados em um sistema de microsserviços, mesmo quando as operações falham.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 As estratégias de DR (Backup e Restauração, Piloto Leve, Warm Standby, Multi-Site Ativo-Ativo) são escolhas que dependem diretamente dos requisitos de RTO e RPO. Quanto menores os RTO e RPO desejados, mais complexa e cara será a estratégia.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Estratégias de DR:**
 *   **Configurações:** Envolvem a replicação de dados (via S3 Cross-Region Replication, DynamoDB Global Tables, RDS Read Replicas ou DMS), o provisionamento de infraestrutura na região de DR e a configuração de roteamento de DNS (Route 53) para failover.
@@ -918,7 +918,7 @@ As estratégias de DR (Backup e Restauração, Piloto Leve, Warm Standby, Multi-
 *   **Boas Práticas:** Use métricas de utilização de CPU ou requisições de Load Balancer para escalar. Use *warm pools* para reduzir o tempo de inicialização de novas instâncias. Monitore o grupo de Auto Scaling com CloudWatch.
 *   **Casos de Uso:** Aplicações web, microsserviços, qualquer workload que precise de escalabilidade elástica e resiliência a falhas de instâncias.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura Multi-AZ:** Implante recursos em pelo menos duas Zonas de Disponibilidade dentro de uma região para proteger contra falhas de AZ. Use Load Balancers e Auto Scaling para distribuir o tráfego.
 *   **Arquitetura Multi-Região:** Para os requisitos mais rigorosos de RTO/RPO, implante a aplicação em múltiplas regiões. Use serviços como Route 53 e Global Accelerator para roteamento de tráfego e failover.
@@ -926,11 +926,11 @@ As estratégias de DR (Backup e Restauração, Piloto Leve, Warm Standby, Multi-
 *   **Resiliência:** Projete para falhas. Implemente *timeouts*, *retries* e *circuit breakers*. Use filas e mensageria para desacoplar componentes. Teste a resiliência regularmente com *Chaos Engineering*.
 *   **Governança:** Use AWS Config para monitorar a conformidade das configurações de resiliência. Use AWS Resilience Hub para avaliar e gerenciar a resiliência de suas aplicações.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Modernização para Resiliência:** Ao modernizar, refatore aplicações para serem *stateless* e use serviços gerenciados que são inerentemente resilientes (ex: DynamoDB Global Tables, Aurora Multi-Master). Adote padrões de microsserviços para isolar falhas.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação de streaming de vídeo de missão crítica precisa de um RTO de segundos e um RPO de zero para seus dados de sessão de usuário.
 
@@ -940,9 +940,9 @@ As estratégias de DR (Backup e Restauração, Piloto Leve, Warm Standby, Multi-
 
 ---
 
-#### 3.2. Arquitetar soluções para otimização de performance.
+##### 3.2. Arquitetar soluções para otimização de performance.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A otimização de performance na AWS envolve a seleção e configuração de recursos para garantir que as aplicações respondam rapidamente e processem dados de forma eficiente, ao mesmo tempo em que se equilibra com os custos. O Pilar de Eficiência de Performance do AWS Well-Architected Framework fornece diretrizes para isso.
 
@@ -966,13 +966,13 @@ A otimização de performance na AWS envolve a seleção e configuração de rec
 *   **Caching:** Implementar estratégias de cache em diferentes camadas da arquitetura (CDN com CloudFront, cache de aplicação com ElastiCache, cache de DNS com Route 53).
 *   **Content Delivery Networks (CDNs):** Redes de servidores distribuídos geograficamente que entregam conteúdo web e multimídia para usuários com base em sua localização, melhorando a velocidade de carregamento e reduzindo a carga sobre os servidores de origem.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 *   **ElastiCache (Redis vs. Memcached):**
     *   **Redis:** Mais rico em recursos, suporta estruturas de dados complexas (listas, sets, hashes), persistência de dados, replicação e clustering. Ideal para caching, leaderboards, contadores, filas de mensagens.
     *   **Memcached:** Mais simples, focado em caching de objetos. Ideal para caching de dados simples e escalabilidade horizontal.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Otimização de Computação (EC2):**
 *   **Configurações:** Monitore a utilização de CPU, memória e rede. Use o AWS Compute Optimizer para recomendações de dimensionamento correto.
@@ -986,18 +986,18 @@ A otimização de performance na AWS envolve a seleção e configuração de rec
 *   **Boas Práticas:** Armazene dados frequentemente acessados e que não mudam com frequência. Implemente estratégias de *cache-aside* ou *write-through*. Monitore as taxas de *cache hit* e *miss*.
 *   **Casos de Uso:** Caching de resultados de consultas de banco de dados, dados de sessão de usuário, rankings de jogos, feeds de notícias.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura de Caching em Camadas:** Combine CDN (CloudFront) para cache de borda, ElastiCache para cache de aplicação/banco de dados e cache de objetos em S3 para dados estáticos.
 *   **Padrões de Segurança:** Use IAM Roles para acesso a serviços de cache. Criptografe dados em trânsito e em repouso no cache (Redis suporta criptografia).
 *   **Resiliência:** Use ElastiCache com Multi-AZ para alta disponibilidade. Implemente lógica de *fallback* na aplicação caso o cache não esteja disponível.
 *   **Governança:** Use AWS Config para monitorar a conformidade das configurações de performance. Use AWS Trusted Advisor para recomendações de otimização de performance.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Modernização para Performance:** Refatore aplicações para serem *stateless* e usem cache extensivamente. Migre para serviços *serverless* e gerenciados que oferecem escalabilidade e performance otimizadas. Adote microsserviços para isolar e otimizar componentes individualmente.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação de e-commerce sofre com alta latência nas consultas ao banco de dados durante picos de tráfego, impactando a experiência do usuário.
 
@@ -1007,9 +1007,9 @@ A otimização de performance na AWS envolve a seleção e configuração de rec
 
 ---
 
-#### 3.3. Arquitetar soluções para monitoramento e observabilidade.
+##### 3.3. Arquitetar soluções para monitoramento e observabilidade.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 Monitoramento e observabilidade são essenciais para entender o comportamento das aplicações, identificar problemas, otimizar performance e garantir a segurança. A AWS oferece um conjunto robusto de ferramentas para coletar, analisar e visualizar dados de telemetria.
 
@@ -1028,7 +1028,7 @@ Monitoramento e observabilidade são essenciais para entender o comportamento da
 *   **AWS Trusted Advisor:** Um serviço que fornece recomendações para otimizar seus recursos da AWS em cinco categorias: otimização de custos, performance, segurança, tolerância a falhas e limites de serviço.
 *   **Feature flags com CloudWatch Evidently:** Permite que os desenvolvedores lancem novos recursos para um subconjunto de usuários, monitorem seu desempenho e impacto, e desativem ou ativem o recurso rapidamente com base em métricas em tempo real. Isso é parte de uma estratégia de *observability-driven development*.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **CloudWatch vs. X-Ray vs. CloudTrail:**
 
@@ -1043,7 +1043,7 @@ Monitoramento e observabilidade são essenciais para entender o comportamento da
 *   **Use X-Ray quando:** Você precisa entender o fluxo de requisições através de uma aplicação distribuída, identificar gargalos de performance e depurar erros em microsserviços. Complementa o CloudWatch para observabilidade de aplicações.
 *   **Use CloudTrail quando:** Você precisa auditar as atividades em sua conta AWS para segurança, conformidade e solução de problemas. Ele registra todas as ações realizadas na conta.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Amazon CloudWatch:**
 *   **Configurações:** Crie alarmes com base em métricas, configure dashboards personalizados, envie logs de aplicações para CloudWatch Logs, use CloudWatch Events para automação.
@@ -1063,18 +1063,18 @@ Monitoramento e observabilidade são essenciais para entender o comportamento da
 *   **Boas Práticas:** Use regras para impor padrões de segurança e conformidade. Use *conformance packs* para auditorias de conformidade em larga escala. Integre com AWS Security Hub para agregação de descobertas de segurança.
 *   **Casos de Uso:** Auditoria de conformidade, monitoramento de alterações de configuração, detecção de desvios de segurança.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura de Observabilidade Centralizada:** Agregue logs e métricas de todas as contas e regiões em uma conta de log centralizada. Use CloudWatch, X-Ray e CloudTrail para uma visão unificada.
 *   **Padrões de Segurança:** Use CloudTrail para auditar todas as ações na conta. Use AWS Config para monitorar a conformidade de segurança. Integre com Security Hub para uma visão consolidada da postura de segurança.
 *   **Resiliência:** Use métricas e alarmes do CloudWatch para detectar problemas e acionar ações de recuperação automática (ex: Auto Scaling, Lambda).
 *   **Governança:** Use AWS Config para garantir que os recursos estejam configurados de acordo com as políticas da organização. Use CloudTrail para rastrear quem fez o quê e quando.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Modernização para Observabilidade:** Ao modernizar, adote uma abordagem de *observability-driven development*. Instrumente aplicações com X-Ray. Use logs estruturados. Implemente feature flags com CloudWatch Evidently para lançamentos controlados e monitoramento de impacto.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação de microsserviços está apresentando alta latência e erros intermitentes, mas é difícil identificar a causa raiz devido à complexidade da arquitetura distribuída.
 
@@ -1087,9 +1087,9 @@ ruído e dificultando a identificação de problemas reais. Outra armadilha é n
 
 ---
 
-#### 3.4. Arquitetar soluções para segurança contínua.
+##### 3.4. Arquitetar soluções para segurança contínua.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A segurança na AWS é uma responsabilidade compartilhada entre a AWS e o cliente. A AWS é responsável pela segurança *da* nuvem, enquanto o cliente é responsável pela segurança *na* nuvem. Este domínio foca em como arquitetar soluções para manter uma postura de segurança robusta e contínua, utilizando os serviços de segurança da AWS.
 
@@ -1107,7 +1107,7 @@ A segurança na AWS é uma responsabilidade compartilhada entre a AWS e o client
 *   **Princípio do Menor Privilégio:** Uma prática de segurança fundamental que afirma que cada usuário, programa ou processo deve ter apenas as permissões mínimas necessárias para executar sua função. Na AWS, isso é implementado através de políticas de IAM granulares.
 *   **Automação de Segurança:** Utilizar serviços como AWS Security Hub e AWS Config Rules para automatizar a detecção de não conformidades de segurança e, em alguns casos, a remediação.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **AWS Security Hub vs. Amazon GuardDuty vs. Amazon Detective vs. AWS Inspector:**
 
@@ -1125,7 +1125,7 @@ A segurança na AWS é uma responsabilidade compartilhada entre a AWS e o client
 *   **AWS WAF:** Protege aplicações web contra ataques em nível de aplicação (Camada 7), como injeção de SQL, cross-site scripting (XSS). Você define as regras para permitir ou bloquear o tráfego.
 *   **AWS Shield:** Protege contra ataques DDoS (Distributed Denial of Service) em níveis de rede (Camada 3) e transporte (Camada 4), e também em nível de aplicação (Camada 7) com o Shield Advanced. É uma proteção mais ampla contra ataques de negação de serviço.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **AWS Security Hub:**
 *   **Configurações:** Habilite o Security Hub, integre com outros serviços AWS (GuardDuty, Config, Macie), configure padrões de segurança (AWS Foundational Security Best Practices, CIS AWS Foundations Benchmark).
@@ -1145,18 +1145,18 @@ A segurança na AWS é uma responsabilidade compartilhada entre a AWS e o client
 *   **Boas Práticas:** Use KMS para criptografar dados em repouso em serviços AWS (S3, EBS, RDS, Lambda). Use chaves separadas para diferentes aplicações ou ambientes. Implemente o princípio do menor privilégio para acesso a chaves.
 *   **Casos de Uso:** Criptografia de dados em repouso, gerenciamento de chaves de criptografia, assinaturas digitais.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura de Segurança em Camadas (Defense in Depth):** Implemente segurança em todas as camadas da arquitetura, desde a rede (VPC, Security Groups, NACLs, WAF, Shield) até a aplicação (IAM, Secrets Manager, KMS) e os dados (criptografia).
 *   **Padrões de Segurança:** Implemente o princípio do menor privilégio em todas as políticas de IAM. Use roles cross-account para acesso seguro entre contas. Automatize a detecção e resposta a incidentes de segurança.
 *   **Resiliência:** Use serviços de segurança gerenciados pela AWS que são inerentemente resilientes (ex: Shield, WAF). Projete para que as falhas de segurança não levem a uma interrupção completa do serviço.
 *   **Governança:** Use AWS Organizations e SCPs para impor políticas de segurança em toda a organização. Use AWS Config e Conformance Packs para monitorar a conformidade de segurança. Realize auditorias de segurança regulares.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Modernização para Segurança:** Ao modernizar, adote uma abordagem de segurança *shift-left*, integrando a segurança no ciclo de vida de desenvolvimento. Use ferramentas de segurança automatizadas. Migre de gerenciamento de segredos manual para AWS Secrets Manager. Adote ABAC para gerenciamento de permissões escalável.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma empresa precisa garantir que nenhuma instância EC2 seja lançada sem criptografia de volume EBS em sua conta de produção, e que todas as atividades suspeitas sejam detectadas e investigadas.
 
@@ -1170,15 +1170,15 @@ A segurança na AWS é uma responsabilidade compartilhada entre a AWS e o client
 
 ---
 
-## Domínio 4: Otimização de Custos e Performance
+### Domínio 4: Otimização de Custos e Performance
 
 Este domínio foca na capacidade de projetar soluções que sejam eficientes em termos de custo e performance. Isso envolve a seleção de serviços e recursos apropriados, a implementação de estratégias de otimização e o monitoramento contínuo para garantir que os gastos sejam controlados e que a performance atenda aos requisitos.
 
-### Tópicos e Subtópicos:
+#### Tópicos e Subtópicos:
 
-#### 4.1. Arquitetar soluções para otimização de custos.
+##### 4.1. Arquitetar soluções para otimização de custos.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A otimização de custos na AWS é um processo contínuo que visa maximizar o valor dos investimentos na nuvem. O Pilar de Otimização de Custos do AWS Well-Architected Framework fornece diretrizes para alcançar esse objetivo.
 
@@ -1200,7 +1200,7 @@ A otimização de custos na AWS é um processo contínuo que visa maximizar o va
     *   **AWS Trusted Advisor:** Oferece recomendações para otimização de custos, performance, segurança, tolerância a falhas e limites de serviço.
 *   **Estratégias Multi-Conta para Otimização de Custos:** Usar AWS Organizations para consolidação de faturamento e aplicação de políticas de custos em toda a organização.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 **Reserved Instances (RIs) vs. Savings Plans:**
 
@@ -1215,7 +1215,7 @@ A otimização de custos na AWS é um processo contínuo que visa maximizar o va
 *   **Use Savings Plans quando:** Você tem um uso consistente de computação (EC2, Fargate, Lambda) e quer o maior desconto com flexibilidade para mudar tipos de instância ou regiões.
 *   **Use Reserved Instances quando:** Você tem um uso muito estável e previsível de um tipo de instância específico (especialmente para RDS, Redshift, ElastiCache, onde Savings Plans não se aplicam).
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Otimização de Custos:**
 *   **Configurações:** Habilite o AWS Cost Explorer e o AWS Budgets. Configure o AWS Compute Optimizer. Use políticas de ciclo de vida para S3. Configure Auto Scaling para escalar para baixo.
@@ -1223,19 +1223,19 @@ A otimização de custos na AWS é um processo contínuo que visa maximizar o va
 *   **Boas Práticas:** Comece com o dimensionamento correto. Use o modelo de consumo (pague pelo que usa). Aproveite os descontos por volume. Use instâncias Spot para workloads tolerantes a falhas. Use Savings Plans ou RIs para workloads de base. Monitore e analise os custos regularmente.
 *   **Casos de Uso:** Redução de custos em ambientes de desenvolvimento/teste, otimização de workloads de produção, planejamento orçamentário.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura Serverless:** Frequentemente a mais eficiente em termos de custo, pois você paga apenas pelo uso real, sem provisionamento de servidores.
 *   **Padrões de Segurança:** Implemente o princípio do menor privilégio para evitar o provisionamento excessivo de recursos. Monitore o uso de recursos para identificar anomalias que possam indicar atividades maliciosas.
 *   **Resiliência:** A elasticidade (Auto Scaling) que otimiza custos também contribui para a resiliência, garantindo que a capacidade seja ajustada à demanda.
 *   **Governança:** Use tagging para atribuição de custos. Implemente políticas de orçamento. Use AWS Organizations para gerenciar custos em várias contas.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Migração para Otimização de Custos:** Ao migrar, considere refatorar aplicações para usar serviços gerenciados e *serverless* que oferecem um modelo de custo mais granular e otimizado. Use o AWS Migration Hub para rastrear e otimizar o processo de migração.
 *   **Modernização para Otimização de Custos:** Adote microsserviços e conteinerização para otimizar o uso de recursos. Use serviços *serverless* sempre que possível. Implemente práticas de FinOps para gerenciar e otimizar continuamente os custos da nuvem.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma empresa tem uma grande frota de instâncias EC2 para processamento de dados em lote que pode ser interrompido e reiniciado. Eles querem reduzir os custos de computação.
 
@@ -1245,9 +1245,9 @@ A otimização de custos na AWS é um processo contínuo que visa maximizar o va
 
 ---
 
-#### 4.2. Arquitetar soluções para otimização de performance.
+##### 4.2. Arquitetar soluções para otimização de performance.
 
-#### Conceitos Fundamentais e Avançados
+##### Conceitos Fundamentais e Avançados
 
 A otimização de performance já foi abordada em detalhes no Domínio 3 (Seção 3.2). No contexto do Domínio 4, o foco é a intersecção entre performance e custo, buscando o equilíbrio ideal para entregar valor de negócio.
 
@@ -1260,11 +1260,11 @@ A otimização de performance já foi abordada em detalhes no Domínio 3 (Seçã
     *   **Otimização de Rede:** Utilizar serviços como CloudFront e Global Accelerator para melhorar a performance de entrega de conteúdo e roteamento de tráfego, o que pode reduzir a necessidade de recursos de backend e, portanto, custos.
     *   **Armazenamento Inteligente:** Usar classes de armazenamento S3 como Intelligent-Tiering, que movem automaticamente os dados para as classes de acesso infrequente ou arquivamento com base nos padrões de acesso, otimizando custos sem comprometer a performance de acesso quando necessário.
 
-#### Comparações entre Serviços e Quando Usar Cada Um
+##### Comparações entre Serviços e Quando Usar Cada Um
 
 *   **Compute Optimizer vs. Análise Manual:** O Compute Optimizer automatiza a análise de performance e custo, fornecendo recomendações baseadas em machine learning, o que é mais eficiente e preciso do que a análise manual, especialmente em ambientes grandes e dinâmicos.
 
-#### Configurações, Limitações, Boas Práticas e Casos de Uso
+##### Configurações, Limitações, Boas Práticas e Casos de Uso
 
 **Otimização de Performance e Custo:**
 *   **Configurações:** Habilite o AWS Compute Optimizer. Monitore métricas de performance e custo no CloudWatch e Cost Explorer. Configure políticas de ciclo de vida para S3 Intelligent-Tiering.
@@ -1272,18 +1272,18 @@ A otimização de performance já foi abordada em detalhes no Domínio 3 (Seçã
 *   **Boas Práticas:** Adote uma cultura de FinOps. Revise regularmente as recomendações do Compute Optimizer. Teste as otimizações em ambientes de não produção antes de aplicar em produção. Automatize o desligamento de recursos não utilizados.
 *   **Casos de Uso:** Redução de custos de infraestrutura, melhoria da experiência do usuário, garantia de que as aplicações atendam aos SLAs de performance.
 
-#### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
+##### Modelos de Arquitetura Recomendados, Padrões de Segurança, Resiliência e Governança
 
 *   **Arquitetura Elástica e Serverless:** Permite que a capacidade se ajuste à demanda, otimizando tanto a performance (capacidade suficiente nos picos) quanto o custo (não paga por capacidade ociosa).
 *   **Padrões de Segurança:** A otimização de recursos (rightsizng) também contribui para a segurança, pois menos recursos expostos significam uma superfície de ataque menor.
 *   **Resiliência:** A elasticidade é um componente chave da resiliência. A capacidade de escalar rapidamente para cima e para baixo ajuda a manter a performance e a disponibilidade sob carga variável.
 *   **Governança:** Use tags para rastrear o uso e o custo dos recursos. Implemente políticas de gerenciamento de recursos para garantir que os recursos sejam otimizados continuamente.
 
-#### Estratégias de Migração e Modernização
+##### Estratégias de Migração e Modernização
 
 *   **Modernização para Performance e Custo:** Refatorar aplicações para usar serviços *serverless* e gerenciados que oferecem escalabilidade automática e um modelo de custo baseado no consumo. Isso geralmente resulta em melhor performance e custos mais baixos em comparação com a execução de workloads em VMs auto-gerenciadas.
 
-#### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
+##### Exemplos de Cenários Práticos que Caem na Prova, Decisões Arquiteturais e Armadilhas Comuns
 
 **Cenário:** Uma aplicação web de e-commerce tem um tráfego variável ao longo do dia, com picos significativos durante promoções. A empresa quer garantir a performance durante os picos e otimizar os custos nos períodos de baixa demanda.
 
@@ -1297,11 +1297,11 @@ A otimização de performance já foi abordada em detalhes no Domínio 3 (Seçã
 
 ---
 
-## Tabelas Comparativas e Resumos
+### Tabelas Comparativas e Resumos
 
 Esta seção consolida informações importantes em tabelas para facilitar a consulta rápida e a tomada de decisões arquiteturais.
 
-### Estratégias de Recuperação de Desastres (DR)
+#### Estratégias de Recuperação de Desastres (DR)
 
 | Estratégia                  | RTO (Tempo de Recuperação) | RPO (Perda de Dados) | Custo      | Complexidade | Caso de Uso                                      |
 | :-------------------------- | :------------------------- | :------------------- | :--------- | :----------- | :----------------------------------------------- |
@@ -1310,7 +1310,7 @@ Esta seção consolida informações importantes em tabelas para facilitar a con
 | **Warm Standby**            | Minutos a dezenas de minutos | Segundos a minutos   | Médio      | Média-Alta   | Aplicações de negócios importantes com baixa tolerância |
 | **Multi-Site Ativo-Ativo**  | Segundos (ou zero)         | Zero (ou quase zero) | Alto       | Alta         | Aplicações de missão crítica com tolerância zero |
 
-### Reserved Instances (RIs) vs. Savings Plans
+#### Reserved Instances (RIs) vs. Savings Plans
 
 | Característica        | Reserved Instances (RIs)                                      | Savings Plans                                                    |
 | :-------------------- | :------------------------------------------------------------ | :--------------------------------------------------------------- |
@@ -1320,7 +1320,7 @@ Esta seção consolida informações importantes em tabelas para facilitar a con
 | **Aplicabilidade**    | EC2, RDS, Redshift, ElastiCache, DynamoDB                     | EC2, Fargate, Lambda, SageMaker                                  |
 | **Recomendação AWS**  | Savings Plans são geralmente preferidos devido à maior flexibilidade para computação. RIs ainda são relevantes para RDS, Redshift, etc. |
 
-### Gatilhos Comuns de Auto Scaling
+#### Gatilhos Comuns de Auto Scaling
 
 | Métrica/Gatilho                | Descrição                                                              | Caso de Uso Comum                                       |
 | :----------------------------- | :--------------------------------------------------------------------- | :------------------------------------------------------ |
@@ -1331,7 +1331,7 @@ Esta seção consolida informações importantes em tabelas para facilitar a con
 | **Métricas Personalizadas**    | Escala com base em qualquer métrica personalizada do CloudWatch.         | Workloads com métricas de negócio específicas (ex: usuários ativos) |
 | **Escalonamento Agendado**     | Escala em horários específicos do dia ou da semana.                      | Aplicações com padrões de tráfego previsíveis (ex: horário comercial) |
 
-### Comparação de Serviços de Mensageria: SNS vs. SQS vs. EventBridge
+#### Comparação de Serviços de Mensageria: SNS vs. SQS vs. EventBridge
 
 | Característica        | Amazon SNS                                  | Amazon SQS                                  | Amazon EventBridge                          |
 | :-------------------- | :------------------------------------------ | :------------------------------------------ | :------------------------------------------ |
@@ -1343,32 +1343,32 @@ Esta seção consolida informações importantes em tabelas para facilitar a con
 
 ---
 
-## Detalhamento de Tópicos Obrigatórios
+### Detalhamento de Tópicos Obrigatórios
 
 Esta seção aprofunda os tópicos mais críticos e frequentemente cobrados no exame, consolidando o conhecimento dos domínios anteriores.
 
-### 1. Estratégias Multi-Account e AWS Organizations
+#### 1. Estratégias Multi-Account e AWS Organizations
 
 *   **AWS Organizations:** Permite gerenciar centralmente várias contas AWS. Facilita a aplicação de políticas, o faturamento consolidado e o gerenciamento de segurança.
 *   **Landing Zone (via AWS Control Tower):** Uma arquitetura de referência para configurar um ambiente multi-conta seguro e escalável. O Control Tower automatiza a criação da Landing Zone, estabelecendo uma linha de base com contas para log, auditoria e segurança, e aplicando *guardrails* (baseados em SCPs) para governança.
 *   **Unidades Organizacionais (OUs):** Permitem agrupar contas para aplicar políticas de forma hierárquica. Uma estrutura comum é ter OUs para Infraestrutura, Segurança, Workloads (separados por Prod, Dev, Test), etc.
 *   **Service Control Policies (SCPs):** Políticas de controle de serviço que definem as permissões máximas para as contas em uma OU. Elas não concedem permissões, mas atuam como um filtro, restringindo o que os administradores de contas podem delegar aos usuários e roles. Por exemplo, um SCP pode negar o acesso a regiões específicas ou impedir a desativação de serviços de segurança como CloudTrail e GuardDuty.
 
-### 2. Networking Avançado
+#### 2. Networking Avançado
 
 *   **Transit Gateway:** Atua como um hub de rede central para conectar VPCs e redes on-premises. Simplifica a arquitetura de rede, elimina a necessidade de VPC Peering complexo e permite o roteamento centralizado.
 *   **PrivateLink:** Fornece conectividade privada entre VPCs, serviços AWS e suas redes on-premises sem expor o tráfego à internet pública. Cria um endpoint de interface em sua VPC que se conecta a um serviço de endpoint.
 *   **Direct Connect:** Uma conexão de rede dedicada e privada entre seu data center e a AWS. Oferece largura de banda consistente e baixa latência. O Direct Connect Gateway permite conectar a múltiplas VPCs em diferentes regiões com uma única conexão.
 *   **DNS Multi-Região com Route 53:** Essencial para alta disponibilidade e recuperação de desastres. Use políticas de roteamento como **Failover** (para DR ativo-passivo), **Latency-based** (para performance global) e **Geolocation** (para conformidade de dados) para direcionar o tráfego para a região mais apropriada.
 
-### 3. IAM Avançado
+#### 3. IAM Avançado
 
 *   **Permission Boundaries:** Uma política de IAM gerenciada que define as permissões máximas que uma política de identidade pode conceder a uma entidade (usuário ou role). Útil para delegar a criação de roles a desenvolvedores, garantindo que eles não possam criar roles com mais permissões do que o limite definido.
 *   **Attribute-Based Access Control (ABAC):** Uma estratégia de autorização que define permissões com base em atributos (tags) anexados a usuários e recursos. É mais escalável que o RBAC (Role-Based Access Control) em ambientes com muitos recursos e políticas, pois você pode criar uma única política que se aplica a todos os recursos com uma determinada tag.
 *   **Roles Cross-Account:** Permitem que usuários ou serviços em uma conta (a conta confiável) assumam uma role em outra conta (a conta que confia) para acessar recursos. É a maneira padrão e segura de conceder acesso entre contas.
 *   **IAM Roles Anywhere:** Permite que workloads que rodam fora da AWS (como em seus data centers on-premises) usem certificados X.509 para obter credenciais de segurança temporárias e acessar recursos da AWS. Estende a segurança do IAM para fora da nuvem.
 
-### 4. Observabilidade e Segurança Contínua
+#### 4. Observabilidade e Segurança Contínua
 
 *   **CloudWatch:** O serviço central para monitoramento de métricas e logs. Use **CloudWatch Logs Insights** para análises de log poderosas e **CloudWatch Alarms** para automação e alertas.
 *   **CloudTrail:** Audita todas as chamadas de API. Essencial para segurança e conformidade. Envie os logs para o S3 para retenção a longo prazo e para o CloudWatch Logs para análise em tempo real.
@@ -1377,7 +1377,7 @@ Esta seção aprofunda os tópicos mais críticos e frequentemente cobrados no e
 *   **GuardDuty:** Detecção de ameaças baseada em machine learning. Monitora logs de CloudTrail, VPC Flow Logs e DNS para identificar atividades maliciosas.
 *   **KMS Multi-Region Keys:** Chaves KMS que podem ser replicadas para múltiplas regiões. Simplificam o gerenciamento de criptografia para dados que são replicados entre regiões, garantindo que você possa descriptografar os dados na região de DR.
 
-### 5. Migração e Modernização (7Rs)
+#### 5. Migração e Modernização (7Rs)
 
 As 7 estratégias comuns de migração e modernização:
 
@@ -1391,7 +1391,7 @@ As 7 estratégias comuns de migração e modernização:
 
 *   **AWS Migration Acceleration Program (MAP):** Um programa que fornece consultoria, ferramentas e créditos de serviço para acelerar a migração para a AWS.
 
-### 6. Novidades Relevantes
+#### 6. Novidades Relevantes
 
 *   **VPC Lattice:** Simplifica a conectividade, segurança e observabilidade entre serviços em diferentes VPCs e contas, sem a complexidade de gerenciar Transit Gateways ou VPC Peering para cada serviço.
 *   **CloudFront Signed URLs/Cookies:** Mecanismos para controlar o acesso a conteúdo privado no CloudFront. URLs assinadas são para acesso a arquivos individuais, enquanto cookies assinados podem conceder acesso a múltiplos arquivos.
@@ -1399,7 +1399,7 @@ As 7 estratégias comuns de migração e modernização:
 
 ---
 
-## Cenários Práticos e Questões de Exemplo
+### Cenários Práticos e Questões de Exemplo
 
 **Cenário 1: Otimização de Custos para Workload de Análise**
 

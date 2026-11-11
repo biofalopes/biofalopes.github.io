@@ -3,7 +3,7 @@ title = "HashiCorp Certified: Terraform Associate Exam"
 description = "My Study Guide for the HashiCorp Certified: Terraform Associate Exam"
 date = "2022-08-07"
 draft = false
-toc = false
+toc = true
 categories = ["terraform"]
 tags = ["terraform"]
 image = "terraform-cert.png"
@@ -34,24 +34,24 @@ Official Exam Information from Hashicorp can be found here: [HashiCorp Certified
 
 What I'm gonna do here is go over each of the objectives and cover (almost) everything required to know in order to pass the exam. Most of the contents are provided on the official [study guide](https://learn.hashicorp.com/tutorials/terraform/associate-study) and the [exam review](https://learn.hashicorp.com/tutorials/terraform/associate-review?in=terraform/certification), so I'll be using it as a reference. It's probably be a long read, but I rather have it all in one place than making several posts and split the content.
 
-### 1:	Understand Infrastructure as Code (IaC) concepts
-##### 1a:	Explain what IaC is
+## 1:	Understand Infrastructure as Code (IaC) concepts
+#### 1a:	Explain what IaC is
 Infrastructure as code (IaC) tools allow you to manage infrastructure with configuration files rather than through a graphical user interface. IaC allows you to build, change, and manage your infrastructure in a safe, consistent, and repeatable way by defining resource configurations that you can version, reuse, and share.
-##### 1b	Describe advantages of IaC patterns
+#### 1b	Describe advantages of IaC patterns
 IaC makes it easy to provision and apply infrastructure configurations by standardizing the workflow. This is accomplished by using a common syntax across a number of different infrastructure providers (e.g. AWS, GCP). Some key advantages of using IaC patterns are:
 - Reusability: you can write or use modules to reuse code that are common between different projects;
 - Consistency: managing infrastructure manually are prone to errors;
 - Idempotency: no matter how many times you run your IaC and, what your starting state is, you will end up with the same end state. This simplifies the provisioning of Infrastructure and reduces the chances of inconsistent results;
 - Versioning and Source Control: by using a VCS like Git you can get visibility and security on your infrastructure.
 
-### 2	Understand Terraform's purpose (vs other IaC)
-##### 2a	Explain multi-cloud and provider-agnostic benefits
+## 2	Understand Terraform's purpose (vs other IaC)
+#### 2a	Explain multi-cloud and provider-agnostic benefits
 Terraform is cloud-agnostic and allows a single configuration to be used to manage multiple providers, and to even handle cross-cloud dependencies. With Terraform, users can manage a heterogeneous environment with the same workflow by creating a configuration file to fit the needs of that platform or project.
 Terraform plugins called providers let Terraform interact with cloud platforms and other services via their application programming interfaces (APIs). HashiCorp and the Terraform community have written over 1,000 providers to manage resources on Amazon Web Services (AWS), Azure, Google Cloud Platform (GCP), Kubernetes, Helm, GitHub, Splunk, and DataDog, just to name a few. 
-##### 2b	Explain the benefits of state
+#### 2b	Explain the benefits of state
 Terraform keeps track of your real infrastructure in a state file, which acts as a source of truth for your environment. Terraform uses the state file to determine the changes to make to your infrastructure so that it will match your configuration.
-### 3	Understand Terraform basics
-##### 3a	Handle Terraform and provider installation and versioning
+## 3	Understand Terraform basics
+#### 3a	Handle Terraform and provider installation and versioning
 
 Terraform can be installed using the user’s terminal: \
 https://learn.hashicorp.com/tutorials/terraform/install-cli
@@ -69,7 +69,7 @@ sudo apt install terraform
 
 Alternatively, Terraform can be manually installed by downloading the binary to your computer.
 
-##### 3b	Describe plug-in based architecture
+#### 3b	Describe plug-in based architecture
 Terraform uses a plugin-based architecture to support hundreds of infrastructure and service providers. Initializing a configuration directory downloads and installs providers used in the configuration. Terraform plugins are compiled for a specific operating system and architecture, and any plugins in the root of the user’s plugins directory must be compiled for the current system. A provider is a plugin that Terraform uses to translate the API interactions with that platform or service.
 
 Terraform must initialize a provider before it can be used. The initialization process downloads and installs the provider's plugin so that it can later be executed. Terraform knows which provider(s) to download based on what is declared in the configuration files. For example: 
@@ -104,7 +104,7 @@ plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
 
 This configuration ensures each plugin binary is downloaded only once.
 
-##### 3c	Demonstrate using multiple providers
+#### 3c	Demonstrate using multiple providers
 To instantiate the same provider for multiple configurations, use the `alias` argument. For example, the AWS provider requires specifying the region argument. The following code block demonstrates how `alias` can be used to provision resources across multiple regions using the same configuration files. 
 
 ```
@@ -123,7 +123,7 @@ resource "aws_vpc" "vpc-pncda" {
 }
 ```
 
-##### 3d	Describe how Terraform finds and fetches providers
+#### 3d	Describe how Terraform finds and fetches providers
 Providers are released on a separate rhythm from Terraform itself, and so each provider has its own version number. For production use, consider constraining the acceptable provider versions in the configuration to ensure that new versions with breaking changes will not be automatically installed by `terraform init` in future.
 
 Any non-certified or third-party providers must be manually installed, since `terraform init` cannot automatically download them.
@@ -200,7 +200,7 @@ provider "aws" {
 
 It is recommended to use these operators in production to ensure the correct version is being used and avoid accidental upgrades that might have breaking changes. 
 
-##### 3e	Explain when to use and not use provisioners and when to use local-exec or remote-exec
+#### 3e	Explain when to use and not use provisioners and when to use local-exec or remote-exec
 Provisioners can be used to model specific actions on the local machine or on a remote machine. For example, a provisioner can enable uploading files, running shell scripts, or installing or triggering other software (e.g. configuration management) to conduct initial setup on an instance. Provisioners are defined within a resource block:
 
 ```
@@ -220,11 +220,11 @@ Multiple provisioner blocks can be used to define multiple provisioning steps.
 Note: HashiCorp recommends that provisioners should only be used as a last resort. 
 ```
 
-###### Types of Provisioners
+##### Types of Provisioners
 
 This section will cover the various types of generic provisioners. There are also vendor specific provisioners for configuration management tools (e.g. Salt, Puppet). 
 
-###### 1. File
+##### 1. File
 
 The file provisioner is used to copy files or directories from the machine executing Terraform to the newly created resource. 
 
@@ -241,7 +241,7 @@ resource "aws_instance" "web" {
 
 The file provisioner supports both ssh and winrm type connections.
 
-###### 2. `local-exec` 
+##### 2. `local-exec` 
 
 The `local-exec` provisioner runs by invoking a process local to the user’s machine running Terraform. This is used to do something on the machine running Terraform, not the resource provisioned. For example, a user may want to create an SSH key on the local machine. 
 
@@ -254,7 +254,7 @@ resource "null_resource" "generate-sshkey" {
 }
 ```
 
-###### 3. `remote-exec`
+##### 3. `remote-exec`
 
 Comparatively, `remote-exec` which invokes a script or process on a remote resource after it is created. For example, this may be used to bootstrap a newly provisioned cluster or to run a script. 
 
@@ -315,44 +315,44 @@ resource "aws_instance" "web" {
 
 By default, a provisioner only runs at creation. To run a provisioned at deletion, it must be explicitly defined. 
 
-### 4	Use the Terraform CLI (outside of core workflow)
-##### 4a	Given a scenario: choose when to use `terraform fmt` to format code
-##### 4b	Given a scenario: choose when to use `terraform taint` to taint Terraform resources	
-##### 4c	Given a scenario: choose when to use `terraform import` to import existing infrastructure into your Terraform state
-##### 4d	Given a scenario: choose when to use `terraform workspace` to create workspaces
-##### 4e	Given a scenario: choose when to use `terraform state` to view Terraform state
-##### 4f	Given a scenario: choose when to enable verbose logging and what the outcome/value is
-### 5	Interact with Terraform modules
-##### 5a	Contrast module source options
-##### 5b	Interact with module inputs and outputs
-##### 5c	Describe variable scope within modules/child modules
-##### 5d	Discover modules from the public Terraform Module Registry
-##### 5e	Defining module version
-### 6	Navigate Terraform workflow
-##### 6a	Describe Terraform workflow ( Write -> Plan -> Create )
-##### 6b	Initialize a Terraform working directory (`terraform init`)
-##### 6c	Validate a Terraform configuration (`terraform validate`)
-##### 6d	Generate and review an execution plan for Terraform (`terraform plan`)
-##### 6e	Execute changes to infrastructure with Terraform (`terraform apply`)
-##### 6f	Destroy Terraform managed infrastructure (`terraform destroy`)
-### 7	Implement and maintain state
-##### 7a	Describe default local backend
-##### 7b	Outline state locking
-##### 7c	Handle backend authentication methods
-##### 7d	Describe remote state storage mechanisms and supported standard backends
-##### 7e	Describe effect of Terraform refresh on state
-##### 7f	Describe backend block in configuration and best practices for partial configurations
-##### 7g	Understand secret management in state files
-### 8	Read, generate, and modify configuration
-##### 8a	Demonstrate use of variables and outputs
-##### 8b	Describe secure secret injection best practice
-##### 8c	Understand the use of collection and structural types
-##### 8d	Create and differentiate resource and data configuration
-##### 8e	Use resource addressing and resource parameters to connect resources together
-##### 8f	Use Terraform built-in functions to write configuration
-##### 8g	Configure resource using a dynamic block
-##### 8h	Describe built-in dependency management (order of execution based)
-### 9	Understand Terraform Cloud and Enterprise capabilities
-##### 9a	Describe the benefits of Sentinel, registry, and workspaces
-##### 9b	Differentiate OSS and Terraform Cloud workspaces
-##### 9c	Summarize features of Terraform Cloud
+## 4	Use the Terraform CLI (outside of core workflow)
+#### 4a	Given a scenario: choose when to use `terraform fmt` to format code
+#### 4b	Given a scenario: choose when to use `terraform taint` to taint Terraform resources	
+#### 4c	Given a scenario: choose when to use `terraform import` to import existing infrastructure into your Terraform state
+#### 4d	Given a scenario: choose when to use `terraform workspace` to create workspaces
+#### 4e	Given a scenario: choose when to use `terraform state` to view Terraform state
+#### 4f	Given a scenario: choose when to enable verbose logging and what the outcome/value is
+## 5	Interact with Terraform modules
+#### 5a	Contrast module source options
+#### 5b	Interact with module inputs and outputs
+#### 5c	Describe variable scope within modules/child modules
+#### 5d	Discover modules from the public Terraform Module Registry
+#### 5e	Defining module version
+## 6	Navigate Terraform workflow
+#### 6a	Describe Terraform workflow ( Write -> Plan -> Create )
+#### 6b	Initialize a Terraform working directory (`terraform init`)
+#### 6c	Validate a Terraform configuration (`terraform validate`)
+#### 6d	Generate and review an execution plan for Terraform (`terraform plan`)
+#### 6e	Execute changes to infrastructure with Terraform (`terraform apply`)
+#### 6f	Destroy Terraform managed infrastructure (`terraform destroy`)
+## 7	Implement and maintain state
+#### 7a	Describe default local backend
+#### 7b	Outline state locking
+#### 7c	Handle backend authentication methods
+#### 7d	Describe remote state storage mechanisms and supported standard backends
+#### 7e	Describe effect of Terraform refresh on state
+#### 7f	Describe backend block in configuration and best practices for partial configurations
+#### 7g	Understand secret management in state files
+## 8	Read, generate, and modify configuration
+#### 8a	Demonstrate use of variables and outputs
+#### 8b	Describe secure secret injection best practice
+#### 8c	Understand the use of collection and structural types
+#### 8d	Create and differentiate resource and data configuration
+#### 8e	Use resource addressing and resource parameters to connect resources together
+#### 8f	Use Terraform built-in functions to write configuration
+#### 8g	Configure resource using a dynamic block
+#### 8h	Describe built-in dependency management (order of execution based)
+## 9	Understand Terraform Cloud and Enterprise capabilities
+#### 9a	Describe the benefits of Sentinel, registry, and workspaces
+#### 9b	Differentiate OSS and Terraform Cloud workspaces
+#### 9c	Summarize features of Terraform Cloud

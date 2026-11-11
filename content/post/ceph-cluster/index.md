@@ -3,7 +3,7 @@ title = "Installing a Ceph Cluster"
 description = "Using cephadm to easily deploy a Ceph Cluster"
 date = "2024-12-07"
 draft = false
-toc = false
+toc = true
 tags = ["ceph"]
 categories = ["ceph"]
 image = "ceph_banner.jpg"
@@ -12,7 +12,7 @@ author = "Fabio M. Lopes"
 
 In this example I used the Red Hat Ceph, but the procedure is the same for the community version. The official guide for RHCS 7 can be found here: [RedHat guide](https://docs.redhat.com/en/documentation/red_hat_ceph_storage/7/html/installation_guide/index)
 
-### Preparation:
+## Preparation:
 
 * Configure a Workbench
 * Populate the hosts inventory
@@ -29,7 +29,7 @@ SSH Key Distribution:
 
 **Bootstrap**: Execute from MON 1, using `sudo` as the `admin` user.
 
-#### initial-config.yaml:
+### initial-config.yaml:
 
 This initial-config.yaml file defines the configuration for a Ceph cluster, specifying the roles and placement of various Ceph services across multiple hosts. The configuration uses a declarative approach, listing each host and assigning it one or more roles.
 
@@ -247,7 +247,7 @@ The initial-config.yaml file defines a Ceph cluster topology consisting of 20 ho
 
 Therefore, the topology is a distributed cluster with replication and high availability provided by the multiple monitor nodes, and scalability and storage capacity provided by the numerous OSD nodes. The managers provide high-level management, and the RGW provides external access to the object storage. Grafana enables monitoring of the entire system.
 
-#### initial-ceph.conf:
+### initial-ceph.conf:
 
 The initial-ceph.conf gfile was used to set the images to a local registry, instead of the public ones. This is useful for airgapped installations and also for extra security.
 
@@ -259,7 +259,7 @@ mgr/cephadm/container_image_grafana = internal-registry.org.local/cdnas/grafana-
 mgr/cephadm/container_image_alertmanager = internal-registry.org.local/cdnas/ose-prometheus-alertmanager:v4.15 --remove-signatures
 ```
 
-#### Bootstrap:
+### Bootstrap:
 
 According to the documentation, you must run the bootstrap from MON 1 with user admin:
 
@@ -269,7 +269,7 @@ sudo cephadm --image internal-registry.org.local/cdnas/rhceph-7-rhel9:7-424 boot
 
 At this point, if everything went well, the cluster will be already deployed. Now you can set up the specifics on your environment, such as CRUSH rules, radosgw pool, adjustments on the osd tree and so on:
 
-#### OSD Tree:
+### OSD Tree:
 
 Check the OSD Tree:
 ```bash
@@ -298,7 +298,7 @@ ceph osd crush move ceph-2 rack=AT45
 ```
 Since it is a new cluster, no data movement is expected. However, in a production environment, moving nodes will definitely cause data to be moved, so you should proceed with caution.
 
-#### CRUSH Rule:
+### CRUSH Rule:
 
 In this example I created Erasure Code profiles and rules, and also a new replicated rule in order to avoid using the default one. This is for extra safety, since newly added OSDs get added to the default root on the OSD tree. By creating a new root and moving all OSDs under it, you prevent data movement if someone inadvertently adds an OSD to the cluster.  
 
@@ -458,7 +458,7 @@ ceph osd pool set default.rgw.control crush_rule replicated_rule_custom
 ceph osd pool set default.rgw.meta crush_rule replicated_rule_custom
 ```
 
-#### Creation of a Pool for radosgw:
+### Creation of a Pool for radosgw:
 ```
 ceph osd pool create default.rgw.buckets.data 128 128 erasure 8_4 8_4_erasure_rule
 ceph osd pool create default.rgw.buckets.index 128 128 replicated replicated_rule_custom

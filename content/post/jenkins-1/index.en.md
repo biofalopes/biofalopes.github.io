@@ -3,7 +3,7 @@ title = "Getting started with Jenkins Declarative Pipelines"
 description = "My approach on running declarative pipelines on Jenkins to build, test and deploy a sample springboot application, using Docker and some useful integrations like Git and Slack."
 date = "2021-10-18"
 draft = false
-toc = false
+toc = true
 categories = ["jenkins"]
 tags = ["jenkins"]
 image = "Jenkins-logo-001.svg"
@@ -23,14 +23,14 @@ If you'd like to watch the video, here's the YouTube link to it: [Leeroy Jenkins
 
 Alright, let’s start with the basics.
 
-### 1. What's a CI/CD Pipeline?
+## 1. What's a CI/CD Pipeline?
 A CI/CD pipeline is usually described as the processes and stages of automation on software delivery. There's usually a specific tool used to achieve this, that orchestrates with SCM and the other tools. It can be used to build code, run unit tests, smoke tests, call external tools like SonarQube, Anchore, Trivy, build Docker images and deploy to environments like Kubernetes or wherever the application is delivered. By performing standardized operations and tests, a CI/CD pipeline can help reduce manual errors, provide feedback to developers, and allow fast iterations.
 
-### 2. What's a Jenkinsfile?
+## 2. What's a Jenkinsfile?
 A `Jenkinsfile` is just a text file, usually checked in along with the project's source code in an SCM. Ideally, each application will have its  Jenkinsfile.
 A Jenkinsfile can be written in two ways - "scripted pipeline syntax" or "declarative pipeline syntax".
 
-### 3. What's a Jenkins Scripted Pipeline?
+## 3. What's a Jenkins Scripted Pipeline?
 Scripted pipelines run on the Jenkins master with the help of a lightweight executor. It uses very few resources to translate the pipeline into atomic commands. Both declarative and scripted syntax are different from each other and are defined differently. Scripted pipelines are written in Groovy.
 
 - It requires knowledge of the Groovy language;
@@ -60,7 +60,7 @@ node {
 }
 ```
 
-###  4. What's a Jenkins Declarative Pipeline?
+##  4. What's a Jenkins Declarative Pipeline?
 
 The Declarative Pipeline is relatively new and provides a simplified, opinionated syntax on top of the Pipeline subsystems. Its syntax offers an easy way to create pipelines. It contains a predefined hierarchy and gives you the ability to control all aspects of a pipeline execution in a simple, straightforward manner.
 
@@ -70,7 +70,7 @@ The Declarative Pipeline is relatively new and provides a simplified, opinionate
 - Usually, the preferred way to start, as they offer a rich set of features, come with less learning curve & no prerequisite to learn a programming language like Groovy just for the sake of writing pipeline code;
 - We can also validate the syntax of the Declarative pipeline code before running the job. It helps to avoid a lot of runtime issues with the build script.
 
-###  5. Why run Jenkins on Docker?
+##  5. Why run Jenkins on Docker?
 
 Despite the inherent advantages (and caveats) of running anything in Docker, the main reasons I could think of are:
 
@@ -83,7 +83,7 @@ Despite the inherent advantages (and caveats) of running anything in Docker, the
 The main (Drawback|Caveat|Problem|Issue|Flaw) is when you want to use agents with docker too. To do that you're gonna need some implementation of Docker in Docker. There are a few ways to do that, but the two easiest ways are connecting the Jenkins container directly to the host's Docker socket using `-v /var/run/docker.sock:/var/run/docker.sock` and changing the permissions, or enabling TCP on the Docker server-side. \
 If you can run your Jenkins server on Kubernetes, you can enable it to launch new agent pods inside the cluster which gives you even more flexibility. I'll try that in the future since I'm out of credits on AWS and my dev cluster is behind a proxy, which is a real pain to deal with.
 
-### 6. Building a Jenkins Image
+## 6. Building a Jenkins Image
 
 The `Dockerfile` below creates an image based on the latest Jenkins LTS from Dockerhub, and preinstalls the plugins needed:
 
@@ -153,7 +153,7 @@ services:
 
 Now that we have a running Jenkins instance with the plugins installed and with access to the host's dockerd, let's start using it to automate a build.
 
-### 7. The Spring PetClinic Sample Application
+## 7. The Spring PetClinic Sample Application
 
 To test everything, I downloaded the "Spring PetClinic Sample Application" (can be found here: https://github.com/spring-projects/spring-petclinic), which is written in Java using Spring Boot and built with Maven. If you clone the official repository, you'll get a Maven Wrapper bundled together that can be used to build the application. So before trying to automate anything with Jenkins, let's first build, test, and run the application manually:
 
@@ -230,7 +230,7 @@ java -jar target/*.jar
 2021-10-19 11:38:36.453  INFO 39806 --- [           main] o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 5.753 seconds (JVM running for 6.136)
 ```
 
-### 8. Using Maven on Jenkins
+## 8. Using Maven on Jenkins
 
 There are a couple of different ways to use Maven with Jenkins. There is a Maven plugin for Jenkins, and we can install Maven on the Jenkins server and set it up at "Global Tool Configuration". Since we want to use docker containers as executors or agents, that would not be an option. We could also use the wrapper that comes with the project, but a better and simple route would be to use the official Maven docker image, and that way we can have an agent always updated and completely separate Maven from our Jenkins server. This approach makes it easier to manage the environment and also allows for a single Jenkins server to work with different types of builds with a single installation, without having to embed every tool used on the server.
 
@@ -366,21 +366,21 @@ CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/*.jar"]
 
 That is a working pipeline, and I wanted to include most of the concepts I saw in the courses. There are other features I'd like to try in the future like shared libraries and multi-branch pipelines, but this might go into a different post.
 
-### 9. Courses I either took or recommend:
+## 9. Courses I either took or recommend:
 
-##### a. Jenkins, From Zero To Hero: Become a DevOps Jenkins Master
+#### a. Jenkins, From Zero To Hero: Become a DevOps Jenkins Master
 Udemy, by Ricardo Andre Gonzalez Gomez, 2018 \
 https://www.udemy.com/course/jenkins-from-zero-to-hero/
 
 I found this course a little outdated and looks like the author stopped maintaining it in 2020. However, if you never used Jenkins before and want a cheap course to start, I strongly recommend this one. It's also well recommended in many other sources and has a high rate at Udemy. Ricardo focuses a lot on Docker, so it might be better targeted to someone without any experience in Docker also.
 
-##### b. Continuous Integration with Jenkins
+#### b. Continuous Integration with Jenkins
 Pluralsight, by different authors, updated constantly \
 https://app.pluralsight.com/paths/skill/continuous-integration-with-jenkins
 
 Pluralsight has a total of 8 courses, each with around 2 hours of duration, which makes the Jenkins Skill Path. I took four of them during the last Pluralsight Free Week and like other courses I took from Pluralsight, the quality was much superior. Unfortunately, Pluralsight costs a great amount of money, so I usually stay on the lookout for their periodically free weeks and free weekends. The good thing is that you can download the course material and most of the authors have GitHub repositories where you can check the code later.
 
-### 10. References
+## 10. References
 
 https://stackoverflow.com/questions/44440164/what-are-the-advantages-of-running-jenkins-in-a-docker-container
 

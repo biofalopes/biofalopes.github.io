@@ -5,6 +5,7 @@ tools_dir="$PWD/.tools"
 mkdir -p "$tools_dir/hugo"
 hugo_version="$(tr -d '\r\n' < .hugo-version)"
 sass_version="$(tr -d '\r\n' < .sass-version)"
+go_version="$(tr -d '\r\n' < .go-version)"
 verify_archive() {
   local component="$1" version="$2" platform="$3" archive="$4"
   python3 - "$component" "$version" "$platform" "$archive" <<'PY'
@@ -22,5 +23,11 @@ tar -xf "$tools_dir/hugo.tar.gz" -C "$tools_dir/hugo"
 curl --fail --location --retry 3 --output "$tools_dir/sass.tar.gz" "https://github.com/sass/dart-sass/releases/download/${sass_version}/dart-sass-${sass_version}-linux-x64.tar.gz"
 verify_archive sass "$sass_version" linux-x64 "$tools_dir/sass.tar.gz"
 tar -xf "$tools_dir/sass.tar.gz" -C "$tools_dir"
+curl --fail --location --retry 3 --output "$tools_dir/go.tar.gz" "https://go.dev/dl/go${go_version}.linux-amd64.tar.gz"
+verify_archive go "$go_version" linux-amd64 "$tools_dir/go.tar.gz"
+rm -rf "$tools_dir/go"
+tar -xf "$tools_dir/go.tar.gz" -C "$tools_dir"
 "$tools_dir/hugo/hugo" version
 "$tools_dir/dart-sass/sass" --version
+"$tools_dir/go/bin/go" version
+echo 'Tools ready. Start the blog with: bash scripts/blog.sh serve'

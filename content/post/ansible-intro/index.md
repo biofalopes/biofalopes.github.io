@@ -3,7 +3,7 @@ title = "Intro to Ansible"
 description = "A comprehensive introduction to Ansible, a powerful automation tool for IT infrastructure management."
 date = "2020-10-03"
 draft = false
-toc = false
+toc = true
 tags = ["ansible"]
 categories = ["ansible"]
 image = "ansible.png"
@@ -12,7 +12,7 @@ author = "Fabio M. Lopes"
 
 First, some terminology: With Ansible, a master server can configure a slave server. To do this, the master connects to the slave via SSH and then executes tasks. Each task describes a configuration step, for example installing a package using yum. Each task calls a module that implements the current task, for example the yum module. If a file is to be copied, the copy module is used; the systemd module can be used to manage systemd services, etc. Ansible version 2.7 comes with around 2,100 modules. In addition, additional modules can be easily imported.
 
-# First steps
+## First steps
 The first step in using Ansible is to write an inventory. There, users specify which hosts should be orchestrated and they can also be grouped together. Inventories can be written in either YAML or INI format. In the following example, a web server is to be deployed; to do this, create the following inventory:
 
 ```yaml
@@ -155,7 +155,7 @@ webserver2 | SUCCESS => {
 }
 ```
 
-# Installation and configuration
+## Installation and configuration
 Installing and configuring a web server usually involves more than one task:
 
 - Configuring the firewall
@@ -503,7 +503,7 @@ In the file, you can not only specify one (or any number of additional) inventor
 
 Many of these parameters can also be set as environmental variables. A complete list can be displayed using the CLI tool ansible-config.
 
-# The role concept
+## The role concept
 
 The final playbook now contains a number of tasks, but these are not easily reusable. To solve this problem and generally create more modularity, Ansible offers the role concept. If you transfer this to the nginx example, the folder structure changes:
 
@@ -713,7 +713,7 @@ This definition allows the following to be done:
  - ansible-playbook tomcat.yaml --tags <tag_name> executes all tasks that have been tagged with the corresponding tag.
  - ansible-playbook tomcat.yaml --tags initial_setup would also execute both tasks in this case. On the other hand, with `ansible-playbook tomcat.yaml --tags nightly_test`, only the new version of the web application can be deployed every night, without Ansible also checking the initial setup again for implementation and changes.
 
-# Conclusion
+## Conclusion
 This article is of course not intended to be and cannot be a comprehensive and complete presentation of Ansible: There is much more that can be said about each of the points mentioned here. If you are interested, you can either take a look at the official Ansible documentation [here](https://docs.ansible.com/) or the community: be it in the form of IRC channels (#ansible, #ansible-dev) or the numerous relevant meet-ups and lectures that now exist.
 
 The ideas and concepts shown here are intended to convey enough to give an initial insight and to dare to get started - it's worth it.

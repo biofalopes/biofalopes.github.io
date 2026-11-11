@@ -3,7 +3,7 @@ title = "KEDA: Kubernetes Event-driven Autoscaling - Multiple Strategies on EKS"
 description = "A comprehensive tutorial demonstrating KEDA's versatility with EKS: setting up a cluster, scaling with CPU, CloudWatch, and SQS."
 date = "2024-12-10"
 draft = true
-toc = false
+toc = true
 categories = ["kubernetes", "keda", "aws"]
 tags = ["kubernetes", "keda", "aws"]
 image = "keda.webp"
@@ -26,7 +26,7 @@ This tutorial demonstrates the power and versatility of Kubernetes Event-driven 
 * Basic familiarity with Kubernetes concepts.
 
 
-#### 1. Creating an EKS Cluster:
+## 1. Creating an EKS Cluster:
 
 Before deploying KEDA, we'll create a basic EKS cluster using the AWS CLI.  Replace placeholders with your desired values:
 
@@ -43,7 +43,7 @@ aws eks update-kubeconfig --name my-eks-cluster --region us-west-2
 
 Replace `<YOUR_IAM_ROLE_ARN>`, `<SUBNET_ID_1>`, `<SUBNET_ID_2>`, and `<SUBNET_ID_3>` with your actual values.  Ensure your IAM role has the necessary permissions to create and manage EKS resources. The subnet IDs should be from the same VPC and availability zones.  After this, your `kubectl` should be configured to connect to the new cluster.
 
-#### 2. Installing KEDA on EKS:
+## 2. Installing KEDA on EKS:
 
 1. Add the KEDA Helm repository:
    ```bash
@@ -58,7 +58,7 @@ Replace `<YOUR_IAM_ROLE_ARN>`, `<SUBNET_ID_1>`, `<SUBNET_ID_2>`, and `<SUBNET_ID
 
 For more detailed information on KEDA deployment, visit https://keda.sh/docs/2.16/deploy/.
 
-#### 3. Scaling with CPU Utilization:
+## 3. Scaling with CPU Utilization:
 Scaling with CPU utilization is a common and straightforward approach to autoscaling. KEDA leverages this by monitoring the average CPU usage of your application's pods. When the average CPU usage crosses a predefined threshold (e.g., 70%), KEDA automatically scales up the deployment by creating additional pods. Conversely, when CPU usage falls below another threshold (or a minimum number of pods is reached), KEDA scales down, terminating idle pods. This ensures that your application has sufficient resources during periods of high demand while minimizing resource consumption during low-traffic periods. The key advantage is its simplicity; CPU is readily available as a metric, requiring minimal configuration and setup. However, relying solely on CPU utilization might not always be sufficient for complex applications with other resource constraints or scaling requirements.
 
 First, create a simple deployment with a CPU-consuming workload. `cpu-worker-deployment.yaml`:
@@ -106,7 +106,7 @@ spec:
       targetAverageUtilization: 50 # Scale when CPU utilization exceeds 50%
 ```
 
-#### 4. Scaling with a CloudWatch Metric:
+## 4. Scaling with a CloudWatch Metric:
 
 Scaling with a CloudWatch metric offers a highly flexible and customizable approach to autoscaling, going beyond basic CPU or memory metrics. KEDA integrates with CloudWatch, allowing you to define scaling rules based on virtually any custom metric your application publishes. This could be anything from the number of active users to latency, request throughput, or error rates. By configuring a KEDA ScaledObject to monitor a specific CloudWatch metric, you can precisely control scaling based on your application's specific performance characteristics and operational needs. This granular control enables optimized resource utilization and allows you to respond effectively to a wider range of operational conditions, ensuring high availability and performance while avoiding unnecessary costs associated with over-provisioning. However, it requires more upfront configuration, as you need to ensure your application correctly publishes the relevant metrics to CloudWatch.
 
@@ -158,7 +158,7 @@ spec:
       awsSecretAccessKey: YOUR_AWS_SECRET_ACCESS_KEY #Replace with your AWS secret key
 ```
 
-#### 5. Scaling with an SQS Queue:
+## 5. Scaling with an SQS Queue:
 
 Scaling with an SQS queue is particularly well-suited for event-driven architectures and microservices. KEDA monitors the number of messages waiting to be processed in an Amazon SQS queue. When the message count exceeds a specified threshold, KEDA automatically scales up your deployment, creating additional pods to handle the increased workload. As messages are processed and the queue empties, KEDA scales down, terminating unnecessary pods. This ensures that your application can handle message spikes efficiently without requiring constant high resource allocation. The key benefit is its responsiveness to real-time demand: resources are only consumed when there are messages to process, leading to significant cost savings and efficient resource utilization. This makes it ideal for applications that process asynchronous tasks or handle bursts of incoming events.
 

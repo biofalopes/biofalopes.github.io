@@ -3,7 +3,7 @@ title = "Connecting Clouds: Building a Multi-Cloud Infrastructure with AWS and A
 description = "Exploring how to set up secure, scalable, and high-performance multi-cloud networking between AWS and Azure in a sample test environment."  
 date = "2024-09-13"  
 draft = true  
-toc = false  
+toc = true
 categories = ["aws", "azure", "kubernetes", "terraform"]  
 tags = ["aws", "azure", "kubernetes", "terraform"]  
 image = "DALL-E.webp" 
@@ -13,7 +13,7 @@ Multi-cloud setups often come with high stakes and complex challenges, but in th
 
 The goal was to test how Kubernetes clusters in AWS and Azure could communicate seamlessly, securely, and efficiently.
 
-### 1. **Requirements**
+## 1. **Requirements**
 
 To replicate this setup, you’ll need:  
 a. **AWS Account**: Permissions to create VPCs, VPN Gateways, and associated resources.  
@@ -22,7 +22,7 @@ c. **Terraform Installed**: Infrastructure as Code for managing cloud resources.
 d. **Basic Kubernetes Setup**: Clusters on AWS (EKS) and Azure (AKS) for testing connectivity.  
 e. **Tools for Testing**: Access to `kubectl`, `iperf`, and monitoring dashboards like CloudWatch and Azure Monitor.  
 
-### 2. **Terraform Project Structure**
+## 2. **Terraform Project Structure**
 
 Here’s how I structured my Terraform project to manage the resources:
 
@@ -65,13 +65,13 @@ terraform/
 ```
 
 
-#### 2.1 **Explanation of the Structure**:
+### 2.1 **Explanation of the Structure**:
 
 - `modules/` folder: Contains reusable Terraform modules for AWS and Azure.
 Each module focuses on a specific resource group, such as VPCs, VPNs, and gateways.
 - `envs/` folder: Contains environment-specific configurations. For example, `dev/` and `prod/` hold the `main.tf` and `terraform.tfvars` files, which reference the modules and define environment-specific variables (e.g., CIDR ranges, resource names).
 
-#### 2.2 **Root Files:**
+### 2.2 **Root Files:**
 
 - `providers.tf`: defines the AWS and Azure providers.
 - `backend.tf`: configures the remote backend for Terraform state.
@@ -79,7 +79,7 @@ Each module focuses on a specific resource group, such as VPCs, VPNs, and gatewa
 - `outputs.tf`: centralizes outputs to provide high-level information after applying changes.
 
 
-#### 2.3 **Core Files and Configurations**
+### 2.3 **Core Files and Configurations**
 
 Here’s a closer look at some of the key Terraform files:
 
@@ -166,7 +166,7 @@ e. **Variable Definition (`variables.tf`):**
    }
    ```
 
-#### 2.4 **Initializing the Terraform Project**
+### 2.4 **Initializing the Terraform Project**
 ```bash
 terraform init
 ```
@@ -179,7 +179,7 @@ Initializing provider plugins...
 Terraform has been successfully initialized!
 ```
 
-#### 2.5 **Validating the Configuration**
+### 2.5 **Validating the Configuration**
 ```bash
 terraform validate
 ```
@@ -189,12 +189,12 @@ terraform validate
 Success! The configuration is valid.
 ```
 
-#### 2.6 **Applying the Configuration**
+### 2.6 **Applying the Configuration**
 ```bash
 terraform apply -var-file=envs/dev/terraform.tfvars
 ```
 
-### **3. Networking Design**
+## **3. Networking Design**
 
 For this test setup, I aimed to simulate requirements similar to those found in production systems:  
 - **Encrypted Communication**: Simulating secure data transit between clouds.  
@@ -206,7 +206,7 @@ The tools I worked with:
 - IPsec VPN tunnels to encrypt traffic;
 - Custom route tables for connectivity.
 
-### **4. AWS Configuration**
+## **4. AWS Configuration**
 
 AWS was my starting point. Here’s how I set up the Virtual Private Gateway and established the connection to Azure.  
 
@@ -273,7 +273,7 @@ aws ec2 describe-vpn-connections --filters "Name=state,Values=available"
 }
 ```
 
-### **5. Azure Configuration**
+## **5. Azure Configuration**
 
 On Azure, the setup is the equivalent to AWS to create the other side of the VPN. Obviously, the names are different but the components are very similar.
 
@@ -327,7 +327,7 @@ az network vpn-connection show --name aws-connection --resource-group <resource-
 }
 ```
 
-### **6. Routing Configuration**
+## **6. Routing Configuration**
 
 Testing route tables was another important step in the learning process. Here’s how I configured the routes to allow cross-cloud communication.  
 
@@ -361,7 +361,7 @@ az network route-table list --resource-group <resource-group>
 - AWS: Route with `DestinationCidrBlock: "Azure-VNet-CIDR"` is active.  
 - Azure: Route with `AddressPrefix: "AWS-VPC-CIDR"` points to the Virtual Network Gateway.
 
-### **7. Testing the Connection**
+## **7. Testing the Connection**
 
 The final step is to validate the configuration. We can use `ping` for basic connectivity test and `iperf` to measure bandwidth and latency.  
 
@@ -380,7 +380,7 @@ The final step is to validate the configuration. We can use `ping` for basic con
 3. **Monitoring:**  
    To Do
 
-### **8. High Availability**
+## **8. High Availability**
 
 To test redundancy, I configured additional tunnels and simulated failovers: 
 
@@ -402,7 +402,7 @@ aws ec2 describe-vpn-connections --filters "Name=state,Values=available"
 **Expected Output:**  
 To Do
 
-### 9. **Final Thoughts**
+## 9. **Final Thoughts**
 
 This environmen* was a fantastic way to experiment with multi-cloud setups and learn the nuances of AWS and Azure networking. By the end, I had:  
 - **Secure Connections:** All traffic encrypted with IPsec VPNs;

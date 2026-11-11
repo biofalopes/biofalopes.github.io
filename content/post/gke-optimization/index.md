@@ -3,7 +3,7 @@ title = "Pod Disruption budget on GKE"
 description = "Increase the resource efficiency and availability of workloads running on Google Kubernetes Engine"
 date =  "2024-12-09"
 draft = true
-toc = false
+toc = true
 categories = ["gcp", "kubernetes" ]
 tags = ["gcp", "kubernetes" ]
 image = "gke.png"
@@ -27,14 +27,14 @@ Prerequisites:
 
 We'll be using Google Cloud Shell, since it is a perfect lab environment for GCP - it's pre-configured, directly integrated with your project, persistent, and free, saving setup time and costs while simplifying the workflow.
 
-#### 1. Initial setup:
+## 1. Initial setup:
 
 Choose a zone to deploy the resources: you can check available zones with `gcloud compute zones list`. To select us-west4-a as the default zone, use `gcloud config set compute/zone us-west4-a`. 
 
 I also like to create an `alias k=kubectl` to make things easier.
 
 
-#### 2. Deploy a simple 3 node GKE cluster:
+## 2. Deploy a simple 3 node GKE cluster:
 
 `gcloud container clusters create test-cluster --num-nodes=3  --enable-ip-alias`
 
@@ -42,7 +42,7 @@ I also like to create an `alias k=kubectl` to make things easier.
 
 It takes 10-15 minutes for the GKE cluster to be deployed.
 
-#### 3. Deploy a simple HTTP web app as a pod:
+## 3. Deploy a simple HTTP web app as a pod:
 
 Create a file called `gb_frontend_pod.yaml`:
 ```yaml
@@ -66,7 +66,7 @@ spec:
 
 Apply the manifest to the cluster with `k apply -f gb_frontend_pod.yaml`.
 
-#### 4. Container-native load balancing through ingress
+## 4. Container-native load balancing through ingress
 
 By making pods the fundamental unit for load balancing, container-native load balancing streamlines traffic routing. This minimizes network hops, resulting in lower network consumption, faster performance, and evenly distributed traffic across your application's pods. Furthermore, it enables granular, application-level health checks. To make use of this feature, ensure the GKE cluster was created with VPC-native mode enabled (indicated by the presence of the `--enable-ip-alias` flag during GKE cluster creation).
 
@@ -141,7 +141,7 @@ status:
 
 To test the application on a browser, retrieve the external IP with `k get ingress gb-frontend-ingress`.
 
-#### 5. Load testing the application
+## 5. Load testing the application
 
 By load testing the application running on a single pod with no autoscaling configured, we can learn how many concurrent requests it application can handle, how much CPU and memory it requires, and how it might respond to heavy load. That's the reason we didn't use a Deployment or a ReplicaSet. Once the application requirements are better known, the final production version should definitely include a highly available schema. I'll use [Locust](https://locust.io/), open source load-testing framework, to load test the pod. Since it is open source, locust is also low-cost :upside_down_face:
 
@@ -248,7 +248,7 @@ We can observe the load via GCP Console on Kubernetes Engine > Workloads, then s
 
 The conclusions that can be taken from the graphs are that memory usage doesn't vary much, neither go too high. As for the CPU, it peaked at almost .07, which means 70% of teh CPU request defined for the pod. Going back to the manifest, we can verify that cpu request is set to **100m**, while memory request is set to **256mi**. It is probably safe to reduce the memory request to a lower amount, effectively optimizing the workload. The second takeaway from the load test is that we could configure a horizontal autoscaler to trigger on CPU usage, since the application is CPU-bound.
 
-#### 6. Adding a Pod Disruption Budget
+## 6. Adding a Pod Disruption Budget
 
 PodDisruptionBudget is a Kubernetes resource that limits the number of pods of a replicated application that can be down simultaneously due to voluntary disruptions. Those disruptions include administrative actions like deleting a deployment, updating a deployment's pod template and performing a rolling update, draining nodes that an application's pods reside on, or moving pods to different nodes.
 

@@ -3,7 +3,7 @@ title = "Deploying a Local EKS Cluster on AWS Outposts"
 description = "Using terraform to deploy the resources and the parameters required for the local Control Plane"
 date =  "2024-12-06"
 draft = false
-toc = false
+toc = true
 categories = ["aws", "terraform", "kubernetes" ]
 tags = ["aws", "terraform", "kubernetes" ]
 image = "eks.jpg"
@@ -31,17 +31,17 @@ Monitoring: Implement a monitoring system for the EKS cluster and worker nodes. 
 
 The following is a commented version of the code, highlighting key configurations and differences compared to an EKS cluster in a region:
 
-### Part 1: EKS Control Plane
+## Part 1: EKS Control Plane
 This section describes the infrastructure required for the EKS control plane on the Outpost. Note that the control plane configuration is similar to a region cluster, but with the crucial addition of the outpost_config.
 
-#### providers.tf:
+### providers.tf:
 ```yaml
 provider "aws" {
   region  = local.region
 }
 ```
 
-#### terraform.tf:
+### terraform.tf:
 ```yaml
 terraform {
   backend "s3" {
@@ -52,7 +52,7 @@ terraform {
 }
 ```
 
-#### variables.tf:
+### variables.tf:
 ```yaml
 variable "eks_cluster_name" {
   type    = string
@@ -87,7 +87,7 @@ variable "tags" {
 }
 ```
 
-#### outputs.tf:
+### outputs.tf:
 ```yaml
 output "eks_cluster_endpoint" {
   description = "EKS Cluster Endpoint"
@@ -137,7 +137,7 @@ EOF
 }
 ```
 
-#### main.tf:
+### main.tf:
 ```yaml
 locals {
   region    = "us-east-1"
@@ -295,7 +295,7 @@ resource "null_resource" "write_kubeconfig" {
 
 After provisioning the Control Plane, it's necessary to configure the aws-auth ConfigMap with the role that will be associated with the worker nodes. In this example it was also associated the instance profile associated with a bastion host, used to access the EKS cluster via kubectl:
 
-#### Config Map aws-auth:
+### Config Map aws-auth:
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -315,18 +315,18 @@ data:
         - system:masters
 ```
 
-### Part 2: EKS Nodes
+## Part 2: EKS Nodes
 
 When provisioning EKS on Outpost as a Local Cluster, it is not possible to use Node Groups. The solution is to create a Launch Template, associate it with an Autoscaling Group and use a _user-data_ script to configure the nodes in the EKS cluster.
 
-#### providers.tf:
+### providers.tf:
 ```yaml
 provider "aws" {
   region  = local.region
 }
 ```
 
-#### terraform.tf:
+### terraform.tf:
 ```yaml
 terraform {
   backend "s3" {
@@ -337,7 +337,7 @@ terraform {
 }
 ```
 
-#### variables.tf:
+### variables.tf:
 ```yaml
 variable "eks_cluster_name" {
   type    = string
@@ -393,7 +393,7 @@ variable "tags" {
 }
 ```
 
-#### main.tf:
+### main.tf:
 ```yaml
 locals {
   region    = "us-east-1"

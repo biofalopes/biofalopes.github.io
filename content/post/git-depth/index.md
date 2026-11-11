@@ -6,12 +6,12 @@ categories = ["devops", "ci-cd"]
 tags = ["git", "shallow-clone", "ci-cd", "github-actions", "gitlab-ci", "azure-pipelines", "pipeline-optimization"]
 date =  "2026-10-29"
 draft = false
-toc = false
+toc = true
 image = "git-depth.png"
 author = "Fabio M. Lopes"
 +++
 
-# Shallow Git Clones: An Often-Overlooked CI/CD Optimization
+## Shallow Git Clones: An Often-Overlooked CI/CD Optimization
 
 Today, my ISP left me without internet for the entire afternoon. My desktop doesn't have a Wi-Fi adapter, so I switched to my backup laptop and connected through my phone's 5G hotspot.
 
@@ -27,7 +27,7 @@ It retrieves just the latest commit on the selected branch, rather than its comp
 
 Nothing particularly sophisticated, but it reminded me of an optimization we sometimes overlook in CI/CD pipelines.
 
-## How much Git history does a pipeline really need?
+### How much Git history does a pipeline really need?
 
 Think about a typical pipeline. It checks out source code, installs dependencies, runs tests, builds an artifact, and perhaps deploys it.
 
@@ -41,7 +41,7 @@ This is especially relevant with ephemeral CI runners, where each execution star
 
 Of course, shallow cloning doesn't reduce the size of the current working tree. If the repository contains large files today, they still need to be downloaded.
 
-## Applying this to CI/CD platforms
+### Applying this to CI/CD platforms
 
 Most CI platforms already support shallow checkouts, often without requiring a manual Git command.
 
@@ -78,7 +78,7 @@ Azure Pipelines supports shallow fetching directly in its checkout configuration
 
 These are straightforward configurations, but I wouldn't apply them without checking whether the pipeline actually needs historical Git data.
 
-## A practical example: IBB Kids
+### A practical example: IBB Kids
 
 One of my projects, IBB Kids, is a small React and Express application deployed to a Linux VM through GitHub Actions.
 
@@ -101,7 +101,7 @@ For this reason, I wouldn't blindly introduce `--depth 1` into this particular w
 
 It's a useful example of why checkout behavior should be evaluated in context.
 
-## Where shallow cloning can become a problem
+### Where shallow cloning can become a problem
 
 Some pipelines depend on information beyond the current commit:
 
@@ -124,7 +124,7 @@ This retrieves the full history and tags covered by the checkout action.
 
 The risk with shallow cloning is that some problems aren't obvious. A build might succeed while a versioning or release-related operation produces incomplete results.
 
-## Optimize what matters
+### Optimize what matters
 
 My internet outage was a reminder that network transfer isn't free. On a mobile hotspot, the constraint was immediately visible. In CI/CD environments, unnecessary transfers are easier to overlook because the infrastructure handles them automatically.
 
@@ -142,7 +142,7 @@ Sometimes, all it takes to revisit an old assumption is an afternoon without int
 
 ---
 
-### References
+#### References
 
 - [How and When to Perform a Depth-1 Git Clone](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/How-and-when-to-perform-a-depth-1-git-clone), TheServerSide
 - [GitHub Actions Checkout](https://github.com/actions/checkout)

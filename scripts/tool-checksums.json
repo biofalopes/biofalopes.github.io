@@ -14,7 +14,8 @@
   "go": {
     "1.27.3": {
       "releaseTag": "1.27.3-39437817176",
-      "windows-x64": "287de71f736c5b6420474a37caa2dae7eab8f0a66af63a54b674535433445cca"
+      "windows-x64": "287de71f736c5b6420474a37caa2dae7eab8f0a66af63a54b674535433445cca",
+      "linux-amd64": "65efbc80fdc1fa2cd2631cad5b481777a68e8725f34e89f50fc6ac714e379b40"
     }
   }
 }
