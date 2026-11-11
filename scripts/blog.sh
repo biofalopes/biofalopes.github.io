@@ -43,6 +43,12 @@ fi
 if [[ "$action" == check ]]; then
   python3 -m unittest discover -s tests -v
 fi
+output_dir="$PWD/public"
+if [[ "$output_dir" != "$PWD/public" || "$output_dir" == "/public" ]]; then
+  echo "Refusing to clean unexpected output directory: $output_dir" >&2
+  exit 1
+fi
+rm -rf -- "$output_dir"
 "$hugo" --environment production --gc --minify --cleanDestinationDir --printPathWarnings --panicOnWarning
 if [[ "$action" == check ]]; then
   python3 scripts/check-site.py public

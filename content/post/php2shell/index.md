@@ -8,6 +8,7 @@ author: Fabio M. Lopes
 toc: true
 categories: ["AWS", "SRE", "Security"]
 tags: ["AWS", "SRE", "Incident Response", "PHP", "ECS", "EC2", "Auto Scaling", "Security", "Reliability"]
+image: php2shell.png
 ---
 
 *How a critical PHP advisory became a cross-application incident response, and why the hardest lesson was about the way new servers are built.*

@@ -118,13 +118,18 @@ def main():
     baseline = json.loads((ROOT / "docs/inventario-posts-2026-10-26.json").read_text(encoding="utf-8"))["posts"]
     for post in baseline:
         row = current.get(post["source"])
-        if row is None or row["permalink"] != post["permalink"]:
-            errors.append(f"Changed baseline article route: {post['source']}")
-        if row is not None and row["date"] != post["date"]:
+        if row is None:
+            if not post["draft"]:
+                errors.append(f"Missing baseline article source: {post['source']}")
+            continue
+        current_draft = row["draft"].lower() == "true"
+        if not post["draft"] and not current_draft and row["permalink"] != post["permalink"]:
+            errors.append(f"Changed published article route: {post['source']}")
+        if not post["draft"] and not current_draft and row["date"] != post["date"]:
             errors.append(f"Changed original publication date: {post['source']}")
-        if post["draft"] and output_path(post["permalink"]).exists():
+        if current_draft and output_path(post["permalink"]).exists():
             errors.append(f"Draft included in production: {post['source']}")
-        if post["source"].split("/")[2] in ("terraform-3", "jupyter-forecast", "ibb-kids") and not post["draft"]:
+        if post["source"].split("/")[2] in ("terraform-3", "jupyter-forecast", "ibb-kids") and not current_draft:
             article = pages.get(output_path(post["permalink"]).resolve())
             required = {"article-glance", "article-toc", "code-toolbar", "engineering-callout"}
             if article is None or not required.issubset(article.classes) or article.h1 != 1:

@@ -2,7 +2,7 @@
 title = "Estudando C Sharp a partir do Python" 
 description = "Estudando C Sharp a partir do Python com a ajuda da IA" 
 date = "2025-03-08" 
-draft = false 
+draft = true 
 toc = true
 tags = ["python", "csharp"] 
 categories = ["python", "csharp"] 

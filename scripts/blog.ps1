@@ -26,6 +26,14 @@ try {
             & python -m unittest discover -s tests -v
             if ($LASTEXITCODE -ne 0) { throw 'Article example tests failed.' }
         }
+        $outputPath = [System.IO.Path]::GetFullPath((Join-Path $projectRoot 'public'))
+        $expectedOutputPath = [System.IO.Path]::GetFullPath((Join-Path $projectRoot 'public'))
+        if ($outputPath -ne $expectedOutputPath -or $outputPath -eq [System.IO.Path]::GetPathRoot($outputPath)) {
+            throw "Refusing to clean unexpected output directory: $outputPath"
+        }
+        if (Test-Path -LiteralPath $outputPath) {
+            Remove-Item -LiteralPath $outputPath -Recurse -Force
+        }
         & $hugo --environment production --gc --minify --cleanDestinationDir --printPathWarnings --panicOnWarning
         if ($LASTEXITCODE -ne 0) { throw 'Hugo build failed.' }
         if ($Action -eq 'check') {
