@@ -1,4 +1,4 @@
-php2shell-aws-incident-response-lessons:
+php2shell:
   en:
     problem: A critical PHP advisory affected a portfolio of applications with different EC2 and ECS deployment models.
     contribution: I supported discovery and runtime investigation, working with application owners on containment and remediation.
