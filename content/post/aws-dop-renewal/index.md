@@ -7,7 +7,7 @@ tags = ["aws", "dop-c02", "devops", "certification", "cloudformation", "sre"]
 date =  "2026-11-13"
 draft = false
 toc = true
-image = "git-depth.png"
+image = "banner.png"
 author = "Fabio M. Lopes"
 +++
 
