@@ -84,7 +84,19 @@ For now, I'm keeping my list of resources relatively short.
 - **[AWS Skill Builder](https://skillbuilder.aws/):** Official preparation material, practice questions, and hands-on learning resources.
 - **[AWS Certified DevOps Engineer – Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/):** The certification page, including exam details and official preparation resources.
 - **[AWS Documentation](https://docs.aws.amazon.com/):** My main reference whenever I need to understand a service's behavior, limitations, or integration with other AWS services.
-- **Third-party practice exams:** I'll consider these for additional scenarios, but I want to make sure the material is current and that the explanations agree with AWS documentation.
+- **Third-party practice exams:** I'll consider these for additional scenarios, but I want to make sure the material is current and that the explanations agree with AWS documentation. The ones I had from Udemy are still being updated:
+
+Stephane Maarek & Abhishek Singh:
+https://www.udemy.com/course/aws-certified-devops-engineer-professional-practice-exam-dop/
+
+Jon Bonso:
+https://www.udemy.com/course/aws-certified-devops-engineer-professional-practice-exams-amazon-dop-c02/
+
+Good old ExamPrepper:
+https://www.examprepper.co/exam/24/1
+
+Daily Debian:
+https://dailydebian.com/blogs/practice-questions/aws-certified-devops-engineer-professional-dop-c02-practice-questions
 
 I've always found practice questions useful, especially when I take the time to understand why an answer is correct.
 
